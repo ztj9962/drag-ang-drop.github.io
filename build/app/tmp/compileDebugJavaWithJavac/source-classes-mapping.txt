@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+tw/nfs/selsapp/sels_app/BuildConfig.java
+ tw.nfs.selsapp.sels_app.BuildConfig
