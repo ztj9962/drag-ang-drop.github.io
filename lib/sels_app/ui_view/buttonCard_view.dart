@@ -4,7 +4,7 @@ import '../sels_app_theme.dart';
 class ButtonCardView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
-  final String imagePath;// 'assets/fitness_app/dinner.png',
+  final String imagePath;// 'assets/sels_app/dinner.png',
   final String titleTxt;// 'Health',
   final String descripTxt;// 'Health',
   final Function()? onTapFunction;
@@ -60,7 +60,7 @@ class ButtonCardView extends StatelessWidget {
                                   child: AspectRatio(
                                     aspectRatio: 1.714,
                                     child: Image.asset(
-                                        "assets/fitness_app/back.png"),
+                                        "assets/sels_app/back.png"),
                                   ),
                                 ),
                               ),

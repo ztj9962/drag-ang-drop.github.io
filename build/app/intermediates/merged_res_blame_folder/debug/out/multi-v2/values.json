@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/edwinyoo44/Desktop/FlutterProject/sels_app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/edwinyoo44/Documents/GitHub/sels_app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/edwinyoo44/Desktop/FlutterProject/sels_app/android/app/src/main/res/values/styles.xml",
+                    "source": "/Users/edwinyoo44/Documents/GitHub/sels_app/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

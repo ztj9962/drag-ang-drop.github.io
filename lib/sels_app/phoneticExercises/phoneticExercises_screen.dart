@@ -143,7 +143,7 @@ class _ChatBotPage extends State<ChatBotPage> {
     });
   }
 
-  initTts() {
+  initTts() async {
     flutterTts = FlutterTts();
 
     if (isAndroid) {
@@ -178,6 +178,16 @@ class _ChatBotPage extends State<ChatBotPage> {
           ttsState = TtsState.paused;
         });
       });
+
+      if (Platform.isIOS) {
+        await flutterTts
+            .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
+          IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+          IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+          IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+          IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
+        ]);
+      }
 
       flutterTts.setContinueHandler(() {
         setState(() {
@@ -464,6 +474,7 @@ class _ChatBotPage extends State<ChatBotPage> {
       String msg1 = checkSentences['data']['replyText'] + '!';
       await sendChatMessage(false, 'Bot', msg1, needSpeak:true, speakMessage:msg1, speakLanguage:'en-US');
 
+      /*
       if(checkSentences['data']['ErrorWord'].length > 0){
 
         final _random = new Random();
@@ -474,6 +485,10 @@ class _ChatBotPage extends State<ChatBotPage> {
       } else{
         await sendTestQuestions();
       }
+       */
+      await sendTestQuestions();
+
+
     } else {
       print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(Duration(seconds:1));

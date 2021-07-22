@@ -22,16 +22,16 @@ class TabIconData {
 
   static List<TabIconData> tabIconsList = <TabIconData>[
     TabIconData(
-      imagePath: 'assets/fitness_app/tab_1.png',
-      selectedImagePath: 'assets/fitness_app/tab_1s.png',
+      imagePath: 'assets/sels_app/tab_1.png',
+      selectedImagePath: 'assets/sels_app/tab_1s.png',
       index: 0,
       isSelected: true,
       animationController: null,
       icon: Icon(Icons.home),
     ),
     TabIconData(
-      imagePath: 'assets/fitness_app/tab_2.png',
-      selectedImagePath: 'assets/fitness_app/tab_2s.png',
+      imagePath: 'assets/sels_app/tab_2.png',
+      selectedImagePath: 'assets/sels_app/tab_2s.png',
       index: 1,
       isSelected: false,
       animationController: null,

@@ -89,7 +89,7 @@ class _SettingScreenState extends State<SettingScreen>
         titleTxt: 'TrainingScreen',
         descripTxt: 'HealthBBBB222',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => TrainingScreen(animationController: widget.animationController)));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => TrainingScreen(animationController: widget.animationController)));
         },
       ),
     );
@@ -104,7 +104,7 @@ class _SettingScreenState extends State<SettingScreen>
         titleTxt: 'HealthAAA333',
         descripTxt: 'HealthBBBB3333',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MyDiaryScreen(animationController: widget.animationController)));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => MyDiaryScreen(animationController: widget.animationController)));
         },
       ),
     );

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:sels_app/sels_app/utils/APIUtil.dart';
@@ -51,11 +52,16 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     this._topicClass = topicClass;
     this._topicName = topicName;
   }
-  bool _allowTouchButton = false;
+ var _allowTouchButtons = {
+   'reListenButton' : false,
+   'speakButton' : false,
+   'nextButton' : false,
+ };
   List<TextSpan> _questionTextWidget = [ TextSpan(text: ' XXX'), ];
   List<TextSpan> _questionIPATextWidget = [ TextSpan(text: ' XXX'), ];
   List<TextSpan> _answerTextWidget = [ TextSpan(text: ' XXX'), ];
   List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ' XXX'), ];
+  List<String> _ipaAboutList = ['111', '222'];
 
 
   // Speech_to_text
@@ -151,7 +157,7 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     });
   }
 
-  initTts() {
+  initTts() async {
     flutterTts = FlutterTts();
 
     if (isAndroid) {
@@ -195,6 +201,17 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
       });
     }
 
+    if (Platform.isIOS) {
+      await flutterTts
+          .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
+      ]);
+    }
+
+
     flutterTts.setErrorHandler((msg) {
       setState(() {
         print("error: $msg");
@@ -203,294 +220,319 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: FitnessAppTheme.background,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          //title: Text('[' + _applicationSettingsDataListenAndSpeakLevel + ']級別 (' + _topicClass + ': ' + _topicName + ')' ),
-        ),
-        body: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 16, bottom: 18),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: FitnessAppTheme.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      bottomLeft: Radius.circular(8.0),
-                      bottomRight: Radius.circular(8.0),
-                      topRight: Radius.circular(68.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: FitnessAppTheme.grey.withOpacity(0.2),
-                        offset: Offset(1.1, 1.1),
-                        blurRadius: 10.0),
-                  ],
-                ),
-                child: Container(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        //title: Text('[' + _applicationSettingsDataListenAndSpeakLevel + ']級別 (' + _topicClass + ': ' + _topicName + ')' ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 18),
+        child: Container(
+          decoration: BoxDecoration(
+            color: FitnessAppTheme.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(color: FitnessAppTheme.grey.withOpacity(0.2), offset: Offset(1.1, 1.1), blurRadius: 10.0),
+            ],
+          ),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, left: 16, right: 24),
                   child: Column(
-                    children: <Widget>[Padding(
-                      padding:
-                      const EdgeInsets.only(top: 16, left: 16, right: 24),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 4, bottom: 8, top: 16),
-                            child: Text(
-                              '請跟我唸一遍',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 24,
-                                  letterSpacing: -0.1,
-                                  color: FitnessAppTheme.darkText),
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 24,
-                                      color: FitnessAppTheme.nearlyDarkBlue,
-                                    ),
-                                    children: _questionTextWidget,
-                                  ),
-                                ),
-                              ),
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: FitnessAppTheme.nearlyDarkBlue,
-                                    ),
-                                    children: _questionIPATextWidget,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 4, bottom: 8, top: 16),
-                            child: Text(
-                              '',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 24,
-                                  letterSpacing: -0.1,
-                                  color: FitnessAppTheme.darkText),
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 24,
-                                      color: FitnessAppTheme.nearlyDarkBlue,
-                                    ),
-                                    children: _answerTextWidget,
-                                  ),
-                                ),
-                                /*
-                                child: Text(
-                                  _answerText,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: FitnessAppTheme.fontName,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
-                                    color: FitnessAppTheme.nearlyDarkBlue,
-                                  ),
-                                ),
-
-                                 */
-                              ),
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: FitnessAppTheme.nearlyDarkBlue,
-                                    ),
-                                    children: _answerIPATextWidget,
-                                  ),
-                                ),
-                                /*
-                                child: Text(
-                                  _answerIPAText,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: FitnessAppTheme.fontName,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
-                                    color: FitnessAppTheme.nearlyDarkBlue,
-                                  ),
-                                ),
-
-                                 */
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ), Padding(
-                      padding: const EdgeInsets.only(
-                          left: 24, right: 24, top: 8, bottom: 8),
-                      child: Container(
-                        height: 2,
-                        decoration: BoxDecoration(
-                          color: FitnessAppTheme.background,
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 4, bottom: 8, top: 16),
+                        child: Text(
+                          'Repeat after me:',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: FitnessAppTheme.fontName,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 24,
+                              letterSpacing: -0.1,
+                              color: FitnessAppTheme.darkText),
                         ),
                       ),
-                    ), Padding(
-                      padding: const EdgeInsets.only(
-                          left: 24, right: 24, top: 8, bottom: 16),
-                      child: Row(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Expanded(
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: IconButton(
-                                      icon: const Icon(Icons.volume_up_outlined),
-                                      color: Colors.black,
-                                      onPressed: () async {
-                                        if(_allowTouchButton){
-                                          if( !_sttHasSpeech || speechToText.isListening ){
-                                            sttStopListening();
-                                          } else {
-                                            ttsRateSlow = !ttsRateSlow;
-                                            await _ttsSpeak(_questionText, 'en-US');
-                                          }
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  Text(
-                                    'Re-Listen',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              )
+                          Center(
+                            child: RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  fontFamily: FitnessAppTheme.fontName,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                ),
+                                children: _questionTextWidget,
+                              ),
+                            ),
                           ),
-                          Expanded(
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: IconButton(
-                                      icon: const Icon(Icons.mic),
-                                      color: Colors.black,
-                                      onPressed: () {
-                                        if(_allowTouchButton){
-                                          if( !_sttHasSpeech || speechToText.isListening ){
-                                            sttStopListening();
-                                          } else {
-                                            sttStartListening();
-                                          }
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  Text(
-                                    'Speak',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              )
-                          ),
-                          Expanded(
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: IconButton(
-                                      icon: const Icon(Icons.navigate_next_outlined),
-                                      color: Colors.black,
-                                      onPressed: () {
-                                        getTestQuestions();},
-                                    ),
-                                  ),Text(
-                                    'Next',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              )
+                          Center(
+                            child: RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  fontFamily: FitnessAppTheme.fontName,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                ),
+                                children: _questionIPATextWidget,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 4, bottom: 8, top: 16),
+                        child: Text(
+                          '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: FitnessAppTheme.fontName,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 24,
+                              letterSpacing: -0.1,
+                              color: FitnessAppTheme.darkText),
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Center(
+                            child: RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  fontFamily: FitnessAppTheme.fontName,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                ),
+                                children: _answerTextWidget,
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  fontFamily: FitnessAppTheme.fontName,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                ),
+                                children: _answerIPATextWidget,
+                              ),
+                            ),
+                            /*
+                              child: Text(
+                                _answerIPAText,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: FitnessAppTheme.fontName,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 24,
+                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                ),
+                              ),
+                               */
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 8),
+                  child: Container(
+                    height: 2,
+                    decoration: BoxDecoration(
+                      color: FitnessAppTheme.background,
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 16),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Column(
+                            children: [
+                              Center(
+                                child: IconButton(
+                                  //icon: const Icon(Icons.volume_up_outlined),
+                                  icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                  color: Colors.black,
+                                  onPressed: () async {
+                                    if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                      ttsRateSlow = !ttsRateSlow;
+                                      await _ttsSpeak(_questionText, 'en-US');
+                                    }
+                                  },
+                                ),
+                              ),
+                              Text(
+                                'Re-Listen',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      Expanded(
+                          child: Column(
+                            children: [
+                              Center(
+                                child: IconButton(
+                                  icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                      if( !_sttHasSpeech || speechToText.isListening ){
+                                        sttStopListening();
+                                      } else {
+                                        sttStartListening();
+                                      }
+                                    }},
+                                ),
+                              ),
+                              Text(
+                                'Speak',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      Expanded(
+                          child: Column(
+                            children: [
+                              Center(
+                                child: IconButton(
+                                  icon: const Icon(Icons.navigate_next_outlined),
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    if(_allowTouchButtons['nextButton']!){
+                                      _ttsStop();
+                                      sttStopListening();
+                                      getTestQuestions();
+                                    }
+                                  },
+                                ),
+                              ),Text(
+                                'Next',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
+                ),
+
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 8),
+                  child: Container(
+                    height: 2,
+                    decoration: BoxDecoration(
+                      color: FitnessAppTheme.background,
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 8, bottom: 8),
+                  child:
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: ListView.separated(
+                      itemCount: _ipaAboutList.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: RichText(
+                            text: TextSpan(
+                              text: '${_ipaAboutList[index]}',
+                              style: TextStyle(
+                                fontFamily: FitnessAppTheme.fontName,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: FitnessAppTheme.nearlyDarkBlue,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () async {
+                                ttsRateSlow = !ttsRateSlow;
+                                await _ttsSpeak(_ipaAboutList[index], 'en-US');
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index){
+                        return Divider(
+                          thickness: 2,
+                        );
+                      },
+                    )
+                    
+                    
+                    
+                    
+                    /*
+                    ListView(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(20.0),
+                      children: const <Widget>[
+                        Text("I'm dedicating every day to you"),
+                        Text('Domestic life was never quite my style'),
+                        Text('When you smile, you knock me out, I fall apart'),
+                        Text('And I thought I was so smart'),
+                      ],
+                    ),*/
+                    
+                    
+                    
+                  )
+                ),
+
+
+              ],
             ),
-
-
-
-
-
-
-
-
-
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
-
-
 
 
 
@@ -505,7 +547,7 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         onResult: sttResultListener,
         listenFor: Duration(seconds: 30),
         pauseFor: Duration(seconds: 3),
-        partialResults: false,
+        partialResults: true,
         localeId: _sttCurrentLocaleId,
         onSoundLevelChange: sttSoundLevelListener,
         cancelOnError: true,
@@ -525,8 +567,8 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     setState(() {
       sttLevel = 0.0;
     });
-    sleep(Duration(seconds:1));
-    await sttStopListening();
+    //sleep(Duration(seconds:1));
+    //await sttStopListening();
     //await sttStartListening();
   }
 
@@ -535,10 +577,8 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
-      if(result.finalResult){
-        _handleSubmitted(result.recognizedWords);
-      }
       print(sttLastWords);
+      _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
     });
   }
 
@@ -589,22 +629,29 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
 
+    setState(() {
+      _allowTouchButtons['speakButton'] = false;
+    });
     await sttStopListening();
 
     await flutterTts.setLanguage(speakLanguage);
-    await flutterTts.setVolume(ttsVolume);
     if(ttsRateSlow){
       await flutterTts.setSpeechRate(ttsRate * 0.22);
     } else {
       await flutterTts.setSpeechRate(ttsRate);
     }
+    await flutterTts.setVolume(ttsVolume);
     await flutterTts.setPitch(ttsPitch);
+
     if (speakMessage != null) {
       if (speakMessage.isNotEmpty) {
         await flutterTts.awaitSpeakCompletion(true);
         await flutterTts.speak(speakMessage);
       }
     }
+    setState(() {
+      _allowTouchButtons['speakButton'] = true;
+    });
   }
 
   Future _ttsStop() async {
@@ -623,12 +670,15 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   other
    */
 
-  void _handleSubmitted(String text) {
+  void _handleSubmitted(String text, {bool isFinalResult:false}) {
     setState(() {
-      _allowTouchButton = false;
       _answerText = text;
+      _answerTextWidget = [ TextSpan(text: _answerText), ];
+      _answerIPATextWidget = [ TextSpan(text: ''), ];
     });
-    _responseChatBot(text);
+    if(isFinalResult){
+      _responseChatBot(text);
+    }
   }
 
   void _responseChatBot(text) async {
@@ -636,16 +686,26 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
 
     setState(() {
-      _answerTextWidget = [ TextSpan(text: '請稍候......'), ];
+      _answerTextWidget = [ TextSpan(text: 'Please wait......'), ];
     });
 
+    //print(checkSentencesJSON.toString());
     if(checkSentences['apiStatus'] == 'success'){
 
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
       List<TextSpan> questionTextWidget = [];
       for (var i = 0; i < questionTextArray.length; i++) {
         if(checkSentences['data']['questionError']['word'].contains(questionTextArray[i])){
-          questionTextWidget.add(TextSpan(text: questionTextArray[i]+' ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red )));
+          questionTextWidget.add(
+              TextSpan(
+                text: questionTextArray[i]+' ',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                recognizer: TapGestureRecognizer()..onTap = () async {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(questionTextArray[i], 'en-US');
+                },
+              )
+          );
         } else {
           questionTextWidget.add(TextSpan(text: questionTextArray[i]+' ', style: TextStyle()));
         }
@@ -655,7 +715,16 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
       List<TextSpan> questionIPATextWidget = [];
       for (var i = 0; i < questionIPATextArray.length; i++) {
         if(checkSentences['data']['questionError']['ipa'].contains(questionIPATextArray[i])){
-          questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i]+' ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red )));
+          questionIPATextWidget.add(
+              TextSpan(
+                  text: questionIPATextArray[i]+' ',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                  recognizer: TapGestureRecognizer()..onTap = () async {
+                    ttsRateSlow = !ttsRateSlow;
+                    await _ttsSpeak(questionTextArray[i], 'en-US');
+                  },
+              )
+          );
         } else {
           questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i]+' ', style: TextStyle()));
         }
@@ -665,7 +734,16 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
       List<TextSpan> answerTextWidget = [];
       for (var i = 0; i < answerTextArray.length; i++) {
         if(checkSentences['data']['answerError']['word'].contains(answerTextArray[i])){
-          answerTextWidget.add(TextSpan(text: answerTextArray[i]+' ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red )));
+          answerTextWidget.add(
+              TextSpan(
+                text: answerTextArray[i]+' ',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                recognizer: TapGestureRecognizer()..onTap = () async {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(answerTextArray[i], 'en-US');
+                },
+              )
+          );
         } else {
           answerTextWidget.add(TextSpan(text: answerTextArray[i]+' ', style: TextStyle()));
         }
@@ -675,10 +753,53 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
       List<TextSpan> answerIPATextWidget = [];
       for (var i = 0; i < answerIPATextArray.length; i++) {
         if(checkSentences['data']['answerError']['ipa'].contains(answerIPATextArray[i])){
-          answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i]+' ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red )));
+          answerIPATextWidget.add(
+              TextSpan(
+                text: answerIPATextArray[i]+' ',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                recognizer: TapGestureRecognizer()..onTap = () async {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(answerTextArray[i], 'en-US');
+                },
+              )
+          );
         } else {
           answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i]+' ', style: TextStyle()));
         }
+      }
+
+      List<String> ipaAboutList = [];
+      for (var i = 0; i < checkSentences['data']['questionError']['ipaAbout'].length; i++) {
+        checkSentences['data']['questionError']['ipaAbout'][i].forEach((k,v) {
+          if(v != 'not found word'){
+
+            String text = '${k}: [ ';
+            for (var i = 0; i < v.length; i++) {
+              if(i == (v.length - 1)){
+                text = text + v[i] + ' ]';
+              }else{
+                text = text + v[i] + ', ';
+              }
+            }
+            ipaAboutList.add(text);
+          }
+        });
+      }
+      for (var i = 0; i < checkSentences['data']['answerError']['ipaAbout'].length; i++) {
+        checkSentences['data']['answerError']['ipaAbout'][i].forEach((k,v) {
+          if(v != 'not found word'){
+
+            String text = '${k}: [ ';
+            for (var i = 0; i < v.length; i++) {
+              if(i == (v.length - 1)){
+                text = text + v[i] + ' ]';
+              }else{
+                text = text + v[i] + ', ';
+              }
+            }
+            ipaAboutList.add(text);
+          }
+        });
       }
 
       setState(() {
@@ -686,9 +807,15 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         _questionIPATextWidget = questionIPATextWidget;
         _answerTextWidget = answerTextWidget;
         _answerIPATextWidget = answerIPATextWidget;
+        _ipaAboutList = ipaAboutList;
+        ttsRateSlow = false;
       });
 
       await _ttsSpeak(checkSentences['data']['replyText'], 'en-US');
+
+      setState(() {
+        _allowTouchButtons['speakButton'] = false;
+      });
 
     } else {
       print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
@@ -706,7 +833,7 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String aboutWord:''}) async {
     if(questionText == ''){
       setState(() {
-        _questionText = '請稍等......';
+        _questionText = 'Please wait......';
         _questionIPAText = '';
         _questionTextWidget = [];
         _questionTextWidget = [ TextSpan(text: _questionText), ];
@@ -715,19 +842,28 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         _answerIPAText = '';
         _answerTextWidget = [];
         _answerIPATextWidget = [];
+        _ipaAboutList = [];
+        _allowTouchButtons['reListenButton'] = false;
+        _allowTouchButtons['speakButton'] = false;
+        _allowTouchButtons['nextButton'] = false;
       });
 
-      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'4', dataLimit:'1');
+      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', dataLimit:'1');
       var getSentences = jsonDecode(getSentencesJSON.toString());
+
       if(getSentences['apiStatus'] == 'success'){
         final _random = new Random();
         String sentenceContent = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceContent'];
         String sentenceIPA = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceIPA'];
-        await getTestQuestions(questionText:sentenceContent, questionIPAText:sentenceIPA);
+        getTestQuestions(questionText:sentenceContent, questionIPAText:sentenceIPA);
+
+        setState(() {
+          //_allowTouchButtons['nextButton'] = true;
+        });
       } else {
         print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         sleep(Duration(seconds:1));
-        await getTestQuestions();
+        getTestQuestions();
       }
     }else{
 
@@ -737,12 +873,14 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         _questionIPAText = questionIPAText;
         _questionIPATextWidget = [ TextSpan(text: _questionIPAText), ];
         ttsRateSlow = false;
+        _allowTouchButtons['reListenButton'] = true;
+        _allowTouchButtons['speakButton'] = true;
+        _allowTouchButtons['nextButton'] = true;
       });
       await _ttsSpeak('Repeat after me', 'en-US');
       await _ttsSpeak(questionText, 'en-US');
-      setState(() {
-        _allowTouchButton = true;
-      });
+
+      await sttStartListening();
     }
   }
 
