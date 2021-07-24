@@ -43,10 +43,8 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   String _applicationSettingsDataListenAndSpeakLevel = 'A1';
   String _topicClass = '';
   String _topicName = '';
-  String _questionText = '';
-  String _questionIPAText = '';
-  String _answerText = '';
-  String _answerIPAText = 'BB';
+
+
   //final ValueNotifier<String> _answerIPAText = ValueNotifier<String>('');
   _PhoneticExercisesScreenState({String topicClass:'', String topicName:''}) {
     this._topicClass = topicClass;
@@ -57,10 +55,16 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
    'speakButton' : false,
    'nextButton' : false,
  };
-  List<TextSpan> _questionTextWidget = [ TextSpan(text: ' XXX'), ];
-  List<TextSpan> _questionIPATextWidget = [ TextSpan(text: ' XXX'), ];
-  List<TextSpan> _answerTextWidget = [ TextSpan(text: ' XXX'), ];
-  List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ' XXX'), ];
+  String _questionText = '';
+  String _questionIPAText = '';
+  String _replyText = '';
+  String _answerText = '';
+  String _answerIPAText = '';
+  List<TextSpan> _questionTextWidget = [ TextSpan(text: ''), ];
+  List<TextSpan> _questionIPATextWidget = [ TextSpan(text: ''), ];
+  List<TextSpan> _replyTextWidget = [ TextSpan(text: ''), ];
+  List<TextSpan> _answerTextWidget = [ TextSpan(text: ''), ];
+  List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ''), ];
   List<String> _ipaAboutList = ['111', '222'];
 
 
@@ -240,243 +244,198 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
           child: Container(
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 24),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 4, bottom: 8, top: 16),
-                        child: Text(
-                          'Repeat after me:',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: FitnessAppTheme.fontName,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              letterSpacing: -0.1,
-                              color: FitnessAppTheme.darkText),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Center(
-                            child: RichText(
+                Flexible(
+                  flex: 3,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                            RichText(
                               text: TextSpan(
                                 text: '',
                                 style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
+                                  fontSize: 24 ,
+                                  color: Colors.black,
                                 ),
-                                children: _questionTextWidget,
+                                children: _replyTextWidget,
                               ),
                             ),
-                          ),
-                          Center(
-                            child: RichText(
-                              text: TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
+                            Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                            Column(
+                              children: <Widget>[
+                                Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: '',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color(0xFF2633C5),
+                                      ),
+                                      children: _questionTextWidget,
+                                     ),
+                                  ),
                                 ),
-                                children: _questionIPATextWidget,
-                              ),
+                                Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: '',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xFF2633C5),
+                                      ),
+                                      children: _questionIPATextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                            Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: '',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color(0xFF2633C5),
+                                      ),
+                                      children: _answerTextWidget,
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: '',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xFF2633C5),
+                                      ),
+                                      children: _answerIPATextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 4, bottom: 8, top: 16),
-                        child: Text(
-                          '',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: FitnessAppTheme.fontName,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              letterSpacing: -0.1,
-                              color: FitnessAppTheme.darkText),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Center(
-                            child: RichText(
-                              text: TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
-                                ),
-                                children: _answerTextWidget,
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: RichText(
-                              text: TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
-                                ),
-                                children: _answerIPATextWidget,
-                              ),
-                            ),
-                            /*
-                              child: Text(
-                                _answerIPAText,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: FitnessAppTheme.fontName,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 24,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
-                                ),
-                              ),
-                               */
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 24, right: 24, top: 8, bottom: 8),
-                  child: Container(
-                    height: 2,
-                    decoration: BoxDecoration(
-                      color: FitnessAppTheme.background,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 24, right: 24, top: 8, bottom: 16),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Column(
-                            children: [
-                              Center(
-                                child: IconButton(
-                                  //icon: const Icon(Icons.volume_up_outlined),
-                                  icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                  color: Colors.black,
-                                  onPressed: () async {
-                                    if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                      ttsRateSlow = !ttsRateSlow;
-                                      await _ttsSpeak(_questionText, 'en-US');
-                                    }
-                                  },
-                                ),
-                              ),
-                              Text(
-                                'Re-Listen',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          )
-                      ),
-                      Expanded(
-                          child: Column(
-                            children: [
-                              Center(
-                                child: IconButton(
-                                  icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
-                                  color: Colors.black,
-                                  onPressed: () {
-                                    if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                      if( !_sttHasSpeech || speechToText.isListening ){
-                                        sttStopListening();
-                                      } else {
-                                        sttStartListening();
+                  padding: const EdgeInsets.only(bottom: 8, top: 8),
+                  child: Divider(
+                    height: 1,
+                    thickness: 1,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    //icon: const Icon(Icons.volume_up_outlined),
+                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                        ttsRateSlow = !ttsRateSlow;
+                                        await _ttsSpeak(_questionText, 'en-US');
                                       }
-                                    }},
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Speak',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
+                                Text(
+                                  'Re-Listen',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                      ),
-                      Expanded(
-                          child: Column(
-                            children: [
-                              Center(
-                                child: IconButton(
-                                  icon: const Icon(Icons.navigate_next_outlined),
-                                  color: Colors.black,
-                                  onPressed: () {
-                                    if(_allowTouchButtons['nextButton']!){
-                                      _ttsStop();
-                                      sttStopListening();
-                                      getTestQuestions();
-                                    }
-                                  },
+                              ],
+                            )
+                        ),
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                        if( !_sttHasSpeech || speechToText.isListening ){
+                                          sttStopListening();
+                                        } else {
+                                          sttStartListening();
+                                        }
+                                      }},
+                                  ),
                                 ),
-                              ),Text(
-                                'Next',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
+                                Text(
+                                  'Speak',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                      ),
-                    ],
-                  ),
-                ),
-
-
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 24, right: 24, top: 8, bottom: 8),
-                  child: Container(
-                    height: 2,
-                    decoration: BoxDecoration(
-                      color: FitnessAppTheme.background,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                              ],
+                            )
+                        ),
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_next_outlined),
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      if(_allowTouchButtons['nextButton']!){
+                                        _ttsStop();
+                                        sttStopListening();
+                                        getTestQuestions();
+                                      }
+                                    },
+                                  ),
+                                ),Text(
+                                  'Next',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                      ],
                     ),
                   ),
                 ),
 
                 Padding(
-                padding: const EdgeInsets.only(
-                      left: 24, right: 24, top: 8, bottom: 8),
-                  child:
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                  padding: const EdgeInsets.only(bottom: 8, top: 8),
+                  child: Divider(
+                    height: 1,
+                    thickness: 1,
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  child: Container(
                     child: ListView.separated(
                       itemCount: _ipaAboutList.length,
                       itemBuilder: (context, index) {
@@ -485,12 +444,12 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
                             text: TextSpan(
                               text: '${_ipaAboutList[index]}',
                               style: TextStyle(
-                                fontFamily: FitnessAppTheme.fontName,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: FitnessAppTheme.nearlyDarkBlue,
+                                fontSize: 12,
+                                color: Colors.black,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () async {
+                                ttsRateSlow = true;
+                                await _ttsSpeak(_ipaAboutList[index], 'en-US');
                                 ttsRateSlow = !ttsRateSlow;
                                 await _ttsSpeak(_ipaAboutList[index], 'en-US');
                               },
@@ -500,15 +459,279 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
                       },
                       separatorBuilder: (context, index){
                         return Divider(
-                          thickness: 2,
+                          height: 1,
+                          thickness: 1,
+
                         );
                       },
-                    )
-                    
-                    
-                    
-                    
-                    /*
+                    ),
+                  ),
+                ),
+
+                /*
+
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16, left: 16, right: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 4, bottom: 8, top: 16
+                          ),
+                          child: RichText(
+                            text: TextSpan(
+                              text: '',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                              children: _replyTextWidget,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: '',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xFF2633C5),
+                                  ),
+                                  children: _questionTextWidget,
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: '',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xFF2633C5),
+                                  ),
+                                  children: _questionIPATextWidget,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(left: 4, bottom: 8, top: 16)
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: '',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xFF2633C5),
+                                  ),
+                                  children: _answerTextWidget,
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: '',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xFF2633C5),
+                                  ),
+                                  children: _answerIPATextWidget,
+                                ),
+                              ),
+                              /*
+                              child: Text(
+                                _answerIPAText,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 24,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                               */
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 8, bottom: 8),
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: FitnessAppTheme.background,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 8, bottom: 16),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    //icon: const Icon(Icons.volume_up_outlined),
+                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                        ttsRateSlow = !ttsRateSlow;
+                                        await _ttsSpeak(_questionText, 'en-US');
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Text(
+                                  'Re-Listen',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                        if( !_sttHasSpeech || speechToText.isListening ){
+                                          sttStopListening();
+                                        } else {
+                                          sttStartListening();
+                                        }
+                                      }},
+                                  ),
+                                ),
+                                Text(
+                                  'Speak',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_next_outlined),
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      if(_allowTouchButtons['nextButton']!){
+                                        _ttsStop();
+                                        sttStopListening();
+                                        getTestQuestions();
+                                      }
+                                    },
+                                  ),
+                                ),Text(
+                                  'Next',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 8, bottom: 8),
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: FitnessAppTheme.background,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Flexible(
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 24, right: 24, top: 8, bottom: 8),
+                      child:
+                      Container(
+                          height: MediaQuery.of(context).size.height * 0.275,
+                          child: ListView.separated(
+                            itemCount: _ipaAboutList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: RichText(
+                                  text: TextSpan(
+                                    text: '${_ipaAboutList[index]}',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                    recognizer: TapGestureRecognizer()..onTap = () async {
+                                      ttsRateSlow = !ttsRateSlow;
+                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
+                                      ttsRateSlow = !ttsRateSlow;
+                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index){
+                              return Divider(
+                                height: 1,
+                                thickness: 1,
+
+                              );
+                            },
+                          )
+
+
+
+
+                        /*
                     ListView(
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(20.0),
@@ -519,11 +742,17 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
                         Text('And I thought I was so smart'),
                       ],
                     ),*/
-                    
-                    
-                    
-                  )
+
+
+
+                      )
+                  ),
                 ),
+
+
+
+                 */
+
 
 
               ],
@@ -682,12 +911,14 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   }
 
   void _responseChatBot(text) async {
+    setState(() {
+      _replyText = 'Please wait......';
+      _replyTextWidget = [ TextSpan(text: _replyText), ];
+    });
+
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, sentenceLevel:_applicationSettingsDataListenAndSpeakLevel);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
 
-    setState(() {
-      _answerTextWidget = [ TextSpan(text: 'Please wait......'), ];
-    });
 
     //print(checkSentencesJSON.toString());
     if(checkSentences['apiStatus'] == 'success'){
@@ -698,8 +929,11 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         if(checkSentences['data']['questionError']['word'].contains(questionTextArray[i])){
           questionTextWidget.add(
               TextSpan(
-                text: questionTextArray[i]+' ',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                text: questionTextArray[i] + ' ',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                ),
                 recognizer: TapGestureRecognizer()..onTap = () async {
                   ttsRateSlow = !ttsRateSlow;
                   await _ttsSpeak(questionTextArray[i], 'en-US');
@@ -717,8 +951,11 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         if(checkSentences['data']['questionError']['ipa'].contains(questionIPATextArray[i])){
           questionIPATextWidget.add(
               TextSpan(
-                  text: questionIPATextArray[i]+' ',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                  text: questionIPATextArray[i] + ' ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
                   recognizer: TapGestureRecognizer()..onTap = () async {
                     ttsRateSlow = !ttsRateSlow;
                     await _ttsSpeak(questionTextArray[i], 'en-US');
@@ -736,8 +973,11 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         if(checkSentences['data']['answerError']['word'].contains(answerTextArray[i])){
           answerTextWidget.add(
               TextSpan(
-                text: answerTextArray[i]+' ',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                text: answerTextArray[i] + ' ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
                 recognizer: TapGestureRecognizer()..onTap = () async {
                   ttsRateSlow = !ttsRateSlow;
                   await _ttsSpeak(answerTextArray[i], 'en-US');
@@ -745,7 +985,7 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
               )
           );
         } else {
-          answerTextWidget.add(TextSpan(text: answerTextArray[i]+' ', style: TextStyle()));
+          answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
         }
       }
 
@@ -755,8 +995,11 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
         if(checkSentences['data']['answerError']['ipa'].contains(answerIPATextArray[i])){
           answerIPATextWidget.add(
               TextSpan(
-                text: answerIPATextArray[i]+' ',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red ),
+                text: answerIPATextArray[i] + ' ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
                 recognizer: TapGestureRecognizer()..onTap = () async {
                   ttsRateSlow = !ttsRateSlow;
                   await _ttsSpeak(answerTextArray[i], 'en-US');
@@ -764,15 +1007,20 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
               )
           );
         } else {
-          answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i]+' ', style: TextStyle()));
+          answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i] + ' '));
         }
       }
+
+
+      List<TextSpan> replyTextWidget = [];
+      replyTextWidget.add(TextSpan(text: checkSentences['data']['replyText'] + ' '));
+      replyTextWidget.add(TextSpan(text: ' '));
+      replyTextWidget.add(TextSpan(text: checkSentences['data']['replyEmoji']));
 
       List<String> ipaAboutList = [];
       for (var i = 0; i < checkSentences['data']['questionError']['ipaAbout'].length; i++) {
         checkSentences['data']['questionError']['ipaAbout'][i].forEach((k,v) {
           if(v != 'not found word'){
-
             String text = '${k}: [ ';
             for (var i = 0; i < v.length; i++) {
               if(i == (v.length - 1)){
@@ -785,10 +1033,10 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
           }
         });
       }
+
       for (var i = 0; i < checkSentences['data']['answerError']['ipaAbout'].length; i++) {
         checkSentences['data']['answerError']['ipaAbout'][i].forEach((k,v) {
           if(v != 'not found word'){
-
             String text = '${k}: [ ';
             for (var i = 0; i < v.length; i++) {
               if(i == (v.length - 1)){
@@ -805,6 +1053,7 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
       setState(() {
         _questionTextWidget = questionTextWidget;
         _questionIPATextWidget = questionIPATextWidget;
+        _replyTextWidget = replyTextWidget;
         _answerTextWidget = answerTextWidget;
         _answerIPATextWidget = answerIPATextWidget;
         _ipaAboutList = ipaAboutList;
@@ -833,10 +1082,11 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
   Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String aboutWord:''}) async {
     if(questionText == ''){
       setState(() {
-        _questionText = 'Please wait......';
+        _replyText = 'Please wait......';
+        _replyTextWidget = [ TextSpan(text: _replyText), ];
+        _questionText = '';
         _questionIPAText = '';
         _questionTextWidget = [];
-        _questionTextWidget = [ TextSpan(text: _questionText), ];
         _questionIPATextWidget = [];
         _answerText = '';
         _answerIPAText = '';
@@ -868,6 +1118,8 @@ class _PhoneticExercisesScreenState extends State<PhoneticExercisesScreen> {
     }else{
 
       setState(() {
+        _replyText = 'Repeat after me: ';
+        _replyTextWidget = [ TextSpan(text: _replyText), ];
         _questionText = questionText;
         _questionTextWidget = [ TextSpan(text: _questionText), ];
         _questionIPAText = questionIPAText;

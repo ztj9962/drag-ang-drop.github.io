@@ -23,24 +23,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/sounds/speech_to_text_cancel.m4r" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/sounds/speech_to_text_listening.m4r" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/sounds/speech_to_text_stop.m4r" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/.filecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/app.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.S" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.o" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.S" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.o" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/flutter_assets.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/release_ios_bundle_flutter_assets.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/release_ios_bundle_flutter_assets.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/.filecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/debug_ios_bundle_flutter_assets.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/debug_ios_bundle_flutter_assets.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/flutter_assets.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/eb92a36914b7f99ddc772888959b2189/debug_android_application.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/eb92a36914b7f99ddc772888959b2189/debug_android_application.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/eb92a36914b7f99ddc772888959b2189/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/eb92a36914b7f99ddc772888959b2189/flutter_assets.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/4f2a58af27abc49ecf55570043bbf938.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/4f2a58af27abc49ecf55570043bbf938.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/generated/source/buildConfig/debug/tw/nfs/selsapp/sels_app/BuildConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/generated/source/buildConfig/debug/tw/nfs/selsapp/sels_app/BuildConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/AssetManifest.json.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/AssetManifest.json.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeProjectDexDebug/classes.dex" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeProjectDexDebug/classes.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex_archive_input_jar_hashes/debug/out" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/dex_archive_input_jar_hashes/debug/out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/AssetManifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/javac/debug/classes/tw/nfs/selsapp/sels_app/BuildConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/javac/debug/classes/tw/nfs/selsapp/sels_app/BuildConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/AssetManifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_manifest/debug/out/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_manifest/debug/out/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_manifests/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_manifests/debug/AndroidManifest.xml" afterDir="false" />
@@ -54,57 +66,36 @@
       <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/area1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/area2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/area3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/bell.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/blend-tool.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/bottle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/breakfast.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/burned.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/coming_soon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/communicate.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/dinner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/eaten.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/fitness_app.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/glass.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/lion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/lunch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/runner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/settings.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/snack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/speaking.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_1s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_2s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_3s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/tab_4s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/assets/fitness_app/teamwork.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/homepage/water_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/homepage/water_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/models/meals_list_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/models/meals_list_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/models/tabIcon_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/models/tabIcon_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/my_diary/water_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/my_diary/water_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/others/others_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/others/others_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/Try.framework/Try" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/Try.framework/Try" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/Runner" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-iphoneos/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/InstalledAppInfo" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/InstalledAppInfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/ManifestCache.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/ManifestCache.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/_CodeSignature/CodeResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/Try.framework/Try" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/Try.framework/Try" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/Runner" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/app-delta/6bd7d390480ed640e220cc6d7119a2eb/55a6a58ea23d38df1b3401a37784d41c09c03dc9/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/App.framework/App" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/Try.framework/Try" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/Try.framework/Try" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/shared_preferences.framework/shared_preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Frameworks/speech_to_text.framework/speech_to_text" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Runner" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercisesNew_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercisesNew_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercises_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercises_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/ui_view/area_list_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/ui_view/area_list_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/ui_view/buttonCard_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/ui_view/buttonCard_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/ui_view/glass_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/ui_view/glass_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/ui_view/running_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/ui_view/running_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/ui_view/wave_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/ui_view/wave_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/utils/APIUtil.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/utils/APIUtil.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,25 +162,29 @@
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
     <state x="2360" y="290" key="AndroidProcessChooserDialog/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626944903632" />
-    <state width="2518" height="245" key="GridCell.Tab.0.bottom" timestamp="1626990082442">
+    <state width="2518" height="283" key="GridCell.Tab.0.bottom" timestamp="1627139430495">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="245" key="GridCell.Tab.0.bottom/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626990082442" />
+    <state width="2518" height="283" key="GridCell.Tab.0.bottom/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430495" />
     <state width="1184" height="214" key="GridCell.Tab.0.bottom/54.0.1226.800@54.0.1226.800" timestamp="1626961205217" />
-    <state width="2518" height="245" key="GridCell.Tab.0.center" timestamp="1626990082416">
+    <state width="2518" height="283" key="GridCell.Tab.0.center" timestamp="1627139430494">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="245" key="GridCell.Tab.0.center/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626990082416" />
+    <state width="2518" height="283" key="GridCell.Tab.0.center/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430494" />
     <state width="1184" height="214" key="GridCell.Tab.0.center/54.0.1226.800@54.0.1226.800" timestamp="1626961205215" />
-    <state width="2518" height="245" key="GridCell.Tab.0.left" timestamp="1626990082405">
+    <state width="2518" height="283" key="GridCell.Tab.0.left" timestamp="1627139430493">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="245" key="GridCell.Tab.0.left/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626990082405" />
+    <state width="2518" height="283" key="GridCell.Tab.0.left/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430493" />
     <state width="1184" height="214" key="GridCell.Tab.0.left/54.0.1226.800@54.0.1226.800" timestamp="1626961205215" />
-    <state width="2518" height="245" key="GridCell.Tab.0.right" timestamp="1626990082426">
+    <state width="2518" height="283" key="GridCell.Tab.0.right" timestamp="1627139430495">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="245" key="GridCell.Tab.0.right/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626990082426" />
+    <state width="2518" height="283" key="GridCell.Tab.0.right/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430495" />
     <state width="1184" height="214" key="GridCell.Tab.0.right/54.0.1226.800@54.0.1226.800" timestamp="1626961205216" />
+    <state x="2225" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1627136819563">
+      <screen x="1280" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2225" y="241" width="670" height="676" key="search.everywhere.popup/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627136819563" />
   </component>
 </project>

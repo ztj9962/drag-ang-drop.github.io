@@ -4,7 +4,7 @@ class APIUtil {
 
   static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceLengthLimit:'', String dataLimit:''}) async {
     final response = await http.post(
-      Uri.https('sels.nfs.tw', 'app/getSentences/'),
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -23,7 +23,7 @@ class APIUtil {
 
   static Future<String> checkSentences(String questionText, String answerText, {String sentenceLevel:''}) async {
     final response = await http.post(
-      Uri.https('sels.nfs.tw', 'app/checkSentences/'),
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
