@@ -1,8 +1,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sels_app/sels_app/phoneticExercises/phoneticExercises_screen.dart';
 import 'package:sels_app/main.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
 
 BuildContext context = navigatorKey.currentState!.overlay!.context;
 class SentenceTypesListData {
@@ -105,7 +105,7 @@ class SentenceTypesListData {
         titleTxt: 'Animals',
         descripTxt: 'Animals',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatBotPage(topicClass:'Animals')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicClass:'Animals')));
           },
         startColor: '#FA7D82',
         endColor: '#FFB295',
@@ -115,7 +115,7 @@ class SentenceTypesListData {
         titleTxt: 'Animals',
         descripTxt: 'Animals',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatBotPage(topicName:'Animals')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicName:'Animals')));
           },
         startColor: '#FA7D82',
         endColor: '#FFB295',
@@ -125,7 +125,7 @@ class SentenceTypesListData {
         titleTxt: 'Birds',
         descripTxt: 'Animals',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatBotPage(topicName:'Birds')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicName:'Birds')));
         },
         startColor: '#FA7D82',
         endColor: '#FFB295',

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'sels_app/sels_app_home_screen.dart';
+import 'package:sels_app/sels_app/SELSAppHomePage.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //home: NavigationHomeScreen(),
-      home: FitnessAppHomeScreen(),
+      home: SELSAppHomePage(),
     );
   }
 }

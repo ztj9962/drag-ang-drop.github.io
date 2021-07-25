@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.0+2
+version: 1.2.0+2
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -40,7 +40,6 @@ dependencies:
   http: ^0.13.1
   flutter_tts: ^3.2.1
   rflutter_alert: ^2.0.2
-  #audioplayers: ^0.18.3
 
 dev_dependencies:
   flutter_test:
@@ -60,11 +59,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - assets/images/
-    - assets/design_course/
     - assets/sels_app/
-    - assets/hotel/
-    - assets/introduction_animation/
+    - assets/sels_app/GrammarCheckPage/
+    - assets/sels_app/PhoneticExercisesNewPage/
+    - assets/sels_app/SELSAppHomePage/
     - assets/sounds/
 
 
