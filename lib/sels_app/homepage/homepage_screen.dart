@@ -1,3 +1,4 @@
+import 'package:sels_app/sels_app/grammarCheck/grammarCheck_screen.dart';
 import 'package:sels_app/sels_app/phoneticExercises/phoneticExercisesNew_screen.dart';
 import 'package:sels_app/sels_app/topiclist/topiclist_screen.dart';
 import 'package:sels_app/main.dart';
@@ -65,7 +66,7 @@ class _HomePageScreenState extends State<HomePageScreen>
   }
 
   void addAllListData() {
-    const int count = 4;
+    const int count = 6;
 
     /* Listen & Speak */
     listViews.add(
@@ -137,6 +138,34 @@ class _HomePageScreenState extends State<HomePageScreen>
           Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesScreen()));
         },
       ),
+    );
+
+
+    listViews.add(
+      TitleView(
+        titleTxt: '文法校正',
+        subTxt: 'All',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 5, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+        ButtonCardView(
+          animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: widget.animationController!,
+              curve:
+              Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
+          animationController: widget.animationController!,
+          imagePath: 'assets/sels_app/speaking.png',
+          titleTxt: '文法校正',
+          descripTxt: '文法校正',
+          onTapFunction: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => GrammarCheckScreen()));
+          },
+        ),
     );
 
 

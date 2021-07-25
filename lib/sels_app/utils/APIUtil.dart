@@ -38,4 +38,18 @@ class APIUtil {
   }
 
 
+  static Future<String> checkGrammar(String sentenceText) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/grammar/checkGrammar'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceText': sentenceText,      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+
 }

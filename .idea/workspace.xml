@@ -23,17 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/.filecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/App.framework/App" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/app.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/App.framework/App" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.S" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.o" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/arm64/snapshot_assembly.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/App.framework/App" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.S" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.o" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/armv7/snapshot_assembly.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/flutter_assets.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/release_ios_bundle_flutter_assets.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/e0fa3806ad786b655394e371acbe06eb/release_ios_bundle_flutter_assets.stamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/sels_app/grammarCheck/grammarCheck_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/debug_ios_bundle_flutter_assets.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/debug_ios_bundle_flutter_assets.stamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/ea9f5fabca0f954121d19577551d10d5/flutter_assets.d" afterDir="false" />
@@ -94,7 +84,7 @@
       <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/Runner" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphoneos/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercisesNew_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/phoneticExercises/phoneticExercisesNew_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/homepage/homepage_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/homepage/homepage_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sels_app/utils/APIUtil.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/utils/APIUtil.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -162,25 +152,25 @@
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
     <state x="2360" y="290" key="AndroidProcessChooserDialog/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626944903632" />
-    <state width="2518" height="283" key="GridCell.Tab.0.bottom" timestamp="1627139430495">
+    <state width="2518" height="237" key="GridCell.Tab.0.bottom" timestamp="1627215598074">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="283" key="GridCell.Tab.0.bottom/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430495" />
+    <state width="2518" height="237" key="GridCell.Tab.0.bottom/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627215598074" />
     <state width="1184" height="214" key="GridCell.Tab.0.bottom/54.0.1226.800@54.0.1226.800" timestamp="1626961205217" />
-    <state width="2518" height="283" key="GridCell.Tab.0.center" timestamp="1627139430494">
+    <state width="2518" height="237" key="GridCell.Tab.0.center" timestamp="1627215598073">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="283" key="GridCell.Tab.0.center/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430494" />
+    <state width="2518" height="237" key="GridCell.Tab.0.center/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627215598073" />
     <state width="1184" height="214" key="GridCell.Tab.0.center/54.0.1226.800@54.0.1226.800" timestamp="1626961205215" />
-    <state width="2518" height="283" key="GridCell.Tab.0.left" timestamp="1627139430493">
+    <state width="2518" height="237" key="GridCell.Tab.0.left" timestamp="1627215598072">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="283" key="GridCell.Tab.0.left/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430493" />
+    <state width="2518" height="237" key="GridCell.Tab.0.left/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627215598072" />
     <state width="1184" height="214" key="GridCell.Tab.0.left/54.0.1226.800@54.0.1226.800" timestamp="1626961205215" />
-    <state width="2518" height="283" key="GridCell.Tab.0.right" timestamp="1627139430495">
+    <state width="2518" height="237" key="GridCell.Tab.0.right" timestamp="1627215598073">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
-    <state width="2518" height="283" key="GridCell.Tab.0.right/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627139430495" />
+    <state width="2518" height="237" key="GridCell.Tab.0.right/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1627215598073" />
     <state width="1184" height="214" key="GridCell.Tab.0.right/54.0.1226.800@54.0.1226.800" timestamp="1626961205216" />
     <state x="2225" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1627136819563">
       <screen x="1280" y="0" width="2560" height="1080" />
