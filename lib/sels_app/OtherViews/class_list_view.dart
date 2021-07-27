@@ -1,3 +1,4 @@
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesNewPage.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
 
 import 'package:sels_app/sels_app/sels_app_theme.dart';
@@ -236,14 +237,15 @@ class SentenceTypesView extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            /*
                             GestureDetector(
                               onTap: (){
                                 if(showIndex == ''){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicClass:sentenceTypesListData!.titleTxt)));
                                 } else {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicName:sentenceTypesListData!.titleTxt)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicName:sentenceTypesListData!.titleTxt)));
                                 }
-                                },
+                              },
                               //onTap: sentenceTypesListData!.onTapFunction,
                               child: Container(
                                 alignment: Alignment.center,
@@ -268,7 +270,88 @@ class SentenceTypesView extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            */
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      if(showIndex == ''){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                      } else {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicName:sentenceTypesListData!.titleTxt)));
+                                      }
+                                    },
+                                    //onTap: sentenceTypesListData!.onTapFunction,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: SELSAppTheme.nearlyWhite,
+                                        shape: BoxShape.rectangle, // 矩形
+                                        borderRadius: new BorderRadius.circular((20.0)), // 圓角度
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: SELSAppTheme.nearlyBlack.withOpacity(0.4),
+                                              offset: Offset(8.0, 8.0),
+                                              blurRadius: 8.0),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          '自動',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor(sentenceTypesListData!.endColor),
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      if(showIndex == ''){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                      } else {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicName:sentenceTypesListData!.titleTxt)));
+                                      }
+                                    },
+                                    //onTap: sentenceTypesListData!.onTapFunction,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: SELSAppTheme.nearlyWhite,
+                                        shape: BoxShape.rectangle, // 矩形
+                                        borderRadius: new BorderRadius.circular((20.0)), // 圓角度
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: SELSAppTheme.nearlyBlack.withOpacity(0.4),
+                                              offset: Offset(8.0, 8.0),
+                                              blurRadius: 8.0),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          '手動',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor(sentenceTypesListData!.endColor),
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
+                              ],
+                            ),
                           ],
                         ),
                       ),

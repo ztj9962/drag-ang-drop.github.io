@@ -54,7 +54,7 @@ class _TopicListPageState extends State<TopicListPage>
   }
 
   void addAllListData() {
-    const int count = 8;
+    const int count = 11;
 
     listViews.add(
       TitleView(
@@ -132,6 +132,46 @@ class _TopicListPageState extends State<TopicListPage>
             CurvedAnimation(
                 parent: widget.animationController!,
                 curve: Interval((1 / count) * 8, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Food and drink',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 9, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypesListView(
+        showIndex: 'Food_and_drink',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 10, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Functions',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypesListView(
+        showIndex: 'Functions',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
       ),
     );

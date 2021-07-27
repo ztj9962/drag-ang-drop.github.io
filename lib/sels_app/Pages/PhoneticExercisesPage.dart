@@ -226,7 +226,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('[' + _applicationSettingsDataListenAndSpeakLevel + ']級別 (' + _topicClass + ': ' + _topicName + ')' ),
+        title: Text('(自動)[' + _applicationSettingsDataListenAndSpeakLevel + '] (' + _topicClass + ': ' + _topicName + ')' ),
       ),
       body: Column(
           children: <Widget>[

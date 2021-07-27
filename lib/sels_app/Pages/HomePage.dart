@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '發音訓練',
+        titleTxt: '發音訓練(自動)',
         descripTxt: '藉由說話來校正發音',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage()));
@@ -124,10 +124,27 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '發音訓練2',
+        titleTxt: '發音訓練(手動)',
         descripTxt: '藉由說話來校正發音',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage()));
+          /*
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false,
+                pageBuilder: (_,__,___) => PhoneticExercisesNewPage(),
+            )
+          );
+
+           */
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PhoneticExercisesNewPage()
+              )
+          );
+
+
         },
       ),
     );

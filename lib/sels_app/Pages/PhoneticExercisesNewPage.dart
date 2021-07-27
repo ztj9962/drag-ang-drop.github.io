@@ -235,7 +235,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('句子發音訓練2' ),
+        title: Text('(手動)[' + _applicationSettingsDataListenAndSpeakLevel + '] (' + _topicClass + ': ' + _topicName + ')' ),
       ),
       body: Stack(
           children: <Widget>[

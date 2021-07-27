@@ -296,8 +296,124 @@ class SentenceTypesListData {
         startColor: '#6F72CA',
         endColor: '#1E1466',
       ),
-
     ],
+    'Food_and_drink':[
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Food and drink',
+        descripTxt: 'Culture',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FF69F0AE',
+        endColor: '#FF4CAF50',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Cooking and eating',
+        descripTxt: 'Culture',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FF69F0AE',
+        endColor: '#FF4CAF50',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Cooking and eating',
+        descripTxt: 'Drinks',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FF69F0AE',
+        endColor: '#FF4CAF50',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Cooking and eating',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FF69F0AE',
+        endColor: '#FF4CAF50',
+      ),
+    ],
+
+    'Functions':[
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Cooking and eating',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Discussion and agreement',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Doubt, guessing and certainty',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Opinion and argument',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Permission and obligation',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Preferences and decisions',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+      SentenceTypesListData(
+        imagePath: 'assets/sels_app/teamwork.png',
+        titleTxt: 'Suggestions and advice',
+        descripTxt: 'Food',
+        onTapFunction: (){
+          print('Card Clicked V ');
+        },
+        startColor: '#FFFFFF00',
+        endColor: '#FFFFEB3B',
+      ),
+    ],
+
+
   };
 
 
