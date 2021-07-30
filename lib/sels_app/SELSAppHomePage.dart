@@ -1,5 +1,6 @@
 import 'package:sels_app/sels_app/Pages/HomePage.dart';
 import 'package:sels_app/sels_app/Pages/OthersPage.dart';
+import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/models/tabIcon_data.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:flutter/material.dart';
@@ -184,6 +185,12 @@ class _SELSAppHomePageState extends State<SELSAppHomePage>
     });
     await SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsRate').then((value) {
       (value ?? SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsRate', 0.5));
+    });
+    await SharedPreferencesUtil.getData<String>('applicationSettingsDataAccessToken').then((value) {
+      (value ?? APIUtil.getConversationTokenAndID());
+    });
+    await SharedPreferencesUtil.getData<String>('applicationSettingsDataConversationID').then((value) {
+      (value ?? APIUtil.getConversationTokenAndID());
     });
 
     // 頁面介紹

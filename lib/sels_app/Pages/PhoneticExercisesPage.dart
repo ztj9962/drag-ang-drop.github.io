@@ -34,6 +34,7 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
+  int _totalTestQuestions = 25;
   String _applicationSettingsDataListenAndSpeakLevel = 'A1';
   String _topicClass = '';
   String _topicName = '';
@@ -43,11 +44,15 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     this._topicClass = topicClass;
     this._topicName = topicName;
   }
+  var _allowTouchButtons = {
+    'reListenButton' : false,
+    'speakButton' : false,
+    'pauseButton' : true,
+  };
 
 
   final List<ChatMessageUtil> _messages = <ChatMessageUtil>[];
 
-  bool _allowTouchButton = false;
   
 
 
@@ -71,6 +76,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   double ttsVolume = 1;
   double ttsPitch = 1.0;
   double ttsRate = 0.5;
+  bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
 
   String? _newVoiceText;
@@ -207,10 +213,8 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
 
   Future<void> initChatBot() async {
-    //await initTestQuestions();
-    await sendChatMessageAndSpeak('歡迎使用!', 'Welcome!', 'en-US');
-    //await sendChatMessageAndSpeak('您目前選擇的題目分類為 ' + _topicClass + ': ' + _topicName + ' (' + _selectMode + ')', 'Your currently selected category is  ' + _topicClass + ': ' + _topicName, 'en-US');
-    //await sendChatMessageAndSpeak('級別為 ' + _applicationSettingsDataListenAndSpeakLevel, 'The level is ' + _applicationSettingsDataListenAndSpeakLevel, 'en-US');
+    await sendChatMessage(false, 'Bot', '測驗即將開始', needSpeak:true, speakMessage:'Quiz is about to start', speakLanguage:'en-US');
+    await sendChatMessage(false, 'Bot', '請跟著我重複一次', needSpeak:true, speakMessage:'Please repeat after me', speakLanguage:'en-US');
     await sendTestQuestions();
   }
 
@@ -228,7 +232,200 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         centerTitle: true,
         title: Text('(自動)[' + _applicationSettingsDataListenAndSpeakLevel + '] (' + _topicClass + ': ' + _topicName + ')' ),
       ),
-      body: Column(
+      body:
+
+      Stack(
+        children: <Widget>[
+          Padding(
+              padding: const EdgeInsets.all(16),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(color: Colors.grey, offset: Offset(1.1, 1.1), blurRadius: 10.0),
+                    ],
+                  ),
+                  child: Container(
+                      child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8, top: 8),
+                              child: Divider(
+                                height: 1,
+                                thickness: 1,
+                              ),
+                            ),
+                            Flexible(
+                                child: ListView.builder(
+                                  padding: new EdgeInsets.all(8.0),
+                                  reverse: true,
+                                  itemBuilder: (_, int index) => _messages[index],
+                                  itemCount: _messages.length,
+                                )
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8, top: 8),
+                              child: Divider(
+                                height: 1,
+                                thickness: 1,
+                              ),
+                            ),
+
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: isPlaying,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                    color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                    onPressed: () async {
+                                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                        ttsRateSlow = !ttsRateSlow;
+                                                        await _ttsSpeak(_questionText, 'en-US');
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '再聽一次',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: speechToText.isListening,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                                    color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
+                                                    onPressed: () {
+                                                      if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                                        if( !_sttHasSpeech || speechToText.isListening ){
+                                                          sttStopListening();
+                                                        } else {
+                                                          sttStartListening();
+                                                        }
+                                                      }},
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '回答/暫停回答',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  /*
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: false,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(Icons.pause),
+                                                    color: Colors.white,
+                                                    onPressed: () {
+                                                      if(_allowTouchButtons['pauseButton']!){
+                                                        _ttsStop();
+                                                        sttStopListening();
+                                                        //getTestQuestions();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '暫停',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+
+                                   */
+                                ],
+                              ),
+                            ),
+
+
+                          ]
+                      )
+                  )
+              )
+          )
+        ]
+      )
+
+
+      /*
+      Column(
           children: <Widget>[
             Flexible(
                 child: ListView.builder(
@@ -267,7 +464,6 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
                         )
                     ),
                     Expanded(
-
                         child: Column(
                           children: [
                             Center(
@@ -309,6 +505,8 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
             ),
           ]
       ),
+
+       */
     );
   }
 
@@ -409,8 +607,11 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     await sttStopListening();
 
     await flutterTts.setLanguage(speakLanguage);
-    await flutterTts.setVolume(ttsVolume);
-    await flutterTts.setSpeechRate(ttsRate);
+    if(ttsRateSlow){
+      await flutterTts.setSpeechRate(ttsRate * 0.22);
+    } else {
+      await flutterTts.setSpeechRate(ttsRate);
+    }
     await flutterTts.setPitch(ttsPitch);
     if (speakMessage != null) {
       if (speakMessage.isNotEmpty) {
@@ -449,16 +650,12 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     }
   }
 
-  Future<void> sendChatMessageAndSpeak(String sendMessage, String speakMessage, String speakLanguage) async {
-    sendChatMessage(false, 'Bot', sendMessage);
-    await _ttsSpeak(speakMessage, speakLanguage);
-  }
-
-
   void _handleSubmitted(String text) {
     sendChatMessage(true, 'Me', text);
     setState(() {
-      _allowTouchButton = false;
+      _allowTouchButtons['reListenButton'] = false;
+      _allowTouchButtons['speakButton'] = false;
+      _allowTouchButtons['pauseButton'] = false;
     });
     _responseChatBot(text);
   }
@@ -472,7 +669,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     if(checkSentences['apiStatus'] == 'success'){
       //String msg1 = checkSentences['data']['replyText'] + '! You get ' + checkSentences['data']['ipaTextSimilarity'].toString() + ' points';
       String msg1 = checkSentences['data']['replyText'] + '!';
-      await sendChatMessage(false, 'Bot', msg1, needSpeak:true, speakMessage:msg1, speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', checkSentences['data']['replyText'] + ' ' + checkSentences['data']['replyEmoji'], needSpeak:true, speakMessage:checkSentences['data']['replyText'].toLowerCase(), speakLanguage:'en-US');
 
       /*
       if(checkSentences['data']['ErrorWord'].length > 0){
@@ -486,7 +683,13 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         await sendTestQuestions();
       }
        */
-      await sendTestQuestions();
+
+      if( _part < _totalTestQuestions){
+        await sendTestQuestions();
+      } else {
+        await sendChatMessage(false, 'Bot', 'Quiz is over', needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
+
+      }
 
 
     } else {
@@ -498,6 +701,11 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
   Future<void> sendTestQuestions({String questionText : '', String aboutWord:''}) async {
     if(questionText == ''){
+      setState(() {
+        _allowTouchButtons['reListenButton'] = false;
+        _allowTouchButtons['speakButton'] = false;
+        _allowTouchButtons['pauseButton'] = true;
+      });
 
       String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, dataLimit:'1');
       var getSentences = jsonDecode(getSentencesJSON.toString());
@@ -513,9 +721,12 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     }else{
       _part++;
       _questionText = questionText;
-      await sendChatMessage(false, 'Bot', '第 $_part 題：$questionText', needSpeak:true, speakMessage:questionText, speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', '第 $_part/$_totalTestQuestions 題：$questionText', needSpeak:true, speakMessage:questionText, speakLanguage:'en-US');
       setState(() {
-        _allowTouchButton = true;
+        ttsRateSlow = false;
+        _allowTouchButtons['reListenButton'] = true;
+        _allowTouchButtons['speakButton'] = true;
+        _allowTouchButtons['pauseButton'] = true;
       });
       await sttStartListening();
     }

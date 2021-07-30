@@ -1,4 +1,6 @@
 import 'dart:math' as math;
+import 'package:sels_app/sels_app/Pages/SmartTeachingAssistantPage.dart';
+
 import '../sels_app_theme.dart';
 import '../models/tabIcon_data.dart';
 import '../../main.dart';
@@ -146,11 +148,29 @@ class _BottomBarViewState extends State<BottomBarView>
                           highlightColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           onTap: (){
+                            /*
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                  pageBuilder: (context, _, __) => SmartTeachingAssistantPage(), opaque: false),
+                            );
+                            */
+
+                            /*
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SmartTeachingAssistantPage()
+                                )
+                            );
+
+                             */
+
+
                             print('Click Button +');
                             widget.addClick;
                           },
                           child: Icon(
-                            Icons.psychology,
+                            Icons.psychology_outlined,
                             color: SELSAppTheme.white,
                             size: 32,
                           ),

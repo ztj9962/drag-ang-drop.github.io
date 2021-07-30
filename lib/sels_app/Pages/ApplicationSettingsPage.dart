@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 
 const listenAndSpeakLevelData = [
@@ -127,6 +128,10 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
                                 height: 1,
                               ),
                               pageIntroduceSettings(),
+                              Divider(
+                                height: 1,
+                              ),
+                              smartAssistantSettings(),
                             ],
                           ),
                         ),
@@ -331,6 +336,27 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
         ]
     );
 
+  }
+
+  Widget smartAssistantSettings() {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Center(
+            child: Text('助理設定', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ),
+          OutlinedButton(
+            child: Text('重置助理連線金鑰（如遇到問題請點我重置）'),
+            onPressed: () {
+              APIUtil.getConversationTokenAndID();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('重置成功！'),
+              ));
+            },
+          ),
+        ]
+    );
   }
 
 

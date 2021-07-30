@@ -28,6 +28,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
   bool _applicationSettingsGrammarCheckPageIntroduce = true;
   String _sentenceTextOriginal = '';
   String _sentenceTextChecked = '';
+  bool _viewAPIResult = false;
 
 
   var _allowTouchButtons = {
@@ -80,6 +81,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
   @override
   void dispose() {
     super.dispose();
+    flutterTts.stop();
     speechToText.stop();
   }
 
@@ -196,191 +198,168 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
         ),
         body: Stack(
             children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-                  child: Container(
-                      decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(color: Colors.grey, offset: Offset(1.1, 1.1), blurRadius: 10.0),
-                      ],
-                    ),
-                      child: Container(
-                          child: Column(
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                        child: Card(
+                          color: Colors.white,
+                          margin: EdgeInsets.all(0.0),
+                          elevation: 2.0,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Flexible(
-                                    flex: 1,
-                                    child: Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
-                                        child: Stack(
-                                          alignment: Alignment.topRight,
-                                          children: <Widget>[
-                                            Container(
-                                              child: TextField(
-                                                maxLines: 10,
-                                                decoration: InputDecoration(
-                                                    border:InputBorder.none,
-                                                    hintText: '請在這輸入要進行文法校正的句子......'
-                                                ),
-                                                controller: _textInputController,
-                                                onChanged: (String value) {
-                                                  _handleSubmitted(value, isFinalResult:true);
-                                                },
-                                                //onEditingComplete: (){print('onEditingComplete');},
-                                                //onSubmitted: (String value){print('onSubmitted');},
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: Visibility(
-                                                visible: (_textInputController.text != ""),
-                                                child: IconButton(
-                                                  color: Colors.grey,
-                                                  iconSize: 15,
-                                                  icon: const Icon(Icons.close),
-                                                  onPressed: () {
-                                                    _textInputController..text = "";
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ]
+                                Expanded(
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0),
+                                        child: TextField(
+                                          autofocus: true,
+                                          maxLines: 10,
+                                          decoration: InputDecoration(
+                                              border:InputBorder.none,
+                                              hintText: '請在這輸入要進行文法校正的句子......'
+                                          ),
+                                          controller: _textInputController,
+                                          onChanged: (String value) {
+                                            _handleSubmitted(value, isFinalResult:true);
+                                          },
+                                          //onEditingComplete: (){print('onEditingComplete');},
+                                          //onSubmitted: (String value){print('onSubmitted');},
                                         ),
                                       ),
-                                    )
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8, top: 8),
-                                  child: Divider(
-                                    height: 1,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Center(
-                                                  child: IconButton(
-                                                    //icon: const Icon(Icons.volume_up_outlined),
-                                                    icon: Icon( (_allowTouchButtons['listenResultButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                    color: Colors.black,
-                                                    onPressed: () async {
-                                                      if(_allowTouchButtons['listenResultButton']! && !speechToText.isListening ){
-                                                        ttsRateSlow = !ttsRateSlow;
-                                                        await _ttsSpeak(_sentenceTextChecked, 'en-US');
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Listen result',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                        ),
-                                        Expanded(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Center(
-                                                  child: IconButton(
-                                                    icon: Icon( (_allowTouchButtons['voiceInputButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
-                                                    color: Colors.black,
-                                                    onPressed: () {
-                                                      if(_allowTouchButtons['voiceInputButton']! && !isPlaying ){
-                                                        if( !_sttHasSpeech || speechToText.isListening ){
-                                                          sttStopListening();
-                                                        } else {
-                                                          sttStartListening();
-                                                        }
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Voice input',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                        ),
-                                        Expanded(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Center(
-                                                  child: IconButton(
-                                                    icon: const Icon(Icons.content_copy_outlined),
-                                                    color: Colors.black,
-                                                    onPressed: () {
-                                                      Clipboard.setData(ClipboardData(text: _sentenceTextChecked));
-                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                        content: Text('Copy successflully.'),
-                                                      ));
-                                                    },
-                                                  ),
-                                                ),Text(
-                                                  'Copy result',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                        ),
-                                      ],
-                                    ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8, top: 8),
-                                  child: Divider(
-                                    height: 1,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Flexible(
-                                    flex: 2,
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
-                                        child: SingleChildScrollView(
-                                          child: Container(
-                                            child: RichText(
-                                                text: TextSpan(
-                                                    text: '',
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Color(0xFF2633C5),
-                                                    ),
-                                                    children: _sentenceTextCheckedWidget,
-                                                ),
-                                            ),
+                                      Positioned(
+                                        right: 0,
+                                        width: 50,
+                                        height: 50,
+                                        child: Visibility(
+                                          visible: (_textInputController.text != ""),
+                                          child: IconButton(
+                                            color: Colors.grey,
+                                            iconSize: 25,
+                                            icon: const Icon(Icons.close),
+                                            onPressed: () {
+                                              setState(() {
+                                                _sentenceTextCheckedWidget = [ TextSpan(text: ''), ];
+                                                _viewAPIResult = false;
+                                                _textInputController..text = "";
+                                              });
+                                            },
                                           ),
                                         ),
-                                    )
-                                )
-                              ]
-                          )
-                      )
-                  )
+                                      ),
+                                      Positioned(
+                                        left: 0,
+                                        width: 50,
+                                        height: 50,
+                                        child: IconButton(
+                                          color: Colors.grey,
+                                          iconSize: 25,
+                                          icon: Icon( (_allowTouchButtons['voiceInputButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                          onPressed: () {
+                                            if(_allowTouchButtons['voiceInputButton']! && !isPlaying ){
+                                              if( !_sttHasSpeech || speechToText.isListening ){
+                                                sttStopListening();
+                                              } else {
+                                                sttStartListening();
+                                              }
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ]
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: _viewAPIResult,
+                      child: Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                          child: Card(
+                            color: Colors.white,
+                            margin: EdgeInsets.all(0.0),
+                            elevation: 2.0,
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Stack(
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                text: '這裡是建議的結果：\n',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Color(0xFF2633C5),
+                                                ),
+                                                children: _sentenceTextCheckedWidget,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: 0,
+                                            width: 50,
+                                            height: 50,
+                                            child: IconButton(
+                                              color: Colors.grey,
+                                              iconSize: 25,
+                                              icon: Icon( (_allowTouchButtons['listenResultButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                              onPressed: () async {
+                                                if(_allowTouchButtons['listenResultButton']! && !speechToText.isListening ){
+                                                  ttsRateSlow = false;
+                                                  await _ttsSpeak(_sentenceTextChecked, 'en-US');
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right: 0,
+                                            width: 50,
+                                            height: 50,
+                                            child: IconButton(
+                                              color: Colors.grey,
+                                              iconSize: 25,
+                                              icon: Icon(Icons.content_copy_outlined),
+                                              onPressed: () {
+                                                Clipboard.setData(ClipboardData(text: _sentenceTextChecked));
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text('複製成功！'),
+                                                ));
+                                              },
+                                            ),
+                                          ),
+                                        ]
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+
               Visibility(
                 visible: _applicationSettingsGrammarCheckPageIntroduce,
                 child: Stack(
@@ -424,21 +403,6 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
                       ),
                     ]
                 ),
-
-                /*
-                Dismissible(
-                  key: ValueKey('KeyName'),
-                  child:
-                    ConstrainedBox(
-                      child: Image.asset(
-                        'assets/sels_app/219699654_259724848900985_3559854374712062356_n.png',
-                        fit: BoxFit.cover,
-                      ),
-                      constraints: new BoxConstraints.expand(),
-                    )
-                ),
-
-                 */
 
               ),
 
@@ -491,6 +455,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
       //print(sttLastWords);
+      _viewAPIResult = false;
       _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
     });
   }
@@ -638,6 +603,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
         _sentenceTextCheckedWidget = sentenceTextCheckedWidget;
         _sentenceTextOriginal = checkGrammar['data']['sentenceTextOriginal'];
         _sentenceTextChecked = checkGrammar['data']['sentenceTextChecked'];
+        _viewAPIResult = true;
       });
 
     } else {

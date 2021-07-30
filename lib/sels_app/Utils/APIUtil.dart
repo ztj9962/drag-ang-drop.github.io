@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
 class APIUtil {
 
@@ -49,6 +53,40 @@ class APIUtil {
     );
     String json = response.body.toString();
     return json;
+  }
+
+
+  static Future<String> sendMessageToConversation(String accessToken, String conversationID, String message) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/rasa/sendMessageToConversation'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'accessToken': accessToken,
+        'conversationID': conversationID,
+        'message': message,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+  static Future<void> getConversationTokenAndID() async {
+    final response = await http.get(
+      Uri.https('sels.nkfust.edu.tw', 'app/rasa/getConversationTokenAndID'),
+    );
+    String json = response.body.toString();
+    var data = jsonDecode(json.toString());
+    if(data['apiStatus'] == 'success'){
+      print(data['data']['accessToken']);
+      SharedPreferencesUtil.saveData<String>('applicationSettingsDataAccessToken', data['data']['accessToken']);
+      SharedPreferencesUtil.saveData<String>('applicationSettingsDataConversationID', data['data']['conversationID']);
+    } else {
+      print('_responseAPI Error apiStatus:' + data['apiStatus'] + ' apiMessage:' + data['apiMessage']);
+      sleep(Duration(seconds:1));
+      getConversationTokenAndID();
+    }
+
   }
 
 

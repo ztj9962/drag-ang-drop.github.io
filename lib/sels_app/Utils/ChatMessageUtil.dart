@@ -2,20 +2,21 @@
 import 'package:flutter/material.dart';
 
 class ChatMessageUtil extends StatelessWidget {
-  ChatMessageUtil({required this.senderIsMe, required this.senderName, required this.messageText});
+  ChatMessageUtil({required this.senderIsMe, required this.senderName, this.messageText = '', this.messageImage = ''});
 
   final bool senderIsMe;
   final String senderName;
   final String messageText;
+  final String messageImage;
 
 
-
+/*
   List<Widget> otherMessage(context) {
 
     return <Widget>[
       new Container(
         margin: const EdgeInsets.only(right: 16.0),
-        child: new CircleAvatar(child: new Text('B')),
+        child: new CircleAvatar(child: new Text(this.senderName)),
       ),
       new Expanded(
         child: new Column(
@@ -24,8 +25,15 @@ class ChatMessageUtil extends StatelessWidget {
             new Text(this.senderName,
                 style: new TextStyle(fontWeight: FontWeight.bold)),
             new Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(color: Colors.grey, offset: Offset(1.1, 1.1), blurRadius: 10.0),
+                ],
+              ),
               margin: const EdgeInsets.only(top: 5.0),
-              child: new Text(messageText),
+              child: messageWidget(),
             ),
           ],
         ),
@@ -57,6 +65,65 @@ class ChatMessageUtil extends StatelessWidget {
       ),
     ];
   }
+  */
+
+  Widget messageWidget(){
+    if(messageImage != ''){
+      return Image.network(messageImage);
+    }
+    return Text(
+        messageText,
+        style: new TextStyle(
+            fontWeight: FontWeight.bold,
+            color: this.senderIsMe ? Colors.blue : Colors.white
+        ),
+    );
+  }
+
+  List<Widget> message(context) {
+    return <Widget>[
+      new Expanded(
+        child: new Column(
+          crossAxisAlignment: (this.senderIsMe)
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+          children: <Widget>[
+            new Text(
+                this.senderName,
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal
+                )
+            ),
+            new Container(
+              padding: const EdgeInsets.all(8.0),
+              constraints: BoxConstraints(
+                maxWidth: 250,
+              ),
+              decoration:
+                (this.senderIsMe)
+                  ? BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.0),
+                      ),
+                    )
+                  : BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.0),
+                      ),
+                    )
+              ,
+              margin: const EdgeInsets.only(top: 5.0),
+              child: messageWidget(),
+            ),
+          ],
+        ),
+      ),
+
+    ];
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +131,8 @@ class ChatMessageUtil extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10.0),
       child: new Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: this.senderIsMe ? myMessage(context) : otherMessage(context),
+        //children: this.senderIsMe ? myMessage(context) : otherMessage(context),
+        children: message(context),
       ),
     );
   }

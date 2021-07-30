@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/gestures.dart';
 
@@ -61,6 +62,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
   List<TextSpan> _answerTextWidget = [ TextSpan(text: ''), ];
   List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ''), ];
   List<String> _ipaAboutList = ['111', '222'];
+  bool _viewIPAAboutList = false;
 
 
   // Speech_to_text
@@ -239,244 +241,321 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
       ),
       body: Stack(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: SELSAppTheme.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0), bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(color: SELSAppTheme.grey.withOpacity(0.2), offset: Offset(1.1, 1.1), blurRadius: 10.0),
-                  ],
-                ),
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: TextStyle(
-                                        fontSize: 24 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _replyTextWidget,
-                                    ),
-                                  ),
-                                  Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
-                                  Column(
-                                    children: <Widget>[
-                                      Center(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: '',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: Color(0xFF2633C5),
-                                            ),
-                                            children: _questionTextWidget,
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: '',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Color(0xFF2633C5),
-                                            ),
-                                            children: _questionIPATextWidget,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Center(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: '',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: Color(0xFF2633C5),
-                                            ),
-                                            children: _answerTextWidget,
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: '',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Color(0xFF2633C5),
-                                            ),
-                                            children: _answerIPATextWidget,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ]
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8, top: 8),
-                        child: Divider(
-                          height: 1,
-                          thickness: 1,
-                        ),
-                      ),
-                      Container(
-                        child: Row(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: Card(
+                      color: Colors.white,
+                      margin: EdgeInsets.all(0.0),
+                      elevation: 2.0,
+                      child: Container(
+                        child: Column(
                           children: <Widget>[
-                            Expanded(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: IconButton(
-                                        //icon: const Icon(Icons.volume_up_outlined),
-                                        icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                        color: Colors.black,
-                                        onPressed: () async {
-                                          if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                            ttsRateSlow = !ttsRateSlow;
-                                            await _ttsSpeak(_questionText, 'en-US');
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                    Text(
-                                      'Re-Listen',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                )
+                            Flexible(
+                              flex: 1,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                                  child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: '',
+                                            style: TextStyle(
+                                              fontSize: 24 ,
+                                              color: Colors.black,
+                                            ),
+                                            children: _replyTextWidget,
+                                          ),
+                                        ),
+                                        Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                                        Column(
+                                          children: <Widget>[
+                                            Center(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Color(0xFF2633C5),
+                                                  ),
+                                                  children: _questionTextWidget,
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xFF2633C5),
+                                                  ),
+                                                  children: _questionIPATextWidget,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 8, top: 8),
+                                          child: Divider(
+                                            height: 1,
+                                            thickness: 1,
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            Center(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Color(0xFF2633C5),
+                                                  ),
+                                                  children: _answerTextWidget,
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xFF2633C5),
+                                                  ),
+                                                  children: _answerIPATextWidget,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ]
+                                  ),
+                                ),
+                              ),
                             ),
-                            Expanded(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: IconButton(
-                                        icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
-                                        color: Colors.black,
-                                        onPressed: () {
-                                          if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                            if( !_sttHasSpeech || speechToText.isListening ){
-                                              sttStopListening();
-                                            } else {
-                                              sttStartListening();
-                                            }
-                                          }},
-                                      ),
-                                    ),
-                                    Text(
-                                      'Speak',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                )
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8, top: 8),
+                              child: Divider(
+                                height: 1,
+                                thickness: 1,
+                              ),
                             ),
-                            Expanded(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: IconButton(
-                                        icon: const Icon(Icons.navigate_next_outlined),
-                                        color: Colors.black,
-                                        onPressed: () {
-                                          if(_allowTouchButtons['nextButton']!){
-                                            _ttsStop();
-                                            sttStopListening();
-                                            getTestQuestions();
-                                          }
-                                        },
-                                      ),
-                                    ),Text(
-                                      'Next',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                )
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: isPlaying,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                    color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                    onPressed: () async {
+                                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                        ttsRateSlow = !ttsRateSlow;
+                                                        await _ttsSpeak(_questionText, 'en-US');
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '再聽一次',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: speechToText.isListening,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                                    color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
+                                                    onPressed: () {
+                                                      if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                                        if( !_sttHasSpeech || speechToText.isListening ){
+                                                          sttStopListening();
+                                                        } else {
+                                                          sttStartListening();
+                                                        }
+                                                      }},
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '回答/暫停回答',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: AvatarGlow(
+                                              animate: false,
+                                              glowColor: Theme.of(context).primaryColor,
+                                              endRadius: 30.0,
+                                              duration: Duration(milliseconds: 2000),
+                                              repeat: true,
+                                              showTwoGlows: true,
+                                              repeatPauseDuration: Duration(milliseconds: 100),
+                                              child: Material(     // Replace this child with your own
+                                                elevation: 8.0,
+                                                shape: CircleBorder(),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  radius: 20.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(Icons.navigate_next_outlined),
+                                                    color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
+                                                    onPressed: () {
+                                                      if(_allowTouchButtons['nextButton']!){
+                                                        _ttsStop();
+                                                        sttStopListening();
+                                                        getTestQuestions();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '下一題',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                ],
+                              ),
                             ),
+
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8, top: 8),
-                        child: Divider(
-                          height: 1,
-                          thickness: 1,
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: ListView.separated(
-                            itemCount: _ipaAboutList.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: RichText(
-                                  text: TextSpan(
-                                    text: '${_ipaAboutList[index]}',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: _viewIPAAboutList,
+                  child: Flexible(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                      child: Card(
+                        color: Colors.white,
+                        margin: EdgeInsets.all(0.0),
+                        elevation: 2.0,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                              child: Text('在這裡聽看看類似的發音吧！'),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
+                              child: ListView.separated(
+                                itemCount: _ipaAboutList.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    leading: Icon(Icons.hearing_outlined),
+                                    title: RichText(
+                                      text: TextSpan(
+                                        text: '${_ipaAboutList[index]}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ),
-                                    recognizer: TapGestureRecognizer()..onTap = () async {
+                                    onTap: () async {
                                       ttsRateSlow = true;
                                       await _ttsSpeak(_ipaAboutList[index], 'en-US');
                                       ttsRateSlow = !ttsRateSlow;
                                       await _ttsSpeak(_ipaAboutList[index], 'en-US');
                                     },
-                                  ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index){
-                              return Divider(
-                                height: 1,
-                                thickness: 1,
 
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                                separatorBuilder: (context, index){
+                                  return Divider(
+                                    height: 1,
+                                    thickness: 1,
+
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-
+          ),
             Visibility(
               visible: _applicationSettingsPhoneticExercisesNewPageIntroduce,
               child: Stack(
@@ -677,8 +756,11 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
 
   void _responseChatBot(text) async {
     setState(() {
-      _replyText = 'Please wait......';
+      _replyText = '請稍候......';
       _replyTextWidget = [ TextSpan(text: _replyText), ];
+      _allowTouchButtons['reListenButton'] = false;
+      _allowTouchButtons['speakButton'] = false;
+      _allowTouchButtons['nextButton'] = false;
     });
 
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, sentenceLevel:_applicationSettingsDataListenAndSpeakLevel);
@@ -822,7 +904,11 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _answerTextWidget = answerTextWidget;
         _answerIPATextWidget = answerIPATextWidget;
         _ipaAboutList = ipaAboutList;
+        _viewIPAAboutList = (ipaAboutList.length > 0);
         ttsRateSlow = false;
+        _allowTouchButtons['reListenButton'] = true;
+        _allowTouchButtons['speakButton'] = true;
+        _allowTouchButtons['nextButton'] = true;
       });
 
       await _ttsSpeak(checkSentences['data']['replyText'], 'en-US');
@@ -848,7 +934,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
 
     if(questionText == ''){
       setState(() {
-        _replyText = 'Please wait......';
+        _replyText = '請稍候......';
         _replyTextWidget = [ TextSpan(text: _replyText), ];
         _questionText = '';
         _questionIPAText = '';
@@ -859,6 +945,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _answerTextWidget = [];
         _answerIPATextWidget = [];
         _ipaAboutList = [];
+        _viewIPAAboutList = false;
         _allowTouchButtons['reListenButton'] = false;
         _allowTouchButtons['speakButton'] = false;
         _allowTouchButtons['nextButton'] = false;
