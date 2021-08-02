@@ -767,57 +767,60 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
 
 
-    //print(checkSentencesJSON.toString());
+    //print(checkSentences['data']['questionError'].toString());
     if(checkSentences['apiStatus'] == 'success'){
-
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
       List<TextSpan> questionTextWidget = [];
+
+      var questionIPATextArray = checkSentences['data']['questionIPAText'].split(' ');
+      List<TextSpan> questionIPATextWidget = [];
+
+      questionIPATextWidget.add(TextSpan(text: '['));
       for (var i = 0; i < questionTextArray.length; i++) {
-        if(checkSentences['data']['questionError']['word'].contains(questionTextArray[i])){
+        if(checkSentences['data']['questionError'].containsKey(questionTextArray[i])){
           questionTextWidget.add(
               TextSpan(
                 text: questionTextArray[i] + ' ',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = () async {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(questionTextArray[i], 'en-US');},
+              )
+          );
+          questionIPATextWidget.add(
+              TextSpan(
+                text: questionIPATextArray[i] + ' ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
                 ),
                 recognizer: TapGestureRecognizer()..onTap = () async {
                   ttsRateSlow = !ttsRateSlow;
                   await _ttsSpeak(questionTextArray[i], 'en-US');
-                },
-              )
-          );
-        } else {
-          questionTextWidget.add(TextSpan(text: questionTextArray[i]+' ', style: TextStyle()));
-        }
-      }
-
-      var questionIPATextArray = checkSentences['data']['questionIPAText'].split(' ');
-      List<TextSpan> questionIPATextWidget = [];
-      for (var i = 0; i < questionIPATextArray.length; i++) {
-        if(checkSentences['data']['questionError']['ipa'].contains(questionIPATextArray[i])){
-          questionIPATextWidget.add(
-              TextSpan(
-                  text: questionIPATextArray[i] + ' ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () async {
-                    ttsRateSlow = !ttsRateSlow;
-                    await _ttsSpeak(questionTextArray[i], 'en-US');
                   },
               )
           );
         } else {
-          questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i]+' ', style: TextStyle()));
+          questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
+          questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i] + ' '));
         }
       }
+      questionIPATextWidget.add(TextSpan(text: ']'));
+
+
 
       var answerTextArray = checkSentences['data']['answerText'].split(' ');
       List<TextSpan> answerTextWidget = [];
+
+      var answerIPATextArray = checkSentences['data']['answerIPAText'].split(' ');
+      List<TextSpan> answerIPATextWidget = [];
+
+      answerIPATextWidget.add(TextSpan(text: '['));
       for (var i = 0; i < answerTextArray.length; i++) {
-        if(checkSentences['data']['answerError']['word'].contains(answerTextArray[i])){
+        if(checkSentences['data']['answerError'].containsKey(answerTextArray[i])){
           answerTextWidget.add(
               TextSpan(
                 text: answerTextArray[i] + ' ',
@@ -827,19 +830,9 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
                 ),
                 recognizer: TapGestureRecognizer()..onTap = () async {
                   ttsRateSlow = !ttsRateSlow;
-                  await _ttsSpeak(answerTextArray[i], 'en-US');
-                },
+                  await _ttsSpeak(answerTextArray[i], 'en-US');},
               )
           );
-        } else {
-          answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
-        }
-      }
-
-      var answerIPATextArray = checkSentences['data']['answerIPAText'].split(' ');
-      List<TextSpan> answerIPATextWidget = [];
-      for (var i = 0; i < answerIPATextArray.length; i++) {
-        if(checkSentences['data']['answerError']['ipa'].contains(answerIPATextArray[i])){
           answerIPATextWidget.add(
               TextSpan(
                 text: answerIPATextArray[i] + ' ',
@@ -854,49 +847,54 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
               )
           );
         } else {
+          answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
           answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i] + ' '));
         }
       }
+      answerIPATextWidget.add(TextSpan(text: ']'));
+
+
+
 
 
       List<TextSpan> replyTextWidget = [];
       replyTextWidget.add(TextSpan(text: checkSentences['data']['replyText'] + ' '));
       replyTextWidget.add(TextSpan(text: ' '));
       replyTextWidget.add(TextSpan(text: checkSentences['data']['replyEmoji']));
-
+//
       List<String> ipaAboutList = [];
-      for (var i = 0; i < checkSentences['data']['questionError']['ipaAbout'].length; i++) {
-        checkSentences['data']['questionError']['ipaAbout'][i].forEach((k,v) {
-          if(v != 'not found word'){
-            String text = '${k}: [ ';
-            for (var i = 0; i < v.length; i++) {
-              if(i == (v.length - 1)){
-                text = text + v[i] + ' ]';
-              }else{
-                text = text + v[i] + ', ';
-              }
-            }
-            ipaAboutList.add(text);
-          }
-        });
-      }
-
-      for (var i = 0; i < checkSentences['data']['answerError']['ipaAbout'].length; i++) {
-        checkSentences['data']['answerError']['ipaAbout'][i].forEach((k,v) {
-          if(v != 'not found word'){
-            String text = '${k}: [ ';
-            for (var i = 0; i < v.length; i++) {
-              if(i == (v.length - 1)){
-                text = text + v[i] + ' ]';
-              }else{
-                text = text + v[i] + ', ';
-              }
-            }
-            ipaAboutList.add(text);
-          }
-        });
-      }
-
+      //for (var i = 0; i < checkSentences['data']['questionError']['ipaAbout'].length; i++) {
+      //  checkSentences['data']['questionError']['ipaAbout'][i].forEach((k,v) {
+      //    if(v != 'not found word'){
+      //      String text = '${k}: [ ';
+      //      for (var i = 0; i < v.length; i++) {
+      //        if(i == (v.length - 1)){
+      //          text = text + v[i] + ' ]';
+      //        }else{
+      //          text = text + v[i] + ', ';
+      //        }
+      //      }
+      //      ipaAboutList.add(text);
+      //    }
+      //  });
+      //}
+//
+      //for (var i = 0; i < checkSentences['data']['answerError']['ipaAbout'].length; i++) {
+      //  checkSentences['data']['answerError']['ipaAbout'][i].forEach((k,v) {
+      //    if(v != 'not found word'){
+      //      String text = '${k}: [ ';
+      //      for (var i = 0; i < v.length; i++) {
+      //        if(i == (v.length - 1)){
+      //          text = text + v[i] + ' ]';
+      //        }else{
+      //          text = text + v[i] + ', ';
+      //        }
+      //      }
+      //      ipaAboutList.add(text);
+      //    }
+      //  });
+      //}
+//
       setState(() {
         _questionTextWidget = questionTextWidget;
         _questionIPATextWidget = questionIPATextWidget;
@@ -910,18 +908,178 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _allowTouchButtons['speakButton'] = true;
         _allowTouchButtons['nextButton'] = true;
       });
-
+//
       await _ttsSpeak(checkSentences['data']['replyText'], 'en-US');
-
+//
       setState(() {
         _allowTouchButtons['speakButton'] = false;
       });
-
     } else {
       print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(Duration(seconds:1));
       _responseChatBot(text);
     }
+    //if(checkSentences['apiStatus'] == 'success'){
+//
+    //  var questionTextArray = checkSentences['data']['questionText'].split(' ');
+    //  List<TextSpan> questionTextWidget = [];
+    //  for (var i = 0; i < questionTextArray.length; i++) {
+    //    if(checkSentences['data']['questionError']['word'].contains(questionTextArray[i])){
+    //      questionTextWidget.add(
+    //          TextSpan(
+    //            text: questionTextArray[i] + ' ',
+    //            style: TextStyle(
+    //                fontWeight: FontWeight.bold,
+    //                color: Colors.red,
+    //            ),
+    //            recognizer: TapGestureRecognizer()..onTap = () async {
+    //              ttsRateSlow = !ttsRateSlow;
+    //              await _ttsSpeak(questionTextArray[i], 'en-US');
+    //            },
+    //          )
+    //      );
+    //    } else {
+    //      questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
+    //    }
+    //  }
+//
+    //  var questionIPATextArray = checkSentences['data']['questionIPAText'].split(' ');
+    //  List<TextSpan> questionIPATextWidget = [];
+//
+    //  questionIPATextWidget.add(TextSpan(text: '['));
+    //  for (var i = 0; i < questionIPATextArray.length; i++) {
+    //    if(checkSentences['data']['questionError']['ipa'].contains(questionIPATextArray[i])){
+    //      questionIPATextWidget.add(
+    //          TextSpan(
+    //              text: questionIPATextArray[i] + ' ',
+    //              style: TextStyle(
+    //                fontWeight: FontWeight.bold,
+    //                color: Colors.red,
+    //              ),
+    //              recognizer: TapGestureRecognizer()..onTap = () async {
+    //                ttsRateSlow = !ttsRateSlow;
+    //                await _ttsSpeak(questionTextArray[i], 'en-US');
+    //              },
+    //          )
+    //      );
+    //    } else {
+    //      questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i] + ' '));
+    //    }
+    //  }
+    //  questionIPATextWidget.add(TextSpan(text: ']'));
+//
+    //  var answerTextArray = checkSentences['data']['answerText'].split(' ');
+    //  List<TextSpan> answerTextWidget = [];
+    //  for (var i = 0; i < answerTextArray.length; i++) {
+    //    if(checkSentences['data']['answerError']['word'].contains(answerTextArray[i])){
+    //      answerTextWidget.add(
+    //          TextSpan(
+    //            text: answerTextArray[i] + ' ',
+    //            style: TextStyle(
+    //              fontWeight: FontWeight.bold,
+    //              color: Colors.red,
+    //            ),
+    //            recognizer: TapGestureRecognizer()..onTap = () async {
+    //              ttsRateSlow = !ttsRateSlow;
+    //              await _ttsSpeak(answerTextArray[i], 'en-US');
+    //            },
+    //          )
+    //      );
+    //    } else {
+    //      answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
+    //    }
+    //  }
+//
+    //  var answerIPATextArray = checkSentences['data']['answerIPAText'].split(' ');
+    //  List<TextSpan> answerIPATextWidget = [];
+//
+    //  answerIPATextWidget.add(TextSpan(text: '['));
+    //  for (var i = 0; i < answerIPATextArray.length; i++) {
+    //    if(checkSentences['data']['answerError']['ipa'].contains(answerIPATextArray[i])){
+    //      answerIPATextWidget.add(
+    //          TextSpan(
+    //            text: answerIPATextArray[i] + ' ',
+    //            style: TextStyle(
+    //              fontWeight: FontWeight.bold,
+    //              color: Colors.red,
+    //            ),
+    //            recognizer: TapGestureRecognizer()..onTap = () async {
+    //              ttsRateSlow = !ttsRateSlow;
+    //              await _ttsSpeak(answerTextArray[i], 'en-US');
+    //            },
+    //          )
+    //      );
+    //    } else {
+    //      answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i] + ' '));
+    //    }
+    //  }
+    //  answerIPATextWidget.add(TextSpan(text: ']'));
+//
+//
+    //  List<TextSpan> replyTextWidget = [];
+    //  replyTextWidget.add(TextSpan(text: checkSentences['data']['replyText'] + ' '));
+    //  replyTextWidget.add(TextSpan(text: ' '));
+    //  replyTextWidget.add(TextSpan(text: checkSentences['data']['replyEmoji']));
+//
+    //  List<String> ipaAboutList = [];
+    //  for (var i = 0; i < checkSentences['data']['questionError']['ipaAbout'].length; i++) {
+    //    checkSentences['data']['questionError']['ipaAbout'][i].forEach((k,v) {
+    //      if(v != 'not found word'){
+    //        String text = '${k}: [ ';
+    //        for (var i = 0; i < v.length; i++) {
+    //          if(i == (v.length - 1)){
+    //            text = text + v[i] + ' ]';
+    //          }else{
+    //            text = text + v[i] + ', ';
+    //          }
+    //        }
+    //        ipaAboutList.add(text);
+    //      }
+    //    });
+    //  }
+//
+    //  for (var i = 0; i < checkSentences['data']['answerError']['ipaAbout'].length; i++) {
+    //    checkSentences['data']['answerError']['ipaAbout'][i].forEach((k,v) {
+    //      if(v != 'not found word'){
+    //        String text = '${k}: [ ';
+    //        for (var i = 0; i < v.length; i++) {
+    //          if(i == (v.length - 1)){
+    //            text = text + v[i] + ' ]';
+    //          }else{
+    //            text = text + v[i] + ', ';
+    //          }
+    //        }
+    //        ipaAboutList.add(text);
+    //      }
+    //    });
+    //  }
+//
+    //  setState(() {
+    //    _questionTextWidget = questionTextWidget;
+    //    _questionIPATextWidget = questionIPATextWidget;
+    //    _replyTextWidget = replyTextWidget;
+    //    _answerTextWidget = answerTextWidget;
+    //    _answerIPATextWidget = answerIPATextWidget;
+    //    _ipaAboutList = ipaAboutList;
+    //    _viewIPAAboutList = (ipaAboutList.length > 0);
+    //    ttsRateSlow = false;
+    //    _allowTouchButtons['reListenButton'] = true;
+    //    _allowTouchButtons['speakButton'] = true;
+    //    _allowTouchButtons['nextButton'] = true;
+    //  });
+//
+    //  await _ttsSpeak(checkSentences['data']['replyText'], 'en-US');
+//
+    //  setState(() {
+    //    _allowTouchButtons['speakButton'] = false;
+    //  });
+//
+    //} else {
+    //  print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+    //  sleep(Duration(seconds:1));
+    //  _responseChatBot(text);
+    //}
+
   }
 
 
@@ -977,7 +1135,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
       _questionText = questionText;
       _questionTextWidget = [ TextSpan(text: _questionText), ];
       _questionIPAText = questionIPAText;
-      _questionIPATextWidget = [ TextSpan(text: _questionIPAText), ];
+      _questionIPATextWidget = [ TextSpan(text: '[' + _questionIPAText + ']'), ];
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;
