@@ -664,12 +664,12 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   void _responseChatBot(text) async {
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, sentenceLevel:_applicationSettingsDataListenAndSpeakLevel);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
-    print(checkSentencesJSON.toString());
+    //print(checkSentencesJSON.toString());
 
     if(checkSentences['apiStatus'] == 'success'){
       //String msg1 = checkSentences['data']['replyText'] + '! You get ' + checkSentences['data']['ipaTextSimilarity'].toString() + ' points';
-      String msg1 = checkSentences['data']['replyText'] + '!';
-      await sendChatMessage(false, 'Bot', checkSentences['data']['replyText'] + ' ' + checkSentences['data']['replyEmoji'], needSpeak:true, speakMessage:checkSentences['data']['replyText'].toLowerCase(), speakLanguage:'en-US');
+
+      await sendChatMessage(false, 'Bot', checkSentences['data']['scoreComment']['text'] + ' ' + checkSentences['data']['scoreComment']['emoji'], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
 
       /*
       if(checkSentences['data']['ErrorWord'].length > 0){
