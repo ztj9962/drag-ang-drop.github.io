@@ -653,6 +653,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   void _handleSubmitted(String text) {
     sendChatMessage(true, 'Me', text);
     setState(() {
+      ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = false;
       _allowTouchButtons['speakButton'] = false;
       _allowTouchButtons['pauseButton'] = false;
