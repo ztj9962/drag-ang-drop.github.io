@@ -561,7 +561,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
               child: Stack(
                   children: <Widget>[
                     Dismissible(
-                        key: ValueKey('PhoneticExercisesNewPage_Introduce_03'),
+                        key: ValueKey('PhoneticExercisesNewPage_Introduce_01'),
                         onDismissed: (DismissDirection direction){
                           setState(() => _applicationSettingsPhoneticExercisesNewPageIntroduce = false);
                           getTestQuestions();
@@ -570,26 +570,6 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
                             content: Text('讓我們開始吧！'),
                           ));
                         },
-                        child: ConstrainedBox(
-                          child: Image.asset(
-                            'assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_03.png',
-                            fit: BoxFit.fill,
-                          ),
-                          constraints: new BoxConstraints.expand(),
-                        )
-                    ),
-                    Dismissible(
-                        key: ValueKey('PhoneticExercisesNewPage_Introduce_02'),
-                        child: ConstrainedBox(
-                          child: Image.asset(
-                            'assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_02.png',
-                            fit: BoxFit.fill,
-                          ),
-                          constraints: new BoxConstraints.expand(),
-                        )
-                    ),
-                    Dismissible(
-                        key: ValueKey('PhoneticExercisesNewPage_Introduce_01'),
                         child: ConstrainedBox(
                           child: Image.asset(
                             'assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_01.png',

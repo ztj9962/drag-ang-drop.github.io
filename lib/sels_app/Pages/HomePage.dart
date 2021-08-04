@@ -148,8 +148,6 @@ class _HomePageState extends State<HomePage>
         },
       ),
     );
-
-
     listViews.add(
       TitleView(
         titleTxt: '文法校正',
@@ -162,19 +160,19 @@ class _HomePageState extends State<HomePage>
       ),
     );
     listViews.add(
-        ButtonCardView(
-          animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-              parent: widget.animationController!,
-              curve:
-              Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
-          animationController: widget.animationController!,
-          imagePath: 'assets/sels_app/speaking.png',
-          titleTxt: '文法校正',
-          descripTxt: '文法校正',
-          onTapFunction: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => GrammarCheckPage()));
-          },
-        ),
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: '文法校正',
+        descripTxt: '文法校正',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => GrammarCheckPage()));
+        },
+      ),
     );
 
 

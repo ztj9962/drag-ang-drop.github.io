@@ -204,16 +204,16 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
                     Flexible(
                       flex: 1,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                        child: Card(
-                          color: Colors.white,
-                          margin: EdgeInsets.all(0.0),
-                          elevation: 2.0,
-                          child: Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
+                            padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                            child: Card(
+                              color: Colors.white,
+                              margin: EdgeInsets.all(0.0),
+                              elevation: 2.0,
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
                                 Expanded(
                                   child: Stack(
                                     children: <Widget>[
@@ -365,7 +365,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
                 child: Stack(
                     children: <Widget>[
                       Dismissible(
-                          key: ValueKey('GrammarCheckPage_Introduce_03'),
+                          key: ValueKey('GrammarCheckPage_Introduce_01'),
                           onDismissed: (DismissDirection direction){
                             setState(() => _applicationSettingsGrammarCheckPageIntroduce = false);
                             SharedPreferencesUtil.saveData<bool>('applicationSettingsGrammarCheckPageIntroduce', _applicationSettingsGrammarCheckPageIntroduce);
@@ -373,26 +373,6 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
                               content: Text('讓我們開始吧！'),
                             ));
                           },
-                          child: ConstrainedBox(
-                            child: Image.asset(
-                              'assets/sels_app/GrammarCheckPage/GrammarCheckPage_Introduce_03.png',
-                              fit: BoxFit.fill,
-                            ),
-                            constraints: new BoxConstraints.expand(),
-                          )
-                      ),
-                      Dismissible(
-                          key: ValueKey('GrammarCheckPage_Introduce_02'),
-                          child: ConstrainedBox(
-                            child: Image.asset(
-                              'assets/sels_app/GrammarCheckPage/GrammarCheckPage_Introduce_02.png',
-                              fit: BoxFit.fill,
-                            ),
-                            constraints: new BoxConstraints.expand(),
-                          )
-                      ),
-                      Dismissible(
-                          key: ValueKey('GrammarCheckPage_Introduce_01'),
                           child: ConstrainedBox(
                             child: Image.asset(
                               'assets/sels_app/GrammarCheckPage/GrammarCheckPage_Introduce_01.png',
