@@ -191,13 +191,17 @@ class _TopicListPageState extends State<TopicListPage>
       color: SELSAppTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('全部主題' ),
+        ),
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),
-            getAppBarUI(),
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
+            //getAppBarUI(),
+            //SizedBox(
+            //  height: MediaQuery.of(context).padding.bottom,
+            //)
           ],
         ),
       ),
