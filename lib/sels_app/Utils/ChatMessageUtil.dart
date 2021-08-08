@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 
 class ChatMessageUtil extends StatelessWidget {
-  ChatMessageUtil({required this.senderIsMe, required this.senderName, this.messageText = '', this.messageImage = ''});
+  ChatMessageUtil({required this.senderIsMe, required this.senderName, required this.messageTextWidget, this.messageImage = ''});
 
   final bool senderIsMe;
   final String senderName;
-  final String messageText;
+  //final Widget messageText;
+
+  final List<TextSpan> messageTextWidget ;
   final String messageImage;
 
 
@@ -71,12 +73,25 @@ class ChatMessageUtil extends StatelessWidget {
     if(messageImage != ''){
       return Image.network(messageImage);
     }
+    /*
     return Text(
         messageText,
         style: new TextStyle(
             fontWeight: FontWeight.bold,
             color: this.senderIsMe ? Colors.blue : Colors.white
         ),
+    );
+
+     */
+    return RichText(
+      text: TextSpan(
+        text: '',
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: this.senderIsMe ? Colors.blue : Colors.white
+        ),
+        children: messageTextWidget,
+      ),
     );
   }
 

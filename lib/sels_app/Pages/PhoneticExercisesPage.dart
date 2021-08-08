@@ -214,8 +214,8 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
 
   Future<void> initChatBot() async {
-    await sendChatMessage(false, 'Bot', '測驗即將開始', needSpeak:true, speakMessage:'Quiz is about to start', speakLanguage:'en-US');
-    await sendChatMessage(false, 'Bot', '請跟著我重複一次', needSpeak:true, speakMessage:'Please repeat after me', speakLanguage:'en-US');
+    await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始')], needSpeak:true, speakMessage:'Quiz is about to start', speakLanguage:'en-US');
+    await sendChatMessage(false, 'Bot', [TextSpan(text: '請跟著我重複一次')], needSpeak:true, speakMessage:'Please repeat after me', speakLanguage:'en-US');
     await sendTestQuestions();
   }
 
@@ -636,11 +636,13 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   other
    */
 
-  Future sendChatMessage(bool senderIsMe, String senderName, String messageText, {bool needSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
+  Future sendChatMessage(bool senderIsMe, String senderName, List<TextSpan> messageTextWidget, {String messageImage: '', bool needSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
     ChatMessageUtil message = new ChatMessageUtil(
       senderIsMe: senderIsMe,
       senderName: senderName,
-      messageText: messageText,
+      //messageText: messageText,
+      messageTextWidget: messageTextWidget,
+      messageImage: messageImage,
     );
     setState(() {
       _messages.insert(0, message);
@@ -652,7 +654,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   }
 
   void _handleSubmitted(String text) {
-    sendChatMessage(true, 'Me', text);
+    sendChatMessage(true, 'Me', [TextSpan(text: text)]);
     setState(() {
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = false;
@@ -676,9 +678,64 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         _correctCombo = 0;
       }
 
-      //String msg1 = checkSentences['data']['replyText'] + '! You get ' + checkSentences['data']['ipaTextSimilarity'].toString() + ' points';
+      ChatMessageUtil message;
 
-      await sendChatMessage(false, 'Bot', checkSentences['data']['scoreComment']['text'] + ' ' + checkSentences['data']['scoreComment']['emoji'], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      var questionTextArray = checkSentences['data']['questionText'].split(' ');
+      List<TextSpan> questionTextWidget = [TextSpan(text: '第 $_part/$_totalTestQuestions 題：')];
+      for (var i = 0; i < questionTextArray.length; i++) {
+        if(checkSentences['data']['questionError'].containsKey(questionTextArray[i])){
+          questionTextWidget.add(
+              TextSpan(
+                text: questionTextArray[i] + ' ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              )
+          );
+        } else {
+          questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
+        }
+      }
+
+      message = new ChatMessageUtil(
+        senderIsMe: false,
+        senderName: 'Bot',
+        messageTextWidget: questionTextWidget,
+      );
+      setState(() {
+        _messages[1] = message;
+      });
+
+      var answerTextArray = checkSentences['data']['answerText'].split(' ');
+      List<TextSpan> answerTextWidget = [];
+
+      for (var i = 0; i < answerTextArray.length; i++) {
+        if(checkSentences['data']['answerError'].containsKey(answerTextArray[i])){
+          answerTextWidget.add(
+              TextSpan(
+                text: answerTextArray[i] + ' ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              )
+          );
+        } else {
+          answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
+        }
+      }
+
+      message = new ChatMessageUtil(
+        senderIsMe: true,
+        senderName: 'Me',
+        messageTextWidget: answerTextWidget,
+      );
+      setState(() {
+        _messages[0] = message;
+      });
+      //await sendChatMessage(true, 'Me', [TextSpan(text: text)]);
+      await sendChatMessage(false, 'Bot', [TextSpan(text: checkSentences['data']['scoreComment']['text'] + ' ' + checkSentences['data']['scoreComment']['emoji'])], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
 
       /*
       if(checkSentences['data']['ErrorWord'].length > 0){
@@ -696,8 +753,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       if( _part < _totalTestQuestions){
         await sendTestQuestions();
       } else {
-        await sendChatMessage(false, 'Bot', 'Quiz is over', needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
-
+        await sendChatMessage(false, 'Bot', [TextSpan(text: 'Quiz is over')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
       }
 
 
@@ -716,7 +772,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         _allowTouchButtons['pauseButton'] = true;
       });
 
-      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, dataLimit:'1');
+      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', dataLimit:'1');
       var getSentences = jsonDecode(getSentencesJSON.toString());
       if(getSentences['apiStatus'] == 'success'){
         final _random = new Random();
@@ -730,7 +786,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     }else{
       _part++;
       _questionText = questionText;
-      await sendChatMessage(false, 'Bot', '第 $_part/$_totalTestQuestions 題：$questionText', needSpeak:true, speakMessage:questionText, speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '第 $_part/$_totalTestQuestions 題：$questionText')], needSpeak:true, speakMessage:questionText, speakLanguage:'en-US');
       setState(() {
         ttsRateSlow = false;
         _allowTouchButtons['reListenButton'] = true;

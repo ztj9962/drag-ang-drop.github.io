@@ -457,11 +457,12 @@ class _SmartTeachingAssistantPage extends State<SmartTeachingAssistantPage> {
   /*
   other
    */
-  Future sendChatMessage(bool senderIsMe, String senderName, {String messageText: '', String messageImage: '', bool needSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
+  Future sendChatMessage(bool senderIsMe, String senderName, List<TextSpan> messageTextWidget, {String messageImage: '', bool needSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
     ChatMessageUtil message = new ChatMessageUtil(
       senderIsMe: senderIsMe,
       senderName: senderName,
-      messageText: messageText,
+      //messageText: messageText,
+      messageTextWidget: messageTextWidget,
       messageImage: messageImage,
     );
     setState(() {
@@ -475,7 +476,7 @@ class _SmartTeachingAssistantPage extends State<SmartTeachingAssistantPage> {
 
   void _handleSubmitted(String text, {bool isFinalResult:false}) {
     if(isFinalResult){
-      sendChatMessage(true, 'Me', messageText:text);
+      sendChatMessage(true, 'Me', [TextSpan(text: text)]);
       _responseAPI(text);
     }
   }
@@ -496,11 +497,11 @@ class _SmartTeachingAssistantPage extends State<SmartTeachingAssistantPage> {
         switch(responseMessage[i]['type']){
           case 'image':
             var value = responseMessage[i]['value'];
-            await sendChatMessage(false, 'Rasa', messageImage:value, needSpeak:true, speakMessage:'', speakLanguage:'en-US');
+            await sendChatMessage(false, 'Rasa', [TextSpan(text: '')], messageImage:value, needSpeak:true, speakMessage:'', speakLanguage:'en-US');
             break;
           case 'text':
             String value = responseMessage[i]['value'];
-            await sendChatMessage(false, 'Rasa', messageText:value, needSpeak:true, speakMessage:value.toLowerCase(), speakLanguage:'en-US');
+            await sendChatMessage(false, 'Rasa',[TextSpan(text: value)], needSpeak:true, speakMessage:value.toLowerCase(), speakLanguage:'en-US');
             break;
         }
 
@@ -510,7 +511,7 @@ class _SmartTeachingAssistantPage extends State<SmartTeachingAssistantPage> {
 
     } else {
       print('_responseAPI Error apiStatus:' + sendMessageToConversation['apiStatus'] + ' apiMessage:' + sendMessageToConversation['apiMessage']);
-      await sendChatMessage(false, 'Rasa', messageText:'發生錯誤，正在重新嘗試連線', needSpeak:false, speakMessage:'發生錯誤，正在重新嘗試連線', speakLanguage:'zh-TW');
+      await sendChatMessage(false, 'Rasa', [TextSpan(text: '發生錯誤，正在重新嘗試連線')], needSpeak:false, speakMessage:'發生錯誤，正在重新嘗試連線', speakLanguage:'zh-TW');
       //sleep(Duration(seconds:1));
       _responseAPI(text);
     }
