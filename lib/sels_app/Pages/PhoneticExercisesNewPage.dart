@@ -63,6 +63,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
   List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ''), ];
   List<String> _ipaAboutList = ['111', '222'];
   bool _viewIPAAboutList = false;
+  int _correctCombo = 0;
 
 
   // Speech_to_text
@@ -743,12 +744,19 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
       _allowTouchButtons['nextButton'] = false;
     });
 
-    String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, sentenceLevel:_applicationSettingsDataListenAndSpeakLevel);
+    String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
 
 
     //print(checkSentences['data']['questionError'].toString());
     if(checkSentences['apiStatus'] == 'success'){
+
+      if(checkSentences['data']['ipaTextSimilarity'] == 100){
+        _correctCombo++;
+      } else {
+        _correctCombo = 0;
+      }
+
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
       List<TextSpan> questionTextWidget = [];
 

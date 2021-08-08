@@ -25,7 +25,7 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> checkSentences(String questionText, String answerText, {String sentenceLevel:''}) async {
+  static Future<String> checkSentences(String questionText, String answerText, {int correctCombo:0}) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
       headers: <String, String>{
@@ -34,7 +34,7 @@ class APIUtil {
       body: {
         'questionText': questionText,
         'answerText': answerText,
-        'sentenceLevel': sentenceLevel,
+        'correctCombo': correctCombo.toString(),
       },
     );
     String json = response.body.toString();
