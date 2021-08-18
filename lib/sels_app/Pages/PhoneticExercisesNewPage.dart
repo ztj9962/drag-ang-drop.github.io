@@ -53,11 +53,13 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
  };
   String _questionText = '';
   String _questionIPAText = '';
+  String _questionChineseText = '';
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
   List<TextSpan> _questionTextWidget = [ TextSpan(text: ''), ];
   List<TextSpan> _questionIPATextWidget = [ TextSpan(text: ''), ];
+  List<TextSpan> _questionChineseWidget = [ TextSpan(text: ''), ];
   List<TextSpan> _replyTextWidget = [ TextSpan(text: ''), ];
   List<TextSpan> _answerTextWidget = [ TextSpan(text: ''), ];
   List<TextSpan> _answerIPATextWidget = [ TextSpan(text: ''), ];
@@ -302,6 +304,18 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
                                                 ),
                                               ),
                                             ),
+                                            Center(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xFF2633C5),
+                                                  ),
+                                                  children: _questionChineseWidget,
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         Padding(
@@ -434,7 +448,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
                                             ),
                                           ),
                                           Text(
-                                            '回答/暫停回答',
+                                            (speechToText.isListening)? '暫停回答' : '回答' ,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 12,
@@ -896,7 +910,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
 
 
 
-  Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String aboutWord:''}) async {
+  Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String questionChineseText : '', String aboutWord:''}) async {
 
     if(questionText == ''){
       setState(() {
@@ -904,8 +918,10 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _replyTextWidget = [ TextSpan(text: _replyText), ];
         _questionText = '';
         _questionIPAText = '';
+        _questionChineseText = '';
         _questionTextWidget = [];
         _questionIPATextWidget = [];
+        _questionChineseWidget = [];
         _answerText = '';
         _answerIPAText = '';
         _answerTextWidget = [];
@@ -924,7 +940,8 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         final _random = new Random();
         String sentenceContent = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceContent'];
         String sentenceIPA = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceIPA'];
-        getTestQuestions(questionText:sentenceContent, questionIPAText:sentenceIPA);
+        String sentenceChinese = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceChinese'];
+        getTestQuestions(questionText: sentenceContent, questionIPAText: sentenceIPA, questionChineseText: sentenceChinese);
 
         setState(() {
           //_allowTouchButtons['nextButton'] = true;
@@ -944,6 +961,8 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
       _questionTextWidget = [ TextSpan(text: _questionText), ];
       _questionIPAText = questionIPAText;
       _questionIPATextWidget = [ TextSpan(text: '[' + _questionIPAText + ']'), ];
+      _questionChineseText = questionChineseText;
+      _questionChineseWidget = [ TextSpan(text: _questionChineseText), ];
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;

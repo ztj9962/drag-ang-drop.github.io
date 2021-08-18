@@ -354,7 +354,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
                                             ),
                                           ),
                                           Text(
-                                            '回答/暫停回答',
+                                            (speechToText.isListening)? '暫停回答' : '回答' ,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 12,
@@ -764,7 +764,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     }
   }
 
-  Future<void> sendTestQuestions({String questionText : '', String aboutWord:''}) async {
+  Future<void> sendTestQuestions({String questionText : '', String questionChineseText:'', String aboutWord:''}) async {
     if(questionText == ''){
       setState(() {
         _allowTouchButtons['reListenButton'] = false;
@@ -773,11 +773,13 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       });
 
       String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', dataLimit:'1');
+      //print(getSentencesJSON);
       var getSentences = jsonDecode(getSentencesJSON.toString());
       if(getSentences['apiStatus'] == 'success'){
         final _random = new Random();
         String sentenceContent = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceContent'];
-        await sendTestQuestions(questionText:sentenceContent);
+        String sentenceChinese = getSentences['data'][_random.nextInt(getSentences['data'].length)]['sentenceChinese'];
+        await sendTestQuestions(questionText:sentenceContent, questionChineseText:sentenceChinese);
       } else {
         print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         sleep(Duration(seconds:1));
@@ -786,6 +788,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     }else{
       _part++;
       _questionText = questionText;
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '第 $_part/$_totalTestQuestions 題：$questionChineseText')], needSpeak:false, speakMessage:'', speakLanguage:'zh-TW');
       await sendChatMessage(false, 'Bot', [TextSpan(text: '第 $_part/$_totalTestQuestions 題：$questionText')], needSpeak:true, speakMessage:questionText, speakLanguage:'en-US');
       setState(() {
         ttsRateSlow = false;
