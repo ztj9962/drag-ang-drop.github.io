@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 
@@ -56,6 +57,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
   double _applicationSettingsDataTtsPitch = 1.0;
   double _applicationSettingsDataTtsRate = 1.0;
   String _applicationSettingsDataListenAndSpeakLevel = "A1";
+  double _applicationSettingsDataListenAndSpeakRanking = 300.0;
 
   bool _applicationSettingsSELSAppHomePageIntroduce = true;
   bool _applicationSettingsPhoneticExercisesNewPageIntroduce = true;
@@ -80,6 +82,9 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
     });
     SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       setState(() => _applicationSettingsDataListenAndSpeakLevel = value!);
+    });
+    SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
+      setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
     SharedPreferencesUtil.getData<bool>('applicationSettingsSELSAppHomePageIntroduce').then((value) {
       setState(() => _applicationSettingsSELSAppHomePageIntroduce = value!);
@@ -168,6 +173,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
                               SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsPitch', _applicationSettingsDataTtsPitch);
                               SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsRate', _applicationSettingsDataTtsRate);
                               SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', _applicationSettingsDataListenAndSpeakLevel);
+                              SharedPreferencesUtil.saveData<double>('applicationSettingsDataListenAndSpeakRanking', _applicationSettingsDataListenAndSpeakRanking);
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsSELSAppHomePageIntroduce', _applicationSettingsSELSAppHomePageIntroduce);
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce', _applicationSettingsPhoneticExercisesNewPageIntroduce);
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsGrammarCheckPageIntroduce', _applicationSettingsGrammarCheckPageIntroduce);
@@ -228,6 +234,22 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
           onChanged: (String? value) {
             setState(() => _applicationSettingsDataListenAndSpeakLevel = value!);
           },
+        ),
+
+        Text(
+          '單字常用度 Ranking',
+          style: TextStyle(color: Colors.grey),
+        ),
+        Slider(
+          onChanged: (value) {
+            setState(() => _applicationSettingsDataListenAndSpeakRanking = value);
+          },
+          min: 300,
+          max: 3000,
+          activeColor: Colors.lightBlueAccent,
+          divisions: 9,
+          label: '常用' + NumberFormat('#,###').format(_applicationSettingsDataListenAndSpeakRanking.round()) + '字',
+          value: _applicationSettingsDataListenAndSpeakRanking,
         ),
       ],
     );

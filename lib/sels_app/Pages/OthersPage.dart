@@ -65,13 +65,14 @@ class _OthersPageState extends State<OthersPage>
             Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/settings.png',
-        titleTxt: 'Others',
-        descripTxt: 'Others',
+        titleTxt: '設定',
+        descripTxt: '設定',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicationSettingsPage()));
         },
       ),
     );
+    /*
     listViews.add(
       ButtonCardView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
@@ -102,6 +103,8 @@ class _OthersPageState extends State<OthersPage>
         },
       ),
     );
+
+     */
 
   }
 

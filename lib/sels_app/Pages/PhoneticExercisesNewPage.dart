@@ -36,6 +36,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
 
 
   String _applicationSettingsDataListenAndSpeakLevel = 'A1';
+  double _applicationSettingsDataListenAndSpeakRanking = 300;
   bool _applicationSettingsPhoneticExercisesNewPageIntroduce = true;
   String _topicClass = '';
   String _topicName = '';
@@ -145,6 +146,9 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
     });
     SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       setState(() => _applicationSettingsDataListenAndSpeakLevel = value!);
+    });
+    SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
+      setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
 
     SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce').then((value) {
@@ -933,7 +937,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _allowTouchButtons['nextButton'] = false;
       });
 
-      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', dataLimit:'1');
+      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString(), dataLimit:'1');
       var getSentences = jsonDecode(getSentencesJSON.toString());
 
       if(getSentences['apiStatus'] == 'success'){

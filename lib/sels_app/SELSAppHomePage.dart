@@ -177,6 +177,9 @@ class _SELSAppHomePageState extends State<SELSAppHomePage>
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', 'A1'));
     });
+    await SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
+      (value ?? SharedPreferencesUtil.saveData<double>('applicationSettingsDataListenAndSpeakRanking', 300));
+    });
     await SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsVolume').then((value) {
       (value ?? SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsVolume', 1.0));
     });
