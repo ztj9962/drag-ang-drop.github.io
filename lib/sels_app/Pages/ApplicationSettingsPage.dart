@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
@@ -30,6 +32,27 @@ const listenAndSpeakLevelData = [
   }
 ];
 
+const listenAndSpeakRankingCheckData = {
+  "A1": [324, 1046, 3153, 6826, 7609, 9602, 10067, 10362],
+  "A2": [1046, 3153, 6826, 7609, 9602, 10067, 10362],
+  "B1": [3153, 6826, 7609, 9602, 10067, 10362],
+  "B2": [6826, 7609, 9602, 10067, 10362],
+  "C1": [7609, 9602, 10067, 10362],
+  "C2": [9602, 10067, 10362],
+
+};
+
+const listenAndSpeakRankingData = {
+  324: "Dolch (約 324 個單字)",
+  1046: "Fry (約 1,046 個單字)",
+  3153: "NGSL Basic (約 3,153 個單字)",
+  6826: "Taiwan L6 (約 6,826 個單字)",
+  7609: "CERF (約 7,609 個單字)",
+  9602: "TOEFL (約 9,602 個單字)",
+  10067: "TOEIC (約 10,067 個單字)",
+  10362: "Business (約 10,362 個單字)",
+};
+
 const listenAndSpeakModeData = [
   {
     "name":"聽英說英",
@@ -57,7 +80,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
   double _applicationSettingsDataTtsPitch = 1.0;
   double _applicationSettingsDataTtsRate = 1.0;
   String _applicationSettingsDataListenAndSpeakLevel = "A1";
-  double _applicationSettingsDataListenAndSpeakRanking = 300.0;
+  double _applicationSettingsDataListenAndSpeakRanking = 9602.0;
 
   bool _applicationSettingsSELSAppHomePageIntroduce = true;
   bool _applicationSettingsPhoneticExercisesNewPageIntroduce = true;
@@ -66,6 +89,14 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
 
   @override
   void initState() {
+    //print( listenAndSpeakRankingData[_applicationSettingsDataListenAndSpeakLevel]!["data"] );
+    //print(listenAndSpeakLevelData);
+    try{
+
+    }catch (e){
+
+    }
+
     super.initState();
     _initApplicationSettingsData();
   }
@@ -220,7 +251,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
           child: Text('訓練設定', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
         Text(
-          '訓練難易度等級 Diffuiculty level',
+          '訓練難度等級 Diffuiculty level',
           style: TextStyle(color: Colors.grey),
         ),
         DropdownButton(
@@ -237,19 +268,22 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
         ),
 
         Text(
-          '單字常用度 Ranking',
+          '單字量程度 Ranking',
           style: TextStyle(color: Colors.grey),
         ),
-        Slider(
+
+
+        DropdownButton<num?>(
+          value: (listenAndSpeakRankingCheckData[_applicationSettingsDataListenAndSpeakLevel]!.contains(_applicationSettingsDataListenAndSpeakRanking)? _applicationSettingsDataListenAndSpeakRanking : listenAndSpeakRankingCheckData[_applicationSettingsDataListenAndSpeakLevel]![0]),
+          items: listenAndSpeakRankingCheckData[_applicationSettingsDataListenAndSpeakLevel]!.map<DropdownMenuItem<num?>>((data) {
+            return DropdownMenuItem(
+              child: Text(listenAndSpeakRankingData[data].toString()),
+              value: double.parse(data.toString()),
+            );
+          }).toList(),
           onChanged: (value) {
-            setState(() => _applicationSettingsDataListenAndSpeakRanking = value);
+            setState(() => _applicationSettingsDataListenAndSpeakRanking = double.parse(value.toString()));
           },
-          min: 300,
-          max: 3000,
-          activeColor: Colors.lightBlueAccent,
-          divisions: 9,
-          label: '常用' + NumberFormat('#,###').format(_applicationSettingsDataListenAndSpeakRanking.round()) + '字',
-          value: _applicationSettingsDataListenAndSpeakRanking,
         ),
       ],
     );
