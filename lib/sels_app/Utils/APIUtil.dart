@@ -6,7 +6,7 @@ import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
 class APIUtil {
 
-  static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceLengthLimit:'', var sentenceRanking:'', String dataLimit:''}) async {
+  static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', var sentenceRanking:'', String dataLimit:''}) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentences'),
       headers: <String, String>{
@@ -17,9 +17,24 @@ class APIUtil {
         'sentenceTopic': sentenceTopic,
         'sentenceClass': sentenceClass,
         'aboutWord': aboutWord,
-        'sentenceLengthLimit': sentenceLengthLimit,
+        'sentenceMinLength': sentenceMinLength,
+        'sentenceMaxLength': sentenceMaxLength,
         'sentenceRanking': sentenceRanking,
         'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getSentencesByID(sentencesID) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentencesByID'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentencesID': sentencesID.toString(),
       },
     );
     String json = response.body.toString();

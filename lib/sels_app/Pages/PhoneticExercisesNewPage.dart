@@ -937,7 +937,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
         _allowTouchButtons['nextButton'] = false;
       });
 
-      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceLengthLimit:'5', sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString(), dataLimit:'1');
+      String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceTopic :_topicName, sentenceClass:_topicClass, aboutWord:aboutWord, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString(), dataLimit:'1');
       var getSentences = jsonDecode(getSentencesJSON.toString());
 
       if(getSentences['apiStatus'] == 'success'){
