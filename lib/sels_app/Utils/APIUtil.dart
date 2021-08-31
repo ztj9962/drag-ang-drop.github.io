@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
@@ -103,6 +104,71 @@ class APIUtil {
       getConversationTokenAndID();
     }
 
+  }
+
+  static Future<String> getQuizHistory(String uuid) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/quiz/getQuizHistory'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uuid': uuid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getQuizDataByID(quizID, String uuid) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/quiz/getQuizDataByID'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'quizID': quizID.toString(),
+        'uuid': uuid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> saveQuizData(String uuid, String quizTitle, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/quiz/saveQuizData'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uuid': uuid,
+        'quizTitle': quizTitle.substring(0, min(quizTitle.length, 30)),
+        'sentenceIDArray': jsonEncode(sentenceIDArray),
+        'sentenceAnswerArray': jsonEncode(sentenceAnswerArray),
+        'scoreArray': jsonEncode(scoreArray),
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> updateQuizData(String uuid, int quizID, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/quiz/updateQuizData'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uuid': uuid,
+        'quizID': quizID.toString(),
+        'sentenceIDArray': jsonEncode(sentenceIDArray),
+        'sentenceAnswerArray': jsonEncode(sentenceAnswerArray),
+        'scoreArray': jsonEncode(scoreArray),
+      },
+    );
+    String json = response.body.toString();
+    return json;
   }
 
 

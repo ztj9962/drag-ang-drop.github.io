@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sels_app/sels_app/OtherViews/bottom_bar_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
-
+import 'package:uuid/uuid.dart';
 
 class SELSAppHomePage extends StatefulWidget {
   @override
@@ -174,6 +174,9 @@ class _SELSAppHomePageState extends State<SELSAppHomePage>
 
     prefs.setString("applicationSettingsDataListenAndSpeakLevel", (prefs.getString('applicationSettingsDataListenAndSpeakLevel') ?? 'A1'));
 */
+    await SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
+      (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataUUID', Uuid().v4()));
+    });
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', 'A1'));
     });

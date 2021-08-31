@@ -1,5 +1,6 @@
 import 'package:sels_app/sels_app/Pages/BasicWordPage.dart';
 import 'package:sels_app/sels_app/Pages/GrammarCheckPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesHistoryPage.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
 import 'package:sels_app/sels_app/pages/PhoneticExercisesNewPage.dart';
 import 'package:sels_app/sels_app/Pages/TopicListPage.dart';
@@ -113,6 +114,7 @@ class _HomePageState extends State<HomePage>
         titleTxt: '發音訓練(自動)',
         descripTxt: '藉由說話來校正發音',
         onTapFunction: (){
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(sentencesIDData:[11, 22, 641491])));
           Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage()));
         },
       ),
@@ -146,6 +148,21 @@ class _HomePageState extends State<HomePage>
           );
 
 
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: '發音訓練(已儲存的紀錄)',
+        descripTxt: '藉由說話來校正發音',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesHistoryPage()));
         },
       ),
     );
