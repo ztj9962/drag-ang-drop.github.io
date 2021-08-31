@@ -105,10 +105,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   @override
   void initState() {
     super.initState();
-    initApplicationSettingsData();
-    initTts();
-    initSpeechState();
-    initChatBot();
+    initPhoneticExercisesPage();
   }
 
   @override
@@ -122,6 +119,14 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   /*
   initState() 初始化相關
    */
+
+  initPhoneticExercisesPage() async {
+    await initApplicationSettingsData();
+    await initTts();
+    await initSpeechState();
+    await initTestQuestions();
+    await initChatBot();
+  }
 
   initApplicationSettingsData() {
     SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsVolume').then((value) {
@@ -225,7 +230,6 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
 
   Future<void> initChatBot() async {
-    await initTestQuestions();
     await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始')], needSpeak:true, speakMessage:'Quiz is about to start', speakLanguage:'en-US');
     await sendChatMessage(false, 'Bot', [TextSpan(text: '請跟著我重複一次')], needSpeak:true, speakMessage:'Please repeat after me', speakLanguage:'en-US');
     await sendNextQuestion();
