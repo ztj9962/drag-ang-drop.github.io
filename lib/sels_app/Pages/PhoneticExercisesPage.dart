@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' show Platform;
@@ -40,6 +41,11 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
+  /* 測驗時長計時器 */
+  late Timer _timer;
+  late int _answerSeconds;
+  bool _isActive = false;
+
   late double _progress;
   List<int> _sentencesIDData = [];
   List _questionsData = [];
@@ -68,6 +74,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     'sentenceIDArray' : <int>[],
     'sentenceAnswerArray' : <String>[],
     'scoreArray' : <int>[],
+    'secondsArray' : <int>[],
   };
 
 
@@ -127,6 +134,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     speechToText.stop();
     EasyLoading.dismiss();
     //_timer?.cancel();
+    _timer.cancel();
   }
 
   /*
@@ -135,6 +143,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
   initPhoneticExercisesPage() async {
     await initApplicationSettingsData();
+    await initAnswerTimer();
     await initTts();
     await initSpeechState();
     await initTestQuestions();
@@ -253,6 +262,8 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   }
 
   Future<void> initTestQuestions() async {
+
+    List questionsData = [];
     _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
 
@@ -264,17 +275,18 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         getQuizDataByID = jsonDecode(getQuizDataByIDJSON.toString());
         print('getQuizDataByID 1 apiStatus:' + getQuizDataByID['apiStatus'] + ' apiMessage:' + getQuizDataByID['apiMessage']);
         if(getQuizDataByID['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getQuizDataByID['apiStatus'] != 'success');
-      _questionsData.addAll(getQuizDataByID['data']);
-      _totalTestQuestions = _questionsData.length;
+      questionsData.addAll(getQuizDataByID['data']);
 
       EasyLoading.dismiss();
-      print('_questionsData');
-      print(_questionsData);
-
+      print('questionsData');
+      print(questionsData);
+      _questionsData = questionsData;
+      _totalTestQuestions = questionsData.length;
       return;
+
     }
 
     if(_sentencesIDData.length != 0){
@@ -286,11 +298,10 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
           String getSentencesByIDJSON = await APIUtil.getSentencesByID(sentencesID);
           getSentencesByID = jsonDecode(getSentencesByIDJSON.toString());
           print('getSentences 6 apiStatus:' + getSentencesByID['apiStatus'] + ' apiMessage:' + getSentencesByID['apiMessage']);
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         } while (getSentencesByID['apiStatus'] != 'success');
-        _questionsData.addAll(getSentencesByID['data']);
+        questionsData.addAll(getSentencesByID['data']);
       }
-      _totalTestQuestions = _questionsData.length;
     } else {
       var getSentences;
       /*
@@ -300,84 +311,87 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getSentences['apiStatus'] != 'success');
-      _questionsData.addAll(getSentences['data']);
-      _totalTestQuestions = _questionsData.length;
+      questionsData.addAll(getSentences['data']);
+      _totalTestQuestions = questionsData.length;
       EasyLoading.dismiss();
-      print('_questionsData');
-      print(_questionsData);
+      print('questionsData');
+      print(questionsData);
 
       return;
        */
-      // 獲取~5單字數的句子10句
+      // 獲取1~3單字數的句子7句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'5', dataLimit:'10', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getSentences['apiStatus'] != 'success');
-      _questionsData.addAll(getSentences['data']);
-      //EasyLoading.showProgress(_progress, status: '正在讀取資料，請稍候......(${(_progress * 100).toStringAsFixed(0)}%)');
-      _progress = (_questionsData.length/_totalTestQuestions);
-      // 獲取6~8單字數的句子10句
+      questionsData.addAll(getSentences['data']);
+      // 獲取4~5單字數的句子6句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'10', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getSentences['apiStatus'] != 'success');
-      _questionsData.addAll(getSentences['data']);
-      //EasyLoading.showProgress(_progress, status: '正在讀取資料，請稍候......(${(_progress * 100).toStringAsFixed(0)}%)');
-      _progress = (_questionsData.length/_totalTestQuestions);
-      // 獲取9~10單字數的句子3句
+      questionsData.addAll(getSentences['data']);
+      // 獲取6~8單字數的句子5句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getSentences['apiStatus'] != 'success');
-      _questionsData.addAll(getSentences['data']);
-      //EasyLoading.showProgress(_progress, status: '正在讀取資料，請稍候......(${(_progress * 100).toStringAsFixed(0)}%)');
-      _progress = (_questionsData.length/_totalTestQuestions);
-      // 獲取11~單字數的句子2句
+      questionsData.addAll(getSentences['data']);
+      // 獲取9~10單字數的句子4句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', dataLimit:'2', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (getSentences['apiStatus'] != 'success');
-      _questionsData.addAll(getSentences['data']);
-      //EasyLoading.showProgress(_progress, status: '正在讀取資料，請稍候......(${(_progress * 100).toStringAsFixed(0)}%)');
-      _progress = (_questionsData.length/_totalTestQuestions);
+      questionsData.addAll(getSentences['data']);
+      // 獲取11~12單字數的句子3句
+      do {
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        getSentences = jsonDecode(getSentencesJSON.toString());
+        print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        if(getSentences['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getSentences['apiStatus'] != 'success');
+      questionsData.addAll(getSentences['data']);
+
       // 檢查是否共_totalTestQuestions句，若否則隨機補足
-      while(_questionsData.length < _totalTestQuestions) {
+      while(questionsData.length < _totalTestQuestions) {
         do {
           String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
           getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+          print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
           if(getSentences['apiStatus'] != 'success') {
-            sleep(Duration(seconds:1));
+            await Future.delayed(Duration(seconds: 1));
           }
         } while (getSentences['apiStatus'] != 'success');
-        _questionsData.addAll(getSentences['data']);
-        //EasyLoading.showProgress(_progress, status: '正在讀取資料，請稍候......(${(_progress * 100).toStringAsFixed(0)}%)');
-        _progress = (_questionsData.length/_totalTestQuestions);
+        questionsData.addAll(getSentences['data']);
       }
     }
     EasyLoading.dismiss();
-    print('_questionsData');
-    print(_questionsData);
+    print('questionsData');
+    print(questionsData);
 
+    _questionsData = questionsData;
+    _totalTestQuestions = questionsData.length;
     return;
 
 
@@ -401,6 +415,17 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   }
 
  */
+
+  Future<void> initAnswerTimer() async {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      handleTick();
+    });
+    if (Platform.isIOS) {
+      _answerSeconds = -3;
+    } else {
+      _answerSeconds = 0;
+    }
+  }
 
 
 
@@ -523,11 +548,13 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
                                                   child: IconButton(
                                                     icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
                                                     color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
-                                                    onPressed: () {
+                                                    onPressed: () async {
                                                       if(_allowTouchButtons['speakButton']! && !isPlaying ){
                                                         if( !_sttHasSpeech || speechToText.isListening ){
                                                           sttStopListening();
                                                         } else {
+                                                          sttCancelListening();
+                                                          await Future.delayed(Duration(milliseconds: 800));
                                                           sttStartListening();
                                                         }
                                                       }},
@@ -724,9 +751,9 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     setState(() {
       sttLevel = 0.0;
     });
-    sleep(Duration(seconds:1));
-    await sttStopListening();
-    await sttStartListening();
+    //await Future.delayed(Duration(seconds: 1));
+    //await sttStopListening();
+    //await sttStartListening();
   }
 
   void sttResultListener(SpeechRecognitionResult result) {
@@ -838,7 +865,9 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
   void _handleSubmitted(String text) {
     sendChatMessage(true, 'Me', [TextSpan(text: text)]);
+    _finishQuizData['secondsArray']!.add(_answerSeconds);
     setState(() {
+      _isActive = false;
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = false;
       _allowTouchButtons['speakButton'] = false;
@@ -917,38 +946,40 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       setState(() {
         _messages[0] = message;
       });
-      await sendChatMessage(false, 'Bot', [TextSpan(text: checkSentences['data']['scoreComment']['text'] + ' ' + checkSentences['data']['scoreComment']['emoji'])], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       _finishQuizData['sentenceIDArray']!.add(_questionsData[_part - 1]['sentenceId']);
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
+      print(_finishQuizData);
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，花費 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
     } else {
       print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
-      sleep(Duration(seconds:1));
+      await Future.delayed(Duration(seconds: 1));
       _responseChatBot(text);
     }
   }
 
 
   Future<void> sendNextQuestion() async {
+    await Future.delayed(Duration(milliseconds: 780));
     _part++;
     if( _part > _totalTestQuestions){
-      await sendChatMessage(false, 'Bot', [TextSpan(text: 'Quiz is over')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
 
       if(_quizID != 0){
         EasyLoading.show(status: '正在儲存資料，請稍候......\nsssss');
-        var saveQuizData;
+        var updateQuizData;
         do {
-          String saveQuizDataJSON = await APIUtil.updateQuizData(_applicationSettingsDataUUID, _quizID, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray']);
-          saveQuizData = jsonDecode(saveQuizDataJSON.toString());
-          print('updateQuizData 1 apiStatus:' + saveQuizData['apiStatus'] + ' apiMessage:' + saveQuizData['apiMessage']);
-          if(saveQuizData['apiStatus'] != 'success') {
-            EasyLoading.show(status: '儲存資料發生錯誤，正在重試......\n${saveQuizData['apiMessage']}');
-            sleep(Duration(seconds:1));
+          String updateQuizDataJSON = await APIUtil.updateQuizData(_applicationSettingsDataUUID, _quizID, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray'], _finishQuizData['secondsArray']);
+          updateQuizData = jsonDecode(updateQuizDataJSON.toString());
+          print('updateQuizData 1 apiStatus:' + updateQuizData['apiStatus'] + ' apiMessage:' + updateQuizData['apiMessage']);
+          if(updateQuizData['apiStatus'] != 'success') {
+            EasyLoading.show(status: '儲存資料發生錯誤，正在重試......\n${updateQuizData['apiMessage']}');
+            await Future.delayed(Duration(seconds: 1));
           }
-        } while (saveQuizData['apiStatus'] != 'success');
+        } while (updateQuizData['apiStatus'] != 'success');
 
         EasyLoading.dismiss();
 
@@ -964,17 +995,18 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       _questionText = _questionsData[_part - 1]['sentenceContent'];
       await sendChatMessage(false, 'Bot', [TextSpan(text: '第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}')], needSpeak:false, speakMessage:'', speakLanguage:'zh-TW');
       await sendChatMessage(false, 'Bot', [TextSpan(text: '第 ${_part}/$_totalTestQuestions 題：${_questionText}')], needSpeak:true, speakMessage:_questionText, speakLanguage:'en-US');
+      await Future.delayed(Duration(milliseconds: (_part / _totalTestQuestions * 2340).round()));
+      setState(() {
+        _isActive = true;
+      });
+      await sttStartListening();
       setState(() {
         ttsRateSlow = false;
         _allowTouchButtons['reListenButton'] = true;
         _allowTouchButtons['speakButton'] = true;
         _allowTouchButtons['pauseButton'] = true;
       });
-      await sttStartListening();
     }
-
-
-
   }
 
 
@@ -1008,11 +1040,11 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
 
                 var saveQuizData;
                 do {
-                  String saveQuizDataJSON = await APIUtil.saveQuizData(_applicationSettingsDataUUID, textInputController.text, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray']);
+                  String saveQuizDataJSON = await APIUtil.saveQuizData(_applicationSettingsDataUUID, textInputController.text, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray'], _finishQuizData['secondsArray']);
                   saveQuizData = jsonDecode(saveQuizDataJSON.toString());
                   print('saveQuizData 1 apiStatus:' + saveQuizData['apiStatus'] + ' apiMessage:' + saveQuizData['apiMessage']);
                   if(saveQuizData['apiStatus'] != 'success') {
-                    sleep(Duration(seconds:1));
+                    await Future.delayed(Duration(seconds: 1));
                   }
                 } while (saveQuizData['apiStatus'] != 'success');
 
@@ -1025,6 +1057,23 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
             ),
           ],
         ));
+  }
+
+  void handleTick() {
+    //print(_answerSeconds);
+    if (_isActive) {
+      setState(() {
+        _answerSeconds += 1;
+      });
+    } else {
+      setState(() {
+        if (Platform.isIOS) {
+          _answerSeconds = -3;
+        } else {
+          _answerSeconds = 0;
+        }
+      });
+    }
   }
 
 }

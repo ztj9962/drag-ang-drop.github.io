@@ -23,14 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/HomePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sels_app/Utils/APIUtil.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Utils/APIUtil.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sels_app.iml" afterDir="false" />
     </list>
@@ -117,30 +117,30 @@
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
     <state x="2360" y="290" key="AndroidProcessChooserDialog/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1626944903632" />
-    <state width="1182" height="206" key="GridCell.Tab.0.bottom" timestamp="1630421284924">
+    <state width="1182" height="230" key="GridCell.Tab.0.bottom" timestamp="1630685325797">
       <screen x="56" y="0" width="1224" height="800" />
     </state>
     <state width="2518" height="193" key="GridCell.Tab.0.bottom/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1628451462722" />
     <state width="1184" height="218" key="GridCell.Tab.0.bottom/54.0.1226.800@54.0.1226.800" timestamp="1629388120327" />
-    <state width="1182" height="206" key="GridCell.Tab.0.bottom/56.0.1224.800@56.0.1224.800" timestamp="1630421284924" />
-    <state width="1182" height="206" key="GridCell.Tab.0.center" timestamp="1630421284923">
+    <state width="1182" height="230" key="GridCell.Tab.0.bottom/56.0.1224.800@56.0.1224.800" timestamp="1630685325797" />
+    <state width="1182" height="230" key="GridCell.Tab.0.center" timestamp="1630685325796">
       <screen x="56" y="0" width="1224" height="800" />
     </state>
     <state width="2518" height="193" key="GridCell.Tab.0.center/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1628451462721" />
     <state width="1184" height="218" key="GridCell.Tab.0.center/54.0.1226.800@54.0.1226.800" timestamp="1629388120326" />
-    <state width="1182" height="206" key="GridCell.Tab.0.center/56.0.1224.800@56.0.1224.800" timestamp="1630421284923" />
-    <state width="1182" height="206" key="GridCell.Tab.0.left" timestamp="1630421284923">
+    <state width="1182" height="230" key="GridCell.Tab.0.center/56.0.1224.800@56.0.1224.800" timestamp="1630685325796" />
+    <state width="1182" height="230" key="GridCell.Tab.0.left" timestamp="1630685325795">
       <screen x="56" y="0" width="1224" height="800" />
     </state>
     <state width="2518" height="193" key="GridCell.Tab.0.left/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1628451462720" />
     <state width="1184" height="218" key="GridCell.Tab.0.left/54.0.1226.800@54.0.1226.800" timestamp="1629388120325" />
-    <state width="1182" height="206" key="GridCell.Tab.0.left/56.0.1224.800@56.0.1224.800" timestamp="1630421284923" />
-    <state width="1182" height="206" key="GridCell.Tab.0.right" timestamp="1630421284924">
+    <state width="1182" height="230" key="GridCell.Tab.0.left/56.0.1224.800@56.0.1224.800" timestamp="1630685325795" />
+    <state width="1182" height="230" key="GridCell.Tab.0.right" timestamp="1630685325796">
       <screen x="56" y="0" width="1224" height="800" />
     </state>
     <state width="2518" height="193" key="GridCell.Tab.0.right/54.0.1226.800/1280.0.2560.1080@1280.0.2560.1080" timestamp="1628451462721" />
     <state width="1184" height="218" key="GridCell.Tab.0.right/54.0.1226.800@54.0.1226.800" timestamp="1629388120326" />
-    <state width="1182" height="206" key="GridCell.Tab.0.right/56.0.1224.800@56.0.1224.800" timestamp="1630421284924" />
+    <state width="1182" height="230" key="GridCell.Tab.0.right/56.0.1224.800@56.0.1224.800" timestamp="1630685325796" />
     <state x="2225" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1628429242876">
       <screen x="1280" y="0" width="2560" height="1080" />
     </state>
