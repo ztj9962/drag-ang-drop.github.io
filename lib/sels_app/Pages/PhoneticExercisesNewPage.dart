@@ -445,7 +445,8 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
                                                         } else {
                                                           sttStartListening();
                                                         }
-                                                      }},
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               ),

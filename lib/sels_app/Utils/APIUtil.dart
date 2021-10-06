@@ -173,5 +173,49 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> minimalPairOneFinder(ipa) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/oneFinder'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'ipa': ipa.toString(),
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> minimalPairTwoFinder(ipa1, ipa2) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/twoFinder'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'ipa1': ipa1.toString(),
+        'ipa2': ipa2.toString(),
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> checkPronunciation(String questionText, String answerText) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'questionText': questionText,
+        'answerText': answerText,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
 
 }

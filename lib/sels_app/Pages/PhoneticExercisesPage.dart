@@ -18,6 +18,9 @@ import 'package:sels_app/sels_app/utils/ChatMessageUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:sels_app/sels_app/utils/APIUtil.dart';
 
+import 'package:collection/collection.dart';
+
+
 
 class PhoneticExercisesPage extends StatefulWidget {
 
@@ -950,7 +953,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，花費 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花費 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
@@ -967,6 +970,19 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     _part++;
     if( _part > _totalTestQuestions){
       await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
+
+      //var secondsArraySum = _finishQuizData['secondsArray'].reduce((sum, element) => int.parse(sum) + int.parse(element));
+      var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
+
+
+
+      await sendChatMessage(false, 'Bot', [
+        TextSpan(text: '=== 紀錄 ===\n'),
+        TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
+        TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
+        TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
+
+      ], needSpeak:false, speakMessage:'', speakLanguage:'en-US');
 
       if(_quizID != 0){
         EasyLoading.show(status: '正在儲存資料，請稍候......\nsssss');
@@ -989,6 +1005,10 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       } else {
         showCupertinoDialog();
       }
+
+
+
+
 
 
     } else {
