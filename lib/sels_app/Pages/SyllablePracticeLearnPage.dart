@@ -137,6 +137,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
     'nextButton' : false,
   };
 
+  int _correctCombo = 0;
+
   // Speech_to_text
   bool _sttHasSpeech = false;
   double sttLevel = 0.0;
@@ -1287,12 +1289,18 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
       _allowTouchButtons['nextButton'] = false;
     });
 
-    String checkSentencesJSON = await APIUtil.checkSentences(_questionTextList[_sstIndex[0]][_sstIndex[1]], text);
+    String checkSentencesJSON = await APIUtil.checkSentences(_questionTextList[_sstIndex[0]][_sstIndex[1]], text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
 
 
     //print(checkSentences['data']['questionError'].toString());
     if(checkSentences['apiStatus'] == 'success'){
+
+      if(checkSentences['data']['ipaTextSimilarity'] == 100){
+        _correctCombo++;
+      } else {
+        _correctCombo = 0;
+      }
 
       var questionIPATextCheckedArray = checkSentences['data']['checkPronunciation']['questionCheckedArray'];
       var answerIPATextCheckedArray = checkSentences['data']['checkPronunciation']['answerCheckedArray'];
@@ -1353,6 +1361,12 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
         _allowTouchButtons['reListenButton'] = true;
         _allowTouchButtons['speakButton'] = true;
         _allowTouchButtons['nextButton'] = true;
+      });
+
+      await _ttsSpeak(checkSentences['data']['scoreComment']['text'] , 'en-US');
+
+      setState(() {
+        _allowTouchButtons['speakButton'] = true;
       });
 
     } else {
