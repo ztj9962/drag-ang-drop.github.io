@@ -16,8 +16,9 @@ class SyllablePracticeMainPage extends StatefulWidget {
 class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
 
   List<String> _ipaAboutList = [
-    'i:', 'ɪ', 'ʊ', 'u:', 'e', 'ə', 'ɜ:', 'ɔ:', 'æ', 'ʌ', 'ɑ:', 'ɒ',
+    'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ʌ', 'ɑ', 'ɒ',
     'ɪə', 'eɪ', 'ʊə', 'ɔɪ', 'əʊ', 'eə', 'aɪ', 'aʊ',
+    'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
     'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
   ];
 
@@ -25,7 +26,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
 
 
 
-  final List<bool> isSelected = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+  final List<bool> isSelected = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
   @override
   void initState() {
@@ -119,7 +120,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                 child: GridView.count(
                                   //scrollDirection: Axis.horizontal,
                                   crossAxisCount: 4 ,
-                                  children: List.generate(7,(index){
+                                  children: List.generate(8,(index){
                                     return Container(
                                       //color: isSelected[index] ? Colors.blue : null,
                                       padding: const EdgeInsets.all(4),
@@ -161,7 +162,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                 thickness: 1,
                               ),
                             ),
-                            Text('Consonants'),
+                            Text('Triphthong'),
                             Flexible(
                               flex: 4,
                               child: Container(
@@ -169,7 +170,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                 child: GridView.count(
                                   //scrollDirection: Axis.horizontal,
                                   crossAxisCount: 4 ,
-                                  children: List.generate(24,(index){
+                                  children: List.generate(5,(index){
                                     return Container(
                                       //color: isSelected[index] ? Colors.blue : null,
                                       padding: const EdgeInsets.all(4),
@@ -193,6 +194,56 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                                 ));
                                               } else {
                                                 isSelected[index + 20] = !isSelected[index + 20];
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    );
+
+                                  }),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8, top: 8),
+                              child: Divider(
+                                height: 1,
+                                thickness: 1,
+                              ),
+                            ),
+                            Text('Consonants'),
+                            Flexible(
+                              flex: 4,
+                              child: Container(
+                                height: 200,
+                                child: GridView.count(
+                                  //scrollDirection: Axis.horizontal,
+                                  crossAxisCount: 4 ,
+                                  children: List.generate(24,(index){
+                                    return Container(
+                                      //color: isSelected[index] ? Colors.blue : null,
+                                      padding: const EdgeInsets.all(4),
+                                      child: Card(
+                                        shape: StadiumBorder(
+                                          side: BorderSide(
+                                            color: isSelected[index + 25] ? Colors.blue : Colors.transparent,
+                                            //width: 2.0,
+                                          ),
+                                        ),
+                                        child: ListTile(
+                                          title: Center(
+                                              child: Text('${_ipaAboutList[index + 25 ]}')
+                                          ),
+                                          selected: isSelected[index + 25],
+                                          onTap: () {
+                                            setState(() {
+                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 25]) ){
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text('最多只能選3個'),
+                                                ));
+                                              } else {
+                                                isSelected[index + 25] = !isSelected[index + 25];
                                               }
                                             });
                                           },
