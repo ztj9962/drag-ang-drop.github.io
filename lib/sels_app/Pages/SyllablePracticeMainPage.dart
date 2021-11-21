@@ -14,10 +14,19 @@ class SyllablePracticeMainPage extends StatefulWidget {
 }
 
 class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
-
+  /*
   List<String> _ipaAboutList = [
     'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ʌ', 'ɑ', 'ɒ',
     'ɪə', 'eɪ', 'ʊə', 'ɔɪ', 'əʊ', 'eə', 'aɪ', 'aʊ',
+    'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
+    'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
+  ];
+
+   */
+
+  List<String> _ipaAboutList = [
+    'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ɑ',
+    'eɪ', 'ɔɪ', 'əʊ', 'aɪ', 'aʊ',
     'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
     'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
   ];
@@ -53,265 +62,209 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                   children: <Widget>[
                     Flexible(
                       flex: 10,
-                      child:Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8, top: 8),
-                              child: Divider(
-                                height: 1,
-                                thickness: 1,
-                              ),
-                            ),
-                            Text('Vowels'),
-                            Flexible(
-                              flex: 5,
-                              child: Container(
-                                height: 200,
-                                child: GridView.count(
-                                  //scrollDirection: Axis.horizontal,
-                                  crossAxisCount: 4 ,
-                                  children: List.generate(12,(index){
-                                    return Container(
-                                      //color: isSelected[index] ? Colors.blue : null,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                            color: isSelected[index] ? Colors.blue : Colors.transparent,
-                                            //width: 2.0,
-                                          ),
-                                        ),
-                                        child: ListTile(
-                                          title: Center(
-                                              child: Text('${_ipaAboutList[index]}')
-                                          ),
-                                          selected: isSelected[index],
-                                          onTap: () {
-                                            setState(() {
-                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index]) ){
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text('最多只能選3個'),
-                                                ));
-                                              } else {
-                                                isSelected[index] = !isSelected[index];
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
-
-                                  }),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8, top: 8),
+                                child: Divider(
+                                  height: 1,
+                                  thickness: 1,
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8, top: 8),
-                              child: Divider(
-                                height: 1,
-                                thickness: 1,
-                              ),
-                            ),
-                            Text('Diphthongs'),
-                            Flexible(
-                              flex: 4,
-                              child: Container(
-                                height: 200,
-                                child: GridView.count(
-                                  //scrollDirection: Axis.horizontal,
-                                  crossAxisCount: 4 ,
-                                  children: List.generate(8,(index){
-                                    return Container(
-                                      //color: isSelected[index] ? Colors.blue : null,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                            color: isSelected[index + 12] ? Colors.blue : Colors.transparent,
-                                            //width: 2.0,
+                              Text('Vowels'),
+                              Container(
+                                  height: 200,
+                                  child: GridView.count(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    //scrollDirection: Axis.horizontal,
+                                    crossAxisCount: 5 ,
+                                    children: List.generate(10,(index){
+                                      return Container(
+                                        //color: isSelected[index] ? Colors.blue : null,
+                                        padding: const EdgeInsets.all(4),
+                                        child: Card(
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                              color: isSelected[index] ? Colors.blue : Colors.transparent,
+                                              //width: 2.0,
+                                            ),
+                                          ),
+                                          child: ListTile(
+                                            title: Center(
+                                                child: Text('${_ipaAboutList[index]}')
+                                            ),
+                                            selected: isSelected[index],
+                                            onTap: () {
+                                              setState(() {
+                                                if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index]) ){
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                    content: Text('最多只能選3個'),
+                                                  ));
+                                                } else {
+                                                  isSelected[index] = !isSelected[index];
+                                                }
+                                              });
+                                            },
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Center(
-                                              child: Text('${_ipaAboutList[index + 12 ]}')
-                                          ),
-                                          selected: isSelected[index + 12],
-                                          onTap: () {
-                                            setState(() {
-                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 12]) ){
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text('最多只能選3個'),
-                                                ));
-                                              } else {
-                                                isSelected[index + 12] = !isSelected[index + 12];
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
+                                      );
 
-                                  }),
+                                    }),
+                                  ),
+                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8, top: 8),
+                                child: Divider(
+                                  height: 1,
+                                  thickness: 1,
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8, top: 8),
-                              child: Divider(
-                                height: 1,
-                                thickness: 1,
-                              ),
-                            ),
-                            Text('Triphthong'),
-                            Flexible(
-                              flex: 4,
-                              child: Container(
-                                height: 200,
-                                child: GridView.count(
-                                  //scrollDirection: Axis.horizontal,
-                                  crossAxisCount: 4 ,
-                                  children: List.generate(5,(index){
-                                    return Container(
-                                      //color: isSelected[index] ? Colors.blue : null,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                            color: isSelected[index + 20] ? Colors.blue : Colors.transparent,
-                                            //width: 2.0,
+                              Text('Diphthongs'),
+                              Container(
+                                  height: 100,
+                                  child: GridView.count(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    //scrollDirection: Axis.horizontal,
+                                    crossAxisCount: 5 ,
+                                    children: List.generate(5,(index){
+                                      return Container(
+                                        //color: isSelected[index] ? Colors.blue : null,
+                                        padding: const EdgeInsets.all(4),
+                                        child: Card(
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                              color: isSelected[index + 10] ? Colors.blue : Colors.transparent,
+                                              //width: 2.0,
+                                            ),
+                                          ),
+                                          child: ListTile(
+                                            title: Center(
+                                                child: Text('${_ipaAboutList[index + 10 ]}')
+                                            ),
+                                            selected: isSelected[index + 12],
+                                            onTap: () {
+                                              setState(() {
+                                                if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 10]) ){
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                    content: Text('最多只能選3個'),
+                                                  ));
+                                                } else {
+                                                  isSelected[index + 10] = !isSelected[index + 10];
+                                                }
+                                              });
+                                            },
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Center(
-                                              child: Text('${_ipaAboutList[index + 20 ]}')
-                                          ),
-                                          selected: isSelected[index + 20],
-                                          onTap: () {
-                                            setState(() {
-                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 20]) ){
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text('最多只能選3個'),
-                                                ));
-                                              } else {
-                                                isSelected[index + 20] = !isSelected[index + 20];
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
+                                      );
 
-                                  }),
+                                    }),
+                                  ),
+                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8, top: 8),
+                                child: Divider(
+                                  height: 1,
+                                  thickness: 1,
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8, top: 8),
-                              child: Divider(
-                                height: 1,
-                                thickness: 1,
-                              ),
-                            ),
-                            Text('Consonants'),
-                            Flexible(
-                              flex: 4,
-                              child: Container(
-                                height: 200,
-                                child: GridView.count(
-                                  //scrollDirection: Axis.horizontal,
-                                  crossAxisCount: 4 ,
-                                  children: List.generate(24,(index){
-                                    return Container(
-                                      //color: isSelected[index] ? Colors.blue : null,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                            color: isSelected[index + 25] ? Colors.blue : Colors.transparent,
-                                            //width: 2.0,
+                              Text('Triphthong'),
+                               Container(
+                                  height: 100,
+                                  child: GridView.count(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    //scrollDirection: Axis.horizontal,
+                                    crossAxisCount: 5 ,
+                                    children: List.generate(5,(index){
+                                      return Container(
+                                        //color: isSelected[index] ? Colors.blue : null,
+                                        padding: const EdgeInsets.all(4),
+                                        child: Card(
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                              color: isSelected[index + 15] ? Colors.blue : Colors.transparent,
+                                              //width: 2.0,
+                                            ),
+                                          ),
+                                          child: ListTile(
+                                            title: Center(
+                                                child: Text('${_ipaAboutList[index + 15 ]}')
+                                            ),
+                                            selected: isSelected[index + 15],
+                                            onTap: () {
+                                              setState(() {
+                                                if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 15]) ){
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                    content: Text('最多只能選3個'),
+                                                  ));
+                                                } else {
+                                                  isSelected[index + 15] = !isSelected[index + 15];
+                                                }
+                                              });
+                                            },
                                           ),
                                         ),
-                                        child: ListTile(
-                                          title: Center(
-                                              child: Text('${_ipaAboutList[index + 25 ]}')
-                                          ),
-                                          selected: isSelected[index + 25],
-                                          onTap: () {
-                                            setState(() {
-                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 25]) ){
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text('最多只能選3個'),
-                                                ));
-                                              } else {
-                                                isSelected[index + 25] = !isSelected[index + 25];
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
+                                      );
 
-                                  }),
+                                    }),
+                                  ),
+                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8, top: 8),
+                                child: Divider(
+                                  height: 1,
+                                  thickness: 1,
                                 ),
                               ),
-                            ),
-                          ]
+                              Text('Consonants'),
+                              Container(
+                                  height: 500,
+                                  child: GridView.count(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    //scrollDirection: Axis.horizontal,
+                                    crossAxisCount: 5 ,
+                                    children: List.generate(24,(index){
+                                      return Container(
+                                        //color: isSelected[index] ? Colors.blue : null,
+                                        padding: const EdgeInsets.all(4),
+                                        child: Card(
+                                          shape: StadiumBorder(
+                                            side: BorderSide(
+                                              color: isSelected[index + 20] ? Colors.blue : Colors.transparent,
+                                              //width: 2.0,
+                                            ),
+                                          ),
+                                          child: ListTile(
+                                            title: Center(
+                                                child: Text('${_ipaAboutList[index + 20 ]}')
+                                            ),
+                                            selected: isSelected[index + 20],
+                                            onTap: () {
+                                              setState(() {
+                                                if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index + 20]) ){
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                    content: Text('最多只能選3個'),
+                                                  ));
+                                                } else {
+                                                  isSelected[index + 20] = !isSelected[index + 20];
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      );
+
+                                    }),
+                                  ),
+                                ),
+                            ]
+                        )
                       )
+                      /*
+
+
+                        */
                     ),
-
-                    /*
-                    Flexible(
-                      flex: 9,
-                      child: Container(
-                        //color: Colors.green,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(0.0),
-                            elevation: 2.0,
-                            child: Container(
-                              child: ListView.builder(
-                                  itemExtent: 80,
-                                  itemCount: _ipaAboutList.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      //color: isSelected[index] ? Colors.blue : null,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        shape: StadiumBorder(
-                                          side: BorderSide(
-                                            color: isSelected[index] ? Colors.blue : Colors.transparent,
-                                            //width: 2.0,
-                                          ),
-                                        ),
-                                        child: ListTile(
-                                          title: Text('${_ipaAboutList[index]}'),
-                                          selected: isSelected[index],
-                                          onTap: () {
-                                            setState(() {
-                                              if( (isSelected.where((item) => item == true).length >= 3) && !(isSelected[index]) ){
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text('最多只能選3個'),
-                                                ));
-                                              } else {
-                                                isSelected[index] = !isSelected[index];
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
-                                  }
-                              ),
-                            )
-                          ),
-                        ),
-                      ),
-                    ),
-
-                     */
-
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8, top: 8),
                       child: Divider(

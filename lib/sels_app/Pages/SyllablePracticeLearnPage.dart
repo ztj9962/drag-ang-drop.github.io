@@ -345,6 +345,17 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(0);
                                                 },
                                               ),
+                                              Visibility(
+                                                visible: (_questionTextList[0].length == 0),
+                                                child: Text(
+                                                  'No minimal pair match',
+                                                  style: TextStyle(
+                                                    fontSize: 16 ,
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -569,6 +580,17 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(1);
                                                 },
                                               ),
+                                              Visibility(
+                                                visible: (_questionTextList[1].length == 0),
+                                                child: Text(
+                                                  'No minimal pair match',
+                                                  style: TextStyle(
+                                                    fontSize: 16 ,
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -792,6 +814,17 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                 onPressed: () {
                                                   updateIPAAboutList(2);
                                                 },
+                                              ),
+                                              Visibility(
+                                                visible: (_questionTextList[2].length == 0),
+                                                child: Text(
+                                                    'No minimal pair match',
+                                                    style: TextStyle(
+                                                      fontSize: 16 ,
+                                                      color: Colors.red,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                ),
                                               ),
                                             ],
                                           ),
