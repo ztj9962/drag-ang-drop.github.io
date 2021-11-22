@@ -160,7 +160,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
   double ttsVolume = 1;
   double ttsPitch = 1.0;
   double ttsRate = 0.5;
-  bool ttsRateSlow = false;
+  bool ttsRateSlow = true;
   bool ttsIsCurrentLanguageInstalled = false;
   String? _newVoiceText;
   int? _inputLength;
@@ -390,7 +390,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[0][index],
@@ -402,7 +402,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[0][index],
@@ -429,7 +429,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[0][index],
@@ -441,7 +441,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[0][index],
@@ -625,7 +625,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[1][index],
@@ -637,7 +637,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[1][index],
@@ -664,7 +664,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[1][index],
@@ -676,7 +676,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[1][index],
@@ -860,7 +860,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[2][index],
@@ -872,7 +872,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[2][index],
@@ -899,7 +899,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[2][index],
@@ -911,7 +911,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                         text: TextSpan(
                                                                           text: ' : ',
                                                                           style: TextStyle(
-                                                                            fontSize: 20,
+                                                                            fontSize: 16,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[2][index],
