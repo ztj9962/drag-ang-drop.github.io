@@ -7,7 +7,7 @@ import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
 class APIUtil {
 
-  static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', var sentenceRanking:'', String dataLimit:''}) async {
+  static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentences'),
       headers: <String, String>{
@@ -21,6 +21,7 @@ class APIUtil {
         'sentenceMinLength': sentenceMinLength,
         'sentenceMaxLength': sentenceMaxLength,
         'sentenceRanking': sentenceRanking,
+        'sentenceRankingLocking': sentenceRankingLocking,
         'dataLimit': dataLimit,
       },
     );
@@ -211,6 +212,52 @@ class APIUtil {
       body: {
         'questionText': questionText,
         'answerText': answerText,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getWordLearning(String learningDegree, String learningPhase) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordLearning'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'learningDegree': learningDegree,
+        'learningPhase': learningPhase,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+
+  static Future<String> getWordSetList(String uuid, String learningDegree) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetList'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uuid': uuid,
+        'learningDegree': learningDegree,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> addWordSet(String uuid, String learningDegree) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/word/addWordSet'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uuid': uuid,
+        'learningDegree': learningDegree,
       },
     );
     String json = response.body.toString();

@@ -77,6 +77,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
     'sentenceIDArray' : <int>[],
     'sentenceAnswerArray' : <String>[],
     'scoreArray' : <int>[],
+    'secondsArrayQ' : <int>[],
     'secondsArray' : <int>[],
   };
 
@@ -307,10 +308,11 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
       }
     } else {
       var getSentences;
-      /*
+
       // 測試用
+      /*
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'3', dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'3', dataLimit:'2', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -318,13 +320,17 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
         }
       } while (getSentences['apiStatus'] != 'success');
       questionsData.addAll(getSentences['data']);
-      _totalTestQuestions = questionsData.length;
+
       EasyLoading.dismiss();
       print('questionsData');
       print(questionsData);
 
+      _questionsData = questionsData;
+      _totalTestQuestions = questionsData.length;
       return;
+
        */
+
       // 獲取1~3單字數的句子7句
       do {
         String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
