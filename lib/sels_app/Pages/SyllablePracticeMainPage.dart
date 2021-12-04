@@ -1,12 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/OtherViews/mediterranean_diet_view.dart';
-import 'package:sels_app/sels_app/Pages/BasicWordLearnPage.dart';
-import 'package:sels_app/sels_app/Pages/BasicWordReviewPage.dart';
 import 'package:sels_app/sels_app/Pages/SyllablePracticeLearnPage.dart';
-import 'package:sels_app/sels_app/sels_app_theme.dart';
 
 class SyllablePracticeMainPage extends StatefulWidget {
   @override

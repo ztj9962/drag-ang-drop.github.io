@@ -2,16 +2,14 @@
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/OtherViews/mediterranean_diet_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
 
-class BasicWordReviewPage extends StatefulWidget {
+class WordSetReviewPage extends StatefulWidget {
   @override
-  _BasicWordReviewPage createState() => _BasicWordReviewPage();
+  _WordSetReviewPage createState() => _WordSetReviewPage();
 }
 
-class _BasicWordReviewPage extends State<BasicWordReviewPage> {
+class _WordSetReviewPage extends State<WordSetReviewPage> {
 
   List<String> _ipaAboutList = ['我要不要帶點東西參加派對\nShall I bring anything to the party?','This is a sentance on here.','This is a sentance la.'];
 

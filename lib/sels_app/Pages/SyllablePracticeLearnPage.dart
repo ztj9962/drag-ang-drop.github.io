@@ -8,14 +8,10 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/OtherViews/mediterranean_diet_view.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
-import 'package:sels_app/sels_app/sels_app_theme.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -345,17 +341,6 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(0);
                                                 },
                                               ),
-                                              Visibility(
-                                                visible: (_questionTextList[0].length == 0),
-                                                child: Text(
-                                                  'No minimal pair match',
-                                                  style: TextStyle(
-                                                    fontSize: 16 ,
-                                                    color: Colors.red,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -364,11 +349,22 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                           height: 1,
                                           thickness: 1,
                                         ),
+                                        Visibility(
+                                          visible: (_questionTextList[0].length == 0),
+                                          child: Text(
+                                            'No minimal pair match',
+                                            style: TextStyle(
+                                              fontSize: 16 ,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                         Container(
                                           child: ListView.builder(
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemExtent: 120,
+                                            itemExtent: 180,
                                             itemCount: _questionTextList[0].length,
                                             itemBuilder: (context, index) {
                                               return Container(
@@ -376,21 +372,21 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   child: Row(
                                                     children: <Widget>[
                                                       Flexible(
-                                                        flex: 9,
+                                                        flex: 8,
                                                         child: Column(
                                                           children: <Widget>[
                                                             Flexible(
                                                               flex: 1,
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[0][index],
@@ -400,9 +396,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[0][index],
@@ -422,14 +418,14 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
                                                                 //color:Colors.grey,
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[0][index],
@@ -439,9 +435,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[0][index],
@@ -456,7 +452,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                         ),
                                                       ),
                                                       Flexible(
-                                                        flex: 1,
+                                                        flex: 2,
                                                         child: Column(
                                                           children: <Widget>[
                                                             Center(
@@ -580,17 +576,6 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(1);
                                                 },
                                               ),
-                                              Visibility(
-                                                visible: (_questionTextList[1].length == 0),
-                                                child: Text(
-                                                  'No minimal pair match',
-                                                  style: TextStyle(
-                                                    fontSize: 16 ,
-                                                    color: Colors.red,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -599,11 +584,22 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                           height: 1,
                                           thickness: 1,
                                         ),
+                                        Visibility(
+                                          visible: (_questionTextList[1].length == 0),
+                                          child: Text(
+                                            'No minimal pair match',
+                                            style: TextStyle(
+                                              fontSize: 16 ,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                         Container(
                                           child: ListView.builder(
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemExtent: 120,
+                                            itemExtent: 180,
                                             itemCount: _questionTextList[1].length,
                                             itemBuilder: (context, index) {
                                               return Container(
@@ -618,14 +614,14 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                               flex: 1,
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[1][index],
@@ -635,9 +631,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[1][index],
@@ -657,14 +653,14 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
                                                                 //color:Colors.grey,
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[1][index],
@@ -674,9 +670,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[1][index],
@@ -815,17 +811,6 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(2);
                                                 },
                                               ),
-                                              Visibility(
-                                                visible: (_questionTextList[2].length == 0),
-                                                child: Text(
-                                                    'No minimal pair match',
-                                                    style: TextStyle(
-                                                      fontSize: 16 ,
-                                                      color: Colors.red,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -834,11 +819,22 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                           height: 1,
                                           thickness: 1,
                                         ),
+                                        Visibility(
+                                          visible: (_questionTextList[2].length == 0),
+                                          child: Text(
+                                            'No minimal pair match',
+                                            style: TextStyle(
+                                              fontSize: 16 ,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                         Container(
                                           child: ListView.builder(
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemExtent: 120,
+                                            itemExtent: 180,
                                             itemCount: _questionTextList[2].length,
                                             itemBuilder: (context, index) {
                                               return Container(
@@ -853,14 +849,14 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                               flex: 1,
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionTextWidgetList[2][index],
@@ -870,9 +866,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _questionIPATextWidgetList[2][index],
@@ -892,14 +888,14 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                               child:Container(
                                                                 padding: const EdgeInsets.all(16),
                                                                 //color:Colors.grey,
-                                                                child: Row(
+                                                                child: Column(
                                                                   children: [
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
                                                                           text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 20,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerTextWidgetList[2][index],
@@ -909,9 +905,9 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                     Flexible(
                                                                       child: RichText(
                                                                         text: TextSpan(
-                                                                          text: ' : ',
+                                                                          text: '',
                                                                           style: TextStyle(
-                                                                            fontSize: 16,
+                                                                            fontSize: 14,
                                                                             color: Color(0xFF2633C5),
                                                                           ),
                                                                           children: _answerIPATextWidgetList[2][index],
@@ -1399,6 +1395,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
       await _ttsSpeak(checkSentences['data']['scoreComment']['text'] , 'en-US');
 
       setState(() {
+        ttsRateSlow = true;
         _allowTouchButtons['speakButton'] = true;
       });
 

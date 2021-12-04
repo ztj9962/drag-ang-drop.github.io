@@ -1,10 +1,8 @@
-import 'package:sels_app/sels_app/Pages/BasicWordPage.dart';
-import 'package:sels_app/sels_app/Pages/GrammarCheckPage.dart';
+
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesHistoryPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
-import 'package:sels_app/sels_app/Pages/SyllablePracticeMainPage.dart';
-import 'package:sels_app/sels_app/pages/PhoneticExercisesNewPage.dart';
-import 'package:sels_app/sels_app/Pages/TopicListPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnManualPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesTopicListPage.dart';
 import 'package:sels_app/sels_app/OtherViews/buttonCard_view.dart';
 import 'package:sels_app/sels_app/OtherViews/title_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
@@ -75,7 +73,7 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
         subTxt: '查看全部',
         subVisivle: true,
         subFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => TopicListPage(animationController: widget.animationController)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesTopicListPage(animationController: widget.animationController)));
         },
       ),
     );
@@ -115,8 +113,8 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
         titleTxt: '發音訓練(自動)',
         descripTxt: '藉由說話來校正發音',
         onTapFunction: (){
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(sentencesIDData:[11, 22, 641491])));
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage()));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(sentencesIDData:[11, 22, 641491])));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage()));
         },
       ),
     );
@@ -135,7 +133,7 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
           Navigator.of(context).push(
             PageRouteBuilder(
               opaque: false,
-                pageBuilder: (_,__,___) => PhoneticExercisesNewPage(),
+                pageBuilder: (_,__,___) => PhoneticExercisesLearnManualPage(),
             )
           );
 
@@ -144,7 +142,7 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PhoneticExercisesNewPage()
+                  builder: (context) => PhoneticExercisesLearnManualPage()
               )
           );
 

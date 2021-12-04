@@ -5,30 +5,26 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/OtherViews/mediterranean_diet_view.dart';
-import 'package:sels_app/sels_app/Pages/BasicWordLearnPage.dart';
-import 'package:sels_app/sels_app/Pages/BasicWordReviewPage.dart';
+import 'package:sels_app/sels_app/Pages/WordSetLearnPage.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
-import 'package:sels_app/sels_app/sels_app_theme.dart';
 
-class BasicWordPage extends StatefulWidget {
+class WordSetListPage extends StatefulWidget {
 
   String learningDegree = '';
 
-  BasicWordPage({String learningDegree:''}) {
+  WordSetListPage({String learningDegree:''}) {
     this.learningDegree = learningDegree;
   }
 
   @override
-  _BasicWordPage createState() => _BasicWordPage(learningDegree: learningDegree);
+  _WordSetListPage createState() => _WordSetListPage(learningDegree: learningDegree);
 }
 
-class _BasicWordPage extends State<BasicWordPage> {
+class _WordSetListPage extends State<WordSetListPage> {
 
 
-  _BasicWordPage({String learningDegree:''}) {
+  _WordSetListPage({String learningDegree:''}) {
     this._learningDegree = learningDegree;
   }
 
@@ -45,10 +41,10 @@ class _BasicWordPage extends State<BasicWordPage> {
   @override
   void initState() {
     super.initState();
-    initBasicWordPage();
+    initWordSetListPage();
   }
 
-  initBasicWordPage() async {
+  initWordSetListPage() async {
     await initApplicationSettingsData();
     await initWordSetList();
   }
@@ -82,6 +78,9 @@ class _BasicWordPage extends State<BasicWordPage> {
     });
 
     print(_wordSetData);
+    if(_wordSetData['wordSetArray'].length == 0){
+      addWordSet();
+    }
   }
 
   Future<void> addWordSet() async {
@@ -129,7 +128,7 @@ class _BasicWordPage extends State<BasicWordPage> {
                 child: Column(
                   children: <Widget>[
                     Flexible(
-                      flex: 4,
+                      flex: 1,
                       child: Container(
                         //color: Colors.pink,
                         child: Padding(
@@ -216,7 +215,13 @@ class _BasicWordPage extends State<BasicWordPage> {
                                         child: OutlinedButton(
                                           child: Text('獲取新單字集'),
                                           onPressed: () {
-                                            addWordSet();
+                                            if(_wordSetData['wordSetArray']!.length != _wordSetData['wordSetTotal']!){
+                                              addWordSet();
+                                            } else {
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                content: Text('Opps: 已超出本單字集上限'),
+                                              ));
+                                            }
                                           },
                                         ),
                                       ),
@@ -261,7 +266,7 @@ class _BasicWordPage extends State<BasicWordPage> {
                       ),
                     ),
                     Flexible(
-                      flex: 6,
+                      flex: 2,
                       child: Container(
                         //color: Colors.green,
                         child: Padding(
@@ -305,6 +310,7 @@ class _BasicWordPage extends State<BasicWordPage> {
                                                   value: 'Learn',
                                                   child: Text('學習'),
                                                 ),
+                                                /*
                                                 PopupMenuItem(
                                                   value: 'Review',
                                                   child: Text('複習'),
@@ -313,20 +319,22 @@ class _BasicWordPage extends State<BasicWordPage> {
                                                   value: 'Test',
                                                   child: Text('測驗'),
                                                 ),
+
+                                                 */
                                               ];
                                             },
                                             onSelected: (String value){
                                               switch(value) {
                                                 case 'Learn':
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordLearnPage(learningDegree: _wordSetData['wordSetArray']![index]['wordSetDegree'], learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningDegree: _wordSetData['wordSetArray']![index]['wordSetDegree'], learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
                                                   print('You Click on po up menu item' + value +_wordSetData['wordSetArray']![index]['wordSetDegree'].toString());
                                                   break;
                                                 case 'Review':
-                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordReviewPage()));
+                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
                                                   print('You Click on po up menu item' + value);
                                                   break;
                                                 case 'Test':
-                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordLearnPage()));
+                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
                                                   print('You Click on po up menu item' + value);
                                                   break;
                                                 default:

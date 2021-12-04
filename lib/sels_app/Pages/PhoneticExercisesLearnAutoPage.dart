@@ -18,18 +18,15 @@ import 'package:sels_app/sels_app/utils/ChatMessageUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:sels_app/sels_app/utils/APIUtil.dart';
 
-import 'package:collection/collection.dart';
 
-
-
-class PhoneticExercisesPage extends StatefulWidget {
+class PhoneticExercisesLearnAutoPage extends StatefulWidget {
 
   String topicClass = '';
   String topicName = '';
   List<int> sentencesIDData = const [];
   int quizID = 0;
 
-  PhoneticExercisesPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [], int quizID:0}) {
+  PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [], int quizID:0}) {
     this.topicClass = topicClass;
     this.topicName = topicName;
     this.sentencesIDData = sentencesIDData;
@@ -37,12 +34,12 @@ class PhoneticExercisesPage extends StatefulWidget {
   }
 
   @override
-  _PhoneticExercisesPage createState() => new _PhoneticExercisesPage(topicClass:topicClass, topicName:topicName, sentencesIDData:sentencesIDData, quizID:quizID);
+  _PhoneticExercisesLearnAutoPage createState() => new _PhoneticExercisesLearnAutoPage(topicClass:topicClass, topicName:topicName, sentencesIDData:sentencesIDData, quizID:quizID);
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
+class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPage> {
 
   /* 測驗時長計時器 */
   late Timer _timer;
@@ -61,7 +58,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   String _topicName = '';
   int _part = 0;
   String _questionText = '';
-  _PhoneticExercisesPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [],  quizID:0}) {
+  _PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [],  quizID:0}) {
     this._topicClass = topicClass;
     this._topicName = topicName;
     this._sentencesIDData = sentencesIDData;
@@ -128,7 +125,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   @override
   void initState() {
     super.initState();
-    initPhoneticExercisesPage();
+    initPhoneticExercisesLearnAutoPage();
   }
 
   @override
@@ -145,7 +142,7 @@ class _PhoneticExercisesPage extends State<PhoneticExercisesPage> {
   initState() 初始化相關
    */
 
-  initPhoneticExercisesPage() async {
+  initPhoneticExercisesLearnAutoPage() async {
     await initApplicationSettingsData();
     await initAnswerTimer();
     await initTts();

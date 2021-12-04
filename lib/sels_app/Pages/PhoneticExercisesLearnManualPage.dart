@@ -12,38 +12,37 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-import 'package:sels_app/sels_app/sels_app_theme.dart';
 import 'package:flutter/material.dart';
 
-class PhoneticExercisesNewPage extends StatefulWidget {
+class PhoneticExercisesLearnManualPage extends StatefulWidget {
 
   String topicClass = '';
   String topicName = '';
 
-  PhoneticExercisesNewPage({String topicClass:'', String topicName:''}) {
+  PhoneticExercisesLearnManualPage({String topicClass:'', String topicName:''}) {
     this.topicClass = topicClass;
     this.topicName = topicName;
   }
 
   @override
-  _PhoneticExercisesNewPageState createState() => _PhoneticExercisesNewPageState(topicClass:topicClass, topicName:topicName);
+  _PhoneticExercisesLearnManualPageState createState() => _PhoneticExercisesLearnManualPageState(topicClass:topicClass, topicName:topicName);
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
+class _PhoneticExercisesLearnManualPageState extends State<PhoneticExercisesLearnManualPage> {
 
 
 
   String _applicationSettingsDataListenAndSpeakLevel = 'A1';
   double _applicationSettingsDataListenAndSpeakRanking = 300;
-  bool _applicationSettingsPhoneticExercisesNewPageIntroduce = true;
+  bool _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = true;
   String _topicClass = '';
   String _topicName = '';
 
 
   //final ValueNotifier<String> _answerIPAText = ValueNotifier<String>('');
-  _PhoneticExercisesNewPageState({String topicClass:'', String topicName:''}) {
+  _PhoneticExercisesLearnManualPageState({String topicClass:'', String topicName:''}) {
     this._topicClass = topicClass;
     this._topicName = topicName;
   }
@@ -115,7 +114,7 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
     //getTestQuestions();
 
 
-    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce').then((value) {
+    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesLearnManualPageIntroduce').then((value) {
       if(!value!){
         getTestQuestions();
       }
@@ -151,8 +150,8 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
       setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
 
-    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce').then((value) {
-      setState(() => _applicationSettingsPhoneticExercisesNewPageIntroduce = value!);
+    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesLearnManualPageIntroduce').then((value) {
+      setState(() => _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = value!);
     });
   }
 
@@ -577,22 +576,22 @@ class _PhoneticExercisesNewPageState extends State<PhoneticExercisesNewPage> {
             ),
           ),
             Visibility(
-              visible: _applicationSettingsPhoneticExercisesNewPageIntroduce,
+              visible: _applicationSettingsPhoneticExercisesLearnManualPageIntroduce,
               child: Stack(
                   children: <Widget>[
                     Dismissible(
-                        key: ValueKey('PhoneticExercisesNewPage_Introduce_01'),
+                        key: ValueKey('PhoneticExercisesLearnManualPage_Introduce_01'),
                         onDismissed: (DismissDirection direction){
-                          setState(() => _applicationSettingsPhoneticExercisesNewPageIntroduce = false);
+                          setState(() => _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = false);
                           getTestQuestions();
-                          SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce', _applicationSettingsPhoneticExercisesNewPageIntroduce);
+                          SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesLearnManualPageIntroduce', _applicationSettingsPhoneticExercisesLearnManualPageIntroduce);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('讓我們開始吧！'),
                           ));
                         },
                         child: ConstrainedBox(
                           child: Image.asset(
-                            'assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_01.png',
+                            'assets/sels_app/PhoneticExercisesLearnManualPage/PhoneticExercisesLearnManualPage_Introduce_01.png',
                             fit: BoxFit.fill,
                           ),
                           constraints: new BoxConstraints.expand(),

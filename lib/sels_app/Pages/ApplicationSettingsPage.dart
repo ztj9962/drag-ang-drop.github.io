@@ -1,8 +1,5 @@
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 
@@ -83,7 +80,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
   double _applicationSettingsDataListenAndSpeakRanking = 9602.0;
 
   bool _applicationSettingsSELSAppHomePageIntroduce = true;
-  bool _applicationSettingsPhoneticExercisesNewPageIntroduce = true;
+  bool _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = true;
   bool _applicationSettingsGrammarCheckPageIntroduce = true;
 
 
@@ -120,8 +117,8 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
     SharedPreferencesUtil.getData<bool>('applicationSettingsSELSAppHomePageIntroduce').then((value) {
       setState(() => _applicationSettingsSELSAppHomePageIntroduce = value!);
     });
-    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce').then((value) {
-      setState(() => _applicationSettingsPhoneticExercisesNewPageIntroduce = value!);
+    SharedPreferencesUtil.getData<bool>('applicationSettingsPhoneticExercisesLearnManualPageIntroduce').then((value) {
+      setState(() => _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = value!);
     });
     SharedPreferencesUtil.getData<bool>('applicationSettingsGrammarCheckPageIntroduce').then((value) {
       setState(() => _applicationSettingsGrammarCheckPageIntroduce = value!);
@@ -206,7 +203,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
                               SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', _applicationSettingsDataListenAndSpeakLevel);
                               SharedPreferencesUtil.saveData<double>('applicationSettingsDataListenAndSpeakRanking', _applicationSettingsDataListenAndSpeakRanking);
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsSELSAppHomePageIntroduce', _applicationSettingsSELSAppHomePageIntroduce);
-                              SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce', _applicationSettingsPhoneticExercisesNewPageIntroduce);
+                              SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesLearnManualPageIntroduce', _applicationSettingsPhoneticExercisesLearnManualPageIntroduce);
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsGrammarCheckPageIntroduce', _applicationSettingsGrammarCheckPageIntroduce);
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text('Save successflully.'),
@@ -370,9 +367,9 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
               style: TextStyle(color: Colors.grey),
             ),
             dense: true,
-            value: _applicationSettingsPhoneticExercisesNewPageIntroduce,
+            value: _applicationSettingsPhoneticExercisesLearnManualPageIntroduce,
             onChanged: (value) {
-              setState(() => _applicationSettingsPhoneticExercisesNewPageIntroduce = value);
+              setState(() => _applicationSettingsPhoneticExercisesLearnManualPageIntroduce = value);
             },
           ),
           SwitchListTile(

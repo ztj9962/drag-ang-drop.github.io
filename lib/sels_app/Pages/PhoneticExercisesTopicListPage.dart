@@ -4,15 +4,15 @@ import 'package:sels_app/sels_app/sels_app_theme.dart';
 import 'package:sels_app/sels_app/OtherViews/class_list_view.dart';
 import 'package:flutter/material.dart';
 
-class TopicListPage extends StatefulWidget {
-  const TopicListPage({Key? key, this.animationController}) : super(key: key);
+class PhoneticExercisesTopicListPage extends StatefulWidget {
+  const PhoneticExercisesTopicListPage({Key? key, this.animationController}) : super(key: key);
 
   final AnimationController? animationController;
   @override
-  _TopicListPageState createState() => _TopicListPageState();
+  _PhoneticExercisesTopicListPageState createState() => _PhoneticExercisesTopicListPageState();
 }
 
-class _TopicListPageState extends State<TopicListPage>
+class _PhoneticExercisesTopicListPageState extends State<PhoneticExercisesTopicListPage>
     with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
 

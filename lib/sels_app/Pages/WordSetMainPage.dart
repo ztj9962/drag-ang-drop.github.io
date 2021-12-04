@@ -1,14 +1,6 @@
-import 'package:sels_app/sels_app/Pages/BasicWordPage.dart';
-import 'package:sels_app/sels_app/Pages/GrammarCheckPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesHistoryPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
-import 'package:sels_app/sels_app/Pages/SyllablePracticeMainPage.dart';
-import 'package:sels_app/sels_app/pages/PhoneticExercisesNewPage.dart';
-import 'package:sels_app/sels_app/Pages/TopicListPage.dart';
+import 'package:sels_app/sels_app/Pages/WordSetListPage.dart';
 import 'package:sels_app/sels_app/OtherViews/buttonCard_view.dart';
-import 'package:sels_app/sels_app/OtherViews/title_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
-import 'package:sels_app/sels_app/OtherViews/class_list_view.dart';
 import 'package:flutter/material.dart';
 
 class WordSetMainPage extends StatefulWidget {
@@ -61,20 +53,9 @@ class _WordSetMainPageState extends State<WordSetMainPage>
   }
 
   void addAllListData() {
-    const int count = 6;
+    const int count = 5;
 
     listViews.add(
-      TitleView(
-        titleTxt: '發音練習',
-        subTxt: 'All',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-            Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
       ButtonCardView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
@@ -82,10 +63,10 @@ class _WordSetMainPageState extends State<WordSetMainPage>
             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: 'Basic 單字集',
-        descripTxt: '單字集 Ranking 1~300',
+        titleTxt: 'Kindergarten 單字集',
+        descripTxt: 'Ranking 1~300',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordPage(learningDegree: 'Basic')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Kindergarten')));
         },
       ),
     );
@@ -97,10 +78,10 @@ class _WordSetMainPageState extends State<WordSetMainPage>
             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: 'TOEIC 單字集',
-        descripTxt: '單字集 Ranking 301~7,000',
+        titleTxt: 'Elementary 單字集',
+        descripTxt: 'Ranking 301~1,050',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordPage(learningDegree: 'TOEIC')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Elementary')));
         },
       ),
     );
@@ -112,13 +93,44 @@ class _WordSetMainPageState extends State<WordSetMainPage>
             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: 'TOEFL 單字集',
-        descripTxt: '單字集 Ranking 7,001~15,000',
+        titleTxt: 'Middle School 單字集',
+        descripTxt: 'Ranking 1,051~3,150',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BasicWordPage(learningDegree: 'TOEFL')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Middle School')));
         },
       ),
     );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: 'High School 單字集',
+        descripTxt: 'Ranking 3,151~7,000',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'High School')));
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: 'College 單字集',
+        descripTxt: 'Ranking 7,001~11,000',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'College')));
+        },
+      ),
+    );
+
   }
 
   Future<bool> getData() async {

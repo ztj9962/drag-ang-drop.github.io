@@ -8,36 +8,33 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/OtherViews/mediterranean_diet_view.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
-import 'package:sels_app/sels_app/sels_app_theme.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-class BasicWordLearnPage extends StatefulWidget {
+class WordSetLearnPage extends StatefulWidget {
 
   String learningDegree = '';
   String learningPhase = '';
 
-  BasicWordLearnPage({String learningDegree:'', String learningPhase:''}) {
+  WordSetLearnPage({String learningDegree:'', String learningPhase:''}) {
     this.learningDegree = learningDegree;
     this.learningPhase = learningPhase;
   }
 
   @override
-  _BasicWordLearnPage createState() => _BasicWordLearnPage(learningDegree: learningDegree, learningPhase: learningPhase);
+  _WordSetLearnPage createState() => _WordSetLearnPage(learningDegree: learningDegree, learningPhase: learningPhase);
 }
 
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _BasicWordLearnPage extends State<BasicWordLearnPage> {
+class _WordSetLearnPage extends State<WordSetLearnPage> {
 
-  _BasicWordLearnPage({String learningDegree:'', String learningPhase:''}) {
+  _WordSetLearnPage({String learningDegree:'', String learningPhase:''}) {
     this._learningDegree = learningDegree;
     this._learningPhase = learningPhase;
   }
@@ -142,7 +139,7 @@ class _BasicWordLearnPage extends State<BasicWordLearnPage> {
   @override
   void initState() {
     super.initState();
-    initBasicWordLearnPage();
+    initWordSetLearnPage();
   }
 
   @override
@@ -153,7 +150,7 @@ class _BasicWordLearnPage extends State<BasicWordLearnPage> {
     speechToText.stop();
   }
 
-  Future<void> initBasicWordLearnPage() async {
+  Future<void> initWordSetLearnPage() async {
     initApplicationSettingsData();
     initTts();
     initSpeechState();

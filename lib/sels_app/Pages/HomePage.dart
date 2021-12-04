@@ -1,16 +1,11 @@
-import 'package:sels_app/sels_app/Pages/BasicWordPage.dart';
+
 import 'package:sels_app/sels_app/Pages/GrammarCheckPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesHistoryPage.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesMainPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
 import 'package:sels_app/sels_app/Pages/SyllablePracticeMainPage.dart';
 import 'package:sels_app/sels_app/Pages/WordSetMainPage.dart';
-import 'package:sels_app/sels_app/pages/PhoneticExercisesNewPage.dart';
-import 'package:sels_app/sels_app/Pages/TopicListPage.dart';
 import 'package:sels_app/sels_app/OtherViews/buttonCard_view.dart';
 import 'package:sels_app/sels_app/OtherViews/title_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
-import 'package:sels_app/sels_app/OtherViews/class_list_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
@@ -253,8 +253,8 @@ class _PhoneticExercisesHistoryPage extends State<PhoneticExercisesHistoryPage> 
                                               switch(value) {
                                                 case 'Auto':
                                                   //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesHistoryLearnPage()));
-                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(sentencesIDData: _quizHistoryData[index]['quizSentenceIDArray'].cast<int>() )));
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(quizID:_quizHistoryData[index]['quizID'] )));
+                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(sentencesIDData: _quizHistoryData[index]['quizSentenceIDArray'].cast<int>() )));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(quizID:_quizHistoryData[index]['quizID'] )));
                                                   print('You Click on po up menu item' + value);
                                                   break;
                                                 case 'Maunal':

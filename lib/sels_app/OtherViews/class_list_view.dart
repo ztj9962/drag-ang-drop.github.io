@@ -1,5 +1,5 @@
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesNewPage.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnManualPage.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
 
 import 'package:sels_app/sels_app/sels_app_theme.dart';
 import 'package:sels_app/sels_app/models/sentenceTypes_list_data.dart';
@@ -241,9 +241,9 @@ class SentenceTypesView extends StatelessWidget {
                             GestureDetector(
                               onTap: (){
                                 if(showIndex == ''){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnManualPage(topicClass:sentenceTypesListData!.titleTxt)));
                                 } else {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicName:sentenceTypesListData!.titleTxt)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnManualPage(topicName:sentenceTypesListData!.titleTxt)));
                                 }
                               },
                               //onTap: sentenceTypesListData!.onTapFunction,
@@ -278,9 +278,9 @@ class SentenceTypesView extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: (){
                                       if(showIndex == ''){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(topicClass:sentenceTypesListData!.titleTxt)));
                                       } else {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesPage(topicName:sentenceTypesListData!.titleTxt)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(topicName:sentenceTypesListData!.titleTxt)));
                                       }
                                     },
                                     //onTap: sentenceTypesListData!.onTapFunction,
@@ -316,9 +316,9 @@ class SentenceTypesView extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: (){
                                       if(showIndex == ''){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicClass:sentenceTypesListData!.titleTxt)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnManualPage(topicClass:sentenceTypesListData!.titleTxt)));
                                       } else {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesNewPage(topicName:sentenceTypesListData!.titleTxt)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnManualPage(topicName:sentenceTypesListData!.titleTxt)));
                                       }
                                     },
                                     //onTap: sentenceTypesListData!.onTapFunction,
