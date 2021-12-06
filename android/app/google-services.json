@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "821836479428",
+    "project_id": "english-study-project",
+    "storage_bucket": "english-study-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821836479428:android:fb58aa404406f302244291",
+        "android_client_info": {
+          "package_name": "tw.nfs.selsapp.sels_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821836479428-dgn1o5bofdj192r7vtem09svr3hhthsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "69feddcdf9f81bbf6d93008eb2c0a730d53a1b4c"
+          }
+        },
+        {
+          "client_id": "821836479428-jgcek8g431jkolbrjsmgt1o06g66701l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU0pxMMEsgWVFY8hftxatcES1wTTQ_R7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821836479428-jgcek8g431jkolbrjsmgt1o06g66701l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
