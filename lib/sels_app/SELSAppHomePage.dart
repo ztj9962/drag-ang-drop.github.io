@@ -1,6 +1,7 @@
 import 'package:sels_app/sels_app/Pages/HomePage.dart';
 import 'package:sels_app/sels_app/Pages/OthersPage.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
+import 'package:sels_app/sels_app/models/auth_Respository.dart';
 import 'package:sels_app/sels_app/models/tabIcon_data.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +176,7 @@ class _SELSAppHomePageState extends State<SELSAppHomePage>
     prefs.setString("applicationSettingsDataListenAndSpeakLevel", (prefs.getString('applicationSettingsDataListenAndSpeakLevel') ?? 'A1'));
 */
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
-      (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataUUID', Uuid().v4()));
+      (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataUUID', authRespository.getUid()));
     });
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', 'A1'));
