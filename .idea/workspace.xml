@@ -1,26 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidLayouts">
-    <shared>
-      <config />
-    </shared>
-  </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b71bf2a-121e-46f6-94f8-77a7d1cd09a4" name="Default Changelist" comment="">
+    <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sels_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SignInPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SigninButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SigninButton.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/models/auth_Respository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/models/auth_Respository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_00.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesLearnManualPage/PhoneticExercisesLearnManualPage_Introduce_00.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_01.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesLearnManualPage/PhoneticExercisesLearnManualPage_Introduce_01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_02.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesLearnManualPage/PhoneticExercisesLearnManualPage_Introduce_02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesNewPage/PhoneticExercisesNewPage_Introduce_03.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/sels_app/PhoneticExercisesLearnManualPage/PhoneticExercisesLearnManualPage_Introduce_03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/OtherViews/class_list_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/OtherViews/class_list_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/ApplicationSettingsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/ApplicationSettingsPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/BasicWordLearnPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/WordSetLearnPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/BasicWordPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/WordSetListPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/BasicWordReviewPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/WordSetReviewPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesHistoryPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesHistoryPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesMainPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesMainPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesNewPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesLearnManualPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SmartTeachingAssistantPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SmartTeachingAssistantPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SyllablePracticeLearnPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SyllablePracticeLearnPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SyllablePracticeMainPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SyllablePracticeMainPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/TopicListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesTopicListPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/WordSetMainPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/WordSetMainPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Utils/ChatMessageUtilold.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/models/sentenceTypes_list_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/models/sentenceTypes_list_data.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -29,32 +59,38 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\m2201\.android\avd\Pixel_4_API_30.avd]" />
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Dart File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="20p8pdxCm08ljLgzBGfVphkUcNo" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1vfBvYnatV9W9lAY9LD6DlJ8HUF" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../login" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/sels_app/Pages" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/sels_app/OtherViews" />
+      <recent name="$PROJECT_DIR$/lib/sels_app/Pages" />
+      <recent name="$PROJECT_DIR$/lib/sels_app/pages" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/sels_app/Pages" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -65,17 +101,99 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5b71bf2a-121e-46f6-94f8-77a7d1cd09a4" name="Default Changelist" comment="" />
-      <created>1636730353712</created>
+      <changelist id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="" />
+      <created>1626943498593</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1636730353712</updated>
+      <updated>1626943498593</updated>
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/sels_app" />
-    </ignored-roots>
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="2461" height="197" key="GridCell.Tab.0.bottom" timestamp="1638608264604">
+      <screen x="-2503" y="0" width="2503" height="1080" />
+    </state>
+    <state width="2461" height="304" key="GridCell.Tab.0.bottom/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809488" />
+    <state width="2461" height="197" key="GridCell.Tab.0.bottom/0.0.1280.800/-2503.0.2503.1080@-2503.0.2503.1080" timestamp="1638608264604" />
+    <state width="2462" height="291" key="GridCell.Tab.0.bottom/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632923814043" />
+    <state width="2518" height="295" key="GridCell.Tab.0.bottom/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718425" />
+    <state width="1181" height="242" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1637907565433" />
+    <state width="1238" height="298" key="GridCell.Tab.0.bottom/56.0.1224.800@56.0.1224.800" timestamp="1632896370036" />
+    <state width="1181" height="242" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1638290294463" />
+    <state width="2461" height="197" key="GridCell.Tab.0.center" timestamp="1638608264596">
+      <screen x="-2503" y="0" width="2503" height="1080" />
+    </state>
+    <state width="2461" height="304" key="GridCell.Tab.0.center/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809487" />
+    <state width="2461" height="197" key="GridCell.Tab.0.center/0.0.1280.800/-2503.0.2503.1080@-2503.0.2503.1080" timestamp="1638608264596" />
+    <state width="2462" height="291" key="GridCell.Tab.0.center/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632923814037" />
+    <state width="2518" height="295" key="GridCell.Tab.0.center/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718423" />
+    <state width="1181" height="242" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1637907565432" />
+    <state width="1238" height="298" key="GridCell.Tab.0.center/56.0.1224.800@56.0.1224.800" timestamp="1632896370033" />
+    <state width="1181" height="242" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1638290294462" />
+    <state width="2461" height="197" key="GridCell.Tab.0.left" timestamp="1638608264590">
+      <screen x="-2503" y="0" width="2503" height="1080" />
+    </state>
+    <state width="2461" height="304" key="GridCell.Tab.0.left/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809485" />
+    <state width="2461" height="197" key="GridCell.Tab.0.left/0.0.1280.800/-2503.0.2503.1080@-2503.0.2503.1080" timestamp="1638608264590" />
+    <state width="2462" height="291" key="GridCell.Tab.0.left/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632923814034" />
+    <state width="2518" height="295" key="GridCell.Tab.0.left/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718423" />
+    <state width="1181" height="242" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1637907565431" />
+    <state width="1238" height="298" key="GridCell.Tab.0.left/56.0.1224.800@56.0.1224.800" timestamp="1632896370032" />
+    <state width="1181" height="242" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1638290294461" />
+    <state width="2461" height="197" key="GridCell.Tab.0.right" timestamp="1638608264601">
+      <screen x="-2503" y="0" width="2503" height="1080" />
+    </state>
+    <state width="2461" height="304" key="GridCell.Tab.0.right/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809488" />
+    <state width="2461" height="197" key="GridCell.Tab.0.right/0.0.1280.800/-2503.0.2503.1080@-2503.0.2503.1080" timestamp="1638608264601" />
+    <state width="2462" height="291" key="GridCell.Tab.0.right/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632923814042" />
+    <state width="2518" height="295" key="GridCell.Tab.0.right/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718425" />
+    <state width="1181" height="242" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1637907565432" />
+    <state width="1238" height="298" key="GridCell.Tab.0.right/56.0.1224.800@56.0.1224.800" timestamp="1632896370034" />
+    <state width="1181" height="242" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1638290294463" />
+    <state x="458" y="106" key="RollbackChangesDialog" timestamp="1633499801778">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state x="458" y="106" key="RollbackChangesDialog/57.0.1223.800@57.0.1223.800" timestamp="1633499801778" />
+    <state x="-1553" y="-151" width="602" height="822" key="find.popup" timestamp="1632923589870">
+      <screen x="-2504" y="-280" width="2504" height="1080" />
+    </state>
+    <state x="-1553" y="-151" width="602" height="822" key="find.popup/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632923589870" />
+    <state x="333" y="178" key="run.anything.popup" timestamp="1633346209342">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state x="333" y="178" key="run.anything.popup/57.0.1223.800@57.0.1223.800" timestamp="1633346209342" />
+    <state x="-1580" y="242" width="1372" height="677" key="search.everywhere.popup" timestamp="1638607245759">
+      <screen x="-2503" y="0" width="2503" height="1080" />
+    </state>
+    <state x="-1579" y="-39" width="670" height="676" key="search.everywhere.popup/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1633524855234" />
+    <state x="-1580" y="242" width="1372" height="677" key="search.everywhere.popup/0.0.1280.800/-2503.0.2503.1080@-2503.0.2503.1080" timestamp="1638607245759" />
+    <state x="-1580" y="-39" width="670" height="676" key="search.everywhere.popup/0.0.1280.800/-2504.-280.2504.1080@-2504.-280.2504.1080" timestamp="1632921602817" />
+    <state x="508" y="179" width="670" height="501" key="search.everywhere.popup/57.0.1223.800@57.0.1223.800" timestamp="1637152343673" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/sels_app/Pages/SyllablePracticeLearnPage.dart</url>
+          <line>1303</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
