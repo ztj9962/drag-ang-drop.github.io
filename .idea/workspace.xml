@@ -23,25 +23,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sels_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/android.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@9C131FFBA000DN]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -108,7 +107,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1181" height="197" key="GridCell.Tab.0.bottom" timestamp="1638814469756">
+    <state width="1181" height="197" key="GridCell.Tab.0.bottom" timestamp="1638871555621">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
     <state width="2461" height="304" key="GridCell.Tab.0.bottom/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809488" />
@@ -117,8 +116,8 @@
     <state width="2518" height="295" key="GridCell.Tab.0.bottom/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718425" />
     <state width="1181" height="242" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1637907565433" />
     <state width="1238" height="298" key="GridCell.Tab.0.bottom/56.0.1224.800@56.0.1224.800" timestamp="1632896370036" />
-    <state width="1181" height="197" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1638814469756" />
-    <state width="1181" height="197" key="GridCell.Tab.0.center" timestamp="1638814469754">
+    <state width="1181" height="197" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1638871555621" />
+    <state width="1181" height="197" key="GridCell.Tab.0.center" timestamp="1638871555620">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
     <state width="2461" height="304" key="GridCell.Tab.0.center/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809487" />
@@ -127,8 +126,8 @@
     <state width="2518" height="295" key="GridCell.Tab.0.center/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718423" />
     <state width="1181" height="242" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1637907565432" />
     <state width="1238" height="298" key="GridCell.Tab.0.center/56.0.1224.800@56.0.1224.800" timestamp="1632896370033" />
-    <state width="1181" height="197" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1638814469754" />
-    <state width="1181" height="197" key="GridCell.Tab.0.left" timestamp="1638814469752">
+    <state width="1181" height="197" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1638871555620" />
+    <state width="1181" height="197" key="GridCell.Tab.0.left" timestamp="1638871555619">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
     <state width="2461" height="304" key="GridCell.Tab.0.left/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809485" />
@@ -137,8 +136,8 @@
     <state width="2518" height="295" key="GridCell.Tab.0.left/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718423" />
     <state width="1181" height="242" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1637907565431" />
     <state width="1238" height="298" key="GridCell.Tab.0.left/56.0.1224.800@56.0.1224.800" timestamp="1632896370032" />
-    <state width="1181" height="197" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1638814469752" />
-    <state width="1181" height="197" key="GridCell.Tab.0.right" timestamp="1638814469755">
+    <state width="1181" height="197" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1638871555619" />
+    <state width="1181" height="197" key="GridCell.Tab.0.right" timestamp="1638871555621">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
     <state width="2461" height="304" key="GridCell.Tab.0.right/0.0.1280.800/-2503.-280.2503.1080@-2503.-280.2503.1080" timestamp="1634737809488" />
@@ -147,7 +146,7 @@
     <state width="2518" height="295" key="GridCell.Tab.0.right/0.0.1280.800/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1637603718425" />
     <state width="1181" height="242" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1637907565432" />
     <state width="1238" height="298" key="GridCell.Tab.0.right/56.0.1224.800@56.0.1224.800" timestamp="1632896370034" />
-    <state width="1181" height="197" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1638814469755" />
+    <state width="1181" height="197" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1638871555621" />
     <state x="458" y="106" key="RollbackChangesDialog" timestamp="1633499801778">
       <screen x="57" y="0" width="1223" height="800" />
     </state>

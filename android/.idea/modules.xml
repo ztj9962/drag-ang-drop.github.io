@@ -3,6 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/951474758/android.firebase_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/951474758/android.firebase_auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-646259235/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-646259235/android.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-677188396/android.firebase_dynamic_links.iml" filepath="$PROJECT_DIR$/.idea/modules/-677188396/android.firebase_dynamic_links.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/384634484/android.flutter_facebook_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/384634484/android.flutter_facebook_auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/786505271/android.flutter_tts.iml" filepath="$PROJECT_DIR$/.idea/modules/786505271/android.flutter_tts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1457404233/android.google_sign_in.iml" filepath="$PROJECT_DIR$/.idea/modules/-1457404233/android.google_sign_in.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-239702297/android.shared_preferences_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-239702297/android.shared_preferences_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1590401449/android.speech_to_text.iml" filepath="$PROJECT_DIR$/.idea/modules/1590401449/android.speech_to_text.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-886543271/android.sqflite.iml" filepath="$PROJECT_DIR$/.idea/modules/-886543271/android.sqflite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1626124930/android.twitter_login.iml" filepath="$PROJECT_DIR$/.idea/modules/1626124930/android.twitter_login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/207482782/android.url_launcher_android.iml" filepath="$PROJECT_DIR$/.idea/modules/207482782/android.url_launcher_android.iml" />
     </modules>
   </component>
 </project>
