@@ -15,7 +15,8 @@ class SigninButton extends StatelessWidget {
         TextButton(
             onPressed: () async {
               await authRespository.signInWithGoogle();
-              if(authRespository.isSignedIn()== true){
+              bool signIn = await authRespository.isSignedIn();
+              if(signIn == true){
                 AutoRouter.of(context).replaceNamed("/home");
               }
             },

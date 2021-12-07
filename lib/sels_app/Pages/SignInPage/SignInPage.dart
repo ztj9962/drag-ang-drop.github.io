@@ -16,7 +16,7 @@ class SignInPage extends StatefulWidget {
 
 class SignInPageState extends State<SignInPage> {
 
-  void initState() {
+  /*void initState() {
     // TODO: implement initState
     initDynamicLinks();
     super.initState();
@@ -41,7 +41,7 @@ class SignInPageState extends State<SignInPage> {
       await authRespository.siginLink(data.link, "m220131133@gmail.com");
       AutoRouter.of(context).replaceNamed("/home");
     }
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
