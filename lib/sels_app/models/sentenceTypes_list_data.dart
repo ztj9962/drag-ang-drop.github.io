@@ -25,410 +25,146 @@ class SentenceTypesListData {
   List<String>? sentenceTypes;
   Function()? onTapFunction;
 
-
-  static const topicListData2 = [
-    {
-      "topicClass": "Animals",
-      "topicName": ["Animals", "Birds", "Fish and shellfish", "Insects, worms, etc."]
+  static Map<String, Map<String, dynamic>> topicListData = {
+    "Animals": {
+      "startColor": "#FA7D82",
+      "endColor": "#FFB295",
+      "Title": ["Animals", "Animals", "Birds", "Fish and shellfish", "Insects, worms, etc."],
+      "Descrip": ["Animals", "Animals", "Birds", "Fish and shellfish", "Insects, worms, etc."],
     },
-    {
-      "topicClass": "Appearance",
-      "topicName": ["Appearance", "Body", "Clothes and Fashion", "Colours and Shapes"]
+    "Appearance": {
+      "startColor": "#738AE6",
+      "endColor": "#5C5EDD",
+      "Title": ["Appearance", "Appearance", "Body", "Clothes and Fashion", "Colours and Shapes"],
+      "Descrip": ["Appearance", "Appearance", "Body", "Clothes and Fashion", "Colours and Shapes"],
     },
-    {
-      "topicClass": "Communication",
-      "topicName": ["Language", "Phones, email and the internet"]
+    "Communication": {
+      "startColor": "#FE95B6",
+      "endColor": "#FF5287",
+      "Title": ["Communication", "Language", "Phones, email and the internet"],
+      "Descrip": ["Communication", "Language", "Phones, email and the internet"],
     },
-    {
-      "topicClass": "Culture",
-      "topicName": ["Art", "Film and theatre", "Literature and writing", "Music", "TV, radio and news"]
+    "Culture": {
+      "startColor": "#6F72CA",
+      "endColor": "#1E1466",
+      "Title": ["Culture", "Art", "Film and theatre", "Literature and writing", "Music", "TV, radio and news"],
+      "Descrip": ["Culture", "Art", "Film and theatre", "Literature and writing", "Music", "TV, radio and news"],
     },
-    {
-      "topicClass": "Food and drink",
-      "topicName": ["Cooking and eating", "Drinks", "Food"]
+    "Food_and_drink": {
+      "startColor": "#FF69F0AE",
+      "endColor": "#FF4CAF50",
+      "Title": ["Food and drink", "Cooking and eating", "Drinks", "Food"],
+      "Descrip": ["Food and drink", "Cooking and eating", "Drinks", "Food"],
     },
-    {
-      "topicClass": "Functions",
-      "topicName": ["Discussion and agreement", "Doubt, guessing and certainty", "Opinion and argument", "Permission and obligation", "Preferences and decisions", "Suggestions and advice"]
+    "Functions": {
+      "startColor": "#FA7D82",
+      "endColor": "#FFB295",
+      "Title": ["Functions", "Discussion and agreement", "Doubt, guessing and certainty", "Opinion and argument", "Permission and obligation", "Preferences and decisions", "Suggestions and advice"],
+      "Descrip": ["Functions", "Discussion and agreement", "Doubt, guessing and certainty", "Opinion and argument", "Permission and obligation", "Preferences and decisions", "Suggestions and advice"],
     },
-    {
-      "topicClass": "Health",
-      "topicName": ["Health and Fitness", "Illness", "Medicine"]
+    "Health": {
+      "startColor": "#738AE6",
+      "endColor": "#5C5EDD",
+      "Title": ["Health", "Health and Fitness", "Illness", "Medicine"],
+      "Descrip": ["Health", "Health and Fitness", "Illness", "Medicine"],
     },
-    {
-      "topicClass": "Homes and buildings",
-      "topicName": ["Buildings", "Gardens", "Houses and homes"]
+    "Homes_and_buildings": {
+      "startColor": "#FE95B6",
+      "endColor": "#FF5287",
+      "Title": ["Homes and buildings", "Buildings", "Gardens", "Houses and homes"],
+      "Descrip": ["Homes and buildings", "Buildings", "Gardens", "Houses and homes"],
     },
-    {
-      "topicClass": "Leisure",
-      "topicName": ["Games and toys", "Hobbies", "Shopping"]
+    "Leisure": {
+      "startColor": "#6F72CA",
+      "endColor": "#1E1466",
+      "Title": ["Leisure", "Games and toys", "Hobbies", "Shopping"],
+      "Descrip": ["Leisure", "Games and toys", "Hobbies", "Shopping"],
     },
-    {
-      "topicClass": "Notions",
-      "topicName": ["Change, cause and effect", "Danger", "Difficulty and failure", "Success"]
+    "Notions": {
+      "startColor": "#FF69F0AE",
+      "endColor": "#FF4CAF50",
+      "Title": ["Notions", "Change, cause and effect", "Danger", "Difficulty and failure", "Success"],
+      "Descrip": ["Notions", "Change, cause and effect", "Danger", "Difficulty and failure", "Success"],
     },
-    {
-      "topicClass": "People",
-      "topicName": ["Education", "Family and relationships", "Feelings", "Life stages", "Personal qualities"]
+    "People": {
+      "startColor": "#FA7D82",
+      "endColor": "#FFB295",
+      "Title": ["People", "Education", "Family and relationships", "Feelings", "Life stages", "Personal qualities"],
+      "Descrip": ["People", "Education", "Family and relationships", "Feelings", "Life stages", "Personal qualities"],
     },
-    {
-      "topicClass": "Politics and society",
-      "topicName": ["Crime and punishment", "Law and justice", "People in society", "Politics", "Religion and festivals", "Social issues", "War and conflict"]
+    "Politics_and_society": {
+      "startColor": "#738AE6",
+      "endColor": "#5C5EDD",
+      "Title": ["Politics and society", "Crime and punishment", "Law and justice", "People in society", "Politics", "Religion and festivals", "Social issues", "War and conflict"],
+      "Descrip": ["Politics and society", "Crime and punishment", "Law and justice", "People in society", "Politics", "Religion and festivals", "Social issues", "War and conflict"],
     },
-    {
-      "topicClass": "Science and technology",
-      "topicName": ["Biology", "Computers", "Engineering", "Maths and measurement", "Physics and chemistry", "Scientific research"]
+    "Science_and_technology": {
+      "startColor": "#FE95B6",
+      "endColor": "#FF5287",
+      "Title": ["Science and technology", "Biology", "Computers", "Engineering", "Maths and measurement", "Physics and chemistry", "Scientific research"],
+      "Descrip": ["Science and technology", "Biology", "Computers", "Engineering", "Maths and measurement", "Physics and chemistry", "Scientific research"],
     },
-    {
-      "topicClass": "Sport",
-      "topicName": ["Sports: ball and racket sports", "Sports: other sports", "Sports: water sports"]
+    "Sport": {
+      "startColor": "#6F72CA",
+      "endColor": "#1E1466",
+      "Title": ["Sport", "Sports: ball and racket sports", "Sports: other sports", "Sports: water sports"],
+      "Descrip": ["Sport", "Sports: ball and racket sports", "Sports: other sports", "Sports: water sports"],
     },
-    {
-      "topicClass": "The natural world",
-      "topicName": ["Farming", "Geography", "Plants and trees", "The environment", "Weather", "History", "Space", "Time"]
+    "The_natural_world": {
+      "startColor": "#FF69F0AE",
+      "endColor": "#FF4CAF50",
+      "Title": ["The natural world", "Farming", "Geography", "Plants and trees", "The environment", "Weather", "History", "Space", "Time"],
+      "Descrip": ["The natural world", "Farming", "Geography", "Plants and trees", "The environment", "Weather", "History", "Space", "Time"],
     },
-    {
-      "topicClass": "Time and space",
-      "topicName": ["History", "Space", "Time"]
+    "Time_and_space": {
+      "startColor": "#FA7D82",
+      "endColor": "#FFB295",
+      "Title": ["Time and space", "History", "Space", "Time"],
+      "Descrip": ["Time and space", "History", "Space", "Time"],
     },
-    {
-      "topicClass": "Travel",
-      "topicName": ["Holidays", "Transport by air", "Transport by bus and train", "Transport by car or lorry", "Transport by water", "Business", "Jobs", "Money", "Working life"]
+    "Travel": {
+      "startColor": "#738AE6",
+      "endColor": "#5C5EDD",
+      "Title": ["Travel", "Holidays", "Transport by air", "Transport by bus and train", "Transport by car or lorry", "Transport by water", "Business", "Jobs", "Money", "Working life"],
+      "Descrip": ["Travel", "Holidays", "Transport by air", "Transport by bus and train", "Transport by car or lorry", "Transport by water", "Business", "Jobs", "Money", "Working life"],
     }
-  ];
-
-
-  static Map<String, List<SentenceTypesListData>> listDataNew ={
-    'Animals': [
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/lion.png',
-        titleTxt: 'Animals',
-        descripTxt: 'Animals',
-        onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(topicClass:'Animals')));
-          },
-        startColor: '#FA7D82',
-        endColor: '#FFB295',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/lion.png',
-        titleTxt: 'Animals',
-        descripTxt: 'Animals',
-        onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(topicName:'Animals')));
-          },
-        startColor: '#FA7D82',
-        endColor: '#FFB295',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/lion.png',
-        titleTxt: 'Birds',
-        descripTxt: 'Animals',
-        onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(topicName:'Birds')));
-        },
-        startColor: '#FA7D82',
-        endColor: '#FFB295',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/lion.png',
-        titleTxt: 'Fish and shellfish',
-        descripTxt: 'Animals',
-        onTapFunction: (){
-          print('Card Clicked A');
-        },
-        startColor: '#FA7D82',
-        endColor: '#FFB295',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/lion.png',
-        titleTxt: 'Insects, worms, etc.',
-        descripTxt: 'Animals',
-        onTapFunction: (){
-          print('Card Clicked A');
-        },
-        startColor: '#FA7D82',
-        endColor: '#FFB295',
-      ),
-    ],
-    "Appearance": [
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/blend-tool.png',
-        titleTxt: 'Appearance',
-        descripTxt: 'Appearance',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#738AE6',
-        endColor: '#5C5EDD',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/blend-tool.png',
-        titleTxt: 'Appearance',
-        descripTxt: 'Appearance',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#738AE6',
-        endColor: '#5C5EDD',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/blend-tool.png',
-        titleTxt: 'Body',
-        descripTxt: 'Appearance',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#738AE6',
-        endColor: '#5C5EDD',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/blend-tool.png',
-        titleTxt: 'Clothes and Fashion',
-        descripTxt: 'Appearance',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#738AE6',
-        endColor: '#5C5EDD',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/blend-tool.png',
-        titleTxt: 'Colours and Shapes',
-        descripTxt: 'Appearance',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#738AE6',
-        endColor: '#5C5EDD',
-      ),
-    ],
-    'Communication':[
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/communicate.png',
-        titleTxt: 'Communication',
-        descripTxt: 'Communication',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FE95B6',
-        endColor: '#FF5287',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/communicate.png',
-        titleTxt: 'Language',
-        descripTxt: 'Communication',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FE95B6',
-        endColor: '#FF5287',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/communicate.png',
-        titleTxt: 'Phones, email and the internet',
-        descripTxt: 'Communication',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FE95B6',
-        endColor: '#FF5287',
-      ),
-    ],
-    'Culture':[
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Culture',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Art',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Film and theatre',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Literature and writing',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Music',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'TV, radio and news',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#6F72CA',
-        endColor: '#1E1466',
-      ),
-    ],
-    'Food_and_drink':[
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Food and drink',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FF69F0AE',
-        endColor: '#FF4CAF50',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Cooking and eating',
-        descripTxt: 'Culture',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FF69F0AE',
-        endColor: '#FF4CAF50',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Cooking and eating',
-        descripTxt: 'Drinks',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FF69F0AE',
-        endColor: '#FF4CAF50',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Cooking and eating',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FF69F0AE',
-        endColor: '#FF4CAF50',
-      ),
-    ],
-
-    'Functions':[
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Cooking and eating',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Discussion and agreement',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Doubt, guessing and certainty',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Opinion and argument',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Permission and obligation',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Preferences and decisions',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-      SentenceTypesListData(
-        imagePath: 'assets/sels_app/teamwork.png',
-        titleTxt: 'Suggestions and advice',
-        descripTxt: 'Food',
-        onTapFunction: (){
-          print('Card Clicked V ');
-        },
-        startColor: '#FFFFFF00',
-        endColor: '#FFFFEB3B',
-      ),
-    ],
-
-
   };
-
 
  static List<SentenceTypesListData>? getSentenceTypesListData({String key:''}){
    if(key == ''){
      List<SentenceTypesListData> list = [];
-     listDataNew.forEach((key, value) {
-       list.add(value[0]);
+     topicListData.forEach((key, value) {
+       list.add(
+         SentenceTypesListData(
+           imagePath: 'assets/sels_app/lion.png',
+           titleTxt: value['Title']![0],
+           descripTxt: value['Descrip']![0],
+           onTapFunction: (){
+
+           },
+           startColor: value['startColor']!,
+           endColor: value['endColor']!,
+         ),
+       );
+
      });
      return list;
    }else{
      List<SentenceTypesListData> list = [];
 
-     for (int i = 1; i < listDataNew[key]!.length; i++) {
-       list.add(listDataNew[key]![i]);
+     for (int i = 1; i < topicListData[key]!['Title']!.length; i++) {
+       list.add(
+         SentenceTypesListData(
+           imagePath: 'assets/sels_app/lion.png',
+           titleTxt: topicListData[key]!['Title']![i],
+           descripTxt: topicListData[key]!['Descrip']![i],
+           onTapFunction: (){
+
+           },
+           startColor: topicListData[key]!['startColor']!,
+           endColor: topicListData[key]!['endColor']!,
+         ),
+       );
      }
      return list;
    }
