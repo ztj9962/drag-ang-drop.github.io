@@ -23,20 +23,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sels_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@/Users/edwinyoo44/.android/avd/Pixel_3a_API_30_x86.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@9C131FFBA000DN]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -106,22 +108,22 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1181" height="197" key="GridCell.Tab.0.bottom" timestamp="1638895254064">
+    <state width="1181" height="126" key="GridCell.Tab.0.bottom" timestamp="1638970855363">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
-    <state width="1181" height="197" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1638895254064" />
-    <state width="1181" height="197" key="GridCell.Tab.0.center" timestamp="1638895254063">
+    <state width="1181" height="126" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1638970855363" />
+    <state width="1181" height="126" key="GridCell.Tab.0.center" timestamp="1638970855358">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
-    <state width="1181" height="197" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1638895254063" />
-    <state width="1181" height="197" key="GridCell.Tab.0.left" timestamp="1638895254062">
+    <state width="1181" height="126" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1638970855358" />
+    <state width="1181" height="126" key="GridCell.Tab.0.left" timestamp="1638970855358">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
-    <state width="1181" height="197" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1638895254062" />
-    <state width="1181" height="197" key="GridCell.Tab.0.right" timestamp="1638895254063">
+    <state width="1181" height="126" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1638970855358" />
+    <state width="1181" height="126" key="GridCell.Tab.0.right" timestamp="1638970855362">
       <screen x="57" y="0" width="1223" height="800" />
     </state>
-    <state width="1181" height="197" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1638895254063" />
+    <state width="1181" height="126" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1638970855362" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
