@@ -178,6 +178,7 @@ class _SELSAppHomePageState extends State<SELSAppHomePage>
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
       (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataUUID', authRespository.getUid()));
     });
+    SharedPreferencesUtil.saveData<String>('applicationSettingsDataUUID', authRespository.getUid());
     await SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
       (value ?? SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', 'A1'));
     });
