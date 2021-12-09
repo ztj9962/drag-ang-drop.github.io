@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sels_app/sels_app/Router/router.gr.dart';
 import 'package:sels_app/sels_app/SELSAppHomePage.dart';
 import "package:sels_app/sels_app/Pages/SignInPage/SignInPage.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -14,14 +15,17 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
-  ]).then((_) => runApp(MyApp()));
+  ]).then((_) => runApp(MyApp(isSignin: prefs.getBool("isSignIn"),)));
 }
 
 class MyApp extends StatelessWidget {
   final _appRouter = AppRouter();
+  bool? isSignin;
+  MyApp({bool? isSignin}):isSignin = isSignin;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerDelegate: _appRouter.delegate(),
+      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? SELSAppHomeRoute() : SignInRoute(),]),
       routeInformationParser:_appRouter.defaultRouteParser(),
     );
   }

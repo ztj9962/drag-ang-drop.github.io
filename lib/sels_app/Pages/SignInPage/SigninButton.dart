@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sels_app/sels_app/Pages/SignInPage/Email_LInk_Dialog.dart';
 import 'package:sels_app/sels_app/models/auth_Respository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninButton extends StatelessWidget {
   @override
@@ -15,8 +16,11 @@ class SigninButton extends StatelessWidget {
         TextButton(
             onPressed: () async {
               await authRespository.signInWithGoogle();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
               bool signIn = await authRespository.isSignedIn();
               if(signIn == true){
+                print(authRespository.getUid());
+                prefs.setBool("isSignIn", true);
                 AutoRouter.of(context).replaceNamed("/home");
               }
             },
