@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -22,14 +25,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+    <list default="true" id="fad6e2fb-917f-45db-a554-8d580fdd463e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/sels_app/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/sels_app/Pages/AccountInfoPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sels_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SigninButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/SignInPage/SigninButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/OthersPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/OthersPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Router/router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Router/router.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/Router/router.gr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Router/router.gr.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +45,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\m2201\.android\avd\Pixel_2_API_30.avd]" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -55,7 +70,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../MyFlutter/login" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/sels_app" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -64,13 +79,14 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\sels_app\sels_app\assets\sels_app" />
+      <recent name="$PROJECT_DIR$/lib/sels_app/Pages" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/sels_app/OtherViews" />
       <recent name="$PROJECT_DIR$/lib/sels_app/Pages" />
       <recent name="$PROJECT_DIR$/lib/sels_app/pages" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/sels_app/Pages" />
     </key>
   </component>
   <component name="RunManager">
@@ -82,7 +98,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d98733af-ebc2-4788-af2d-decee010b213" name="Default Changelist" comment="" />
+      <changelist id="fad6e2fb-917f-45db-a554-8d580fdd463e" name="Default Changelist" comment="" />
       <created>1626943498593</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

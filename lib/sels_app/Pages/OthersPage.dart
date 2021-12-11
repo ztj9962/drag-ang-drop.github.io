@@ -2,7 +2,7 @@ import 'package:sels_app/sels_app/pages/ApplicationSettingsPage.dart';
 
 import 'package:sels_app/sels_app/OtherViews/buttonCard_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
 
 class OthersPage extends StatefulWidget {
@@ -56,7 +56,22 @@ class _OthersPageState extends State<OthersPage>
 
   void addAllListData() {
     const int count = 3;
-
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/user.png',
+        titleTxt: '帳戶',
+        descripTxt: '帳戶資訊',
+        onTapFunction: (){
+          AutoRouter.of(context).pushNamed("/accountInfo");
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicationSettingsPage()));
+        },
+      ),
+    );
     listViews.add(
       ButtonCardView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
