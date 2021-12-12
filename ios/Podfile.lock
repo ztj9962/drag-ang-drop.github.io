@@ -20,11 +20,11 @@ PODS:
   - Firebase/DynamicLinks (8.9.0):
     - Firebase/CoreOnly
     - FirebaseDynamicLinks (~> 8.9.0)
-  - firebase_auth (3.3.0):
+  - firebase_auth (3.3.3):
     - Firebase/Auth (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.10.2):
+  - firebase_core (1.10.5):
     - Firebase/CoreOnly (= 8.9.0)
     - Flutter
   - firebase_dynamic_links (3.0.2):
@@ -176,8 +176,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: 39865aff97e5f6951a78fb3e89dc4460e35e1895
   FBSDKLoginKit: e993f97c7cc794c5da4056d8aec3c3d66033a727
   Firebase: 13d8d96499e2635428d5bf0ec675df21f95d9a95
-  firebase_auth: 9b2e9b08f1d64fcf861f0409ac909a5cf9aa52dc
-  firebase_core: 6d1a5e12a83b6d9419ecb8f2a53d876e7b4695da
+  firebase_auth: fe3a1deb12ebd850295344234abc15588d086baf
+  firebase_core: dfcae4c150a5e24436a0b7677c470478a234d5bf
   firebase_dynamic_links: d79118550dc36eccc182e4990ed5d4342d5ab900
   FirebaseAuth: 2b78b2a32c07b3ecfa4970bdf1d3632b8304099b
   FirebaseCore: 599ee609343eaf4941bd188f85e3aa077ffe325b
