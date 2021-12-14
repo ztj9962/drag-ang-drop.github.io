@@ -71,9 +71,9 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
                 Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         subTxt: '查看全部',
-        subVisivle: true,
+        subVisivle: false,
         subFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesTopicListPage(animationController: widget.animationController)));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesTopicListPage(animationController: widget.animationController)));
         },
       ),
     );

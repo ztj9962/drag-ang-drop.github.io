@@ -1,8 +1,10 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sels_app/main.dart';
-import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
+import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 
 BuildContext context = navigatorKey.currentState!.overlay!.context;
 class SentenceTypesListData {
@@ -24,7 +26,8 @@ class SentenceTypesListData {
   String endColor;
   List<String>? sentenceTypes;
   Function()? onTapFunction;
-
+  //static final Map<String, Map<String, dynamic>> topicListData =  APIUtil.getSentenceTopicData();
+  /*
   static Map<String, Map<String, dynamic>> topicListData = {
     "Animals": {
       "startColor": "#FA7D82",
@@ -130,21 +133,26 @@ class SentenceTypesListData {
     }
   };
 
- static List<SentenceTypesListData>? getSentenceTypesListData({String key:''}){
+   */
+
+ static Future<List<SentenceTypesListData>?> getSentenceTypesListData({String key:''}) async {
+   String topicListDataJSON = await APIUtil.getSentenceTopicData();
+   var topicListData = jsonDecode(topicListDataJSON.toString());
+   print(topicListData);
    if(key == ''){
      List<SentenceTypesListData> list = [];
-     topicListData.forEach((key, value) {
+     topicListData['data'].forEach((key, value) {
        list.add(
          SentenceTypesListData(
-           imagePath: 'assets/sels_app/lion.png',
-           titleTxt: value['Title']![0],
-           descripTxt: value['Descrip']![0],
+           imagePath: 'assets/sels_app/' + value['appIcon']![0] + '.png',
+           titleTxt: value['title']![0],
+           descripTxt: '目前有' + value['sentnceCount']![0].toString() + '個句子\n' + value['descrip']![0],
            onTapFunction: (){
 
            },
-           startColor: value['startColor']!,
-           endColor: value['endColor']!,
-         ),
+           startColor: value['appStartColor']![0],
+           endColor: value['appEndColor']![0],
+         )
        );
 
      });
@@ -152,17 +160,17 @@ class SentenceTypesListData {
    }else{
      List<SentenceTypesListData> list = [];
 
-     for (int i = 1; i < topicListData[key]!['Title']!.length; i++) {
+     for (int i = 1; i < topicListData[key]!['title']!.length; i++) {
        list.add(
          SentenceTypesListData(
-           imagePath: 'assets/sels_app/lion.png',
-           titleTxt: topicListData[key]!['Title']![i],
-           descripTxt: topicListData[key]!['Descrip']![i],
+           imagePath: 'assets/sels_app/' + topicListData[key]!['appIcon']![i] + '.png',
+           titleTxt: topicListData[key]!['title']![i],
+           descripTxt: topicListData[key]!['descrip']![i],
            onTapFunction: (){
 
            },
-           startColor: topicListData[key]!['startColor']!,
-           endColor: topicListData[key]!['endColor']!,
+           startColor: topicListData[key]!['appStartColor']![i],
+           endColor: topicListData[key]!['appEndColor']![i],
          ),
        );
      }

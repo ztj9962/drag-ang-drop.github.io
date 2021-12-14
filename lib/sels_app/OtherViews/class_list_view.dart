@@ -25,19 +25,26 @@ class _SentenceTypesListViewState extends State<SentenceTypesListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   //List sentenceTypesListData = SentenceTypesListData.getData();
-  late List sentenceTypesListData;
+  List sentenceTypesListData = [];
   //List<SentenceTypesListData> sentenceTypesListData = SentenceTypesListData.tabIconsList;
 
   @override
   void initState() {
-    sentenceTypesListData = SentenceTypesListData.getSentenceTypesListData(key:widget.showIndex)!;
+    getData();
+    //sentenceTypesListData = SentenceTypesListData.getSentenceTypesListData(key:widget.showIndex);
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
   }
 
   Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 50));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 100));
+    List sentenceTypesListData_ = (await SentenceTypesListData.getSentenceTypesListData(key:widget.showIndex))!;
+    setState(() {
+
+      sentenceTypesListData = sentenceTypesListData_;
+    });
+
     return true;
   }
 
@@ -224,7 +231,8 @@ class SentenceTypesView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      sentenceTypesListData!.titleTxt,
+                                      sentenceTypesListData!.descripTxt,
+                                      softWrap: true,
                                       style: TextStyle(
                                         fontFamily: SELSAppTheme.fontName,
                                         fontWeight: FontWeight.w500,
