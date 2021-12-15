@@ -46,6 +46,10 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
   late int _answerSeconds;
   bool _isActive = false;
 
+  var _startTime;
+  var _questionStart;
+  var _questionEnd;
+
   late double _progress;
   List<int> _sentencesIDData = [];
   List _questionsData = [];
@@ -76,6 +80,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     'scoreArray' : <int>[],
     'secondsArrayQ' : <int>[],
     'secondsArray' : <int>[],
+    'userAnswerRate' : <double>[],
   };
 
 
@@ -257,6 +262,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
 
   Future<void> initChatBot() async {
+    _startTime = new DateTime.now();
     await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始')], needSpeak:true, speakMessage:'Quiz is about to start', speakLanguage:'en-US');
     await sendChatMessage(false, 'Bot', [TextSpan(text: '請跟著我重複一次')], needSpeak:true, speakMessage:'Please repeat after me', speakLanguage:'en-US');
     await sendNextQuestion();
@@ -307,7 +313,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       var getSentences;
 
       // 測試用
-      /*
+
       do {
         String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'3', dataLimit:'2', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
@@ -326,7 +332,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       _totalTestQuestions = questionsData.length;
       return;
 
-       */
+
 
       // 獲取1~3單字數的句子7句
       do {
@@ -955,8 +961,10 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       _finishQuizData['sentenceIDArray']!.add(_questionsData[_part - 1]['sentenceId']);
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
+      _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
       print(_finishQuizData);
       await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花費 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '您的語速：${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)} wps')]);  //語速
       await sendNextQuestion();
 
 
@@ -972,18 +980,23 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
     if( _part > _totalTestQuestions){
+      var _endTime = DateTime.now();
       await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
 
       //var secondsArraySum = _finishQuizData['secondsArray'].reduce((sum, element) => int.parse(sum) + int.parse(element));
       var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
+      var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
 
 
 
       await sendChatMessage(false, 'Bot', [
         TextSpan(text: '=== 紀錄 ===\n'),
         TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
-        TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
-        TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
+        TextSpan(text: '平均語速：${ttsRate.toStringAsFixed(2)} wps\n'),
+        TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
+        TextSpan(text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
+        //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
+        //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
 
       ], needSpeak:false, speakMessage:'', speakLanguage:'en-US');
 
@@ -1016,8 +1029,13 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
     } else {
       _questionText = _questionsData[_part - 1]['sentenceContent'];
+      //_questionStart = DateTime.now();
       await sendChatMessage(false, 'Bot', [TextSpan(text: '第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}')], needSpeak:false, speakMessage:'', speakLanguage:'zh-TW');
       await sendChatMessage(false, 'Bot', [TextSpan(text: '第 ${_part}/$_totalTestQuestions 題：${_questionText}')], needSpeak:true, speakMessage:_questionText, speakLanguage:'en-US');
+      //_questionEnd = DateTime.now();
+      //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
+      //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
+      //await sendChatMessage(false, 'Bot', [TextSpan(text: 'The number of seconds in the sentence is: ${ttsRate}')], needSpeak:false, speakMessage:'', speakLanguage: 'en-US');
       await Future.delayed(Duration(milliseconds: (_part / _totalTestQuestions * 2340).round()));
       setState(() {
         _isActive = true;
