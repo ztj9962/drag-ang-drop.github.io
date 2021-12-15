@@ -316,10 +316,6 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                       selectSyllableList.add('');
                                     }
 
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      content: Text('Save successflully. ${selectSyllableList}'),
-                                    ));
-
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
                                     //Navigator.pop(context);
                                   },

@@ -252,31 +252,34 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
   }
 
   Future<void> initWordData() async {
-
-    List wordData = [];
-    _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
 
-    var getWordLearning;
-    do {
-      String getWordLearningJSON = await APIUtil.getWordLearning(_learningDegree, _learningPhase);
-      getWordLearning = jsonDecode(getWordLearningJSON.toString());
-      print('getWordLearning 6 apiStatus:' + getWordLearning['apiStatus'] + ' apiMessage:' + getWordLearning['apiMessage']);
-      await Future.delayed(Duration(seconds: 1));
-    } while (getWordLearning['apiStatus'] != 'success');
-    wordData.addAll(getWordLearning['data']);
+    try {
+      List wordData = [];
+      _progress = 0;
 
+      var getWordLearning;
+      do {
+        String getWordLearningJSON = await APIUtil.getWordLearning(_learningDegree, _learningPhase);
+        getWordLearning = jsonDecode(getWordLearningJSON.toString());
+        print('getWordLearning 6 apiStatus:' + getWordLearning['apiStatus'] + ' apiMessage:' + getWordLearning['apiMessage']);
+        await Future.delayed(Duration(seconds: 1));
+      } while (getWordLearning['apiStatus'] != 'success');
+      wordData.addAll(getWordLearning['data']);
+
+      setState(() {
+        _wordData = wordData;
+      });
+      updateSentanceList();
+
+    } catch(e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('連線發生錯誤，請稍候再重試'),
+      ));
+    }
 
     EasyLoading.dismiss();
-    print('wordData');
-    //print(wordData);
-    //print(wordData[0]['wordMeaningList'][0]);
-
-
-    setState(() {
-      _wordData = wordData;
-    });
-    updateSentanceList();
     return;
 
 
@@ -401,7 +404,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                       iconSize: 25,
                                       icon: Icon(Icons.arrow_forward),
                                       onPressed: () async {
-                                        changeWordIndex('Next');
+                                        if(_allowTouchButtons['nextButton']!) {
+                                          changeWordIndex('Next');
+                                        }
                                       },
                                     ),
                                   ),
@@ -520,69 +525,38 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                         child: ListView.builder(
                                           physics: new NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemExtent: 240,
+                                          itemExtent: 250,
                                           itemCount: _questionTextList.length,
                                           itemBuilder: (context, index) {
                                             return Container(
                                               child: Card(
                                                 child: Row(
                                                   children: <Widget>[
-                                                    Flexible(
+                                                    Expanded(
                                                       flex: 9,
                                                       child: Column(
                                                         children: <Widget>[
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 2,
                                                             child:Container(
-                                                              padding: const EdgeInsets.all(16),
+                                                              alignment: Alignment.center,
+                                                              padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                   text: TextSpan(
                                                                     text: '',
                                                                     style: TextStyle(
-                                                                      fontSize: 18,
+                                                                      fontSize: 16,
                                                                       color: Color(0xFF2633C5),
                                                                     ),
                                                                     children: _questionTextWidgetList[index],
                                                                   ),
                                                                 ),
-
-
-                                                              /*
-                                                              Row(
-                                                                children: [
-                                                                  Flexible(
-                                                                    child: RichText(
-                                                                      text: TextSpan(
-                                                                        text: '',
-                                                                        style: TextStyle(
-                                                                          fontSize: 20,
-                                                                          color: Color(0xFF2633C5),
-                                                                        ),
-                                                                        children: _questionTextWidgetList[index],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Flexible(
-                                                                    child: RichText(
-                                                                      text: TextSpan(
-                                                                        text: ' : ',
-                                                                        style: TextStyle(
-                                                                          fontSize: 20,
-                                                                          color: Color(0xFF2633C5),
-                                                                        ),
-                                                                        children: _questionIPATextWidgetList[index],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-
-                                                              */
                                                             ),
                                                           ),
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 1,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                 text: TextSpan(
@@ -596,9 +570,10 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Flexible(
-                                                            flex: 1,
+                                                          Expanded(
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                       text: TextSpan(
@@ -616,16 +591,17 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                             height: 0,
                                                             thickness: 1,
                                                           ),
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 2,
                                                             child:Container(
-                                                              padding: const EdgeInsets.all(16),
+                                                              alignment: Alignment.center,
+                                                              padding: const EdgeInsets.all(4),
                                                               //color:Colors.grey,
                                                               child: RichText(
                                                                 text: TextSpan(
                                                                   text: '',
                                                                   style: TextStyle(
-                                                                    fontSize: 20,
+                                                                    fontSize: 16,
                                                                     color: Color(0xFF2633C5),
                                                                   ),
                                                                   children: _answerTextWidgetList[index],
@@ -633,9 +609,10 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Flexible(
-                                                            flex: 1,
+                                                          Expanded(
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               //color:Colors.grey,
                                                               child: RichText(
@@ -653,42 +630,45 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Flexible(
+                                                    Expanded(
                                                       flex: 1,
                                                       child: Column(
                                                         children: <Widget>[
-                                                          Center(
-                                                            child: AvatarGlow(
-                                                              animate: true,
-                                                              glowColor: Theme.of(context).primaryColor,
-                                                              endRadius: 30.0,
-                                                              duration: Duration(milliseconds: 2000),
-                                                              repeat: true,
-                                                              showTwoGlows: true,
-                                                              repeatPauseDuration: Duration(milliseconds: 100),
-                                                              child: Material(     // Replace this child with your own
-                                                                elevation: 8.0,
-                                                                shape: CircleBorder(),
-                                                                child: CircleAvatar(
-                                                                  backgroundColor: Theme.of(context).primaryColor,
-                                                                  radius: 20.0,
-                                                                  child: IconButton(
-                                                                    iconSize: 15,
-                                                                    //icon: Icon(Icons.volume_off_outlined ),
-                                                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                                    color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
-                                                                    onPressed: () async {
-                                                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                                                        ttsRateSlow = !ttsRateSlow;
-                                                                        await _ttsSpeak(_questionTextList[index], 'en-US');
-                                                                      }
-                                                                    },
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Center(
+                                                              child: AvatarGlow(
+                                                                animate: true,
+                                                                glowColor: Theme.of(context).primaryColor,
+                                                                endRadius: 30.0,
+                                                                duration: Duration(milliseconds: 2000),
+                                                                repeat: true,
+                                                                showTwoGlows: true,
+                                                                repeatPauseDuration: Duration(milliseconds: 100),
+                                                                child: Material(     // Replace this child with your own
+                                                                  elevation: 8.0,
+                                                                  shape: CircleBorder(),
+                                                                  child: CircleAvatar(
+                                                                    backgroundColor: Theme.of(context).primaryColor,
+                                                                    radius: 20.0,
+                                                                    child: IconButton(
+                                                                      iconSize: 15,
+                                                                      //icon: Icon(Icons.volume_off_outlined ),
+                                                                      icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                                      color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                                      onPressed: () async {
+                                                                        if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                                          ttsRateSlow = !ttsRateSlow;
+                                                                          await _ttsSpeak(_questionTextList[index], 'en-US');
+                                                                        }},
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
                                                           Expanded(
+                                                            flex: 2,
                                                               child: Center(
                                                                 child: AvatarGlow(
                                                                   animate: true,
@@ -1170,69 +1150,65 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
 
   Future<void> updateSentanceList() async {
-
-
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    try{
+      var getSentences;
+      do {
+        String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), dataLimit:'3');
+        getSentences = jsonDecode(getSentencesJSON.toString());
+        print('updateSentanceList 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        if(getSentences['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getSentences['apiStatus'] != 'success');
+
+      List<String> questionTextList = [];
+      List<String> questionIPATextList = [];
+      List<String> questionChineseTextList = [];
+      List<List<TextSpan>> questionTextWidgetList = [];
+      List<List<TextSpan>> questionIPATextWidgetList = [];
+      List<List<TextSpan>> questionChineseTextWidgetList = [];
+      List<List<TextSpan>> answerTextWidget = [];
+      List<List<TextSpan>> answerIPATextWidgetList = [];
 
 
-
-    var getSentences;
-    do {
-      String getSentencesJSON = await APIUtil.getSentences(_wordData[_wordIndex]['wordLevel'], sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), dataLimit:'3');
-      getSentences = jsonDecode(getSentencesJSON.toString());
-      print('updateSentanceList 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-      if(getSentences['apiStatus'] != 'success') {
-        await Future.delayed(Duration(seconds: 1));
-      }
-    } while (getSentences['apiStatus'] != 'success');
-
-    print('getSentences');
-    print(getSentences);
-
-    //questionsData.addAll(minimalPairOneFinder['data']);
+      getSentences['data'].forEach((element) {
+        questionTextList.add('${element['sentenceContent']}');
+        questionIPATextList.add('${element['sentenceIPA']}');
+        questionChineseTextList.add('${element['sentenceChinese']}');
+        questionTextWidgetList.add([TextSpan(text: '${element['sentenceContent']}')]);
+        questionIPATextWidgetList.add([TextSpan(text: '[${element['sentenceIPA']}]')]);
+        questionChineseTextWidgetList.add([TextSpan(text: '${element['sentenceChinese']}')]);
+        answerTextWidget.add([ TextSpan(text: ''), TextSpan(text: '') ]);
+        answerIPATextWidgetList.add([ TextSpan(text: ''), TextSpan(text: '') ]);
+      });
 
 
-    List<String> questionTextList = [];
-    List<String> questionIPATextList = [];
-    List<String> questionChineseTextList = [];
-    List<List<TextSpan>> questionTextWidgetList = [];
-    List<List<TextSpan>> questionIPATextWidgetList = [];
-    List<List<TextSpan>> questionChineseTextWidgetList = [];
-    List<List<TextSpan>> answerTextWidget = [];
-    List<List<TextSpan>> answerIPATextWidgetList = [];
+      setState(() {
 
-
-    getSentences['data'].forEach((element) {
-      questionTextList.add('${element['sentenceContent']}');
-      questionIPATextList.add('${element['sentenceIPA']}');
-      questionChineseTextList.add('${element['sentenceChinese']}');
-      questionTextWidgetList.add([TextSpan(text: '${element['sentenceContent']}')]);
-      questionIPATextWidgetList.add([TextSpan(text: '[${element['sentenceIPA']}]')]);
-      questionChineseTextWidgetList.add([TextSpan(text: '${element['sentenceChinese']}')]);
-      answerTextWidget.add([ TextSpan(text: ''), TextSpan(text: '') ]);
-      answerIPATextWidgetList.add([ TextSpan(text: ''), TextSpan(text: '') ]);
-    });
-
+        _questionTextList = questionTextList;
+        _questionIPATextList = questionIPATextList;
+        _questionChineseTextList = questionChineseTextList;
+        _questionTextWidgetList = questionTextWidgetList;
+        _questionIPATextWidgetList = questionIPATextWidgetList;
+        _questionChineseTextWidgetList = questionChineseTextWidgetList;
+        _answerTextList = [''];
+        _answerIPATextList = [''];
+        _answerTextWidgetList = answerTextWidget;
+        _answerIPATextWidgetList = answerIPATextWidgetList;
+      });
+    } catch(e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('連線發生錯誤，請稍候再重試'),
+      ));
+    }
 
     setState(() {
-
-      _questionTextList = questionTextList;
-      _questionIPATextList = questionIPATextList;
-      _questionChineseTextList = questionChineseTextList;
-      _questionTextWidgetList = questionTextWidgetList;
-      _questionIPATextWidgetList = questionIPATextWidgetList;
-      _questionChineseTextWidgetList = questionChineseTextWidgetList;
-      _answerTextList = [''];
-      _answerIPATextList = [''];
-      _answerTextWidgetList = answerTextWidget;
-      _answerIPATextWidgetList = answerIPATextWidgetList;
-
-
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;
       _allowTouchButtons['nextButton'] = true;
     });
-
     EasyLoading.dismiss();
     return;
   }

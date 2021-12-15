@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: EasyLoading.init(),
       routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? SELSAppHomeRoute() : SignInRoute(),]),
       routeInformationParser:_appRouter.defaultRouteParser(),
     );
