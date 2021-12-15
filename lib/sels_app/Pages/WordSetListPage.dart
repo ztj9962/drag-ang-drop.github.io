@@ -277,40 +277,49 @@ class _WordSetListPage extends State<WordSetListPage> {
                             elevation: 2.0,
                             child: Container(
                               child: ListView.builder(
-                                  itemExtent: 80,
+                                  itemExtent: 200,
                                   itemCount: _wordSetData['wordSetArray']!.length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       padding: const EdgeInsets.all(4),
                                       child: Card(
+                                        color: Colors.blueAccent.shade100,
+                                        child: Container(
+                                          child: Column(
+                                            children: [
+                                              Expanded(
+                                                flex: 7,
+                                                child: Container(
 
-                                        child: ListTile(
-                                          title: Text('${_wordSetData['wordSetArray']![index]['wordSetDegree']} 第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集 / ${_wordSetData['wordSetArray']![index]['wordSetTitle']}'),
-                                          leading: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: CircularProgressIndicator(
-                                                    backgroundColor: Colors.grey[200],
-                                                    valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
-                                                    value: _wordSetData['wordSetArray']![index]['wordSetScore']/100,
-                                                  ),
-                                                ),
-                                                Text(
-                                                    '${_wordSetData['wordSetArray']![index]['wordSetScore']}%'
-                                                )
-                                              ],
-                                          ),
-                                          trailing: PopupMenuButton(
-                                            itemBuilder: (context) {
-                                              return [
-                                                PopupMenuItem(
-                                                  value: 'Learn',
-                                                  child: Text('學習'),
-                                                ),
-                                                /*
+                                                  alignment: Alignment.centerLeft,
+                                                  padding: const EdgeInsets.all(4),
+                                                  child: ListTile(
+                                                    title: Text('${_wordSetData['wordSetArray']![index]['wordSetDegree']} 第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集'),
+                                                    leading: Stack(
+                                                      alignment: Alignment.center,
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 50,
+                                                          width: 50,
+                                                          child: CircularProgressIndicator(
+                                                            backgroundColor: Colors.grey[200],
+                                                            valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+                                                            value: _wordSetData['wordSetArray']![index]['wordSetScore']/100,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                            '${_wordSetData['wordSetArray']![index]['wordSetScore']}%'
+                                                        )
+                                                      ],
+                                                    ),
+                                                    trailing: PopupMenuButton(
+                                                      itemBuilder: (context) {
+                                                        return [
+                                                          PopupMenuItem(
+                                                            value: 'Learn',
+                                                            child: Text('學習'),
+                                                          ),
+                                                          /*
                                                 PopupMenuItem(
                                                   value: 'Review',
                                                   child: Text('複習'),
@@ -321,29 +330,81 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                 ),
 
                                                  */
-                                              ];
-                                            },
-                                            onSelected: (String value){
-                                              switch(value) {
-                                                case 'Learn':
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningDegree: _wordSetData['wordSetArray']![index]['wordSetDegree'], learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
-                                                  print('You Click on po up menu item' + value +_wordSetData['wordSetArray']![index]['wordSetDegree'].toString());
-                                                  break;
-                                                case 'Review':
-                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
-                                                  print('You Click on po up menu item' + value);
-                                                  break;
-                                                case 'Test':
-                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
-                                                  print('You Click on po up menu item' + value);
-                                                  break;
-                                                default:
-                                                  print('You Click on po up menu item' + value);
-                                                break;
-                                              }
-                                            },
+                                                        ];
+                                                      },
+                                                      onSelected: (String value){
+                                                        switch(value) {
+                                                          case 'Learn':
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningDegree: _wordSetData['wordSetArray']![index]['wordSetDegree'], learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
+                                                            print('You Click on po up menu item' + value +_wordSetData['wordSetArray']![index]['wordSetDegree'].toString());
+                                                            break;
+                                                          case 'Review':
+                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                          case 'Test':
+                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                          default:
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                              Divider(
+                                                color: Colors.white,
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(4),
+                                                  //color: Colors.red,
+                                                  child: ListView.builder(
+                                                      //itemExtent: 100,
+                                                      scrollDirection: Axis.horizontal,
+                                                      itemCount: _wordSetData['wordSetArray']![index]['wordList'].length,
+                                                      itemBuilder: (context, index2) {
+                                                        return Container(
+                                                          padding: const EdgeInsets.all(4),
+                                                          child: OutlinedButton(
+                                                            style: OutlinedButton.styleFrom(
+                                                              side: BorderSide(
+                                                                color: Colors.white,
+                                                                width: 0.5,
+                                                              ),
+                                                            ),
+                                                            child: Text(
+                                                                _wordSetData['wordSetArray']![index]['wordList'][index2],
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                        );
+                                                      }),
+
+
+                                                  /*
+                                                OutlinedButton(
+
+                                                  child: Text(_wordSetData['wordSetArray']![index]['wordList'][index2]),
+                                                  onPressed: () {
+                                                  },
+                                                ),
+                                                */
+                                                ),
+                                              ),
+
+                                            ],
                                           ),
                                         ),
+
                                       ),
                                     );
                                   }
