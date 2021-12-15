@@ -520,67 +520,34 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                         child: ListView.builder(
                                           physics: new NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemExtent: 240,
+                                          itemExtent: 200,
                                           itemCount: _questionTextList.length,
                                           itemBuilder: (context, index) {
                                             return Container(
                                               child: Card(
                                                 child: Row(
                                                   children: <Widget>[
-                                                    Flexible(
+                                                    Expanded(
                                                       flex: 9,
                                                       child: Column(
                                                         children: <Widget>[
-                                                          Flexible(
-                                                            flex: 2,
+                                                          Expanded(
+                                                            flex: 1,
                                                             child:Container(
-                                                              padding: const EdgeInsets.all(16),
+                                                              padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                   text: TextSpan(
                                                                     text: '',
                                                                     style: TextStyle(
-                                                                      fontSize: 18,
+                                                                      fontSize: 16,
                                                                       color: Color(0xFF2633C5),
                                                                     ),
                                                                     children: _questionTextWidgetList[index],
                                                                   ),
                                                                 ),
-
-
-                                                              /*
-                                                              Row(
-                                                                children: [
-                                                                  Flexible(
-                                                                    child: RichText(
-                                                                      text: TextSpan(
-                                                                        text: '',
-                                                                        style: TextStyle(
-                                                                          fontSize: 20,
-                                                                          color: Color(0xFF2633C5),
-                                                                        ),
-                                                                        children: _questionTextWidgetList[index],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Flexible(
-                                                                    child: RichText(
-                                                                      text: TextSpan(
-                                                                        text: ' : ',
-                                                                        style: TextStyle(
-                                                                          fontSize: 20,
-                                                                          color: Color(0xFF2633C5),
-                                                                        ),
-                                                                        children: _questionIPATextWidgetList[index],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-
-                                                              */
                                                             ),
                                                           ),
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 1,
                                                             child:Container(
                                                               padding: const EdgeInsets.all(4),
@@ -596,7 +563,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 1,
                                                             child:Container(
                                                               padding: const EdgeInsets.all(4),
@@ -616,16 +583,16 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                             height: 0,
                                                             thickness: 1,
                                                           ),
-                                                          Flexible(
-                                                            flex: 2,
+                                                          Expanded(
+                                                            flex: 1,
                                                             child:Container(
-                                                              padding: const EdgeInsets.all(16),
+                                                              padding: const EdgeInsets.all(4),
                                                               //color:Colors.grey,
                                                               child: RichText(
                                                                 text: TextSpan(
                                                                   text: '',
                                                                   style: TextStyle(
-                                                                    fontSize: 20,
+                                                                    fontSize: 16,
                                                                     color: Color(0xFF2633C5),
                                                                   ),
                                                                   children: _answerTextWidgetList[index],
@@ -633,7 +600,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Flexible(
+                                                          Expanded(
                                                             flex: 1,
                                                             child:Container(
                                                               padding: const EdgeInsets.all(4),
@@ -653,42 +620,45 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Flexible(
+                                                    Expanded(
                                                       flex: 1,
                                                       child: Column(
                                                         children: <Widget>[
-                                                          Center(
-                                                            child: AvatarGlow(
-                                                              animate: true,
-                                                              glowColor: Theme.of(context).primaryColor,
-                                                              endRadius: 30.0,
-                                                              duration: Duration(milliseconds: 2000),
-                                                              repeat: true,
-                                                              showTwoGlows: true,
-                                                              repeatPauseDuration: Duration(milliseconds: 100),
-                                                              child: Material(     // Replace this child with your own
-                                                                elevation: 8.0,
-                                                                shape: CircleBorder(),
-                                                                child: CircleAvatar(
-                                                                  backgroundColor: Theme.of(context).primaryColor,
-                                                                  radius: 20.0,
-                                                                  child: IconButton(
-                                                                    iconSize: 15,
-                                                                    //icon: Icon(Icons.volume_off_outlined ),
-                                                                    icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                                    color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
-                                                                    onPressed: () async {
-                                                                      if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                                                        ttsRateSlow = !ttsRateSlow;
-                                                                        await _ttsSpeak(_questionTextList[index], 'en-US');
-                                                                      }
-                                                                    },
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Center(
+                                                              child: AvatarGlow(
+                                                                animate: true,
+                                                                glowColor: Theme.of(context).primaryColor,
+                                                                endRadius: 30.0,
+                                                                duration: Duration(milliseconds: 2000),
+                                                                repeat: true,
+                                                                showTwoGlows: true,
+                                                                repeatPauseDuration: Duration(milliseconds: 100),
+                                                                child: Material(     // Replace this child with your own
+                                                                  elevation: 8.0,
+                                                                  shape: CircleBorder(),
+                                                                  child: CircleAvatar(
+                                                                    backgroundColor: Theme.of(context).primaryColor,
+                                                                    radius: 20.0,
+                                                                    child: IconButton(
+                                                                      iconSize: 15,
+                                                                      //icon: Icon(Icons.volume_off_outlined ),
+                                                                      icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                                      color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                                      onPressed: () async {
+                                                                        if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                                          ttsRateSlow = !ttsRateSlow;
+                                                                          await _ttsSpeak(_questionTextList[index], 'en-US');
+                                                                        }},
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
                                                           Expanded(
+                                                            flex: 2,
                                                               child: Center(
                                                                 child: AvatarGlow(
                                                                   animate: true,
