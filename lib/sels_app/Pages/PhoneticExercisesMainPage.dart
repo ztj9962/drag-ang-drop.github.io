@@ -1,4 +1,5 @@
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesHistoryPage.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnManualPage.dart';
 import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
@@ -56,6 +57,14 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
       }
     });
     super.initState();
+  }
+
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    EasyLoading.dismiss();
   }
 
   void addAllListData() {

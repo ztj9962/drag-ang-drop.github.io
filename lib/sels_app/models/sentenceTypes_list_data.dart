@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sels_app/main.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 
@@ -136,9 +137,14 @@ class SentenceTypesListData {
    */
 
  static Future<List<SentenceTypesListData>?> getSentenceTypesListData({String key:''}) async {
+
+   EasyLoading.show(status: '正在讀取資料，請稍候......');
    String topicListDataJSON = await APIUtil.getSentenceTopicData();
    var topicListData = jsonDecode(topicListDataJSON.toString());
    print(topicListData);
+
+   EasyLoading.dismiss();
+
    if(key == ''){
      List<SentenceTypesListData> list = [];
      topicListData['data'].forEach((key, value) {
