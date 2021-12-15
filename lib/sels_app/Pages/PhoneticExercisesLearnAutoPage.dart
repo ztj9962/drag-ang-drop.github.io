@@ -330,7 +330,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
       // 獲取1~3單字數的句子7句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -340,7 +340,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       questionsData.addAll(getSentences['data']);
       // 獲取4~5單字數的句子6句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -350,7 +350,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       questionsData.addAll(getSentences['data']);
       // 獲取6~8單字數的句子5句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -360,7 +360,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       questionsData.addAll(getSentences['data']);
       // 獲取9~10單字數的句子4句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -370,7 +370,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       questionsData.addAll(getSentences['data']);
       // 獲取11~12單字數的句子3句
       do {
-        String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -382,7 +382,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       // 檢查是否共_totalTestQuestions句，若否則隨機補足
       while(questionsData.length < _totalTestQuestions) {
         do {
-          String getSentencesJSON = await APIUtil.getSentences(_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
+          String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
           getSentences = jsonDecode(getSentencesJSON.toString());
           print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
           if(getSentences['apiStatus'] != 'success') {

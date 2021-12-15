@@ -269,7 +269,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
     EasyLoading.dismiss();
     print('wordData');
-    //print(wordData);
+    print(wordData);
     //print(wordData[0]['wordMeaningList'][0]);
 
 
@@ -1148,7 +1148,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
     var getSentences;
     do {
-      String getSentencesJSON = await APIUtil.getSentences(_wordData[_wordIndex]['wordLevel'], sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), dataLimit:'3');
+      String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), dataLimit:'3');
       getSentences = jsonDecode(getSentencesJSON.toString());
       print('updateSentanceList 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {

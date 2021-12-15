@@ -7,7 +7,7 @@ import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
 class APIUtil {
 
-  static Future<String> getSentences(String sentenceLevel, {String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
+  static Future<String> getSentences({String sentenceLevel :'', String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentences'),
       headers: <String, String>{
