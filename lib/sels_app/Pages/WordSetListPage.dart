@@ -58,52 +58,62 @@ class _WordSetListPage extends State<WordSetListPage> {
 
   Future<void> initWordSetList() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var getWordSetList;
-    Map<dynamic, dynamic> wordSetData = {};
-    // 獲取~5單字數的句子10句
-    do {
-      String getWordSetListJSON = await APIUtil.getWordSetList(_applicationSettingsDataUUID, _learningDegree);
-      getWordSetList = jsonDecode(getWordSetListJSON.toString());
-      print('getWordSetList 2 apiStatus:' + getWordSetList['apiStatus'] + ' apiMessage:' + getWordSetList['apiMessage']);
-      if(getWordSetList['apiStatus'] != 'success') {
-        sleep(Duration(seconds:1));
-      }
-    } while (getWordSetList['apiStatus'] != 'success');
-    wordSetData.addAll(getWordSetList['data']);
+    try{
+      var getWordSetList;
+      Map<dynamic, dynamic> wordSetData = {};
+      // 獲取~5單字數的句子10句
+      do {
+        String getWordSetListJSON = await APIUtil.getWordSetList(_applicationSettingsDataUUID, _learningDegree);
+        getWordSetList = jsonDecode(getWordSetListJSON.toString());
+        print('getWordSetList 2 apiStatus:' + getWordSetList['apiStatus'] + ' apiMessage:' + getWordSetList['apiMessage']);
+        if(getWordSetList['apiStatus'] != 'success') {
+          sleep(Duration(seconds:1));
+        }
+      } while (getWordSetList['apiStatus'] != 'success');
+      wordSetData.addAll(getWordSetList['data']);
 
+
+      setState(() {
+        _wordSetData = wordSetData;
+      });
+
+      if(_wordSetData['wordSetArray'].length == 0){
+        addWordSet();
+      }
+    } catch(e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('連線發生錯誤，請稍候再重試'),
+      ));
+    }
     EasyLoading.dismiss();
 
-    setState(() {
-      _wordSetData = wordSetData;
-    });
 
-    print(_wordSetData);
-    if(_wordSetData['wordSetArray'].length == 0){
-      addWordSet();
-    }
   }
 
   Future<void> addWordSet() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var addWordSet;
-    String addWordSetJSON = await APIUtil.addWordSet(_applicationSettingsDataUUID, _learningDegree);
-    addWordSet = jsonDecode(addWordSetJSON.toString());
-    //print('addWordSet 1 apiStatus:' + addWordSet['apiStatus'] + ' apiMessage:' + addWordSet['apiMessage']);
-    print(_applicationSettingsDataUUID);
-    if(addWordSet['apiStatus'] != 'success') {
-      sleep(Duration(seconds:1));
-    }
-
-    EasyLoading.dismiss();
-
-    if(addWordSet['apiStatus'] == 'success'){
-      initWordSetList();
-    } else {
+    try{
+      var addWordSet;
+      String addWordSetJSON = await APIUtil.addWordSet(_applicationSettingsDataUUID, _learningDegree);
+      addWordSet = jsonDecode(addWordSetJSON.toString());
+      if(addWordSet['apiStatus'] != 'success') {
+        sleep(Duration(seconds:1));
+      }
+      if(addWordSet['apiStatus'] == 'success'){
+        initWordSetList();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Opps: ${addWordSet['apiMessage']}'),
+        ));
+      }
+    } catch(e) {
+      print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Opps: ${addWordSet['apiMessage']}'),
+        content: Text('連線發生錯誤，請稍候再重試'),
       ));
     }
-
+    EasyLoading.dismiss();
 
   }
 
