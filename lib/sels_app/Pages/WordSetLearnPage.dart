@@ -525,7 +525,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                         child: ListView.builder(
                                           physics: new NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemExtent: 200,
+                                          itemExtent: 250,
                                           itemCount: _questionTextList.length,
                                           itemBuilder: (context, index) {
                                             return Container(
@@ -537,8 +537,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                       child: Column(
                                                         children: <Widget>[
                                                           Expanded(
-                                                            flex: 1,
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                   text: TextSpan(
@@ -555,6 +556,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                           Expanded(
                                                             flex: 1,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                 text: TextSpan(
@@ -569,8 +571,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                             ),
                                                           ),
                                                           Expanded(
-                                                            flex: 1,
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               child: RichText(
                                                                       text: TextSpan(
@@ -589,8 +592,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                             thickness: 1,
                                                           ),
                                                           Expanded(
-                                                            flex: 1,
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               //color:Colors.grey,
                                                               child: RichText(
@@ -606,8 +610,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                                             ),
                                                           ),
                                                           Expanded(
-                                                            flex: 1,
+                                                            flex: 2,
                                                             child:Container(
+                                                              alignment: Alignment.center,
                                                               padding: const EdgeInsets.all(4),
                                                               //color:Colors.grey,
                                                               child: RichText(

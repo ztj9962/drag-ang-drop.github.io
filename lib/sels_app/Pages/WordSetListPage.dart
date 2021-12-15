@@ -301,7 +301,7 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                 flex: 7,
                                                 child: Container(
 
-                                                  alignment: Alignment.centerLeft,
+                                                  alignment: Alignment.center,
                                                   padding: const EdgeInsets.all(4),
                                                   child: ListTile(
                                                     title: Text('${_wordSetData['wordSetArray']![index]['wordSetDegree']} 第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集'),
