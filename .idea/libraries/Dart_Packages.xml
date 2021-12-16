@@ -730,6 +730,27 @@
             </list>
           </value>
         </entry>
+        <entry key="sign_in_with_apple">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-3.3.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="sign_in_with_apple_platform_interface">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_platform_interface-1.0.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="sign_in_with_apple_web">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="simple_animations">
           <value>
             <list>
@@ -1065,6 +1086,9 @@
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.0.3/lib" />
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-3.3.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_platform_interface-1.0.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/simple_animations-4.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_gen-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../Program Files/flutter/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1/lib" />
