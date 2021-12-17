@@ -11,32 +11,36 @@ import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
 
 class WordSetListPage extends StatefulWidget {
 
-  String learningDegree = '';
+  String learningClassification = '';
 
-  WordSetListPage({String learningDegree:''}) {
-    this.learningDegree = learningDegree;
+  WordSetListPage({String learningClassification:''}) {
+    this.learningClassification = learningClassification;
   }
 
   @override
-  _WordSetListPage createState() => _WordSetListPage(learningDegree: learningDegree);
+  _WordSetListPage createState() => _WordSetListPage(learningClassification: learningClassification);
 }
 
 class _WordSetListPage extends State<WordSetListPage> {
 
 
-  _WordSetListPage({String learningDegree:''}) {
-    this._learningDegree = learningDegree;
+  _WordSetListPage({String learningClassification:''}) {
+    this._learningClassification = learningClassification;
   }
 
-  String _learningDegree =  '';
+  String _learningClassification =  '';
   String _applicationSettingsDataUUID = '';
-  Map<dynamic, dynamic> _wordSetData = {
-    'wordSetDegree': 'Basic',
+  Map<String, dynamic> _wordSetData = {
+    'wordSetClassification': '',
+    'learningClassificationName': '',
     'wordSetTotal': 1,
     'averageScore': 0,
     'wordSetArray': [],
   };
-  List<String> _ipaAboutList = ['2021/08/02 Animals 單字集','2021/08/02 Culture 單字集','33','44','55','66','77','88','99', '101'];
+
+  var _allowTouchButtons = {
+    'addWordSetButton' : true,
+  };
 
   @override
   void initState() {
@@ -60,11 +64,12 @@ class _WordSetListPage extends State<WordSetListPage> {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try{
       var getWordSetList;
-      Map<dynamic, dynamic> wordSetData = {};
+      Map<String, dynamic> wordSetData = {};
       // 獲取~5單字數的句子10句
       do {
-        String getWordSetListJSON = await APIUtil.getWordSetList(_applicationSettingsDataUUID, _learningDegree);
+        String getWordSetListJSON = await APIUtil.getWordSetList(_applicationSettingsDataUUID, _learningClassification);
         getWordSetList = jsonDecode(getWordSetListJSON.toString());
+        print(getWordSetList);
         print('getWordSetList 2 apiStatus:' + getWordSetList['apiStatus'] + ' apiMessage:' + getWordSetList['apiMessage']);
         if(getWordSetList['apiStatus'] != 'success') {
           sleep(Duration(seconds:1));
@@ -92,10 +97,14 @@ class _WordSetListPage extends State<WordSetListPage> {
   }
 
   Future<void> addWordSet() async {
+
+    setState(() {
+      _allowTouchButtons['addWordSetButton'] = false;
+    });
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try{
       var addWordSet;
-      String addWordSetJSON = await APIUtil.addWordSet(_applicationSettingsDataUUID, _learningDegree);
+      String addWordSetJSON = await APIUtil.addWordSet(_applicationSettingsDataUUID, _learningClassification);
       addWordSet = jsonDecode(addWordSetJSON.toString());
       if(addWordSet['apiStatus'] != 'success') {
         sleep(Duration(seconds:1));
@@ -114,6 +123,9 @@ class _WordSetListPage extends State<WordSetListPage> {
       ));
     }
     EasyLoading.dismiss();
+    setState(() {
+      _allowTouchButtons['addWordSetButton'] = true;
+    });
 
   }
 
@@ -130,7 +142,7 @@ class _WordSetListPage extends State<WordSetListPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('${_learningDegree} 單字集' ),
+          title: Text('${_wordSetData['learningClassificationName']} 單字集' ),
         ),
         body: Stack(
             children: <Widget>[
@@ -226,7 +238,10 @@ class _WordSetListPage extends State<WordSetListPage> {
                                           child: Text('獲取新單字集'),
                                           onPressed: () {
                                             if(_wordSetData['wordSetArray']!.length != _wordSetData['wordSetTotal']!){
-                                              addWordSet();
+                                              if(_allowTouchButtons['addWordSetButton']!){
+                                                addWordSet();
+                                              }
+
                                             } else {
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                 content: Text('Opps: 已超出本單字集上限'),
@@ -293,7 +308,7 @@ class _WordSetListPage extends State<WordSetListPage> {
                                     return Container(
                                       padding: const EdgeInsets.all(4),
                                       child: Card(
-                                        color: Colors.blueAccent.shade100,
+                                        color: Colors.grey.shade400,
                                         child: Container(
                                           child: Column(
                                             children: [
@@ -304,7 +319,7 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                   alignment: Alignment.center,
                                                   padding: const EdgeInsets.all(4),
                                                   child: ListTile(
-                                                    title: Text('${_wordSetData['wordSetArray']![index]['wordSetDegree']} 第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集'),
+                                                    title: Text('${_wordSetData['learningClassificationName']!} 第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集'),
                                                     leading: Stack(
                                                       alignment: Alignment.center,
                                                       children: [
@@ -345,8 +360,9 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                       onSelected: (String value){
                                                         switch(value) {
                                                           case 'Learn':
-                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningDegree: _wordSetData['wordSetArray']![index]['wordSetDegree'], learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
-                                                            print('You Click on po up menu item' + value +_wordSetData['wordSetArray']![index]['wordSetDegree'].toString());
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
+                                                            print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
                                                             break;
                                                           case 'Review':
                                                           //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));

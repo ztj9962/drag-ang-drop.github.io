@@ -218,14 +218,14 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> getWordLearning(String learningDegree, String learningPhase) async {
+  static Future<String> getWordLearning(String learningClassification, String learningPhase) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/word/getWordLearning'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'learningDegree': learningDegree,
+        'learningClassification': learningClassification,
         'learningPhase': learningPhase,
       },
     );
@@ -234,30 +234,30 @@ class APIUtil {
   }
 
 
-  static Future<String> getWordSetList(String uuid, String learningDegree) async {
+  static Future<String> getWordSetList(String uid, String learningClassification) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'uuid': uuid,
-        'learningDegree': learningDegree,
+        'uid': uid,
+        'learningClassification': learningClassification,
       },
     );
     String json = response.body.toString();
     return json;
   }
 
-  static Future<String> addWordSet(String uuid, String learningDegree) async {
+  static Future<String> addWordSet(String uid, String learningClassification) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/word/addWordSet'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'uuid': uuid,
-        'learningDegree': learningDegree,
+        'uid': uid,
+        'learningClassification': learningClassification,
       },
     );
     String json = response.body.toString();
@@ -271,17 +271,14 @@ class APIUtil {
     );
     String json = response.body.toString();
     return json;
-    var data = jsonDecode(json.toString());
-    if(data['apiStatus'] == 'success'){
-      print(data['data']['accessToken']);
-      SharedPreferencesUtil.saveData<String>('applicationSettingsDataAccessToken', data['data']['accessToken']);
-      SharedPreferencesUtil.saveData<String>('applicationSettingsDataConversationID', data['data']['conversationID']);
-    } else {
-      print('_responseAPI Error apiStatus:' + data['apiStatus'] + ' apiMessage:' + data['apiMessage']);
-      sleep(Duration(seconds:1));
-      getConversationTokenAndID();
-    }
+  }
 
+  static Future<String> getWordSetClassificationData() async {
+    final response = await http.get(
+      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetClassificationData'),
+    );
+    String json = response.body.toString();
+    return json;
   }
 
 

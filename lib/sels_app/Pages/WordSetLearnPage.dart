@@ -17,16 +17,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class WordSetLearnPage extends StatefulWidget {
 
-  String learningDegree = '';
+  String learningClassification = '';
   String learningPhase = '';
 
-  WordSetLearnPage({String learningDegree:'', String learningPhase:''}) {
-    this.learningDegree = learningDegree;
+  WordSetLearnPage({String learningClassification:'', String learningPhase:''}) {
+    this.learningClassification = learningClassification;
     this.learningPhase = learningPhase;
   }
 
   @override
-  _WordSetLearnPage createState() => _WordSetLearnPage(learningDegree: learningDegree, learningPhase: learningPhase);
+  _WordSetLearnPage createState() => _WordSetLearnPage(learningClassification: learningClassification, learningPhase: learningPhase);
 }
 
 
@@ -34,8 +34,8 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _WordSetLearnPage extends State<WordSetLearnPage> {
 
-  _WordSetLearnPage({String learningDegree:'', String learningPhase:''}) {
-    this._learningDegree = learningDegree;
+  _WordSetLearnPage({String learningClassification:'', String learningPhase:''}) {
+    this._learningClassification = learningClassification;
     this._learningPhase = learningPhase;
   }
 
@@ -44,7 +44,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
   List<String> _ipaAboutList = ['我要不要帶點東西參加派對\nShall I bring anything to the party?','This is a sentance on here.','This is a sentance la.'];
 
-  String _learningDegree = '';
+  String _learningClassification = '';
   String _learningPhase = '';
   late double _progress;
   List _wordData = [
@@ -95,9 +95,10 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
 
   var _allowTouchButtons = {
-    'reListenButton' : false,
-    'speakButton' : false,
-    'nextButton' : false,
+    'reListenButton' : true,
+    'speakButton' : true,
+    'arrowButton' : true,
+    'updateSentanceButton' : true,
   };
   int _correctCombo = 0;
 
@@ -260,7 +261,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
       var getWordLearning;
       do {
-        String getWordLearningJSON = await APIUtil.getWordLearning(_learningDegree, _learningPhase);
+        String getWordLearningJSON = await APIUtil.getWordLearning(_learningClassification, _learningPhase);
         getWordLearning = jsonDecode(getWordLearningJSON.toString());
         print('getWordLearning 6 apiStatus:' + getWordLearning['apiStatus'] + ' apiMessage:' + getWordLearning['apiMessage']);
         await Future.delayed(Duration(seconds: 1));
@@ -297,7 +298,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('${_learningDegree} 第${_learningPhase}集，${_wordIndex + 1}/${_wordData.length}' ),
+          title: Text('第${_learningPhase}集，${_wordIndex + 1}/${_wordData.length}' ),
         ),
         body: Stack(
             children: <Widget>[
@@ -386,8 +387,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                       iconSize: 25,
                                       icon: Icon(Icons.arrow_back),
                                       onPressed: () async {
-                                        changeWordIndex('Previous');
-
+                                        if(_allowTouchButtons['arrowButton']!){
+                                          changeWordIndex('Previous');
+                                        }
                                       },
                                     ),
                                   ),
@@ -404,7 +406,7 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                       iconSize: 25,
                                       icon: Icon(Icons.arrow_forward),
                                       onPressed: () async {
-                                        if(_allowTouchButtons['nextButton']!) {
+                                        if(_allowTouchButtons['arrowButton']!) {
                                           changeWordIndex('Next');
                                         }
                                       },
@@ -499,7 +501,9 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
                                               iconSize: 25,
                                               icon: Icon(Icons.refresh_outlined),
                                               onPressed: () {
-                                                updateSentanceList();
+                                                if(_allowTouchButtons['updateSentanceButton']!){
+                                                  updateSentanceList();
+                                                }
                                               },
                                             ),
                                             Visibility(
@@ -983,6 +987,8 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
     setState(() {
       _allowTouchButtons['speakButton'] = false;
+      _allowTouchButtons['arrowButton'] = false;
+      _allowTouchButtons['updateSentanceButton'] = false;
     });
     await sttStopListening();
 
@@ -1003,6 +1009,8 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
     }
     setState(() {
       _allowTouchButtons['speakButton'] = true;
+      _allowTouchButtons['arrowButton'] = true;
+      _allowTouchButtons['updateSentanceButton'] = true;
     });
   }
 
@@ -1055,7 +1063,8 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
     setState(() {
       _allowTouchButtons['reListenButton'] = false;
       _allowTouchButtons['speakButton'] = false;
-      _allowTouchButtons['nextButton'] = false;
+      _allowTouchButtons['arrowButton'] = false;
+      _allowTouchButtons['updateSentanceButton'] = false;
     });
 
     String checkSentencesJSON = await APIUtil.checkSentences(_questionTextList[_sstIndex[1]], text, correctCombo:_correctCombo);
@@ -1129,7 +1138,8 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
         ttsRateSlow = false;
         _allowTouchButtons['reListenButton'] = true;
         _allowTouchButtons['speakButton'] = true;
-        _allowTouchButtons['nextButton'] = true;
+        _allowTouchButtons['arrowButton'] = true;
+        _allowTouchButtons['updateSentanceButton'] = true;
       });
 
       await _ttsSpeak(checkSentences['data']['scoreComment']['text'] , 'en-US');
@@ -1150,11 +1160,16 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
 
 
   Future<void> updateSentanceList() async {
+    setState(() {
+      _allowTouchButtons['updateSentanceButton'] = false;
+      _allowTouchButtons['arrowButton'] = false;
+      _questionTextList = [];
+    });
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try{
       var getSentences;
       do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), dataLimit:'3');
+        String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData[_wordIndex]['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'3');
         getSentences = jsonDecode(getSentencesJSON.toString());
         print('updateSentanceList 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
@@ -1203,13 +1218,11 @@ class _WordSetLearnPage extends State<WordSetLearnPage> {
         content: Text('連線發生錯誤，請稍候再重試'),
       ));
     }
-
-    setState(() {
-      _allowTouchButtons['reListenButton'] = true;
-      _allowTouchButtons['speakButton'] = true;
-      _allowTouchButtons['nextButton'] = true;
-    });
     EasyLoading.dismiss();
+    setState(() {
+      _allowTouchButtons['updateSentanceButton'] = true;
+      _allowTouchButtons['arrowButton'] = true;
+    });
     return;
   }
 

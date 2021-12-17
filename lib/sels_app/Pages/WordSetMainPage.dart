@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sels_app/sels_app/Pages/WordSetListPage.dart';
 import 'package:sels_app/sels_app/OtherViews/buttonCard_view.dart';
+import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +56,49 @@ class _WordSetMainPageState extends State<WordSetMainPage>
     super.initState();
   }
 
-  void addAllListData() {
+  Future<void> addAllListData() async {
+
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    String wordSetClassificationDataJSON = await APIUtil.getWordSetClassificationData();
+    var wordSetClassificationData = jsonDecode(wordSetClassificationDataJSON.toString());
+    print(wordSetClassificationData);
+    EasyLoading.dismiss();
+
+    List<dynamic> wordSetClassification = wordSetClassificationData['data']!;
+
+    int count = wordSetClassification.length;
+
+    wordSetClassification.forEach((value) {
+      listViews.add(
+        ButtonCardView(
+          animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: widget.animationController!,
+              curve:
+              Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+          animationController: widget.animationController!,
+          imagePath: 'assets/sels_app/speaking.png',
+          titleTxt:  '${value['title']} 單字集',
+          descripTxt: '${value['descrip']}，目前共有${value['wordCount']}個單字',
+          onTapFunction: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '${value['id']}')));
+          },
+        ),
+      );
+    });
+
+
+    setState(() {
+      listViews =listViews;
+    });
+
+
+
+
+
+
+
+
+    /*
     const int count = 5;
 
     listViews.add(
@@ -66,7 +112,7 @@ class _WordSetMainPageState extends State<WordSetMainPage>
         titleTxt: 'Kindergarten 單字集',
         descripTxt: 'Ranking 1~300',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Kindergarten')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '1')));
         },
       ),
     );
@@ -81,7 +127,7 @@ class _WordSetMainPageState extends State<WordSetMainPage>
         titleTxt: 'Elementary 單字集',
         descripTxt: 'Ranking 301~1,050',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Elementary')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '2')));
         },
       ),
     );
@@ -96,7 +142,7 @@ class _WordSetMainPageState extends State<WordSetMainPage>
         titleTxt: 'Middle School 單字集',
         descripTxt: 'Ranking 1,051~3,150',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'Middle School')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '3')));
         },
       ),
     );
@@ -111,7 +157,7 @@ class _WordSetMainPageState extends State<WordSetMainPage>
         titleTxt: 'High School 單字集',
         descripTxt: 'Ranking 3,151~7,000',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'High School')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '4')));
         },
       ),
     );
@@ -126,10 +172,42 @@ class _WordSetMainPageState extends State<WordSetMainPage>
         titleTxt: 'College 單字集',
         descripTxt: 'Ranking 7,001~11,000',
         onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningDegree: 'College')));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '5')));
         },
       ),
     );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: '6 單字集',
+        descripTxt: 'Ranking 7,001~11,000',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '6')));
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        titleTxt: '7 單字集',
+        descripTxt: 'Ranking 7,001~11,000',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetListPage(learningClassification: '7')));
+        },
+      ),
+    );
+
+     */
 
   }
 
