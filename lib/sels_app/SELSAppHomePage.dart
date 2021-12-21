@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sels_app/sels_app/OtherViews/bottom_bar_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
-import 'package:uuid/uuid.dart';
 
 class SELSAppHomePage extends StatefulWidget {
   @override

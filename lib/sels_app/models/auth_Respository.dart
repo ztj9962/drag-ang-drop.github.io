@@ -3,21 +3,20 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:async';
-import 'package:twitter_login/twitter_login.dart';
 
 class authRespository {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  /*
   static final FacebookAuth _facebookSignIn = FacebookAuth.instance;
   static final TwitterLogin _twitterLogin = new TwitterLogin(
       apiKey: "lG0aVgB0NnmnMWibaAyfEuiem",
       apiSecretKey: "5EATP6GGR8VCsOimxfn65pgduhCs8VDMjfZbPwY0ClAglUdYau",
       redirectURI: "myenglish-study.com://");
+   */
 
   static Future<void> SendSignInWithEmailLink(String email) async {
     var acs = ActionCodeSettings(
@@ -89,6 +88,7 @@ class authRespository {
 
   }
 
+  /*
   static Future<void> signInWithTwitter() async {
     SignOut();
     // Trigger the sign-in flow
@@ -102,6 +102,8 @@ class authRespository {
     await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
   }
 
+   */
+
   static Future<void> signInWithGoogle() async {
     GoogleSignOut();
     final GoogleSignInAccount? googleAccount = await _googleSignIn.signIn();
@@ -114,6 +116,7 @@ class authRespository {
     }
   }
 
+  /*
   static Future<void> signInWithFacebook() async {
     final LoginResult loginResult = await _facebookSignIn.login();
     OAuthCredential credential =
@@ -121,11 +124,13 @@ class authRespository {
     await _firebaseAuth.signInWithCredential(credential);
   }
 
+   */
+
   static Future<void> SignOut() async {
     Future.wait([
       _firebaseAuth.signOut(),
       _googleSignIn.signOut(),
-      _facebookSignIn.logOut()
+      //_facebookSignIn.logOut()
     ]);
   }
 
@@ -136,12 +141,15 @@ class authRespository {
     ]);
   }
 
+  /*
   static Future<void> FacebookSignOut() async {
     Future.wait([
       _facebookSignIn.logOut(),
       _firebaseAuth.signOut(),
     ]);
   }
+
+   */
 
   static Future<bool> isSignedIn() async {
     try {

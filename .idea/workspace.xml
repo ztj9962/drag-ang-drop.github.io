@@ -28,19 +28,22 @@
     <list default="true" id="fad6e2fb-917f-45db-a554-8d580fdd463e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sels_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sels_app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/SELSAppHomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sels_app/models/auth_Respository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sels_app/models/auth_Respository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[e8b8f228]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@/Users/edwinyoo44/.android/avd/Pixel_3a_API_30_x86.avd]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -116,6 +119,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1181" height="195" key="GridCell.Tab.0.bottom" timestamp="1640101814394">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state width="1181" height="195" key="GridCell.Tab.0.bottom/57.0.1223.800@57.0.1223.800" timestamp="1640101814394" />
+    <state width="1181" height="195" key="GridCell.Tab.0.center" timestamp="1640101814393">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state width="1181" height="195" key="GridCell.Tab.0.center/57.0.1223.800@57.0.1223.800" timestamp="1640101814393" />
+    <state width="1181" height="195" key="GridCell.Tab.0.left" timestamp="1640101814392">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state width="1181" height="195" key="GridCell.Tab.0.left/57.0.1223.800@57.0.1223.800" timestamp="1640101814392" />
+    <state width="1181" height="195" key="GridCell.Tab.0.right" timestamp="1640101814394">
+      <screen x="57" y="0" width="1223" height="800" />
+    </state>
+    <state width="1181" height="195" key="GridCell.Tab.0.right/57.0.1223.800@57.0.1223.800" timestamp="1640101814394" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
