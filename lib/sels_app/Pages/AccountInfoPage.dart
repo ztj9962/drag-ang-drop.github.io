@@ -9,7 +9,7 @@ class AccountInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String id = FirebaseAuth.instance.currentUser!.uid;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     String? name = FirebaseAuth.instance.currentUser!.displayName;
     String? email = FirebaseAuth.instance.currentUser!.email;
     Size size = MediaQuery.of(context).size;
@@ -27,18 +27,18 @@ class AccountInfoPage extends StatelessWidget {
                   context: context,
                   tiles: [
                     ListTile(
-                      title: Text("ID"),
-                      subtitle: Text(id),
+                      title: Text("UID"),
+                      subtitle: Text('${uid}'),
                       contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     ),
                     ListTile(
                       title: Text("名稱"),
-                      subtitle: Text(name!),
+                      subtitle: Text('${name}'),
                       contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     ),
                     ListTile(
                       title: Text("電子信箱"),
-                      subtitle: Text(email!),
+                      subtitle: Text('${email}'),
                       contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     )
                   ]).toList(),
