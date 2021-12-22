@@ -20,12 +20,16 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
    */
 
   List<String> _ipaAboutList = [
+    '請選擇',
     'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ɑ',
     'eɪ', 'ɔɪ', 'əʊ', 'aɪ', 'aʊ',
     'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
     'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
   ];
 
+  String _dropdownValue1 = 'i';
+  String _dropdownValue2 = 'ɔ';
+  String _dropdownValue3 = '請選擇';
 
 
 
@@ -48,7 +52,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Empty' ),
+          title: Text('相似字音節訓練' ),
         ),
         body: Stack(
             children: <Widget>[
@@ -67,6 +71,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                   thickness: 1,
                                 ),
                               ),
+                              /*
                               Text('Vowels'),
                               Container(
                                   height: 200,
@@ -252,6 +257,76 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                     }),
                                   ),
                                 ),
+                               */
+                              Text('請選擇第一個字元'),
+                              Container(
+                                child: DropdownButton(
+                                  value: _dropdownValue1,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.blue),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.grey,
+                                  ),
+                                  onChanged: (String? value){
+                                    setState(() {
+                                      _dropdownValue1 = value!;
+                                    });
+                                  },
+                                  items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                              Text("請選擇第二個字元"),
+                              Container(
+                                child: DropdownButton(
+                                  value: _dropdownValue2,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.blue),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.grey,
+                                  ),
+                                  onChanged: (String? value){
+                                    setState(() {
+                                      _dropdownValue2 = value!;
+                                    });
+                                  },
+                                  items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                              Text("請選擇第三個字元"),
+                              Container(
+                                child: DropdownButton(
+                                  value: _dropdownValue3,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.blue),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.grey,
+                                  ),
+                                  onChanged: (String? value){
+                                    setState(() {
+                                      _dropdownValue3 = value!;
+                                    });
+                                  },
+                                  items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
                             ]
                         )
                       )
@@ -267,6 +342,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                         thickness: 1,
                       ),
                     ),
+                    /*
                     Flexible(
                       flex: 1,
                       child: Container(
@@ -325,6 +401,72 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                   ),
                                 ),
                               ),
+                          ),
+
+
+                        ),
+                      ),
+                    ),
+                     */
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        //color: Colors.pink,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                          child: Container(
+                            margin: EdgeInsets.all(0.0),
+                            decoration: BoxDecoration(
+                              color: Colors.lightBlueAccent,
+                              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  blurRadius: 8,
+                                  offset: const Offset(4, 4),
+                                ),
+                              ],
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+
+                                  /*
+                              SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsVolume', _applicationSettingsDataTtsVolume);
+                              SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsPitch', _applicationSettingsDataTtsPitch);
+                              SharedPreferencesUtil.saveData<double>('applicationSettingsDataTtsRate', _applicationSettingsDataTtsRate);
+                              SharedPreferencesUtil.saveData<String>('applicationSettingsDataListenAndSpeakLevel', _applicationSettingsDataListenAndSpeakLevel);
+                              SharedPreferencesUtil.saveData<double>('applicationSettingsDataListenAndSpeakRanking', _applicationSettingsDataListenAndSpeakRanking);
+                              SharedPreferencesUtil.saveData<bool>('applicationSettingsSELSAppHomePageIntroduce', _applicationSettingsSELSAppHomePageIntroduce);
+                              SharedPreferencesUtil.saveData<bool>('applicationSettingsPhoneticExercisesNewPageIntroduce', _applicationSettingsPhoneticExercisesNewPageIntroduce);
+                              SharedPreferencesUtil.saveData<bool>('applicationSettingsGrammarCheckPageIntroduce', _applicationSettingsGrammarCheckPageIntroduce);
+
+                               */
+
+                                  List<String> selectSyllableList = [];
+
+                                  selectSyllableList.add(_dropdownValue1);
+                                  selectSyllableList.add(_dropdownValue2);
+                                  if (_dropdownValue3 != '請選擇'){
+                                    selectSyllableList.add(_dropdownValue3);
+                                  }
+
+                                  while(selectSyllableList.length < 3){
+                                    selectSyllableList.add('');
+                                  }
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
+                                  //Navigator.pop(context);
+                                },
+                                child: Center(
+                                  //child: Icon(Icons.save),
+                                  child: Text('開始練習相似字音節訓練'),
+                                ),
+                              ),
+                            ),
                           ),
 
 
