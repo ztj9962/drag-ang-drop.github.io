@@ -17,6 +17,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:sels_app/sels_app/utils/ChatMessageUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:sels_app/sels_app/utils/APIUtil.dart';
+import 'package:wakelock/wakelock.dart';
 
 
 class PhoneticExercisesLearnAutoPage extends StatefulWidget {
@@ -140,6 +141,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
   @override
   void dispose() {
     super.dispose();
+    Wakelock.disable();
     flutterTts.stop();
     speechToText.stop();
     EasyLoading.dismiss();
@@ -152,6 +154,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
    */
 
   initPhoneticExercisesLearnAutoPage() async {
+    Wakelock.enable();
     await initApplicationSettingsData();
     await initAnswerTimer();
     await initTts();
