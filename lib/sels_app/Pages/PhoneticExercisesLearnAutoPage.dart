@@ -17,6 +17,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:sels_app/sels_app/utils/ChatMessageUtil.dart';
 import 'package:sels_app/sels_app/utils/SharedPreferencesUtil.dart';
 import 'package:sels_app/sels_app/utils/APIUtil.dart';
+import 'package:wakelock/wakelock.dart';
 
 
 class PhoneticExercisesLearnAutoPage extends StatefulWidget {
@@ -140,6 +141,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
   @override
   void dispose() {
     super.dispose();
+    Wakelock.disable();
     flutterTts.stop();
     speechToText.stop();
     EasyLoading.dismiss();
@@ -152,6 +154,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
    */
 
   initPhoneticExercisesLearnAutoPage() async {
+    Wakelock.enable();
     await initApplicationSettingsData();
     await initAnswerTimer();
     await initTts();
@@ -346,12 +349,10 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
 
 
-      // 獲取1~4單字數的句子1句
-      wordRankingList.shuffle();
       for(final wordRanking in wordRankingList){
         var getSentences;
         do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'1', sentenceMaxLength:'4', dataLimit:'1');
+          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), dataLimit:'3');
           getSentences = jsonDecode(getSentencesJSON.toString());
           print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
           if(getSentences['apiStatus'] != 'success') {
@@ -360,36 +361,8 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
         } while (getSentences['apiStatus'] != 'success');
         questionsData.addAll(getSentences['data']);
       }
+      questionsData.shuffle();
 
-      // 獲取5~7單字數的句子1句
-      wordRankingList.shuffle();
-      for(final wordRanking in wordRankingList){
-        var getSentences;
-        do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'5', sentenceMaxLength:'7', dataLimit:'1');
-          getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-          if(getSentences['apiStatus'] != 'success') {
-            await Future.delayed(Duration(seconds: 1));
-          }
-        } while (getSentences['apiStatus'] != 'success');
-        questionsData.addAll(getSentences['data']);
-      }
-
-      // 獲取8~12單字數的句子1句
-      wordRankingList.shuffle();
-      for(final wordRanking in wordRankingList){
-        var getSentences;
-        do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'8', sentenceMaxLength:'12', dataLimit:'1');
-          getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-          if(getSentences['apiStatus'] != 'success') {
-            await Future.delayed(Duration(seconds: 1));
-          }
-        } while (getSentences['apiStatus'] != 'success');
-        questionsData.addAll(getSentences['data']);
-      }
 
       EasyLoading.dismiss();
       print('questionsData');
@@ -1053,7 +1026,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
       print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒(${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps)回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
