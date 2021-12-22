@@ -1056,7 +1056,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
       print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒(${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps)回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}，您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
