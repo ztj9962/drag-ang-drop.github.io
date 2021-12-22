@@ -31,7 +31,7 @@ dependencies:
   #
   simple_animations: ^4.0.1
   shared_preferences: ^2.0.8
-  speech_to_text: ^5.2.0
+  speech_to_text: ^5.4.2
   avatar_glow: ^2.0.1
   http: ^0.13.1
   flutter_tts: ^3.2.2
