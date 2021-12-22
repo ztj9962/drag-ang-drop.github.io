@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sels_app/sels_app/Pages/PhoneticExercisesLearnAutoPage.dart';
 import 'package:sels_app/sels_app/Pages/WordSetLearnPage.dart';
 import 'package:sels_app/sels_app/Utils/APIUtil.dart';
 import 'package:sels_app/sels_app/Utils/SharedPreferencesUtil.dart';
@@ -341,8 +342,12 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                       itemBuilder: (context) {
                                                         return [
                                                           PopupMenuItem(
-                                                            value: 'Learn',
-                                                            child: Text('學習'),
+                                                            value: 'word_card_learn',
+                                                            child: Text('單字卡學習'),
+                                                          ),
+                                                          PopupMenuItem(
+                                                            value: 'sentence_phonetic_auto',
+                                                            child: Text('句子口說練習'),
                                                           ),
                                                           /*
                                                 PopupMenuItem(
@@ -359,9 +364,19 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                       },
                                                       onSelected: (String value){
                                                         switch(value) {
-                                                          case 'Learn':
+                                                          case 'word_card_learn':
                                                             Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
-                                                            print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
+                                                            break;
+                                                          case 'sentence_phonetic_auto':
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(
+                                                                wordSet:{
+                                                                  'learningClassification': _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(),
+                                                                  'learningPhase': _wordSetData['wordSetArray']![index]['wordSetPhase'].toString()
+                                                                }
+                                                            )));
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
                                                             //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
                                                             break;
                                                           case 'Review':
