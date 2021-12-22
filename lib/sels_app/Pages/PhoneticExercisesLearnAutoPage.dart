@@ -25,16 +25,18 @@ class PhoneticExercisesLearnAutoPage extends StatefulWidget {
   String topicName = '';
   List<int> sentencesIDData = const [];
   int quizID = 0;
+  Map<String, dynamic> wordSet = const {'learningClassification':'' , 'learningPhase': '' };
 
-  PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [], int quizID:0}) {
+  PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [], int quizID:0, Map<String, dynamic> wordSet: const {'learningClassification': '' , 'learningPhase': '' }}) {
     this.topicClass = topicClass;
     this.topicName = topicName;
     this.sentencesIDData = sentencesIDData;
     this.quizID = quizID;
+    this.wordSet = wordSet;
   }
 
   @override
-  _PhoneticExercisesLearnAutoPage createState() => new _PhoneticExercisesLearnAutoPage(topicClass:topicClass, topicName:topicName, sentencesIDData:sentencesIDData, quizID:quizID);
+  _PhoneticExercisesLearnAutoPage createState() => new _PhoneticExercisesLearnAutoPage(topicClass:topicClass, topicName:topicName, sentencesIDData:sentencesIDData, quizID:quizID, wordSet:wordSet);
 }
 
 enum TtsState { playing, stopped, paused, continued }
@@ -55,6 +57,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
   List _questionsData = [];
   int _totalTestQuestions = 25;
   int _quizID = 0;
+  Map<String, dynamic> _wordSet = {'learningClassification': '' , 'learningPhase': '' };
   String _applicationSettingsDataUUID = '';
   String _applicationSettingsDataListenAndSpeakLevel = '';
   double _applicationSettingsDataListenAndSpeakRanking = 0;
@@ -62,11 +65,12 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
   String _topicName = '';
   int _part = 0;
   String _questionText = '';
-  _PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [],  quizID:0}) {
+  _PhoneticExercisesLearnAutoPage({String topicClass:'', String topicName:'', List<int> sentencesIDData:const [],  quizID:0, wordSet:const {'learningClassification': '' , 'learningPhase': '' } }) {
     this._topicClass = topicClass;
     this._topicName = topicName;
     this._sentencesIDData = sentencesIDData;
     this._quizID = quizID;
+    this._wordSet = wordSet;
   }
   var _allowTouchButtons = {
     'reListenButton' : false,
@@ -274,6 +278,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
 
+    // 來源為 QuizID
     if(_quizID != 0){
 
       var getQuizDataByID;
@@ -296,6 +301,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
     }
 
+    // 來源為 sentencesID List
     if(_sentencesIDData.length != 0){
       var getSentencesByID;
       for(final sentencesID in _sentencesIDData){
@@ -309,96 +315,106 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
         } while (getSentencesByID['apiStatus'] != 'success');
         questionsData.addAll(getSentencesByID['data']);
       }
-    } else {
-      var getSentences;
-
-      // 測試用
-      /*
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'3', dataLimit:'2', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
 
       EasyLoading.dismiss();
       print('questionsData');
       print(questionsData);
-
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
-       */
+    }
+    // 來源為 wordSet
+    if(_wordSet['learningClassification'] != ''){
+
+      List wordData = [];
+      List wordRankingList = [];
+      _progress = 0;
+
+      var getWordLearning;
+      do {
+        String getWordLearningJSON = await APIUtil.getWordLearning(_wordSet['learningClassification'].toString(), _wordSet['learningPhase'].toString());
+        getWordLearning = jsonDecode(getWordLearningJSON.toString());
+        print('getWordLearning 6 apiStatus:' + getWordLearning['apiStatus'] + ' apiMessage:' + getWordLearning['apiMessage']);
+        await Future.delayed(Duration(seconds: 1));
+      } while (getWordLearning['apiStatus'] != 'success');
+      wordData.addAll(getWordLearning['data']);
+
+      wordData.forEach((element) {
+        wordRankingList.add(element['wordRanking']);
+      });
+      print(wordRankingList);
 
 
 
-      // 獲取1~3單字數的句子7句
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
-      // 獲取4~5單字數的句子6句
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
-      // 獲取6~8單字數的句子5句
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
-      // 獲取9~10單字數的句子4句
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
-      // 獲取11~12單字數的句子3句
-      do {
-        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
-        getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        if(getSentences['apiStatus'] != 'success') {
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (getSentences['apiStatus'] != 'success');
-      questionsData.addAll(getSentences['data']);
-
-      // 檢查是否共_totalTestQuestions句，若否則隨機補足
-      while(questionsData.length < _totalTestQuestions) {
+      // 獲取1~4單字數的句子1句
+      wordRankingList.shuffle();
+      for(final wordRanking in wordRankingList){
+        var getSentences;
         do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
+          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'1', sentenceMaxLength:'4', dataLimit:'1');
           getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
           if(getSentences['apiStatus'] != 'success') {
             await Future.delayed(Duration(seconds: 1));
           }
         } while (getSentences['apiStatus'] != 'success');
         questionsData.addAll(getSentences['data']);
       }
+
+      // 獲取5~7單字數的句子1句
+      wordRankingList.shuffle();
+      for(final wordRanking in wordRankingList){
+        var getSentences;
+        do {
+          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'5', sentenceMaxLength:'7', dataLimit:'1');
+          getSentences = jsonDecode(getSentencesJSON.toString());
+          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+          if(getSentences['apiStatus'] != 'success') {
+            await Future.delayed(Duration(seconds: 1));
+          }
+        } while (getSentences['apiStatus'] != 'success');
+        questionsData.addAll(getSentences['data']);
+      }
+
+      // 獲取8~12單字數的句子1句
+      wordRankingList.shuffle();
+      for(final wordRanking in wordRankingList){
+        var getSentences;
+        do {
+          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'8', sentenceMaxLength:'12', dataLimit:'1');
+          getSentences = jsonDecode(getSentencesJSON.toString());
+          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+          if(getSentences['apiStatus'] != 'success') {
+            await Future.delayed(Duration(seconds: 1));
+          }
+        } while (getSentences['apiStatus'] != 'success');
+        questionsData.addAll(getSentences['data']);
+      }
+
+      EasyLoading.dismiss();
+      print('questionsData');
+      print(questionsData);
+      _questionsData = questionsData;
+      _totalTestQuestions = questionsData.length;
+      return;
+
     }
+
+    // 來源為 一般分類
+    var getSentences;
+
+    // 測試用
+    /*
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMaxLength:'3', dataLimit:'2', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+
     EasyLoading.dismiss();
     print('questionsData');
     print(questionsData);
@@ -406,7 +422,80 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     _questionsData = questionsData;
     _totalTestQuestions = questionsData.length;
     return;
+     */
 
+
+
+    // 獲取1~3單字數的句子7句
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+    // 獲取4~5單字數的句子6句
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+    // 獲取6~8單字數的句子5句
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+    // 獲取9~10單字數的句子4句
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+    // 獲取11~12單字數的句子3句
+    do {
+      String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
+      getSentences = jsonDecode(getSentencesJSON.toString());
+      print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      if(getSentences['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getSentences['apiStatus'] != 'success');
+    questionsData.addAll(getSentences['data']);
+
+    // 檢查是否共_totalTestQuestions句，若否則隨機補足
+    while(questionsData.length < _totalTestQuestions) {
+      do {
+        String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
+        getSentences = jsonDecode(getSentencesJSON.toString());
+        print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        if(getSentences['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getSentences['apiStatus'] != 'success');
+      questionsData.addAll(getSentences['data']);
+    }
+
+    EasyLoading.dismiss();
+    print('questionsData');
+    print(questionsData);
+    _questionsData = questionsData;
+    _totalTestQuestions = questionsData.length;
+    return;
 
   }
 /*
@@ -452,7 +541,7 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: (_quizID != 0)? Text('記錄檔') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
+        title: (_quizID != 0)? Text('記錄檔') : (_wordSet['learningClassification'] != '')? Text('單字集') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
       ),
       body:
 
