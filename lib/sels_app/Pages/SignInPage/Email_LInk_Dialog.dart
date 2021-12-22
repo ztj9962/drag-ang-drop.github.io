@@ -17,10 +17,10 @@ class _emailDialogState extends State<emailDialog> {
   @override
   void initState() {
     // TODO: implement initState
-    initDynamicLinks();
+    //initDynamicLinks();
     super.initState();
   }
-  void initDynamicLinks() async {
+  /*void initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
           final Uri deepLink = dynamicLink!.link;
@@ -28,7 +28,7 @@ class _emailDialogState extends State<emailDialog> {
              await authRespository.siginLink(deepLink, "m220131133@gmail.com");
              AutoRouter.of(context).replaceNamed("/home");
           }
-        }, onError: (OnLinkErrorException e) async {
+        }, onError: ( e) async {
       print('onLinkError');
       print(e.message);
     });
@@ -40,7 +40,7 @@ class _emailDialogState extends State<emailDialog> {
       await authRespository.siginLink(data.link, "m220131133@gmail.com");
       AutoRouter.of(context).replaceNamed("/home");
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
