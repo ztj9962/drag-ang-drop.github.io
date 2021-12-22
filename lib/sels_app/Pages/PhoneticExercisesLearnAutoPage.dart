@@ -349,12 +349,10 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
 
 
 
-      // 獲取1~4單字數的句子1句
-      wordRankingList.shuffle();
       for(final wordRanking in wordRankingList){
         var getSentences;
         do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'1', sentenceMaxLength:'4', dataLimit:'1');
+          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), dataLimit:'3');
           getSentences = jsonDecode(getSentencesJSON.toString());
           print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
           if(getSentences['apiStatus'] != 'success') {
@@ -363,36 +361,8 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
         } while (getSentences['apiStatus'] != 'success');
         questionsData.addAll(getSentences['data']);
       }
+      questionsData.shuffle();
 
-      // 獲取5~7單字數的句子1句
-      wordRankingList.shuffle();
-      for(final wordRanking in wordRankingList){
-        var getSentences;
-        do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'5', sentenceMaxLength:'7', dataLimit:'1');
-          getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-          if(getSentences['apiStatus'] != 'success') {
-            await Future.delayed(Duration(seconds: 1));
-          }
-        } while (getSentences['apiStatus'] != 'success');
-        questionsData.addAll(getSentences['data']);
-      }
-
-      // 獲取8~12單字數的句子1句
-      wordRankingList.shuffle();
-      for(final wordRanking in wordRankingList){
-        var getSentences;
-        do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), sentenceMinLength:'8', sentenceMaxLength:'12', dataLimit:'1');
-          getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-          if(getSentences['apiStatus'] != 'success') {
-            await Future.delayed(Duration(seconds: 1));
-          }
-        } while (getSentences['apiStatus'] != 'success');
-        questionsData.addAll(getSentences['data']);
-      }
 
       EasyLoading.dismiss();
       print('questionsData');
