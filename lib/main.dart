@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sels_app/sels_app/Router/router.gr.dart';
-import 'package:sels_app/sels_app/SELSAppHomePage.dart';
-import "package:sels_app/sels_app/Pages/SignInPage/SignInPage.dart";
+import 'package:sels_app/sels_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
