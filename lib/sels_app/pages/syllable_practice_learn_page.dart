@@ -333,6 +333,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
+                                              /*
                                               IconButton(
                                                 color: Colors.grey,
                                                 iconSize: 25,
@@ -341,12 +342,13 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                   updateIPAAboutList(0);
                                                 },
                                               ),
+                                              */
                                             ],
                                           ),
                                         ),
 
                                         Divider(
-                                          height: 1,
+                                          height: 20,
                                           thickness: 1,
                                         ),
                                         Visibility(
@@ -365,7 +367,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemExtent: 180,
-                                            itemCount: _questionTextList[0].length,
+                                            //itemCount: _questionTextList[0].length,
+                                            itemCount: 1,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 child: Card(
@@ -451,10 +454,12 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                           ],
                                                         ),
                                                       ),
+                                                      /*
                                                       Flexible(
                                                         flex: 2,
                                                         child: Column(
                                                           children: <Widget>[
+                                                            /*
                                                             Center(
                                                               child: AvatarGlow(
                                                                 animate: true,
@@ -486,6 +491,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                 ),
                                                               ),
                                                             ),
+                                                             */
                                                             Expanded(
                                                                 child: Center(
                                                                   child: AvatarGlow(
@@ -519,19 +525,154 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                )
+                                                                ),
                                                             ),
-
                                                           ],
                                                         ),
                                                       ),
-
+                                                      */
                                                     ],
                                                   ),
                                                 ),
                                               );
                                             },
-
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: AvatarGlow(
+                                                          animate: true,
+                                                          glowColor: Theme.of(context).primaryColor,
+                                                          endRadius: 30.0,
+                                                          duration: Duration(milliseconds: 2000),
+                                                          repeat: true,
+                                                          showTwoGlows: true,
+                                                          repeatPauseDuration: Duration(milliseconds: 100),
+                                                          child: Material(     // Replace this child with your own
+                                                            elevation: 8.0,
+                                                            shape: CircleBorder(),
+                                                            child: CircleAvatar(
+                                                              backgroundColor: Theme.of(context).primaryColor,
+                                                              radius: 20.0,
+                                                              child: IconButton(
+                                                                iconSize: 15,
+                                                                //icon: Icon(Icons.volume_off_outlined ),
+                                                                icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                                color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                                onPressed: () async {
+                                                                  if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                                    ttsRateSlow = !ttsRateSlow;
+                                                                    await _ttsSpeak(_questionTextList[0][0], 'en-US');
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        '再聽一次',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                              ),
+                                              Expanded(
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Center(
+                                                        child: AvatarGlow(
+                                                          animate: true,
+                                                          glowColor: Theme.of(context).primaryColor,
+                                                          endRadius: 30.0,
+                                                          duration: Duration(milliseconds: 2000),
+                                                          repeat: true,
+                                                          showTwoGlows: true,
+                                                          repeatPauseDuration: Duration(milliseconds: 100),
+                                                          child: Material(     // Replace this child with your own
+                                                            elevation: 8.0,
+                                                            shape: CircleBorder(),
+                                                            child: CircleAvatar(
+                                                              backgroundColor: Theme.of(context).primaryColor,
+                                                              radius: 20.0,
+                                                              child: IconButton(
+                                                                iconSize: 15,
+                                                                icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined ),
+                                                                color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
+                                                                onPressed: () {
+                                                                  if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                                                    if( !_sttHasSpeech || speechToText.isListening ){
+                                                                      sttStopListening();
+                                                                    } else {
+                                                                      sttStartListening(0 ,0);
+                                                                    }
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        (speechToText.isListening)? '暫停回答' : '回答' ,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ),
+                                              Expanded(
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Center(
+                                                        child: AvatarGlow(
+                                                          animate: false,
+                                                          glowColor: Theme.of(context).primaryColor,
+                                                          endRadius: 30.0,
+                                                          duration: Duration(milliseconds: 2000),
+                                                          repeat: true,
+                                                          showTwoGlows: true,
+                                                          repeatPauseDuration: Duration(milliseconds: 100),
+                                                          child: Material(     // Replace this child with your own
+                                                            elevation: 8.0,
+                                                            shape: CircleBorder(),
+                                                            child: CircleAvatar(
+                                                              backgroundColor: Theme.of(context).primaryColor,
+                                                              radius: 20.0,
+                                                              child: IconButton(
+                                                                icon: const Icon(Icons.navigate_next_outlined),
+                                                                color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
+                                                                onPressed: () {
+                                                                  updateIPAAboutList(0);
+                                                                  },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        '下一題',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                              ))
+                                            ],
                                           ),
                                         )
                                       ],
@@ -600,7 +741,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemExtent: 180,
-                                            itemCount: _questionTextList[1].length,
+                                            //itemCount: _questionTextList[1].length,
+                                            itemCount: 1,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 child: Card(
@@ -836,6 +978,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             shrinkWrap: true,
                                             itemExtent: 180,
                                             itemCount: _questionTextList[2].length,
+                                            //itemCount: 1,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 child: Card(
