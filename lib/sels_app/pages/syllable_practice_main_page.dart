@@ -54,7 +54,8 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('相似字音節訓練' ),
+          //title: Text('相似字音節訓練' ),
+          title: Text('Minimal Pair'),
         ),
         body: Stack(
             children: <Widget>[
@@ -498,7 +499,6 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                   selectSyllableList.add(_radioSelect.toString());
 
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
-                                  print(selectSyllableList);
                                   //Navigator.pop(context);
                                 },
                                 child: Center(

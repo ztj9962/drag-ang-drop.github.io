@@ -188,7 +188,7 @@ class _PhoneticExercisesMainPageState extends State<PhoneticExercisesMainPage>
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Empty' ),
+          title: const Text('Sentence Practice'),
         ),
         body: Stack(
           children: <Widget>[
