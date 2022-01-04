@@ -1,5 +1,6 @@
 
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:sels_app/sels_app/pages/syllable_practice_learn_page.dart';
 
@@ -31,6 +32,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
   String _dropdownValue2 = 'ɔ';
   String _dropdownValue3 = '請選擇';
 
+  int _radioSelect = 1;
 
 
 
@@ -327,13 +329,48 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                   }).toList(),
                                 ),
                               ),
+                              //Padding(padding: const EdgeInsets.only(bottom: 8, top: 8)),
+                              Divider(
+                                height: 20,
+                                thickness: 1,
+                              ),
+                              Text("選擇訓練要呈現的格式"),
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Radio(
+                                        value: 1,
+                                        groupValue: _radioSelect,
+                                        onChanged: _getRadioSelectValue,
+                                        /*
+                                        onChanged: (int? value){
+                                          setState(() {
+                                            _radioSelect = value!;
+                                          });
+                                        }
+                                         */
+                                    ),
+                                    Text("顯示1組"),
+                                    Radio(
+                                        value: 3,
+                                        groupValue: _radioSelect,
+                                        onChanged: _getRadioSelectValue,
+                                        /*
+                                        onChanged: (int? value){
+                                          setState(() {
+                                            _radioSelect = value!;
+                                          });
+                                        }
+                                        */
+                                    ),
+                                    Text("顯示3組"),
+                                  ],
+                                ),
+                              ),
                             ]
                         )
                       )
-                      /*
-
-
-                        */
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8, top: 8),
@@ -458,7 +495,10 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                                     selectSyllableList.add('');
                                   }
 
+                                  selectSyllableList.add(_radioSelect.toString());
+
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
+                                  print(selectSyllableList);
                                   //Navigator.pop(context);
                                 },
                                 child: Center(
@@ -468,8 +508,6 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                               ),
                             ),
                           ),
-
-
                         ),
                       ),
                     ),
@@ -527,4 +565,9 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
     );
   }
 
+  void _getRadioSelectValue(int? value){
+    setState(() {
+      _radioSelect = value!;
+    });
+  }
 }
