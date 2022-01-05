@@ -223,7 +223,8 @@ class _WordSetMainPageState extends State<WordSetMainPage>
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('單字集訓練' ),
+          //title: Text('單字集訓練' ),
+          title: Text('Vocabulary Practice'),
         ),
         body: Stack(
           children: <Widget>[

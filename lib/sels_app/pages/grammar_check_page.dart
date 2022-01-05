@@ -194,7 +194,8 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('文法校正' ),
+          //title: Text('文法校正' ),
+          title: Text('Grammar Correction'),
         ),
         body: Stack(
             children: <Widget>[
@@ -224,7 +225,7 @@ class _GrammarCheckPage extends State<GrammarCheckPage> {
                                           maxLines: 10,
                                           decoration: InputDecoration(
                                               border:InputBorder.none,
-                                              hintText: '請在這輸入要進行文法校正的句子......'
+                                              hintText: '請輸入要進行文法校正的句子......'
                                           ),
                                           controller: _textInputController,
                                           onChanged: (String value) {
