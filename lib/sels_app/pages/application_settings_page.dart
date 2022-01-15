@@ -207,6 +207,7 @@ class _ApplicationSettingsPageState extends State<ApplicationSettingsPage> {
                               SharedPreferencesUtil.saveData<bool>('applicationSettingsGrammarCheckPageIntroduce', _applicationSettingsGrammarCheckPageIntroduce);
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text('Save successflully.'),
+                                duration: Duration(milliseconds: 500),
                               ));
                               Navigator.pop(context);
                             },

@@ -80,7 +80,8 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '單字集訓練',
+        //titleTxt: '單字集訓練',
+        titleTxt: 'Vocabulary Practice',
         descripTxt: '單字集訓練',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetMainPage(animationController: widget.animationController)));
@@ -113,8 +114,9 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '句子發音訓練',
-        descripTxt: '句子發音訓練......',
+        //titleTxt: '句子發音訓練',
+        titleTxt: 'Sentence Practice',
+        descripTxt: '句子發音訓練',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesMainPage(animationController: widget.animationController)));
         },
@@ -123,7 +125,7 @@ class _HomePageState extends State<HomePage>
 
     listViews.add(
       TitleView(
-        titleTxt: '相似字音節訓練',
+        titleTxt: '相似字音標訓練',
         subTxt: 'All',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
@@ -140,8 +142,9 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '相似字音節訓練',
-        descripTxt: '相似字音節訓練......',
+        //titleTxt: '相似字音節訓練',
+        titleTxt: 'Minimal Pair',
+        descripTxt: '相似字音標訓練',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeMainPage()));
         },
@@ -170,7 +173,8 @@ class _HomePageState extends State<HomePage>
             Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
         imagePath: 'assets/sels_app/speaking.png',
-        titleTxt: '文法校正',
+        //titleTxt: '文法校正',
+        titleTxt: 'Grammar Correction',
         descripTxt: '文法校正',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => GrammarCheckPage()));
