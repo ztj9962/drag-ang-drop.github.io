@@ -43,6 +43,21 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> getPhoneticExercisesSentencesByWordSet(String learningClassification, String learningPhase) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getPhoneticExercisesSentencesByWordSet'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'learningClassification': learningClassification,
+        'learningPhase': learningPhase,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
   static Future<String> checkSentences(String questionText, String answerText, {int correctCombo:0}) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),

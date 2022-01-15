@@ -329,44 +329,20 @@ class _PhoneticExercisesLearnAutoPage extends State<PhoneticExercisesLearnAutoPa
     // 來源為 wordSet
     if(_wordSet['learningClassification'] != ''){
 
-      List wordData = [];
-      List wordRankingList = [];
-      _progress = 0;
-
-      var getWordLearning;
+      var getPhoneticExercisesSentencesByWordSet;
       do {
-        String getWordLearningJSON = await APIUtil.getWordLearning(_wordSet['learningClassification'].toString(), _wordSet['learningPhase'].toString());
-        getWordLearning = jsonDecode(getWordLearningJSON.toString());
-        print('getWordLearning 6 apiStatus:' + getWordLearning['apiStatus'] + ' apiMessage:' + getWordLearning['apiMessage']);
+        String getPhoneticExercisesSentencesByWordSetJSON = await APIUtil.getPhoneticExercisesSentencesByWordSet(_wordSet['learningClassification'].toString(), _wordSet['learningPhase'].toString());
+        getPhoneticExercisesSentencesByWordSet = jsonDecode(getPhoneticExercisesSentencesByWordSetJSON.toString());
+        print('getWordLearning 6 apiStatus:' + getPhoneticExercisesSentencesByWordSet['apiStatus'] + ' apiMessage:' + getPhoneticExercisesSentencesByWordSet['apiMessage']);
         await Future.delayed(Duration(seconds: 1));
-      } while (getWordLearning['apiStatus'] != 'success');
-      wordData.addAll(getWordLearning['data']);
-
-      wordData.forEach((element) {
-        wordRankingList.add(element['wordRanking']);
-      });
-      print(wordRankingList);
-
-
-
-      for(final wordRanking in wordRankingList){
-        var getSentences;
-        do {
-          String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking: wordRanking.toString(), dataLimit:'3');
-          getSentences = jsonDecode(getSentencesJSON.toString());
-          print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-          if(getSentences['apiStatus'] != 'success') {
-            await Future.delayed(Duration(seconds: 1));
-          }
-        } while (getSentences['apiStatus'] != 'success');
-        questionsData.addAll(getSentences['data']);
-      }
+      } while (getPhoneticExercisesSentencesByWordSet['apiStatus'] != 'success');
+      questionsData.addAll(getPhoneticExercisesSentencesByWordSet['data']);
       questionsData.shuffle();
-
 
       EasyLoading.dismiss();
       print('questionsData');
       print(questionsData);
+      print(questionsData.length);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
