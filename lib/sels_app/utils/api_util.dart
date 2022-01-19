@@ -218,6 +218,20 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> minimalPairWordFinder(word1) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/wordFinder'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'word1': word1.toString(),
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
   static Future<String> checkPronunciation(String questionText, String answerText) async {
     final response = await http.post(
       Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
