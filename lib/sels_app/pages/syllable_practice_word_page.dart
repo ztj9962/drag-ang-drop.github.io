@@ -16,18 +16,17 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-import 'package:auto_route/annotations.dart';
-import 'package:flutter/material.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_learn_page.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_word_page.dart';
-
 class SyllablePracticeWordPage extends StatefulWidget {
   @override
   _SyllablePracticeWordPage createState() => _SyllablePracticeWordPage();
 }
 
+enum TtsState { playing, stopped, paused, continued }
+
 class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
   final searchWordController = TextEditingController();
+
+  List<int> _sstIndex = [0, 0];
 
   final List<List<String>> _questionTextList = [
     [
@@ -115,18 +114,165 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
 
   final List<bool> isSelected = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
+  final _allowTouchButtons = {
+    'reListenButton' : false,
+    'speakButton' : false,
+    'nextButton' : false,
+  };
+
+  int _correctCombo = 0;
+
+  // Speech_to_text
+  bool _sttHasSpeech = false;
+  double sttLevel = 0.0;
+  double sttMinSoundLevel = 50000;
+  double sttMaxSoundLevel = -50000;
+  String sttLastWords = '';
+  String sttLastError = '';
+  String sttLastStatus = '';
+  String _sttCurrentLocaleId = 'en_US';
+  int sttResultListened = 0;
+  List<LocaleName> _sttLocaleNames = [];
+  final SpeechToText speechToText = SpeechToText();
+
+  // flutter_tts
+  late FlutterTts flutterTts;
+  String? ttsLanguage;
+  String? ttsEngine;
+  double ttsVolume = 1;
+  double ttsPitch = 1.0;
+  double ttsRate = 0.5;
+  bool ttsRateSlow = true;
+  bool ttsIsCurrentLanguageInstalled = false;
+  String? _newVoiceText;
+  int? _inputLength;
+  TtsState ttsState = TtsState.stopped;
+  get isPlaying => ttsState == TtsState.playing;
+  get isStopped => ttsState == TtsState.stopped;
+  get isPaused => ttsState == TtsState.paused;
+  get isContinued => ttsState == TtsState.continued;
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isWeb => kIsWeb;
+
   @override
   void initState() {
     super.initState();
+    initSyllablePracticeLearnPage();
   }
 
   @override
   void dispose() {
-    searchWordController.dispose();
     super.dispose();
+    searchWordController.dispose();
+    EasyLoading.dismiss();
+    speechToText.stop();
+    flutterTts.stop();
   }
+
+  initSyllablePracticeLearnPage() async {
+    initApplicationSettingsData();
+    initTts();
+    initSpeechState();
+  }
+
+  initApplicationSettingsData() {
+    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsVolume').then((value) {
+      setState(() => ttsVolume = value!);
+    });
+    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsPitch').then((value) {
+      setState(() => ttsPitch = value!);
+    });
+    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsRate').then((value) {
+      setState(() => ttsRate = value!);
+    });
+  }
+
+  Future<void> initSpeechState() async {
+    var sttHasSpeech = await speechToText.initialize(
+        onError: sttErrorListener,
+        onStatus: sttStatusListener,
+        debugLogging: true,
+        finalTimeout: Duration(milliseconds: 0));
+    if (sttHasSpeech) {
+      _sttLocaleNames = await speechToText.locales();
+
+      var systemLocale = await speechToText.systemLocale();
+      //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _sttHasSpeech = sttHasSpeech;
+    });
+  }
+
+  initTts() async {
+    flutterTts = FlutterTts();
+
+    if (isAndroid) {
+      _getDefaultEngine();
+    }
+
+    flutterTts.setStartHandler(() {
+      setState(() {
+        print("Playing");
+        ttsState = TtsState.playing;
+      });
+    });
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        print("Complete");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setCancelHandler(() {
+      setState(() {
+        print("Cancel");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    if (isWeb || isIOS) {
+      flutterTts.setPauseHandler(() {
+        setState(() {
+          print("Paused");
+          ttsState = TtsState.paused;
+        });
+      });
+
+      flutterTts.setContinueHandler(() {
+        setState(() {
+          print("Continued");
+          ttsState = TtsState.continued;
+        });
+      });
+    }
+
+    if (Platform.isIOS) {
+      await flutterTts
+          .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
+      ]);
+    }
+
+    flutterTts.setErrorHandler((msg) {
+      setState(() {
+        print("error: $msg");
+        ttsState = TtsState.stopped;
+      });
+    });
+  }
+
   int animationController = 100;
   int animation = 100;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,8 +286,9 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
                   child: Column(
                     children: <Widget>[
                       Flexible(
-                          flex: 3,
+                          flex: 6,
                           child: SingleChildScrollView(
+                              padding: EdgeInsets.all(16),
                               child: Column(
                                   children: <Widget>[
                                     const Padding(
@@ -153,122 +300,454 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
                                     ),
                                     Container(
                                       child: TextField(
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           labelText: '尋找相似的單詞',
                                           hintText: '請輸入要尋找相似的單詞',
                                         ),
                                         controller: searchWordController,
                                       ),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       height: 20,
                                       thickness: 1,
                                     ),
+                                    Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                                        child: Container(
+                                          margin: EdgeInsets.all(0.0),
+                                          decoration: BoxDecoration(
+                                            color: Colors.lightBlueAccent,
+                                            border: Border.all(
+                                              color: Colors.lightBlueAccent,
+                                              width: 10,
+                                            ),
+                                            borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.6),
+                                                blurRadius: 8,
+                                                offset: const Offset(4, 4),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              //borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                                              highlightColor: Colors.transparent,
+                                              onTap: () {
+                                                updateWordList(0);
+                                              },
+                                              child: const Center(
+                                                //child: Icon(Icons.save),
+                                                child: Text('開始尋找單詞相似字'),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const Divider(
+                                      height: 5,
+                                      thickness: 1,
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Visibility(
+                                            visible: _questionTextList[0].isEmpty,
+                                            child: const Text(
+                                              'No minimal pair match',
+                                              style: TextStyle(
+                                                fontSize: 16 ,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: searchWordController.text != '',
+                                            child: ListView.builder(
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemExtent: 180,
+                                              itemCount: _questionTextList[0].length,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                  color: const Color(0xff62B1F9),
+                                                  child: Card(
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Flexible(
+                                                          flex: 8,
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              Flexible(
+                                                                flex: 1,
+                                                                child:Container(
+                                                                  padding: const EdgeInsets.all(16),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Flexible(
+                                                                        child: RichText(
+                                                                          text: TextSpan(
+                                                                            text: '',
+                                                                            style: const TextStyle(
+                                                                              fontSize: 20,
+                                                                              color: Color(0xFF2633C5),
+                                                                            ),
+                                                                            children: _questionTextWidgetList[0][index],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Flexible(
+                                                                        child: RichText(
+                                                                          text: TextSpan(
+                                                                            text: '',
+                                                                            style: const TextStyle(
+                                                                              fontSize: 14,
+                                                                              color: Color(0xFF2633C5),
+                                                                            ),
+                                                                            children: _questionIPATextWidgetList[0][index],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              const Divider(
+                                                                height: 0,
+                                                                thickness: 1,
+                                                              ),
+                                                              Flexible(
+                                                                flex: 1,
+                                                                child:Container(
+                                                                  padding: const EdgeInsets.all(16),
+                                                                  //color:Colors.grey,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Flexible(
+                                                                        child: RichText(
+                                                                          text: TextSpan(
+                                                                            text: '',
+                                                                            style: const TextStyle(
+                                                                              fontSize: 20,
+                                                                              color: Color(0xFF2633C5),
+                                                                            ),
+                                                                            children: _answerTextWidgetList[0][index],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Flexible(
+                                                                        child: RichText(
+                                                                          text: TextSpan(
+                                                                            text: '',
+                                                                            style: const TextStyle(
+                                                                              fontSize: 14,
+                                                                              color: Color(0xFF2633C5),
+                                                                            ),
+                                                                            children: _answerIPATextWidgetList[0][index],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          flex: 2,
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              Visibility(
+                                                                visible: searchWordController.text != '',
+                                                                child: Expanded(
+                                                                  child: Center(
+                                                                    child: AvatarGlow(
+                                                                      animate: true,
+                                                                      glowColor: Theme.of(context).primaryColor,
+                                                                      endRadius: 30.0,
+                                                                      duration: const Duration(milliseconds: 2000),
+                                                                      repeat: true,
+                                                                      showTwoGlows: true,
+                                                                      repeatPauseDuration: const Duration(milliseconds: 100),
+                                                                      child: Material(     // Replace this child with your own
+                                                                        elevation: 8.0,
+                                                                        shape: const CircleBorder(),
+                                                                        child: CircleAvatar(
+                                                                          backgroundColor: Theme.of(context).primaryColor,
+                                                                          radius: 20.0,
+                                                                          child: IconButton(
+                                                                            iconSize: 15.0,
+                                                                            icon: Icon((_allowTouchButtons['reListenButton']! && !speechToText.isListening) ? (Icons.volume_up) : Icons.mic),
+                                                                            color: Colors.white,
+                                                                            onPressed: () async {
+                                                                              print('Click!');
+                                                                              if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                                                ttsRateSlow = !ttsRateSlow;
+                                                                                await _ttsSpeak(_questionTextList[0][index], 'en-US');
+                                                                              }
+                                                                              sttStartListening(0, index);
+                                                                              //print('Click!');
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ]
-                              )
-                          )
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                            child: Container(
-                              margin: EdgeInsets.all(0.0),
-                              decoration: BoxDecoration(
-                                color: Colors.lightBlueAccent,
-                                borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.6),
-                                    blurRadius: 8,
-                                    offset: const Offset(4, 4),
-                                  ),
-                                ],
                               ),
-                              child: Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                                  highlightColor: Colors.transparent,
-                                  onTap: () {
-                                    updateWordList(3);
-                                  },
-                                  child: const Center(
-                                    //child: Icon(Icons.save),
-                                    child: Text('開始尋找單詞相似字'),
-                                  ),
-                                ),
-                              ),
-                            ),
                           ),
-                        ),
                       ),
-                      Flexible(
-                        flex: 6,
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Color(0xFF2633C5),
-                                    ),
-                                    children: _questionTextWidgetList[0][0],
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFF2633C5),
-                                    ),
-                                    children: _questionIPATextWidgetList[0][0],
-                                  ),
-                                ),
-                              ),
-                              Padding(padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16)),
-                              Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Color(0xFF2633C5),
-                                    ),
-                                    children: _questionTextWidgetList[0][1],
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFF2633C5),
-                                    ),
-                                    children: _questionIPATextWidgetList[0][1],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
                     ],
                   )
               ),
             ]
         )
     );
+  }
+
+  /*
+  speech_to_text
+   */
+  Future<void> sttStartListening(index1, index2) async {
+
+    setState(() {
+      _sstIndex = [index1, index2];
+    });
+    sttLastWords = '';
+    sttLastError = '';
+    speechToText.listen(
+        onResult: sttResultListener,
+        listenFor: Duration(seconds: 30),
+        pauseFor: Duration(seconds: 3),
+        partialResults: true,
+        localeId: _sttCurrentLocaleId,
+        onSoundLevelChange: sttSoundLevelListener,
+        cancelOnError: true,
+        listenMode: ListenMode.confirmation
+    );
+  }
+
+  Future<void> sttStopListening() async {
+    speechToText.stop();
+    setState(() {
+      sttLevel = 0.0;
+    });
+  }
+
+  Future<void> sttCancelListening() async {
+    await speechToText.cancel();
+    setState(() {
+      sttLevel = 0.0;
+    });
+    //sleep(Duration(seconds:1));
+    //await sttStopListening();
+    //await sttStartListening();
+  }
+
+  void sttResultListener(SpeechRecognitionResult result) {
+    ++sttResultListened;
+    print('Result listener $sttResultListened');
+    setState(() {
+      sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
+      //print(sttLastWords);
+      _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
+    });
+  }
+
+  void sttSoundLevelListener(double level) {
+    sttMinSoundLevel = min(sttMinSoundLevel, level);
+    sttMaxSoundLevel = max(sttMaxSoundLevel, level);
+    // print("sound level $level: $minSoundLevel - $maxSoundLevel ");
+    setState(() {
+      this.sttLevel = level;
+    });
+  }
+
+  Future<void> sttErrorListener(SpeechRecognitionError error) async {
+    await sttCancelListening();
+    // print("Received error status: $error, listening: ${speech.isListening}");
+    setState(() {
+      sttLastError = '${error.errorMsg} - ${error.permanent}';
+    });
+  }
+
+  void sttStatusListener(String status) {
+    // print(
+    // 'Received listener status: $status, listening: ${speech.isListening}');
+    setState(() {
+      sttLastStatus = '$status';
+    });
+  }
+
+  void _sttSwitchLang(selectedVal) {
+    setState(() {
+      _sttCurrentLocaleId = selectedVal;
+    });
+    print(selectedVal);
+  }
+
+  /* tts 相關 */
+  Future<dynamic> _getLanguages() => flutterTts.getLanguages;
+
+  Future<dynamic> _getEngines() => flutterTts.getEngines;
+
+  Future _getDefaultEngine() async {
+    var engine = await flutterTts.getDefaultEngine;
+    if (engine != null) {
+      print(engine);
+    }
+  }
+
+  Future _ttsSpeak(String speakMessage, String speakLanguage) async {
+    setState(() {
+      _allowTouchButtons['speakButton'] = false;
+    });
+    await sttStopListening();
+
+    await flutterTts.setLanguage(speakLanguage);
+    if(ttsRateSlow){
+      await flutterTts.setSpeechRate(ttsRate * 0.22);
+    } else {
+      await flutterTts.setSpeechRate(ttsRate);
+    }
+    await flutterTts.setVolume(ttsVolume);
+    await flutterTts.setPitch(ttsPitch);
+
+    if (speakMessage != null) {
+      if (speakMessage.isNotEmpty) {
+        await flutterTts.awaitSpeakCompletion(true);
+        await flutterTts.speak(speakMessage);
+      }
+    }
+    setState(() {
+      _allowTouchButtons['speakButton'] = true;
+    });
+  }
+
+  Future _ttsStop() async {
+    var result = await flutterTts.stop();
+    if (result == 1) setState(() => ttsState = TtsState.stopped);
+  }
+
+  Future _ttsPause() async {
+    var result = await flutterTts.pause();
+    if (result == 1) setState(() => ttsState = TtsState.paused);
+  }
+
+  void _handleSubmitted(String text, {bool isFinalResult:false}) {
+
+    setState(() {
+      //_answerTextList[_sstIndex[0]][_sstIndex[1]] = text;
+      //_answerTextWidgetList[0][1] = [ TextSpan(text: text), ];
+      //_answerIPATextWidgetList[_sstIndex[0]][_sstIndex[1]] = [ TextSpan(text: ''), ];
+    });
+    if(isFinalResult){
+      _responseChatBot(text);
+    }
+  }
+
+  void _responseChatBot(text) async {
+    setState(() {
+      _allowTouchButtons['reListenButton'] = false;
+      _allowTouchButtons['speakButton'] = false;
+      _allowTouchButtons['nextButton'] = false;
+    });
+
+    String checkSentencesJSON = await APIUtil.checkSentences(_questionTextList[_sstIndex[0]][_sstIndex[1]], text, correctCombo:_correctCombo);
+    var checkSentences = jsonDecode(checkSentencesJSON.toString());
+
+    //print(checkSentences['data']['questionError'].toString());
+    if(checkSentences['apiStatus'] == 'success'){
+
+      if(checkSentences['data']['ipaTextSimilarity'] == 100){
+        _correctCombo++;
+      } else {
+        _correctCombo = 0;
+      }
+
+      var questionIPATextCheckedArray = checkSentences['data']['checkPronunciation']['questionCheckedArray'];
+      var answerIPATextCheckedArray = checkSentences['data']['checkPronunciation']['answerCheckedArray'];
+
+      print('XXXXX');
+      print(checkSentences['data']['checkPronunciation']['questionCheckedArray']);
+
+      List<TextSpan> questionIPATextWidget = [];
+      List<TextSpan> answerIPATextWidget = [];
+
+      questionIPATextWidget.add(TextSpan(text: '['));
+      answerIPATextWidget.add(TextSpan(text: '['));
+      for (var i = 0; i < questionIPATextCheckedArray.length; i++) {
+        if(questionIPATextCheckedArray[i] != answerIPATextCheckedArray[i]){
+          questionIPATextWidget.add(
+              TextSpan(
+                text: questionIPATextCheckedArray[i],
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              )
+          );
+          answerIPATextWidget.add(
+              TextSpan(
+                text: answerIPATextCheckedArray[i],
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              )
+          );
+        } else {
+          questionIPATextWidget.add(TextSpan(text: questionIPATextCheckedArray[i]));
+          answerIPATextWidget.add(TextSpan(text: answerIPATextCheckedArray[i]));
+        }
+      }
+      questionIPATextWidget.add(TextSpan(text: ']'));
+      answerIPATextWidget.add(TextSpan(text: ']'));
+
+      setState(() {
+        _questionIPATextWidgetList[_sstIndex[0]][_sstIndex[1]] = questionIPATextWidget;
+        _answerTextWidgetList[_sstIndex[0]][_sstIndex[1]] = [ TextSpan(text: text), TextSpan(text: '') ];
+        _answerIPATextWidgetList[_sstIndex[0]][_sstIndex[1]] = answerIPATextWidget;
+
+        ttsRateSlow = false;
+        _allowTouchButtons['reListenButton'] = true;
+        _allowTouchButtons['speakButton'] = true;
+        _allowTouchButtons['nextButton'] = true;
+      });
+
+      await _ttsSpeak(checkSentences['data']['scoreComment']['text'] , 'en-US');
+
+      setState(() {
+        ttsRateSlow = true;
+        _allowTouchButtons['speakButton'] = true;
+      });
+
+    } else {
+      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      sleep(Duration(seconds:1));
+      _responseChatBot(text);
+    }
   }
 
   Future<void> updateWordList(index) async {
@@ -278,6 +757,12 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
       EasyLoading.dismiss();
       return;
     }
+
+    setState(() {
+      _allowTouchButtons['reListenButton'] = false;
+      _allowTouchButtons['speakButton'] = false;
+      _allowTouchButtons['nextButton'] = false;
+    });
 
     EasyLoading.show(status: '正在讀取資料，請稍候......');
 
@@ -318,6 +803,9 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
       _answerIPATextList[0] = [''];
       _answerTextWidgetList[0] = answerTextWidget;
       _answerIPATextWidgetList[0] = answerIPATextWidgetList;
+      _allowTouchButtons['reListenButton'] = true;
+      _allowTouchButtons['speakButton'] = true;
+      _allowTouchButtons['nextButton'] = true;
     });
 
     EasyLoading.dismiss();
