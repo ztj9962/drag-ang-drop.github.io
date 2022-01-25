@@ -170,7 +170,6 @@ class _HomePageState extends State<HomePage>
 
 
 
-
     listViews.add(
       TitleView(
         titleTxt: '文法校正',

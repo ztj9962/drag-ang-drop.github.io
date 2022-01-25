@@ -3,6 +3,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:sels_app/sels_app/pages/syllable_practice_learn_page.dart';
+import 'package:sels_app/sels_app/pages/syllable_practice_word_page.dart';
 
 class SyllablePracticeMainPage extends StatefulWidget {
   @override
@@ -34,6 +35,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
 
   int _radioSelect = 1;
 
+  final searchWordController = TextEditingController();
 
 
   final List<bool> isSelected = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
@@ -45,6 +47,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
 
   @override
   void dispose() {
+    searchWordController.dispose();
     super.dispose();
   }
   int animationController = 100;
@@ -511,6 +514,56 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                         ),
                       ),
                     ),
+                    /*
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 8, top: 8),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                     */
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                          child: Container(
+                            margin: EdgeInsets.all(0.0),
+                            decoration: BoxDecoration(
+                              color: Colors.lightBlueAccent,
+                              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  blurRadius: 8,
+                                  offset: const Offset(4, 4),
+                                ),
+                              ],
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  List<String> selectSyllableWordList = [];
+
+                                  selectSyllableWordList.add(searchWordController.text);
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeWordPage()));
+                                  //Navigator.pop(context);
+                                },
+                                child: const Center(
+                                  //child: Icon(Icons.save),
+                                  child: Text('開始尋找單詞相似字'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 )
               ),
@@ -557,9 +610,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
                       ),
                     ]
                 ),
-
               ),
-
             ]
         )
     );

@@ -1790,7 +1790,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
     );
   }
 
-/*
+  /*
   speech_to_text
    */
   Future<void> sttStartListening(index1, index2) async {
