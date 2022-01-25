@@ -296,5 +296,19 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> getWordSetTotalList(String index) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetTotalList'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'index': index,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
 
 }

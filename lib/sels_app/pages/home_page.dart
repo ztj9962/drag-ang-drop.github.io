@@ -3,6 +3,7 @@ import 'package:sels_app/sels_app/pages/grammar_check_page.dart';
 import 'package:sels_app/sels_app/pages/phonetic_exercises_main_page.dart';
 import 'package:sels_app/sels_app/pages/syllable_practice_main_page.dart';
 import 'package:sels_app/sels_app/pages/word_set_main_page.dart';
+import 'package:sels_app/sels_app/pages/word_set_total_list_page.dart';
 import 'package:sels_app/sels_app/views/button_card_view.dart';
 import 'package:sels_app/sels_app/views/title_view.dart';
 import 'package:sels_app/sels_app/sels_app_theme.dart';
@@ -85,6 +86,22 @@ class _HomePageState extends State<HomePage>
         descripTxt: '單字集訓練',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetMainPage(animationController: widget.animationController)));
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/speaking.png',
+        //titleTxt: '單字集訓練',
+        titleTxt: 'Vocabulary Practice Total',
+        descripTxt: '單字集訓練',
+        onTapFunction: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetTotalListPage()));
         },
       ),
     );
