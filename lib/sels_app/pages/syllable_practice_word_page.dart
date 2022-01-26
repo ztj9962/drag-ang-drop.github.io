@@ -751,7 +751,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
   }
 
   Future<void> updateWordList(index) async {
-    String word1 = searchWordController.text;
+    String word1 = searchWordController.text.trim();
 
     if(word1 == '') {
       EasyLoading.dismiss();
