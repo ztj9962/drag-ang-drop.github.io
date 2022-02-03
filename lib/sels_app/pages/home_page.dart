@@ -1,7 +1,8 @@
 
 import 'package:sels_app/sels_app/pages/grammar_check_page.dart';
 import 'package:sels_app/sels_app/pages/phonetic_exercises_main_page.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_main_page.dart';
+//import 'package:sels_app/sels_app/pages/syllable_practice_main_page.dart';
+import 'package:sels_app/sels_app/pages/syllable_practice_main_page2.dart';
 import 'package:sels_app/sels_app/pages/word_set_main_page.dart';
 import 'package:sels_app/sels_app/pages/word_set_total_list_page.dart';
 import 'package:sels_app/sels_app/views/button_card_view.dart';
