@@ -50,12 +50,43 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
         appBar: AppBar(
           centerTitle: true,
           //title: Text('相似字音節訓練' ),
-          title: const Text('Minimal Pair'),
+          //title: const Text('Minimal Pair'),
+          title: Column(
+            children: const [
+              Text("Minimal Pair"),
+              Text("一對單詞只有一個音標不同", style: TextStyle(fontSize: 12.0)),
+            ],
+          ),
+          /*
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.help_outline),
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: (_) => SimpleDialog(
+                    title: const Text("About Minimal Pair"),
+                    titleTextStyle: const TextStyle(fontSize:18.0, color:Colors.black38, fontWeight: FontWeight.w500),
+                    insetPadding: const EdgeInsets.all(20),
+                    children: <Widget>[
+                      Column(
+                        children: const <Widget>[
+                          Text("What is Minimal Pair?", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+                          Text("一對單詞只有一個音標不同", style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w300)),
+                        ],
+                      )
+                    ],
+                  )
+                );
+              },
+            )
+          ],
+          */
           bottom: TabBar(
             controller: _tabController,
             tabs: const <Widget>[
-              Tab(text: 'Use Syllable'),
-              Tab(text: 'Use Word')
+              Tab(text: 'IPA'),
+              Tab(text: 'Word')
             ],
           ),
         ),
@@ -69,52 +100,69 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30, top: 30),
                   ),
-                  const Text('請選擇第一個字元'),
-                  Container(
-                    child: DropdownButton(
-                      value: _dropdownValue1,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.blue),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.grey,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text('Select IPA1'),
+                      const Padding(
+                        padding: EdgeInsets.all(10),
                       ),
-                      onChanged: (String? value){
-                        setState(() {
-                          _dropdownValue1 = value!;
-                        });
-                      },
-                      items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  const Text("請選擇第二個字元"),
-                  Container(
-                    child: DropdownButton(
-                      value: _dropdownValue2,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.blue),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.grey,
+                      Container(
+                        child: DropdownButton(
+                          value: _dropdownValue1,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.blue),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                          onChanged: (String? value){
+                            setState(() {
+                              _dropdownValue1 = value!;
+                            });
+                          },
+                          items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                      onChanged: (String? value){
-                        setState(() {
-                          _dropdownValue2 = value!;
-                        });
-                      },
-                      items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
+                    ],
                   ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text("Select IPA2"),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        Container(
+                          child: DropdownButton(
+                            value: _dropdownValue2,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.blue),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.grey,
+                            ),
+                            onChanged: (String? value){
+                              setState(() {
+                                _dropdownValue2 = value!;
+                              });
+                            },
+                            items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  /*
                   const Text("請選擇第三個字元"),
                   Container(
                     child: DropdownButton(
@@ -164,12 +212,13 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                       ],
                     ),
                   ),
+                  */
                   const Padding(
                     padding: EdgeInsets.only(bottom: 20, top: 20),
                   ),
                   Container(
                     child: ElevatedButton(
-                      child: const Text('開始練習相似字音節訓練'),
+                      child: const Text('Minimal Pair Practice'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         shadowColor: Colors.black,
@@ -191,9 +240,20 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                           selectSyllableList.add('');
                         }
 
-                        selectSyllableList.add(_radioSelect.toString());
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
+                        //selectSyllableList.add(_radioSelect.toString());
+                        if (_dropdownValue2 == _dropdownValue1){
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('Please select different IPA'),
+                            duration: Duration(milliseconds: 1000),
+                          ));
+                        } else if(_dropdownValue1 == '請選擇' || _dropdownValue2 == '請選擇'){
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('Please select at least one IPA'),
+                            duration: Duration(milliseconds: 1000),
+                          ));
+                        } else{
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeLearnPage(selectSyllableList)));
+                        }
                       },
                     ),
                   )
@@ -212,7 +272,8 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                       decoration: const InputDecoration(
                         //border: OutlineInputBorder(),  //有框的 TextField
                         labelText: '尋找相似的單詞',
-                        hintText: '請輸入要尋找相似的單詞',
+                        //hintText: '請輸入要尋找相似的單詞',
+                        hintText: 'Ex. work',
                       ),
                       controller: searchWordController,
                     ),
@@ -247,7 +308,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                   ),
                   Container(
                     child: ElevatedButton(
-                      child: const Text('開始尋找單詞相似字'),
+                      child: const Text('Minimal Pair Practice'),
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           shadowColor: Colors.black,
