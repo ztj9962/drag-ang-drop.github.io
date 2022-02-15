@@ -148,170 +148,170 @@ class _WordSetListPage extends State<WordSetListPage> {
         body: Stack(
             children: <Widget>[
               Container(
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        //color: Colors.pink,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(0.0),
-                            elevation: 2.0,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                children: <Widget>[
+                  child: Column(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          //color: Colors.pink,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                            child: Card(
+                              color: Colors.white,
+                              margin: EdgeInsets.all(0.0),
+                              elevation: 2.0,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  children: <Widget>[
 
-                                  Text('歡迎回來，您目前的進度還不錯喔'),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                                    child: Row(
+                                    Text('歡迎回來，您目前的進度還不錯喔'),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Column(
+                                            children: <Widget>[
+                                              Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: CircularProgressIndicator(
+                                                      strokeWidth: 8,
+                                                      backgroundColor: Colors.grey[200],
+                                                      valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+                                                      value: _wordSetData['averageScore']!/100,
+                                                    ),
+                                                  ),
+                                                  Text('${_wordSetData['averageScore']!}分')
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: Text('平均測驗分數'),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: <Widget>[
+                                              Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: CircularProgressIndicator(
+                                                      strokeWidth: 8,
+                                                      backgroundColor: Colors.grey[200],
+                                                      valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+                                                      value: _wordSetData['wordSetArray']!.length/_wordSetData['wordSetTotal']!,
+                                                    ),
+                                                  ),
+                                                  Text('${_wordSetData['wordSetArray']!.length}/${_wordSetData['wordSetTotal']!}')
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: Text('單字集學習進度'),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Divider(
+                                        height: 1,
+                                        thickness: 1,
+                                      ),
+                                    ),
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Column(
-                                          children: <Widget>[
-                                            Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: CircularProgressIndicator(
-                                                    strokeWidth: 8,
-                                                    backgroundColor: Colors.grey[200],
-                                                    valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
-                                                    value: _wordSetData['averageScore']!/100,
-                                                  ),
-                                                ),
-                                                Text('${_wordSetData['averageScore']!}分')
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text('平均測驗分數'),
-                                            ),
-                                          ],
+                                      children: [
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('獲取新單字集'),
+                                            onPressed: () {
+                                              if(_wordSetData['wordSetArray']!.length != _wordSetData['wordSetTotal']!){
+                                                if(_allowTouchButtons['addWordSetButton']!){
+                                                  addWordSet();
+                                                }
+
+                                              } else {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text('Opps: 已超出本單字集上限'),
+                                                ));
+                                              }
+                                            },
+                                          ),
                                         ),
-                                        Column(
-                                          children: <Widget>[
-                                            Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: CircularProgressIndicator(
-                                                    strokeWidth: 8,
-                                                    backgroundColor: Colors.grey[200],
-                                                    valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
-                                                    value: _wordSetData['wordSetArray']!.length/_wordSetData['wordSetTotal']!,
-                                                  ),
-                                                ),
-                                                Text('${_wordSetData['wordSetArray']!.length}/${_wordSetData['wordSetTotal']!}')
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text('單字集學習進度'),
-                                            ),
-                                          ],
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('隨機複習'),
+                                            onPressed: () {
+
+                                            },
+                                          ),
                                         ),
+
                                       ],
                                     ),
-                                  ),
 
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Divider(
-                                      height: 1,
-                                      thickness: 1,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('獲取新單字集'),
-                                          onPressed: () {
-                                            if(_wordSetData['wordSetArray']!.length != _wordSetData['wordSetTotal']!){
-                                              if(_allowTouchButtons['addWordSetButton']!){
-                                                addWordSet();
-                                              }
-
-                                            } else {
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                content: Text('Opps: 已超出本單字集上限'),
-                                              ));
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('隨機複習'),
-                                          onPressed: () {
-
-                                          },
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
+
+
                           ),
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                       ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Container(
-                        //color: Colors.green,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(0.0),
-                            elevation: 2.0,
-                            child: Container(
-                              child: ListView.builder(
-                                  itemCount: _wordSetData['wordSetArray']!.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        color: Colors.grey.shade400,
-                                          child: Column(
-                                            children: [
-                                              Container(
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          //color: Colors.green,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                            child: Card(
+                                color: Colors.white,
+                                margin: EdgeInsets.all(0.0),
+                                elevation: 2.0,
+                                child: Container(
+                                  child: ListView.builder(
+                                      itemCount: _wordSetData['wordSetArray']!.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          padding: const EdgeInsets.all(4),
+                                          child: Card(
+                                            color: Colors.grey.shade400,
+                                            child: Column(
+                                              children: [
+                                                Container(
 
                                                   alignment: Alignment.center,
                                                   padding: const EdgeInsets.all(4),
@@ -380,48 +380,48 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                     ),
                                                   ),
                                                 ),
-                                              Divider(
-                                                color: Colors.white,
-                                              ),
-                                              Wrap(
-                                                spacing: 2,
-                                                runSpacing: 5,
-                                                children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
-                                                  return Container(
-                                                    padding: const EdgeInsets.all(4),
-                                                    child: OutlinedButton(
-                                                      style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                          color: Colors.white,
-                                                          width: 0.5,
+                                                Divider(
+                                                  color: Colors.white,
+                                                ),
+                                                Wrap(
+                                                  spacing: 2,
+                                                  runSpacing: 5,
+                                                  children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
+                                                    return Container(
+                                                      padding: const EdgeInsets.all(4),
+                                                      child: OutlinedButton(
+                                                        style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                            color: Colors.white,
+                                                            width: 0.5,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      child: Text(
-                                                        _wordSetData['wordSetArray']![index]['wordList'][index2],
-                                                        style: TextStyle(
-                                                          color: Colors.black,
+                                                        child: Text(
+                                                          _wordSetData['wordSetArray']![index]['wordList'][index2],
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
                                                         ),
+                                                        onPressed: () {},
                                                       ),
-                                                      onPressed: () {},
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
+                                                    );
+                                                  }),
+                                                ),
 
-                                            ],
+                                              ],
+                                            ),
+
                                           ),
-
-                                      ),
-                                    );
-                                  }
-                              ),
-                            )
+                                        );
+                                      }
+                                  ),
+                                )
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  )
               ),
               Visibility(
                 visible: false,

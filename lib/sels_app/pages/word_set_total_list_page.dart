@@ -154,63 +154,63 @@ class _WordSetTotalListPage extends State<WordSetTotalListPage> {
         body: Stack(
             children: <Widget>[
               Container(
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        //color: Colors.pink,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(0.0),
-                            elevation: 2.0,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                children: <Widget>[
-                                  Slider(
-                                    autofocus: false,
-                                    onChanged: (value) {
-                                      setState(() => _sliderIndex = value.toInt());
-                                    },
-                                    onChangeEnd: (value) {
-                                      setState(() => _sliderIndex = value.toInt());
-                                      print(value);
-                                      initWordSetTotalList();
-                                    },
-                                    min: _sliderMin.toDouble(),
-                                    max: _sliderMax.toDouble(),
-                                    activeColor: Colors.lightBlueAccent,
-                                    divisions: (_sliderMax - _sliderMin),
-                                    //value: _applicationSettingsDataTtsRate,
-                                    value: _sliderIndex.toDouble(),
-                                    label: 'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}',
-                                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          //color: Colors.pink,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                            child: Card(
+                              color: Colors.white,
+                              margin: EdgeInsets.all(0.0),
+                              elevation: 2.0,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  children: <Widget>[
+                                    Slider(
+                                      autofocus: false,
+                                      onChanged: (value) {
+                                        setState(() => _sliderIndex = value.toInt());
+                                      },
+                                      onChangeEnd: (value) {
+                                        setState(() => _sliderIndex = value.toInt());
+                                        print(value);
+                                        initWordSetTotalList();
+                                      },
+                                      min: _sliderMin.toDouble(),
+                                      max: _sliderMax.toDouble(),
+                                      activeColor: Colors.lightBlueAccent,
+                                      divisions: (_sliderMax - _sliderMin),
+                                      //value: _applicationSettingsDataTtsRate,
+                                      value: _sliderIndex.toDouble(),
+                                      label: 'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}',
+                                    ),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('-100'),
-                                          onPressed: () {
-                                            _adjustSliderIndex(-10);
-                                          },
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('-100'),
+                                            onPressed: () {
+                                              _adjustSliderIndex(-10);
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('-10'),
-                                          onPressed: () {
-                                            _adjustSliderIndex(-1);
-                                          },
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('-10'),
+                                            onPressed: () {
+                                              _adjustSliderIndex(-1);
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      /*
+                                        /*
                                       Flexible(
                                         flex: 1,
                                         child: TextField(
@@ -218,34 +218,34 @@ class _WordSetTotalListPage extends State<WordSetTotalListPage> {
                                         ),
                                       ),
                                        */
-                                      Flexible(
-                                        flex: 1,
-                                        child: Text(
-                                          'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}'
+                                        Flexible(
+                                          flex: 1,
+                                          child: Text(
+                                              'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}'
+                                          ),
                                         ),
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('+10'),
-                                          onPressed: () {
-                                            _adjustSliderIndex(1);
-                                          },
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('+10'),
+                                            onPressed: () {
+                                              _adjustSliderIndex(1);
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: OutlinedButton(
-                                          child: Text('+100'),
-                                          onPressed: () {
-                                            _adjustSliderIndex(10);
-                                          },
+                                        Flexible(
+                                          flex: 1,
+                                          child: OutlinedButton(
+                                            child: Text('+100'),
+                                            onPressed: () {
+                                              _adjustSliderIndex(10);
+                                            },
+                                          ),
                                         ),
-                                      ),
 
-                                    ],
-                                  ),
-                                  /*
+                                      ],
+                                    ),
+                                    /*
                                   Text('歡迎回來，您目前的進度還不錯喔'),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -346,147 +346,147 @@ class _WordSetTotalListPage extends State<WordSetTotalListPage> {
                                   ),
                                   */
 
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
+
+
                           ),
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                       ),
-                    ),
-                    Flexible(
-                      flex: 4,
-                      child: Container(
-                        //color: Colors.green,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(0.0),
-                            elevation: 2.0,
-                            child: Container(
-                              child: ListView.builder(
-                                  itemCount: _wordSetData['wordSetArray']!.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      //height: 300,
-                                      padding: const EdgeInsets.all(4),
-                                      child: Card(
-                                        color: Colors.grey.shade400,
-                                        child: Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.center,
-                                                padding: const EdgeInsets.all(4),
-                                                child: ListTile(
-                                                  title: Text('${_wordSetData['learningClassificationName']!} \n第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集\nRanking ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 -9 } ~ ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 }'),
-                                                  trailing: PopupMenuButton(
-                                                    itemBuilder: (context) {
-                                                      return [
-                                                        PopupMenuItem(
-                                                          value: 'word_card_learn',
-                                                          child: Text('單字卡學習'),
-                                                        ),
-                                                        PopupMenuItem(
-                                                          value: 'sentence_phonetic_auto',
-                                                          child: Text('句子口說練習'),
-                                                        ),
-                                                      ];
-                                                    },
-                                                    onSelected: (String value){
-                                                      switch(value) {
-                                                        case 'word_card_learn':
-                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
-                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
-                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
-                                                          break;
-                                                        case 'sentence_phonetic_auto':
-                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(
-                                                              wordSet:{
-                                                                'learningClassification': _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(),
-                                                                'learningPhase': _wordSetData['wordSetArray']![index]['wordSetPhase'].toString()
-                                                              }
-                                                          )));
-                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
-                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
-                                                          break;
-                                                        case 'Review':
-                                                        //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
-                                                          print('You Click on po up menu item' + value);
-                                                          break;
-                                                        case 'Test':
-                                                        //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
-                                                          print('You Click on po up menu item' + value);
-                                                          break;
-                                                        default:
-                                                          print('You Click on po up menu item' + value);
-                                                          break;
-                                                      }
-                                                    },
+                      Flexible(
+                        flex: 4,
+                        child: Container(
+                          //color: Colors.green,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
+                            child: Card(
+                                color: Colors.white,
+                                margin: EdgeInsets.all(0.0),
+                                elevation: 2.0,
+                                child: Container(
+                                  child: ListView.builder(
+                                      itemCount: _wordSetData['wordSetArray']!.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          //height: 300,
+                                          padding: const EdgeInsets.all(4),
+                                          child: Card(
+                                            color: Colors.grey.shade400,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  padding: const EdgeInsets.all(4),
+                                                  child: ListTile(
+                                                    title: Text('${_wordSetData['learningClassificationName']!} \n第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集\nRanking ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 -9 } ~ ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 }'),
+                                                    trailing: PopupMenuButton(
+                                                      itemBuilder: (context) {
+                                                        return [
+                                                          PopupMenuItem(
+                                                            value: 'word_card_learn',
+                                                            child: Text('單字卡學習'),
+                                                          ),
+                                                          PopupMenuItem(
+                                                            value: 'sentence_phonetic_auto',
+                                                            child: Text('句子口說練習'),
+                                                          ),
+                                                        ];
+                                                      },
+                                                      onSelected: (String value){
+                                                        switch(value) {
+                                                          case 'word_card_learn':
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
+                                                            break;
+                                                          case 'sentence_phonetic_auto':
+                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(
+                                                                wordSet:{
+                                                                  'learningClassification': _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(),
+                                                                  'learningPhase': _wordSetData['wordSetArray']![index]['wordSetPhase'].toString()
+                                                                }
+                                                            )));
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
+                                                            break;
+                                                          case 'Review':
+                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                          case 'Test':
+                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                          default:
+                                                            print('You Click on po up menu item' + value);
+                                                            break;
+                                                        }
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Divider(
-                                                color: Colors.white,
-                                              ),
-                                              Wrap(
-                                                spacing: 2,
-                                                runSpacing: 5,
-                                                children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
-                                                  return Container(
-                                                    padding: const EdgeInsets.all(4),
-                                                    child: OutlinedButton(
-                                                      style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                          color: Colors.white,
-                                                          width: 0.5,
+                                                Divider(
+                                                  color: Colors.white,
+                                                ),
+                                                Wrap(
+                                                  spacing: 2,
+                                                  runSpacing: 5,
+                                                  children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
+                                                    return Container(
+                                                      padding: const EdgeInsets.all(4),
+                                                      child: OutlinedButton(
+                                                        style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                            color: Colors.white,
+                                                            width: 0.5,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      child: Text(
-                                                        _wordSetData['wordSetArray']![index]['wordList'][index2],
-                                                        style: TextStyle(
-                                                          color: Colors.black,
+                                                        child: Text(
+                                                          _wordSetData['wordSetArray']![index]['wordList'][index2],
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
                                                         ),
+                                                        onPressed: () {},
                                                       ),
-                                                      onPressed: () {},
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
+                                                    );
+                                                  }),
+                                                ),
 
-                                            ],
+                                              ],
+                                            ),
+
                                           ),
-
-                                      ),
-                                    );
-                                  }
-                              ),
-                            )
+                                        );
+                                      }
+                                  ),
+                                )
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  )
               ),
               Visibility(
                 visible: false,
