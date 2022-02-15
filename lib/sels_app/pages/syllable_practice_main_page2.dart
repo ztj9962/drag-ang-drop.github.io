@@ -12,8 +12,24 @@ class SyllablePracticeMainPage extends StatefulWidget {
 
 class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with TickerProviderStateMixin {
   final List<String> _ipaAboutList = [
-    '請選擇',
     'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ɑ',
+    'eɪ', 'ɔɪ', 'əʊ', 'aɪ', 'aʊ',
+    'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
+    'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
+  ];
+
+  List<String> _ipaAboutList1 = [
+    'i', 'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ',
+    //'ɔ',
+    'æ', 'ɑ',
+    'eɪ', 'ɔɪ', 'əʊ', 'aɪ', 'aʊ',
+    'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
+    'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
+  ];
+
+  List<String> _ipaAboutList2 = [
+    //'i',
+    'ɪ', 'ʊ', 'u', 'e', 'ə', 'ɜ', 'ɔ', 'æ', 'ɑ',
     'eɪ', 'ɔɪ', 'əʊ', 'aɪ', 'aʊ',
     'aʊə', 'aɪə', 'eɪə', 'əʊə', 'ɔɪə',
     'p', 'b', 't', 'd', 'ʧ', 'ʤ', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'm', 'n', 'ŋ', 'h', 'l', 'r', 'w', 'j'
@@ -21,7 +37,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
 
   String _dropdownValue1 = 'i';
   String _dropdownValue2 = 'ɔ';
-  String _dropdownValue3 = '請選擇';
+  //String _dropdownValue3 = '請選擇';
 
   int _radioSelect = 1;
 
@@ -118,10 +134,12 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                           ),
                           onChanged: (String? value){
                             setState(() {
+                              _ipaAboutList2 = new List.from(_ipaAboutList);
                               _dropdownValue1 = value!;
+                              _ipaAboutList2.remove(_dropdownValue1);
                             });
                           },
-                          items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                          items: _ipaAboutList1.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -149,10 +167,12 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
                             ),
                             onChanged: (String? value){
                               setState(() {
+                                _ipaAboutList1 = new List.from(_ipaAboutList);
                                 _dropdownValue2 = value!;
+                                _ipaAboutList1.remove(_dropdownValue2);
                               });
                             },
-                            items: _ipaAboutList.map<DropdownMenuItem<String>>((String value) {
+                            items: _ipaAboutList2.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
@@ -232,9 +252,11 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> with Tic
 
                         selectSyllableList.add(_dropdownValue1);
                         selectSyllableList.add(_dropdownValue2);
+                        /*
                         if (_dropdownValue3 != '請選擇'){
                           selectSyllableList.add(_dropdownValue3);
                         }
+                         */
 
                         while(selectSyllableList.length < 3){
                           selectSyllableList.add('');
