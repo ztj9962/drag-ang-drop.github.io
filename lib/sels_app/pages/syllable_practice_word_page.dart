@@ -17,14 +17,21 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class SyllablePracticeWordPage extends StatefulWidget {
+  String searchWordController = '';
+
+  SyllablePracticeWordPage(String searchWordController){
+    this.searchWordController = searchWordController;
+  }
+
   @override
-  _SyllablePracticeWordPage createState() => _SyllablePracticeWordPage();
+  _SyllablePracticeWordPage createState() => _SyllablePracticeWordPage(searchWordController);
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
 class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
-  final searchWordController = TextEditingController();
+  //final searchWordController = TextEditingController();
+  String _searchWordController = '';
 
   List<int> _sstIndex = [0, 0];
 
@@ -112,7 +119,9 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
   ];
 
 
-  final List<bool> isSelected = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+  _SyllablePracticeWordPage(String searchWordController){
+    this._searchWordController = searchWordController;
+  }
 
   final _allowTouchButtons = {
     'reListenButton' : false,
@@ -164,7 +173,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
   @override
   void dispose() {
     super.dispose();
-    searchWordController.dispose();
+    //searchWordController.dispose();
     EasyLoading.dismiss();
     speechToText.stop();
     flutterTts.stop();
@@ -174,6 +183,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
     initApplicationSettingsData();
     initTts();
     initSpeechState();
+    await updateWordList(0);
   }
 
   initApplicationSettingsData() {
@@ -299,53 +309,38 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
                                       ),
                                     ),
                                     Container(
-                                      child: TextField(
-                                        decoration: const InputDecoration(
-                                          labelText: '尋找相似的單詞',
-                                          hintText: '請輸入要尋找相似的單詞',
-                                        ),
-                                        controller: searchWordController,
-                                      ),
-                                    ),
-                                    const Divider(
-                                      height: 20,
-                                      thickness: 1,
-                                    ),
-                                    Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 8,bottom: 8,left: 16,right: 16),
-                                        child: Container(
-                                          margin: EdgeInsets.all(0.0),
-                                          decoration: BoxDecoration(
-                                            color: Colors.lightBlueAccent,
-                                            border: Border.all(
-                                              color: Colors.lightBlueAccent,
-                                              width: 10,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            '${_searchWordController} 相似詞練習',
+                                            style: const TextStyle(
+                                              fontSize: 16 ,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                                            boxShadow: <BoxShadow>[
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(0.6),
-                                                blurRadius: 8,
-                                                offset: const Offset(4, 4),
-                                              ),
-                                            ],
                                           ),
-                                          child: Material(
-                                            color: Colors.transparent,
-                                            child: InkWell(
-                                              //borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                                              highlightColor: Colors.transparent,
-                                              onTap: () {
+                                          Visibility(
+                                            visible: _searchWordController.isNotEmpty,
+                                            child: IconButton(
+                                              color: Colors.grey,
+                                              iconSize: 25,
+                                              icon: Icon(Icons.refresh_outlined),
+                                              onPressed: () {
                                                 updateWordList(0);
                                               },
-                                              child: const Center(
-                                                //child: Icon(Icons.save),
-                                                child: Text('開始尋找單詞相似字'),
-                                              ),
                                             ),
                                           ),
-                                        ),
+                                          /*
+                                              IconButton(
+                                                color: Colors.grey,
+                                                iconSize: 25,
+                                                icon: Icon(Icons.refresh_outlined),
+                                                onPressed: () {
+                                                  updateIPAAboutList(0);
+                                                },
+                                              ),
+                                              */
+                                        ],
                                       ),
                                     ),
                                     const Divider(
@@ -367,7 +362,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
                                             ),
                                           ),
                                           Visibility(
-                                            visible: searchWordController.text != '',
+                                            visible: _searchWordController != '',
                                             child: ListView.builder(
                                               physics: const NeverScrollableScrollPhysics(),
                                               shrinkWrap: true,
@@ -464,7 +459,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
                                                           child: Column(
                                                             children: <Widget>[
                                                               Visibility(
-                                                                visible: searchWordController.text != '',
+                                                                visible: _searchWordController != '',
                                                                 child: Expanded(
                                                                   child: Center(
                                                                     child: AvatarGlow(
@@ -751,7 +746,8 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
   }
 
   Future<void> updateWordList(index) async {
-    String word1 = searchWordController.text;
+    print('Run Run Run!!!');
+    String word1 = _searchWordController.trim();
 
     if(word1 == '') {
       EasyLoading.dismiss();
@@ -808,6 +804,7 @@ class _SyllablePracticeWordPage extends State<SyllablePracticeWordPage> {
       _allowTouchButtons['nextButton'] = true;
     });
 
+    print('Run Run Over!');
     EasyLoading.dismiss();
     return;
   }

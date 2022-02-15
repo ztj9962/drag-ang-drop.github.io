@@ -551,7 +551,7 @@ class _SyllablePracticeMainPage extends State<SyllablePracticeMainPage> {
 
                                   selectSyllableWordList.add(searchWordController.text);
 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeWordPage()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeWordPage(searchWordController.text)));
                                   //Navigator.pop(context);
                                 },
                                 child: const Center(

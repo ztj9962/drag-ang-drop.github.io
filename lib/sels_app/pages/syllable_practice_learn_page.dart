@@ -334,7 +334,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                 ),
                                               ),
                                               Visibility(
-                                                visible: _selectSyllableList[3] == "3",
+                                                visible: _selectSyllableList[0].isNotEmpty,
                                                 child: IconButton(
                                                   color: Colors.grey,
                                                   iconSize: 25,
@@ -378,8 +378,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             physics: const NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemExtent: 180,
-                                            //itemCount: _questionTextList[0].length,
-                                            itemCount: int.parse(_selectSyllableList[3]),
+                                            itemCount: _questionTextList[0].length,
+                                            //itemCount: int.parse(_selectSyllableList[3]),
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 color: const Color(0xff62B1F9),
@@ -467,13 +467,13 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: _selectSyllableList[3] == '3',
+                                                        visible: _selectSyllableList[0].isNotEmpty,
                                                         child: Flexible(
                                                           flex: 2,
                                                           child: Column(
                                                             children: <Widget>[
                                                               Visibility(
-                                                                visible: _selectSyllableList[3] == '3',
+                                                                visible: _selectSyllableList[0].isNotEmpty,
                                                                 child: Expanded(
                                                                     child: Center(
                                                                       child: AvatarGlow(
@@ -602,6 +602,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             },
                                           ),
                                         ),
+                                        /*
                                         Container(
                                           child: Column(
                                             children: <Widget>[
@@ -700,6 +701,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             ],
                                           ),
                                         ),
+                                        */
                                         /*
                                         Container(
                                           child: Row(
@@ -923,7 +925,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                 ),
                                               ),
                                               Visibility(
-                                                visible: _selectSyllableList[3] == '3',
+                                                visible: _selectSyllableList[0].isNotEmpty,
                                                 child: IconButton(
                                                   color: Colors.grey,
                                                   iconSize: 25,
@@ -957,8 +959,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             physics: new NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemExtent: 180,
-                                            //itemCount: _questionTextList[1].length,
-                                            itemCount: int.parse(_selectSyllableList[3]),
+                                            itemCount: _questionTextList[1].length,
+                                            //itemCount: int.parse(_selectSyllableList[3]),
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 color: Color(0xff62B1F9),
@@ -1046,13 +1048,13 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: _selectSyllableList[3] == '3',
+                                                        visible: _selectSyllableList[0].isNotEmpty,
                                                         child: Flexible(
                                                           flex: 2,
                                                           child: Column(
                                                             children: <Widget>[
                                                               Visibility(
-                                                                visible: _selectSyllableList[3] == '3',
+                                                                visible: _selectSyllableList[0].isNotEmpty,
                                                                 child: Expanded(
                                                                     child: Center(
                                                                       child: AvatarGlow(
@@ -1223,104 +1225,6 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             },
                                           ),
                                         ),
-                                        Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible: _selectSyllableList[3] == '1',
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Center(
-                                                              child: AvatarGlow(
-                                                                animate: true,
-                                                                glowColor: Theme.of(context).primaryColor,
-                                                                endRadius: 30.0,
-                                                                duration: Duration(milliseconds: 2000),
-                                                                repeat: true,
-                                                                showTwoGlows: true,
-                                                                repeatPauseDuration: Duration(milliseconds: 100),
-                                                                child: Material(
-                                                                  elevation: 8.0,
-                                                                  shape: CircleBorder(),
-                                                                  child: CircleAvatar(
-                                                                    backgroundColor: Theme.of(context).primaryColor,
-                                                                    radius: 20.0,
-                                                                    child: IconButton(
-                                                                      icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening) ? (Icons.volume_up) : Icons.mic),
-                                                                      //icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                                      color: Colors.white,
-                                                                      //color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
-                                                                      onPressed: () async {
-                                                                        if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                                                          ttsRateSlow = !ttsRateSlow;
-                                                                          await _ttsSpeak(_questionTextList[1][0], 'en-US');
-                                                                        }
-                                                                        sttStartListening(1, 0);
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              '測試聽說',
-                                                              textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                    ),
-                                                    Expanded(
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Center(
-                                                              child: AvatarGlow(
-                                                                animate: false,
-                                                                glowColor: Theme.of(context).primaryColor,
-                                                                endRadius: 30.0,
-                                                                duration: Duration(milliseconds: 2000),
-                                                                repeat: true,
-                                                                showTwoGlows: true,
-                                                                repeatPauseDuration: Duration(milliseconds: 100),
-                                                                child: Material(     // Replace this child with your own
-                                                                  elevation: 8.0,
-                                                                  shape: CircleBorder(),
-                                                                  child: CircleAvatar(
-                                                                    backgroundColor: Theme.of(context).primaryColor,
-                                                                    radius: 20.0,
-                                                                    child: IconButton(
-                                                                      icon: const Icon(Icons.navigate_next_outlined),
-                                                                      color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
-                                                                      onPressed: () {
-                                                                        updateIPAAboutList(1);
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              '下一題',
-                                                              textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -1357,7 +1261,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                 ),
                                               ),
                                               Visibility(
-                                                visible: _selectSyllableList[3] == '3',
+                                                visible: _selectSyllableList[0].isNotEmpty,
                                                 child: IconButton(
                                                   color: Colors.grey,
                                                   iconSize: 25,
@@ -1391,8 +1295,8 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                             physics: const NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemExtent: 180,
-                                            //itemCount: _questionTextList[2].length,
-                                            itemCount: int.parse(_selectSyllableList[3]),
+                                            itemCount: _questionTextList[2].length,
+                                            //itemCount: int.parse(_selectSyllableList[3]),
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 color: const Color(0xff62B1F9),
@@ -1480,13 +1384,13 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                         ),
                                                       ),
                                                       Visibility(
-                                                        visible: _selectSyllableList[3] == '3',
+                                                        visible: _selectSyllableList[0].isNotEmpty,
                                                         child: Flexible(
                                                           flex: 2,
                                                           child: Column(
                                                             children: <Widget>[
                                                               Visibility(
-                                                                visible: _selectSyllableList[3] == '3',
+                                                                visible: _selectSyllableList[0].isNotEmpty,
                                                                 child: Expanded(
                                                                     child: Center(
                                                                       child: AvatarGlow(
@@ -1532,104 +1436,6 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
                                                 ),
                                               );
                                             },
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible: _selectSyllableList[3] == '1',
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Center(
-                                                              child: AvatarGlow(
-                                                                animate: true,
-                                                                glowColor: Theme.of(context).primaryColor,
-                                                                endRadius: 30.0,
-                                                                duration: const Duration(milliseconds: 2000),
-                                                                repeat: true,
-                                                                showTwoGlows: true,
-                                                                repeatPauseDuration: const Duration(milliseconds: 100),
-                                                                child: Material(
-                                                                  elevation: 8.0,
-                                                                  shape: CircleBorder(),
-                                                                  child: CircleAvatar(
-                                                                    backgroundColor: Theme.of(context).primaryColor,
-                                                                    radius: 20.0,
-                                                                    child: IconButton(
-                                                                      icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening) ? (Icons.volume_up) : Icons.mic),
-                                                                      //icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                                      color: Colors.white,
-                                                                      //color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
-                                                                      onPressed: () async {
-                                                                        if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                                                          ttsRateSlow = !ttsRateSlow;
-                                                                          await _ttsSpeak(_questionTextList[2][0], 'en-US');
-                                                                        }
-                                                                        sttStartListening(2, 0);
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              '測試聽說',
-                                                              textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                    ),
-                                                    Expanded(
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Center(
-                                                              child: AvatarGlow(
-                                                                animate: false,
-                                                                glowColor: Theme.of(context).primaryColor,
-                                                                endRadius: 30.0,
-                                                                duration: const Duration(milliseconds: 2000),
-                                                                repeat: true,
-                                                                showTwoGlows: true,
-                                                                repeatPauseDuration: const Duration(milliseconds: 100),
-                                                                child: Material(     // Replace this child with your own
-                                                                  elevation: 8.0,
-                                                                  shape: const CircleBorder(),
-                                                                  child: CircleAvatar(
-                                                                    backgroundColor: Theme.of(context).primaryColor,
-                                                                    radius: 20.0,
-                                                                    child: IconButton(
-                                                                      icon: const Icon(Icons.navigate_next_outlined),
-                                                                      color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
-                                                                      onPressed: () {
-                                                                        updateIPAAboutList(2);
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              '下一題',
-                                                              textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
