@@ -385,150 +385,96 @@ class _WordSetTotalListPage extends State<WordSetTotalListPage> {
                             elevation: 2.0,
                             child: Container(
                               child: ListView.builder(
-                                  itemExtent: 200,
                                   itemCount: _wordSetData['wordSetArray']!.length,
                                   itemBuilder: (context, index) {
                                     return Container(
+                                      //height: 300,
                                       padding: const EdgeInsets.all(4),
                                       child: Card(
                                         color: Colors.grey.shade400,
-                                        child: Container(
-                                          child: Column(
+                                        child: Column(
                                             children: [
-                                              Expanded(
-                                                flex: 7,
-                                                child: Container(
-
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.all(4),
-                                                  child: ListTile(
-                                                    title: Text('${_wordSetData['learningClassificationName']!} \n第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集\nRanking ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 -9 } ~ ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 }'),
-                                                    /*
-                                                    leading: Stack(
-                                                      alignment: Alignment.center,
-                                                      children: [
-                                                        SizedBox(
-                                                          height: 50,
-                                                          width: 50,
-                                                          child: CircularProgressIndicator(
-                                                            backgroundColor: Colors.grey[200],
-                                                            valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
-                                                            value: _wordSetData['wordSetArray']![index]['wordSetScore']/100,
-                                                          ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                padding: const EdgeInsets.all(4),
+                                                child: ListTile(
+                                                  title: Text('${_wordSetData['learningClassificationName']!} \n第${_wordSetData['wordSetArray']![index]['wordSetPhase']}集\nRanking ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 -9 } ~ ${_wordSetData['wordSetArray']![index]['wordSetPhase'] *10 }'),
+                                                  trailing: PopupMenuButton(
+                                                    itemBuilder: (context) {
+                                                      return [
+                                                        PopupMenuItem(
+                                                          value: 'word_card_learn',
+                                                          child: Text('單字卡學習'),
                                                         ),
-                                                        Text(
-                                                            '${_wordSetData['wordSetArray']![index]['wordSetScore']}%'
-                                                        )
-                                                      ],
-                                                    ),
-                                                    */
-                                                    trailing: PopupMenuButton(
-                                                      itemBuilder: (context) {
-                                                        return [
-                                                          PopupMenuItem(
-                                                            value: 'word_card_learn',
-                                                            child: Text('單字卡學習'),
-                                                          ),
-                                                          PopupMenuItem(
-                                                            value: 'sentence_phonetic_auto',
-                                                            child: Text('句子口說練習'),
-                                                          ),
-                                                          /*
-                                                PopupMenuItem(
-                                                  value: 'Review',
-                                                  child: Text('複習'),
-                                                ),
-                                                PopupMenuItem(
-                                                  value: 'Test',
-                                                  child: Text('測驗'),
-                                                ),
-
-                                                 */
-                                                        ];
-                                                      },
-                                                      onSelected: (String value){
-                                                        switch(value) {
-                                                          case 'word_card_learn':
-                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
-                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
-                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
-                                                            break;
-                                                          case 'sentence_phonetic_auto':
-                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(
-                                                                wordSet:{
-                                                                  'learningClassification': _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(),
-                                                                  'learningPhase': _wordSetData['wordSetArray']![index]['wordSetPhase'].toString()
-                                                                }
-                                                            )));
-                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
-                                                            //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
-                                                            break;
-                                                          case 'Review':
-                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
-                                                            print('You Click on po up menu item' + value);
-                                                            break;
-                                                          case 'Test':
-                                                          //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
-                                                            print('You Click on po up menu item' + value);
-                                                            break;
-                                                          default:
-                                                            print('You Click on po up menu item' + value);
-                                                            break;
-                                                        }
-                                                      },
-                                                    ),
+                                                        PopupMenuItem(
+                                                          value: 'sentence_phonetic_auto',
+                                                          child: Text('句子口說練習'),
+                                                        ),
+                                                      ];
+                                                    },
+                                                    onSelected: (String value){
+                                                      switch(value) {
+                                                        case 'word_card_learn':
+                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage(learningClassification: _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(), learningPhase: _wordSetData['wordSetArray']![index]['wordSetPhase'].toString())));
+                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
+                                                          break;
+                                                        case 'sentence_phonetic_auto':
+                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneticExercisesLearnAutoPage(
+                                                              wordSet:{
+                                                                'learningClassification': _wordSetData['wordSetArray']![index]['wordSetClassification'].toString(),
+                                                                'learningPhase': _wordSetData['wordSetArray']![index]['wordSetPhase'].toString()
+                                                              }
+                                                          )));
+                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetClassification'].toString());
+                                                          //print('You Click on po up menu item ' + value +_wordSetData['wordSetArray']![index]['wordSetPhase'].toString());
+                                                          break;
+                                                        case 'Review':
+                                                        //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetReviewPage()));
+                                                          print('You Click on po up menu item' + value);
+                                                          break;
+                                                        case 'Test':
+                                                        //Navigator.push(context, MaterialPageRoute(builder: (context) => WordSetLearnPage()));
+                                                          print('You Click on po up menu item' + value);
+                                                          break;
+                                                        default:
+                                                          print('You Click on po up menu item' + value);
+                                                          break;
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               ),
-
                                               Divider(
                                                 color: Colors.white,
                                               ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  padding: const EdgeInsets.all(4),
-                                                  //color: Colors.red,
-                                                  child: ListView.builder(
-                                                      //itemExtent: 100,
-                                                      scrollDirection: Axis.horizontal,
-                                                      itemCount: _wordSetData['wordSetArray']![index]['wordList'].length,
-                                                      itemBuilder: (context, index2) {
-                                                        return Container(
-                                                          padding: const EdgeInsets.all(4),
-                                                          child: OutlinedButton(
-                                                            style: OutlinedButton.styleFrom(
-                                                              side: BorderSide(
-                                                                color: Colors.white,
-                                                                width: 0.5,
-                                                              ),
-                                                            ),
-                                                            child: Text(
-                                                                _wordSetData['wordSetArray']![index]['wordList'][index2],
-                                                              style: TextStyle(
-                                                                color: Colors.black,
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          ),
-                                                        );
-                                                      }),
-
-
-                                                  /*
-                                                OutlinedButton(
-
-                                                  child: Text(_wordSetData['wordSetArray']![index]['wordList'][index2]),
-                                                  onPressed: () {
-                                                  },
-                                                ),
-                                                */
-                                                ),
+                                              Wrap(
+                                                spacing: 2,
+                                                runSpacing: 5,
+                                                children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
+                                                  return Container(
+                                                    padding: const EdgeInsets.all(4),
+                                                    child: OutlinedButton(
+                                                      style: OutlinedButton.styleFrom(
+                                                        side: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 0.5,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        _wordSetData['wordSetArray']![index]['wordList'][index2],
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      onPressed: () {},
+                                                    ),
+                                                  );
+                                                }),
                                               ),
 
                                             ],
                                           ),
-                                        ),
 
                                       ),
                                     );

@@ -303,19 +303,15 @@ class _WordSetListPage extends State<WordSetListPage> {
                             elevation: 2.0,
                             child: Container(
                               child: ListView.builder(
-                                  itemExtent: 200,
                                   itemCount: _wordSetData['wordSetArray']!.length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       padding: const EdgeInsets.all(4),
                                       child: Card(
                                         color: Colors.grey.shade400,
-                                        child: Container(
                                           child: Column(
                                             children: [
-                                              Expanded(
-                                                flex: 7,
-                                                child: Container(
+                                              Container(
 
                                                   alignment: Alignment.center,
                                                   padding: const EdgeInsets.all(4),
@@ -349,17 +345,6 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                             value: 'sentence_phonetic_auto',
                                                             child: Text('句子口說練習'),
                                                           ),
-                                                          /*
-                                                PopupMenuItem(
-                                                  value: 'Review',
-                                                  child: Text('複習'),
-                                                ),
-                                                PopupMenuItem(
-                                                  value: 'Test',
-                                                  child: Text('測驗'),
-                                                ),
-
-                                                 */
                                                         ];
                                                       },
                                                       onSelected: (String value){
@@ -395,56 +380,36 @@ class _WordSetListPage extends State<WordSetListPage> {
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-
                                               Divider(
                                                 color: Colors.white,
                                               ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  padding: const EdgeInsets.all(4),
-                                                  //color: Colors.red,
-                                                  child: ListView.builder(
-                                                      //itemExtent: 100,
-                                                      scrollDirection: Axis.horizontal,
-                                                      itemCount: _wordSetData['wordSetArray']![index]['wordList'].length,
-                                                      itemBuilder: (context, index2) {
-                                                        return Container(
-                                                          padding: const EdgeInsets.all(4),
-                                                          child: OutlinedButton(
-                                                            style: OutlinedButton.styleFrom(
-                                                              side: BorderSide(
-                                                                color: Colors.white,
-                                                                width: 0.5,
-                                                              ),
-                                                            ),
-                                                            child: Text(
-                                                                _wordSetData['wordSetArray']![index]['wordList'][index2],
-                                                              style: TextStyle(
-                                                                color: Colors.black,
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          ),
-                                                        );
-                                                      }),
-
-
-                                                  /*
-                                                OutlinedButton(
-
-                                                  child: Text(_wordSetData['wordSetArray']![index]['wordList'][index2]),
-                                                  onPressed: () {
-                                                  },
-                                                ),
-                                                */
-                                                ),
+                                              Wrap(
+                                                spacing: 2,
+                                                runSpacing: 5,
+                                                children: List.generate(_wordSetData['wordSetArray']![index]['wordList'].length, (index2) {
+                                                  return Container(
+                                                    padding: const EdgeInsets.all(4),
+                                                    child: OutlinedButton(
+                                                      style: OutlinedButton.styleFrom(
+                                                        side: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 0.5,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        _wordSetData['wordSetArray']![index]['wordList'][index2],
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      onPressed: () {},
+                                                    ),
+                                                  );
+                                                }),
                                               ),
 
                                             ],
                                           ),
-                                        ),
 
                                       ),
                                     );
