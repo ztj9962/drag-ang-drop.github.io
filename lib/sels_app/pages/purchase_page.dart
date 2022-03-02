@@ -458,7 +458,7 @@ class _PurchasePageState extends State<PurchasePage> {
         ),
         child: TextButton(
           onPressed: () {
-              provider.buy(product: provider.products[SelectedPorduct]);
+              //provider.buy(product: provider.products[SelectedPorduct]);
             },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

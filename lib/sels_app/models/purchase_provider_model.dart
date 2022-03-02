@@ -32,7 +32,7 @@ class PurchaseProviderModel with ChangeNotifier{
     }, onError: (error) {
       // handle the error
     });
-    initialize();
+    //initialize();
   }
 
   void initialize() async{
