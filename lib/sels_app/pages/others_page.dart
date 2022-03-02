@@ -79,6 +79,22 @@ class _OthersPageState extends State<OthersPage>
             curve:
             Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
+        imagePath: 'assets/sels_app/vip.png',
+        titleTxt: '訂閱',
+        descripTxt: '訂閱會員資格',
+        onTapFunction: (){
+          AutoRouter.of(context).pushNamed("/purchase");
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicationSettingsPage()));
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+            Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
         imagePath: 'assets/sels_app/settings.png',
         titleTxt: '設定',
         descripTxt: '設定',
