@@ -6,7 +6,7 @@ class PurchaseProviderModel with ChangeNotifier{
   InAppPurchase _iap  = InAppPurchase.instance;
   bool available = true;
   late StreamSubscription subscription;
-  final String myProductID = 'test_one_month';
+  final List<String> myProductID = <String>['one_month','three_month','six_month','one_year'];
 
   List _purchases = [];
   List get purchases => _purchases;
@@ -14,13 +14,13 @@ class PurchaseProviderModel with ChangeNotifier{
     _purchases = value;
     notifyListeners();
   }
-
-  List _products = [];
-  List get products => _products;
-  set products(List value) {
+  Map products = new Map();
+  Map IOS_products = new Map();
+  /*List<ProductDetails> get products => _products;
+  set products(List<ProductDetails> value) {
     _products = value;
     notifyListeners();
-  }
+  }*/
 
 
   PurchaseProviderModel(){
@@ -57,7 +57,6 @@ class PurchaseProviderModel with ChangeNotifier{
         //   _handleInvalidPurchase(purchaseDetails);
         // }
           print(purchaseDetails.verificationData.localVerificationData);
-          print("restored");
           break;
         case PurchaseStatus.error:
           print(purchaseDetails.error!);
@@ -75,9 +74,12 @@ class PurchaseProviderModel with ChangeNotifier{
   }
 
   Future<void> _getProducts() async {
-    Set<String> ids = Set.from([myProductID]);
+    Set<String> ids = Set.from(myProductID);
     ProductDetailsResponse response = await _iap.queryProductDetails(ids);
-    products = response.productDetails;
+    print(response.productDetails[3].id);
+    response.productDetails.forEach((element) {
+      products[element.id] = element;
+    });
   }
 
   void buy({required ProductDetails product}) {
