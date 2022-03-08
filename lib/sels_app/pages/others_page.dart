@@ -72,7 +72,7 @@ class _OthersPageState extends State<OthersPage>
         },
       ),
     );
-    listViews.add(
+    /*listViews.add(
       ButtonCardView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
@@ -87,7 +87,7 @@ class _OthersPageState extends State<OthersPage>
           //Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicationSettingsPage()));
         },
       ),
-    );
+    );*/
     listViews.add(
       ButtonCardView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(

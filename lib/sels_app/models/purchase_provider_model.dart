@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PurchaseProviderModel with ChangeNotifier{
   InAppPurchase _iap  = InAppPurchase.instance;
   bool available = true;
   late StreamSubscription subscription;
-  final List<String> myProductID = <String>['one_month','three_month','six_month','one_year'];
+  final List<String> myProductID = <String>['one_month_premiere','three_month_premiere','six_month_premiere','one_year_premiere'];
 
   List _purchases = [];
   List get purchases => _purchases;
@@ -32,7 +36,7 @@ class PurchaseProviderModel with ChangeNotifier{
     }, onError: (error) {
       // handle the error
     });
-    //initialize();
+    initialize();
   }
 
   void initialize() async{
@@ -57,6 +61,9 @@ class PurchaseProviderModel with ChangeNotifier{
         //   _handleInvalidPurchase(purchaseDetails);
         // }
           print(purchaseDetails.verificationData.localVerificationData);
+          Map purchaseData = json.decode(purchaseDetails.verificationData.localVerificationData);
+          print(purchaseData['productId']);
+          verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, Platform.isAndroid ? "android":"ios");
           break;
         case PurchaseStatus.error:
           print(purchaseDetails.error!);
@@ -66,11 +73,24 @@ class PurchaseProviderModel with ChangeNotifier{
           break;
       }
 
-      /*if (purchaseDetails.pendingCompletePurchase) {
+      if (purchaseDetails.pendingCompletePurchase) {
         print("pendingCompletePurchase");
         await _iap.completePurchase(purchaseDetails);
-      }*/
+      }
     });
+  }
+
+  Future<void>verifyPurchase(String productId,String token,String userId,String platform)async{
+    final queryParameters = {
+      'packagename' : 'tw.nfs.selsapp.sels_app',
+      'productId': productId,
+      'token':token,
+      'userId':userId,
+    };
+    final response = await http.get(
+      Uri.http('10.0.2.2:8000', 'api/verify/${platform}',queryParameters));
+    String json = response.body.toString();
+    print(json);
   }
 
   Future<void> _getProducts() async {
@@ -84,7 +104,7 @@ class PurchaseProviderModel with ChangeNotifier{
 
   void buy({required ProductDetails product}) {
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    _iap.buyNonConsumable(
+    _iap.buyConsumable(
       purchaseParam: purchaseParam,
     );
   }

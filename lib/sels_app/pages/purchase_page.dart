@@ -15,7 +15,7 @@ class PurchasePage extends StatefulWidget {
 }
 
 class _PurchasePageState extends State<PurchasePage> {
-  String  SelectedPorduct = "three_month";
+  String  SelectedPorduct = "three_month_premiere";
   List<bool> isSelected = [false, true, false, false];
   List plan_show = [
     {
@@ -340,7 +340,7 @@ class _PurchasePageState extends State<PurchasePage> {
                   Container(
                     height: plan_show[3]['0'],
                     width: (size.width - 20) / 4,
-                   decoration: plan_show[3]['5'],
+                    decoration: plan_show[3]['5'],
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -393,19 +393,19 @@ class _PurchasePageState extends State<PurchasePage> {
                         switch (index){
                           case 0:
                             price = "1 個月 NT\$50.00";
-                            SelectedPorduct = "one_month";
+                            SelectedPorduct = "one_month_premiere";
                             break;
                           case 1:
                             price = "3 個月 NT\$150.00";
-                            SelectedPorduct = "three_month";
+                            SelectedPorduct = "three_month_premiere";
                             break;
                           case 2:
                             price = "6 個月 NT\$270.00";
-                            SelectedPorduct = "six_month";
+                            SelectedPorduct = "six_month_premiere";
                             break;
                           case 3:
                             price = "12 個月 NT\$420.00";
-                            SelectedPorduct = "one_year";
+                            SelectedPorduct = "one_year_premiere";
                             break;
                         }
                         plan_show[i]['0'] = 140.0;
@@ -458,7 +458,7 @@ class _PurchasePageState extends State<PurchasePage> {
         ),
         child: TextButton(
           onPressed: () {
-              //provider.buy(product: provider.products[SelectedPorduct]);
+              provider.buy(product: provider.products[SelectedPorduct]);
             },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
