@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sels_app/sels_app/router/router.gr.dart';
-import 'package:sels_app/sels_app/models/auth_respository.dart';
+import 'package:sels_app/sels_app/model/auth_respository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_route/auto_route.dart';
 class AccountInfoPage extends StatelessWidget {

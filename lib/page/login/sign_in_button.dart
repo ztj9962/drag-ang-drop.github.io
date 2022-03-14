@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sels_app/sels_app/models/auth_respository.dart';
+import 'package:sels_app/model/auth_respository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninButton extends StatelessWidget {
@@ -60,7 +60,7 @@ class SigninButton extends StatelessWidget {
                 if(signIn == true){
                   print(authRespository.getUid());
                   prefs.setBool("isSignIn", true);
-                  AutoRouter.of(context).replaceNamed("/home");
+                  AutoRouter.of(context).replaceNamed("/index");
                 }
               },
               style: TextButton.styleFrom(

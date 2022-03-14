@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   in_app_purchase: ^2.0.1
   provider: ^6.0.2
+  flutter_svg: ^1.0.3
 
   # About Login
   google_sign_in: ^5.2.1
@@ -73,10 +74,11 @@ flutter:
   assets:
     - assets/
     - assets/sels_app/
+    - assets/sounds/
+    - assets/icon/
     - assets/sels_app/GrammarCheckPage/
     - assets/sels_app/PhoneticExercisesLearnManualPage/
     - assets/sels_app/SELSAppHomePage/
-    - assets/sounds/
     - assets/sels_app/LoginPage/
 
 

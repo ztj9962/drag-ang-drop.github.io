@@ -1,7 +1,7 @@
 import 'package:sels_app/sels_app/pages/home_page.dart';
 import 'package:sels_app/sels_app/pages/others_page.dart';
 import 'package:sels_app/sels_app/utils/api_util.dart';
-import 'package:sels_app/sels_app/models/auth_respository.dart';
+import 'package:sels_app/sels_app/model/auth_respository.dart';
 import 'package:sels_app/sels_app/models/tabIcon_data.dart';
 import 'package:sels_app/sels_app/utils/shared_preferences_util.dart';
 import 'package:flutter/material.dart';

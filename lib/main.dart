@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sels_app/sels_app/models/purchase_provider_model.dart';
-import 'package:sels_app/sels_app/router/router.gr.dart';
+import 'package:sels_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -49,20 +49,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       builder: EasyLoading.init(),
-      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? SELSAppHomeRoute() : SignInRoute(),]),
+      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
       routeInformationParser:_appRouter.defaultRouteParser(),
     ),);
-  }
-}
-
-class HexColor extends Color {
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll('#', '');
-    if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
   }
 }
