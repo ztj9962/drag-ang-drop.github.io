@@ -142,12 +142,14 @@ class _IndexPageState extends State<IndexPage> {
     int newIndex = index;
     String newTitle = "";
     switch (index) {
+      /*
       case 1:
         newTitle = "學習記錄";
         break;
       case 2:
         newTitle = "詞彙測驗";
         break;
+       */
       case 3:
         newTitle = "帳戶";
         break;

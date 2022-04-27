@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sels_app/page/page_theme.dart';
+import 'package:sels_app/sels_app/pages/syllable_practice_main_page2.dart';
 import 'package:sels_app/view/button_card_view.dart';
 import 'package:sels_app/view/title_view.dart';
 
@@ -71,6 +72,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ),
     );
 
+    /*
     listViews.add(
       ButtonCardView(
         imagePath: 'assets/icon/use_you_own_text.svg',
@@ -82,6 +84,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+     */
 
     listViews.add(
       const TitleView(
@@ -97,11 +100,12 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTxt: '音標練習',
         descripTxt: 'Minimal Pair',
         onTapFunction: (){
-          print('sdasdsa');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeMainPage()));
         },
       ),
     );
 
+    /*
     listViews.add(
       const TitleView(
         titleTxt: '文法校正',
@@ -120,6 +124,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+     */
 
 
 

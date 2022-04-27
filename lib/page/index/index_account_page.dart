@@ -40,6 +40,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
               thickness: 2,
               color: Colors.black,
             ),
+            /*
             Container(
               padding: const EdgeInsets.all(0),
               child: accountOptions(),
@@ -48,6 +49,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
               thickness: 2,
               color: Colors.black,
             ),
+             */
             Center(
               child: ElevatedButton(
                 style: ButtonStyle(
