@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
-import 'package:sels_app/sels_app/models/purchase_provider_model.dart';
+import 'package:sels_app/model/purchase_provider_model.dart';
 import 'package:sels_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

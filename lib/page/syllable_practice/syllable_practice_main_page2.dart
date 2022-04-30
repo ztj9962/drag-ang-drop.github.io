@@ -2,8 +2,8 @@
 
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_learn_page.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_word_page.dart';
+import 'package:sels_app/page/syllable_practice/syllable_practice_learn_page.dart';
+import 'package:sels_app/page/syllable_practice/syllable_practice_word_page.dart';
 
 class SyllablePracticeMainPage extends StatefulWidget {
   @override

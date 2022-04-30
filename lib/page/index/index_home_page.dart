@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sels_app/page/page_theme.dart';
-import 'package:sels_app/sels_app/pages/syllable_practice_main_page2.dart';
+import 'package:sels_app/page/syllable_practice/syllable_practice_main_page2.dart';
 import 'package:sels_app/view/button_card_view.dart';
 import 'package:sels_app/view/title_view.dart';
 
