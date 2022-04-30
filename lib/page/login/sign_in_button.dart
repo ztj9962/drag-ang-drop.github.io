@@ -22,7 +22,7 @@ class SigninButton extends StatelessWidget {
               if(signIn == true){
                 print(authRespository.getUid());
                 prefs.setBool("isSignIn", true);
-                AutoRouter.of(context).replaceNamed("/home");
+                AutoRouter.of(context).replaceNamed("/index");
               }
             },
             style: TextButton.styleFrom(
