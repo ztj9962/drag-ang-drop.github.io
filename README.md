@@ -4,10 +4,13 @@ A new Flutter project.
 
 ## 建議環境
 
-Flutter 2.8.1 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision 77d935af4d (8 days ago) • 2021-12-16 08:37:33 -0800
-Engine • revision 890a5fca2e
-Tools • Dart 2.15.1
+Flutter 2.10.5 • channel stable • https://github.com/flutter/flutter.git
+
+Framework • revision 5464c5bac7 (12 days ago) • 2022-04-18 09:55:37 -0700
+
+Engine • revision 57d3bac3dd
+
+Tools • Dart 2.16.2 • DevTools 2.9.2
 
 
 ## Getting Started
