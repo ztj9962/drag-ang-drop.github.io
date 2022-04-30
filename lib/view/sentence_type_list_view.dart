@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/model/sentence_type_list_data.dart';
-import 'package:sels_app/page/page_theme.dart';
-import 'package:sels_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart';
-import 'package:sels_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_manual_page.dart';
-import 'package:sels_app/router/router.gr.dart';
-import 'package:sels_app/util/hexcolor_util.dart';
+import 'package:alicsnet_app/model/sentence_type_list_data.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/hexcolor_util.dart';
 
 
 class SentenceTypeListView extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sels_app/page/index/index_learn_record_score_page.dart';
-import 'package:sels_app/page/page_theme.dart';
+import 'package:alicsnet_app/page/index/index_learn_record_score_page.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
 import 'dart:ui';
 
 

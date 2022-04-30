@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sels_app/model/auth_respository.dart';
-import 'package:sels_app/router/router.gr.dart';
+import 'package:alicsnet_app/model/auth_respository.dart';
+import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexAccountPage extends StatefulWidget {

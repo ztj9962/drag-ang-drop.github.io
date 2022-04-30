@@ -4,8 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sels_app/model/auth_respository.dart';
+import 'package:alicsnet_app/model/auth_respository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SigninButton extends StatelessWidget {
   @override
@@ -51,7 +52,7 @@ class SigninButton extends StatelessWidget {
               ],
             )),
         SizedBox(height: 30,),
-        if(Platform.isIOS)
+        if(!kIsWeb && Platform.isIOS)
           TextButton(
               onPressed: () async {
                 await authRespository.signInWithApple();

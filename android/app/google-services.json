@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821836479428:android:fb58aa404406f302244291",
+        "mobilesdk_app_id": "1:821836479428:android:616acd337c1cb68d244291",
         "android_client_info": {
-          "package_name": "tw.nfs.selsapp.sels_app"
+          "package_name": "com.alicsnet.alicsnet_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "821836479428-dgn1o5bofdj192r7vtem09svr3hhthsk.apps.googleusercontent.com",
+          "client_id": "821836479428-vv4dr94cev924k9q2tbnofu5rcghdbun.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "tw.nfs.selsapp.sels_app",
-            "certificate_hash": "69feddcdf9f81bbf6d93008eb2c0a730d53a1b4c"
+            "package_name": "com.alicsnet.alicsnet_app",
+            "certificate_hash": "823972ad43dc88947adda42e9684249c4e6f900e"
           }
         },
         {
@@ -37,6 +37,89 @@
             {
               "client_id": "821836479428-jgcek8g431jkolbrjsmgt1o06g66701l.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "821836479428-1ugoboj6qmka8bf0vjt7juthub5tiasa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alicsnet.alicsnetApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821836479428:android:fb58aa404406f302244291",
+        "android_client_info": {
+          "package_name": "tw.nfs.selsapp.sels_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821836479428-3h7e8ee5rq67h70hcn4dl43srj5be28u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "823972ad43dc88947adda42e9684249c4e6f900e"
+          }
+        },
+        {
+          "client_id": "821836479428-dgn1o5bofdj192r7vtem09svr3hhthsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "69feddcdf9f81bbf6d93008eb2c0a730d53a1b4c"
+          }
+        },
+        {
+          "client_id": "821836479428-e1v5qvnbefktjch9dtse3cdjr1vr23p3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "ac978aae502093057167e71fc69d6911f92ca894"
+          }
+        },
+        {
+          "client_id": "821836479428-ei3lu56tmhjrd588287ug68ppd8fg5fc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "c10c2c711cc2e304ab0c598b4bce22fe02b6c34c"
+          }
+        },
+        {
+          "client_id": "821836479428-q9ar26enqadmhhna6g4ritpcd38i9php.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.nfs.selsapp.sels_app",
+            "certificate_hash": "272e0cfd283af6d01646baf846f293eb202c4c38"
+          }
+        },
+        {
+          "client_id": "821836479428-jgcek8g431jkolbrjsmgt1o06g66701l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU0pxMMEsgWVFY8hftxatcES1wTTQ_R7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821836479428-jgcek8g431jkolbrjsmgt1o06g66701l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "821836479428-1ugoboj6qmka8bf0vjt7juthub5tiasa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alicsnet.alicsnetApp"
+              }
             }
           ]
         }

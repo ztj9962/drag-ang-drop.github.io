@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/model/auth_respository.dart';
+import 'package:alicsnet_app/model/auth_respository.dart';
 
 class emailDialog extends StatefulWidget {
   @override

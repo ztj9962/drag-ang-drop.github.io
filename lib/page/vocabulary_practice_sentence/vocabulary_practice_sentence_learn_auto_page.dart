@@ -13,13 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:sels_app/page/page_theme.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:sels_app/util/chat_message_util.dart';
-import 'package:sels_app/util/shared_preferences_util.dart';
-import 'package:sels_app/util/api_util.dart';
+import 'package:alicsnet_app/util/chat_message_util.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
+import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
 
 class VocabularyPracticeSentenceLearnAutoPage extends StatefulWidget {

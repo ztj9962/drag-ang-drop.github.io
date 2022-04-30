@@ -7,11 +7,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'dart:io';
-import 'package:sels_app/page/page_theme.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:sels_app/util/api_util.dart';
+import 'package:alicsnet_app/util/api_util.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';

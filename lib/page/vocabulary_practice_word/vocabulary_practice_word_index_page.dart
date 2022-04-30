@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sels_app/page/page_theme.dart';
-import 'package:sels_app/router/router.gr.dart';
-import 'package:sels_app/util/api_util.dart';
-import 'package:sels_app/view/button_card_view.dart';
-import 'package:sels_app/view/sentence_type_list_view.dart';
-import 'package:sels_app/view/title_view.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:alicsnet_app/view/button_card_view.dart';
+import 'package:alicsnet_app/view/sentence_type_list_view.dart';
+import 'package:alicsnet_app/view/title_view.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter_tts/flutter_tts.dart';

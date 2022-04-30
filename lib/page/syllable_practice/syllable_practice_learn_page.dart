@@ -8,8 +8,8 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:sels_app/util/api_util.dart';
-import 'package:sels_app/util/shared_preferences_util.dart';
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:speech_to_text/speech_recognition_error.dart';

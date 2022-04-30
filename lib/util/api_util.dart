@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
-import 'package:sels_app/util/shared_preferences_util.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 
 class APIUtil {
 

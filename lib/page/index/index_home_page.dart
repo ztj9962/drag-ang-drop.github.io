@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/page/page_theme.dart';
-import 'package:sels_app/page/syllable_practice/syllable_practice_main_page2.dart';
-import 'package:sels_app/view/button_card_view.dart';
-import 'package:sels_app/view/title_view.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/page/syllable_practice/syllable_practice_main_page2.dart';
+import 'package:alicsnet_app/view/button_card_view.dart';
+import 'package:alicsnet_app/view/title_view.dart';
 
 class IndexHomePage extends StatefulWidget {
   const IndexHomePage({Key? key}) : super(key: key);

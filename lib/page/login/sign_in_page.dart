@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sels_app/page/login/fade_animation.dart';
+import 'package:alicsnet_app/page/login/fade_animation.dart';
 import 'sign_in_button.dart';
 
 

@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Alicsnet App</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>sels_app</string>
+	<string>alicsnet_app</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -44,23 +44,28 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Recognize and display speech input</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Detect speech input</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Our app does not request this permission or utilize this functionality but it is included in our info.plist since our app utilizes some library, which references this permission in its code.</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Our app does not request this permission or utilize this functionality but it is included in our info.plist since our app utilizes some library, which references this permission in its code.</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.821836479428-m98po86nlgcpmvlk8no33cuab35gi70u</string>
-			</array>
-		</dict>
-	</array>
+    <string>Recognize and display speech input</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Detect speech input</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Our app does not request this permission or utilize this functionality but it is included in our info.plist since our app utilizes some library, which references this permission in its code.</string>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Our app does not request this permission or utilize this functionality but it is included in our info.plist since our app utilizes some library, which references this permission in its code.</string>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>com.googleusercontent.apps.821836479428-1ugoboj6qmka8bf0vjt7juthub5tiasa</string>
+    		</array>
+    	</dict>
+    </array>
 </dict>
 </plist>

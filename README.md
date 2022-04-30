@@ -1,4 +1,4 @@
-# sels_app
+# alicsnet_app
 
 A new Flutter project.
 

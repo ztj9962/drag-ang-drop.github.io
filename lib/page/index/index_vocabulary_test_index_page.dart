@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sels_app/page/page_theme.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
 
 class IndexVocabularyTestIndexPage extends StatefulWidget {
   const IndexVocabularyTestIndexPage({Key? key}) : super(key: key);

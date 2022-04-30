@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sels_app/util/api_util.dart';
+import 'package:alicsnet_app/util/api_util.dart';
 
 class SentenceTypeListData {
 
