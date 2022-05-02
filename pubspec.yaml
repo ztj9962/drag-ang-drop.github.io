@@ -110,6 +110,15 @@ flutter:
   fonts:
     - family: Arial
       fonts:
+        # English
         - asset: fonts/arialn.ttf
         - asset: fonts/arial_th.ttf
         - asset: fonts/arial_mt_black.ttf
+        # Traditional Chinese
+        - asset: fonts/NotoSerifTC-Black.otf
+        - asset: fonts/NotoSerifTC-Bold.otf
+        - asset: fonts/NotoSerifTC-ExtraLight.otf
+        - asset: fonts/NotoSerifTC-Light.otf
+        - asset: fonts/NotoSerifTC-Medium.otf
+        - asset: fonts/NotoSerifTC-Regular.otf
+        - asset: fonts/NotoSerifTC-SemiBold.otf
