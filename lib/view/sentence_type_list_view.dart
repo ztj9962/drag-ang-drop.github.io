@@ -119,7 +119,6 @@ class SentenceTypeView extends StatelessWidget {
                         sentenceTypeListData!.titleTxt,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: PageTheme.fontName,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           letterSpacing: 0.2,
@@ -138,7 +137,6 @@ class SentenceTypeView extends StatelessWidget {
                                 sentenceTypeListData!.descripTxt,
                                 softWrap: true,
                                 style: TextStyle(
-                                  fontFamily: PageTheme.fontName,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 10,
                                   letterSpacing: 0.2,
