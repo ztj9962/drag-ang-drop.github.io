@@ -122,3 +122,8 @@ flutter:
         - asset: fonts/NotoSerifTC-Medium.otf
         - asset: fonts/NotoSerifTC-Regular.otf
         - asset: fonts/NotoSerifTC-SemiBold.otf
+        # Unicode-encoded
+        - asset: fonts/CharisSIL-Bold.ttf
+        - asset: fonts/CharisSIL-BoldItalic.ttf
+        - asset: fonts/CharisSIL-Italic.ttf
+        - asset: fonts/CharisSIL-Regular.ttf
