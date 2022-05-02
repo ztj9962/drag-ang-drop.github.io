@@ -71,10 +71,10 @@ class PurchaseProviderModel with ChangeNotifier{
           print(purchaseDetails.verificationData.localVerificationData);
           Map purchaseData = json.decode(purchaseDetails.verificationData.localVerificationData);
           print(purchaseData['productId']);
-          platformTag = 'unknown';
-          if (isIOS) ? platformTag = 'ios';
-          if (isAndroid) ? platformTag = 'android';
-          if (isWeb) ? platformTag = 'web';
+          String platformTag = 'unknown';
+          if (isIOS) platformTag = 'ios';
+          if (isAndroid) platformTag = 'android';
+          if (isWeb) platformTag = 'web';
 
           verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, platformTag);
           break;
