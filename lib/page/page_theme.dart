@@ -23,7 +23,7 @@ class PageTheme {
 
   static const Color nearlyWhite = Color(0xFFFAFAFA);
   static const Color nearlyBlack = Color(0xFF213333);
-  static const String fontName = 'Roboto';
+  static const String fontName = 'Arial';
   static const Color lightText = Color(0xFF4A6572);
   static const Color nearlyDarkBlue = Color(0xFF2633C5);
   static const Color darkText = Color(0xFF253840);

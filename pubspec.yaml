@@ -107,3 +107,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Arial
+      fonts:
+        - asset: fonts/arialn.ttf
+        - asset: fonts/arial_th.ttf
+        - asset: fonts/arial_mt_black.ttf

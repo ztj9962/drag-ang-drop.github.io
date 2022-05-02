@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:alicsnet_app/model/purchase_provider_model.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alicsnet_app/page/page_theme.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
       title: 'English Study',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: PageTheme.fontName,
         primarySwatch: Colors.blue,
       ),
       builder: EasyLoading.init(),
