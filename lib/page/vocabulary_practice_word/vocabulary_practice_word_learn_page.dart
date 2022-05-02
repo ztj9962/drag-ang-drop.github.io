@@ -202,7 +202,7 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
       });
     }
 
-    if (Platform.isIOS) {
+    if (isIOS) {
       await flutterTts
           .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
         IosTextToSpeechAudioCategoryOptions.allowBluetooth,
@@ -627,9 +627,8 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
     print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
-      print(sttLastWords);
-      _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
     });
+    _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
   }
 
   void sttSoundLevelListener(double level) {
@@ -650,11 +649,14 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
   }
 
   void sttStatusListener(String status) {
-    // print(
-    // 'Received listener status: $status, listening: ${speech.isListening}');
+    print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
+
+    if (isWeb && status != 'listening' && speechToText.isListening == false) {
+      _handleSubmitted(_answerText, isFinalResult:true);
+    }
   }
 
   void _sttSwitchLang(selectedVal) {

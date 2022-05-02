@@ -53,6 +53,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
   List _questionsData = [];
   int _totalTestQuestions = 25;
   int _quizID = 0;
+  String _answerText = '';
   Map<String, dynamic> _wordSet = {'learningClassification': '' , 'learningPhase': '' };
   String _applicationSettingsDataUUID = '';
   String _applicationSettingsDataListenAndSpeakLevel = '';
@@ -235,7 +236,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
         });
       });
 
-      if (Platform.isIOS) {
+      if (isIOS) {
         await flutterTts
             .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
           IosTextToSpeechAudioCategoryOptions.allowBluetooth,
@@ -464,7 +465,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       handleTick();
     });
-    if (Platform.isIOS) {
+    if (isIOS) {
       _answerSeconds = -3;
     } else {
       _answerSeconds = 0;
@@ -703,7 +704,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
         onResult: sttResultListener,
         listenFor: Duration(seconds: 30),
         pauseFor: Duration(seconds: 3),
-        partialResults: false,
+        partialResults: true,
         localeId: _sttCurrentLocaleId,
         onSoundLevelChange: sttSoundLevelListener,
         cancelOnError: true,
@@ -733,11 +734,9 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
-      if(result.finalResult){
-        _handleSubmitted(result.recognizedWords);
-      }
-      print(sttLastWords);
     });
+    print(sttLastWords);
+    _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
   }
 
   void sttSoundLevelListener(double level) {
@@ -758,11 +757,14 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
   }
 
   void sttStatusListener(String status) {
-    // print(
-    // 'Received listener status: $status, listening: ${speech.isListening}');
+    print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
-      sttLastStatus = '$status';
+      sttLastStatus = status;
     });
+
+    if (isWeb && status != 'listening' && speechToText.isListening == false) {
+      _handleSubmitted(_answerText, isFinalResult:true);
+    }
   }
 
   void _sttSwitchLang(selectedVal) {
@@ -848,21 +850,30 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     }
   }
 
-  void _handleSubmitted(String text) {
-    sendChatMessage(true, 'Me', [TextSpan(text: text)]);
-    _finishQuizData['secondsArray']!.add(_answerSeconds);
+  void _handleSubmitted(String text, {bool isFinalResult:false}) {
     setState(() {
-      _isActive = false;
-      ttsRateSlow = false;
-      _allowTouchButtons['reListenButton'] = false;
-      _allowTouchButtons['speakButton'] = false;
-      _allowTouchButtons['pauseButton'] = false;
+      _answerText = text;
     });
-    _responseChatBot(text);
+
+    if(text != '' && isFinalResult){
+      sendChatMessage(true, 'Me', [TextSpan(text: text)]);
+      _finishQuizData['secondsArray']!.add(_answerSeconds);
+
+      setState(() {
+        _isActive = false;
+        ttsRateSlow = false;
+        _allowTouchButtons['reListenButton'] = false;
+        _allowTouchButtons['speakButton'] = false;
+        _allowTouchButtons['pauseButton'] = false;
+      });
+
+      _responseChatBot(text);
+    }
   }
 
 
   void _responseChatBot(text) async {
+    print('_responseChatBot('+text);
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
     print(checkSentencesJSON.toString());
@@ -941,6 +952,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       );
       setState(() {
         _messages[0] = message;
+        _answerText = '';
       });
       _finishQuizData['sentenceIDArray']!.add(_questionsData[_part - 1]['sentenceId']);
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
@@ -1090,7 +1102,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       });
     } else {
       setState(() {
-        if (Platform.isIOS) {
+        if (isIOS) {
           _answerSeconds = -3;
         } else {
           _answerSeconds = 0;
