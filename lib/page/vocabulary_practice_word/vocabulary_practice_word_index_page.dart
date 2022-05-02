@@ -157,7 +157,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       });
     }
 
-    if (Platform.isIOS) {
+    if (isIOS) {
       await flutterTts
           .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
         IosTextToSpeechAudioCategoryOptions.allowBluetooth,

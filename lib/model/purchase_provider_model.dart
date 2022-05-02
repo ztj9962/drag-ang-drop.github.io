@@ -6,7 +6,15 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 class PurchaseProviderModel with ChangeNotifier{
+  
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isWeb => kIsWeb;
+
   InAppPurchase _iap  = InAppPurchase.instance;
   bool available = true;
   late StreamSubscription subscription;
@@ -63,7 +71,12 @@ class PurchaseProviderModel with ChangeNotifier{
           print(purchaseDetails.verificationData.localVerificationData);
           Map purchaseData = json.decode(purchaseDetails.verificationData.localVerificationData);
           print(purchaseData['productId']);
-          verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, Platform.isAndroid ? "android":"ios");
+          platformTag = 'unknown';
+          if (isIOS) ? platformTag = 'ios';
+          if (isAndroid) ? platformTag = 'android';
+          if (isWeb) ? platformTag = 'web';
+
+          verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, platformTag);
           break;
         case PurchaseStatus.error:
           print(purchaseDetails.error!);

@@ -268,7 +268,7 @@ class _SyllablePracticeLearnPage extends State<SyllablePracticeLearnPage> {
       });
     }
 
-    if (Platform.isIOS) {
+    if (isIOS) {
       await flutterTts
           .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
         IosTextToSpeechAudioCategoryOptions.allowBluetooth,

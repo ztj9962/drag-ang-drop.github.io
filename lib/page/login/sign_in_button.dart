@@ -6,9 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:alicsnet_app/model/auth_respository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SigninButton extends StatelessWidget {
+  
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isWeb => kIsWeb;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,7 +59,7 @@ class SigninButton extends StatelessWidget {
               ],
             )),
         SizedBox(height: 30,),
-        if(!kIsWeb && Platform.isIOS)
+        if(isIOS)
           TextButton(
               onPressed: () async {
                 await authRespository.signInWithApple();
