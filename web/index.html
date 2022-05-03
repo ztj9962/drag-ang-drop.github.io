@@ -103,4 +103,33 @@
     }
   </script>
 </body>
+<!-- 禁止非PC裝置使用Web版 -->
+<script type="text/javascript">
+  var Terminal = {
+      platform : function(){
+          var u = navigator.userAgent, app = navigator.appVersion;
+          return {
+              // 是否為android
+              android: u.indexOf('Android') > -1,
+              // 是否為iPhone
+              iPhone: u.indexOf('iPhone') > -1 ,
+              // 是否為iPad
+              iPad: u.indexOf('iPad') > -1 ,
+              // 是否為windows
+              windows: u.indexOf('Windows NT') > -1 ,
+              // 是否為mac
+              mac: u.indexOf('Mac'),
+              // 是否為Linux
+              linux: u.indexOf('Linux') > -1,
+     };
+      }(),
+      // 辨別移動終端的語言：zh-cn、en-us、ko-kr、ja-jp...
+      language : (navigator.browserLanguage || navigator.language).toLowerCase()
+  }
+  if (Terminal.platform.android || Terminal.platform.iPhone || Terminal.platform.iPad){
+      alert("此網站僅供PC設備使用，Android、iOS平台使用者請前往商店下載");
+      location.href = 'https://www.alicsnet.com/';
+  }
+</script>
+<!-- 禁止非PC裝置使用Web版 -->
 </html>
