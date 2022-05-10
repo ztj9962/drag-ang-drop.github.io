@@ -57,7 +57,7 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
+        centerTitle: true,
         backgroundColor: PageTheme.index_bar_background,
         title: Text(
           selectedTitle,
@@ -68,14 +68,27 @@ class _IndexPageState extends State<IndexPage> {
             color: Color(0xFFFEFEFE),
           ),
         ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: GestureDetector(
+            child: SvgPicture.asset(
+              'assets/sels_app/logo.svg',
+              width: 40,
+              //color: const Color(0xFFFEFEFE),
+            ),
+            onTap: (){
+              print('Tap logo');
+            },
+          ),
+        ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               child: SvgPicture.asset(
-                  'assets/icon/microphone.svg',
-                  width: 40,
-                  color: const Color(0xFFFEFEFE),
+                'assets/icon/microphone.svg',
+                width: 40,
+                color: const Color(0xFFFEFEFE),
               ),
               onTap: (){
                 print('Tap microphone');
@@ -142,7 +155,7 @@ class _IndexPageState extends State<IndexPage> {
     int newIndex = index;
     String newTitle = "";
     switch (index) {
-      /*
+    /*
       case 1:
         newTitle = "學習記錄";
         break;
@@ -159,7 +172,7 @@ class _IndexPageState extends State<IndexPage> {
       case 0:
       default:
         newIndex = 0;
-        newTitle = "Home";
+        newTitle = "首頁";
     }
 
     setState(() {
