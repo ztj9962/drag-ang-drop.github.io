@@ -560,7 +560,7 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                           backgroundColor: PageTheme.vocabulary_practice_total_background,
                           radius: 40.0,
                           child: IconButton(
-                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.mic : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
+                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
                             color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
                             onPressed: () {
                               if(_allowTouchButtons['speakButton']! && !isPlaying ){
