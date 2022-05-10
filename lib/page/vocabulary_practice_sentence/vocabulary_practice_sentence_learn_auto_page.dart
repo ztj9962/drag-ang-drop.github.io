@@ -762,7 +762,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       sttLastStatus = status;
     });
 
-    if (isWeb && status != 'listening' && speechToText.isListening == false) {
+    if (isWeb && sttLastStatus != 'listening' && speechToText.isListening == false) {
       _handleSubmitted(_answerText, isFinalResult:true);
     }
   }

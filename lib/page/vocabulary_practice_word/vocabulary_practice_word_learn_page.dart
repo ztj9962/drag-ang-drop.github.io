@@ -654,7 +654,7 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
       sttLastStatus = status;
     });
 
-    if (isWeb && status != 'listening' && speechToText.isListening == false) {
+    if (isWeb && sttLastStatus != 'listening' && speechToText.isListening == false) {
       _handleSubmitted(_answerText, isFinalResult:true);
     }
   }
