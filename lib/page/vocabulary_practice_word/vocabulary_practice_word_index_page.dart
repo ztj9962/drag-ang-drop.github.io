@@ -29,6 +29,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   int _sliderMin = 1;
   int _sliderMax = 9991;
   int _sliderIndex = 1;
+  String _sliderEducationLevel = '國小';
 
   Map<String, dynamic> _wordSetData = {
     'wordSetClassification': '',
@@ -67,6 +68,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
     super.initState();
     //initWordSetTotalList();
     initWordList();
+    _adjustSliderEducationLevel();
   }
 
   @override
@@ -264,12 +266,17 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                     Slider(
                       autofocus: false,
                       onChanged: (value) {
-                        setState(() => _sliderIndex = value.toInt());
+                        setState(() {
+                          _sliderIndex = value.toInt();
+                        });
+                        _adjustSliderEducationLevel();
                       },
                       onChangeEnd: (value) {
-                        setState(() => _sliderIndex = value.toInt());
-                        print(value);
+                        setState(() {
+                          _sliderIndex = value.toInt();
+                        });
                         initWordList();
+                        _adjustSliderEducationLevel();
                       },
                       min: _sliderMin.toDouble(),
                       max: _sliderMax.toDouble(),
@@ -288,7 +295,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         Expanded(
                           flex: 2,
                           child: Text(
-                            'Index ${_sliderIndex} ~ ${_sliderIndex + 9}',
+                            '${_sliderEducationLevel} Index ${_sliderIndex} ~ ${_sliderIndex + 9}',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -515,6 +522,19 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       ));
     }
 
+  }
+
+  void _adjustSliderEducationLevel() {
+
+    String sliderEducationLevel = '國小';
+    if (_sliderIndex > 6000) {
+      sliderEducationLevel = '大學';
+    } else if (_sliderIndex > 2000) {
+      sliderEducationLevel = '高中';
+    } else if (_sliderIndex > 900) {
+      sliderEducationLevel = '國中';
+    }
+    setState(() => _sliderEducationLevel = sliderEducationLevel);
   }
 
 }
