@@ -68,8 +68,9 @@ class _IndexPageState extends State<IndexPage> {
             color: Color(0xFFFEFEFE),
           ),
         ),
+        leadingWidth: 96,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
+          padding: const EdgeInsets.only(left: 4.0),
           child: GestureDetector(
             child: SvgPicture.asset(
               'assets/sels_app/logo.svg',
