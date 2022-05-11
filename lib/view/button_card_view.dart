@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,84 +19,70 @@ class ButtonCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(
-              left: 24, right: 24, top: 0, bottom: 0),
-          child: GestureDetector(
-            onTap: onTapFunction,
-            child: Stack(
-              clipBehavior: Clip.none,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 8),
+        child: GestureDetector(
+          onTap: onTapFunction,
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            //height: 100,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            ),
+            child: Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 16),
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.topLeft,
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    width: 72,
+                    height: 72,
+                    child: SvgPicture.asset(imagePath),
+                  ),
+                ),
+                Expanded(
+                  flex: 8,
+                  child:
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Positioned(
-                          top: 20,
-                          left: 20,
-                          child: SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: SvgPicture.asset(imagePath),
+                        AutoSizeText(
+                          titleTxt,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            letterSpacing: 1.0,
+                            color: Color(0xFFFEFEFE),
                           ),
+                          maxLines: 1,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 100,
-                                right: 4,
-                                top: 16,
-                              ),
-                              child: Text(
-                                titleTxt,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                  letterSpacing: 1.0,
-                                  color: Color(0xFFFEFEFE),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 100,
-                                right: 4,
-                                top: 4,
-                              ),
-                              child: Text(
-                                descripTxt,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  letterSpacing: 1.0,
-                                  color: Color(0xFFFEFEFE),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        AutoSizeText(
+                          descripTxt,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            letterSpacing: 1.0,
+                            color: Color(0xFFFEFEFE),
+                          ),
+                          maxLines: 2,
+                        )
+
                       ],
+
                     ),
                   ),
                 ),
               ],
             ),
           ),
+
         ),
-      ],
+      ),
     );
   }
 }
