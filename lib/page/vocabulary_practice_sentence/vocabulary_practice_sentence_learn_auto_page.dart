@@ -889,7 +889,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       ChatMessageUtil message;
 
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
-      List<TextSpan> questionTextWidget = [TextSpan(text: '第 $_part/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}\n')];
+      List<TextSpan> questionTextWidget = [];
       for (var i = 0; i < questionTextArray.length; i++) {
         if(checkSentences['data']['questionError'].containsKey(questionTextArray[i])){
           questionTextWidget.add(
@@ -905,6 +905,8 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
           if (i < questionTextArray.length) questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
         }
       }
+      questionTextWidget.add(TextSpan(text: '\n第 $_part/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}'));
+
 
       message = ChatMessageUtil(
         senderIsMe: false,
@@ -1025,7 +1027,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     } else {
       _questionText = _questionsData[_part - 1]['sentenceContent'];
       //_questionStart = DateTime.now();
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}\n${_questionText}')], needSpeak:true, canSpeak:true, speakMessage:_questionText, speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${_questionText}\n第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}')], needSpeak:true, canSpeak:true, speakMessage:_questionText, speakLanguage:'en-US');
       //_questionEnd = DateTime.now();
       //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
       //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
