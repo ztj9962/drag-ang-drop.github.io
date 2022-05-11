@@ -76,6 +76,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
 
 
   void addAllListData() {
+    /*
     listViews.add(
       const TitleView(
         titleTxt: '發音練習',
@@ -105,6 +106,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
         },
       ),
     );
+    */
 
     listViews.add(
       const TitleView(
@@ -112,6 +114,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
         titleColor: PageTheme.voabulary_practice_sentence_background,
       ),
     );
+
     listViews.add(
       SentenceTypeListView(
         //showIndex: '',
