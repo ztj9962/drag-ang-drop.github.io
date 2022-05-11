@@ -50,7 +50,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       ButtonCardView(
-        imagePath: 'assets/icon/vocabulary_practice_total.svg',
+        imagePath: 'assets/icon/vocabulary_practice_word.svg',
         backgroundColor: PageTheme.vocabulary_practice_total_background,
         titleTxt: '一萬常用單字句子口語練習',
         descripTxt: 'Spoken English sentence pracctice of 10,000 commonly used words',
