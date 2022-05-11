@@ -52,8 +52,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_total.svg',
         backgroundColor: PageTheme.vocabulary_practice_total_background,
-        titleTxt: '一萬常用單字口語句子練習',
-        descripTxt: 'English text here',
+        titleTxt: '一萬常用單字句子口語練習',
+        descripTxt: 'Spoken English sentence pracctice of 10,000 commonly used words',
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
@@ -64,8 +64,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ButtonCardView(
         imagePath: 'assets/icon/sentence_practice.svg',
         backgroundColor: PageTheme.voabulary_practice_sentence_background,
-        titleTxt: '主題式口語句子練習',
-        descripTxt: 'English text here',
+        titleTxt: '主題情境句子口語練習',
+        descripTxt: 'Spoken English sentence practices based on topic',
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
         },
@@ -87,18 +87,11 @@ class _IndexHomePageState extends State<IndexHomePage> {
      */
 
     listViews.add(
-      const TitleView(
-        titleTxt: '相似字音訓練',
-        titleColor: Colors.black,
-      ),
-    );
-
-    listViews.add(
       ButtonCardView(
         imagePath: 'assets/icon/minimal_pair.svg',
         backgroundColor: PageTheme.minimal_pair_background,
-        titleTxt: '音標練習',
-        descripTxt: 'Minimal Pair',
+        titleTxt: '相似音標或字節口語練習',
+        descripTxt: 'Minimal or Semi-minimal PairPractices',
         onTapFunction: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeMainPage()));
         },

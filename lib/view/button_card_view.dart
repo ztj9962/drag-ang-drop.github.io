@@ -31,7 +31,7 @@ class ButtonCardView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 16),
                   child: Container(
-                    height: 80,
+                    height: 100,
                     decoration: BoxDecoration(
                       color: backgroundColor,
                       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -40,40 +40,38 @@ class ButtonCardView extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       children: <Widget>[
                         Positioned(
-                          top: 4,
-                          left: 16,
+                          top: 20,
+                          left: 20,
                           child: SizedBox(
-                            width: 72,
-                            height: 72,
+                            width: 60,
+                            height: 60,
                             child: SvgPicture.asset(imagePath),
                           ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 120,
-                                    top: 16,
-                                  ),
-                                  child: Text(
-                                    titleTxt,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                      letterSpacing: 1.0,
-                                      color: Color(0xFFFEFEFE),
-                                    ),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 100,
+                                right: 4,
+                                top: 16,
+                              ),
+                              child: Text(
+                                titleTxt,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  letterSpacing: 1.0,
+                                  color: Color(0xFFFEFEFE),
                                 ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                left: 120,
+                                left: 100,
+                                right: 4,
                                 top: 4,
                               ),
                               child: Text(
