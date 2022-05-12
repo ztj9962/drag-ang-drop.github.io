@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:alicsnet_app/model/auth_respository.dart';
@@ -88,17 +90,51 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      width: 100,
-                      height: 100,
+                      width: 64,
+                      height: 64,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage('https://picsum.photos/100/100'),
+                        backgroundImage: NetworkImage('${FirebaseAuth.instance.currentUser!.photoURL}'),
                       ),
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: Text('46412dsao02\nZii', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                    flex: 2,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AutoSizeText(
+                            '${FirebaseAuth.instance.currentUser!.displayName}',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                            ),
+                            maxLines: 1,
+                          ),
+                          AutoSizeText(
+                            '${FirebaseAuth.instance.currentUser!.email}',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                            ),
+                            maxLines: 1,
+                          ),
+                          AutoSizeText(
+                            '${FirebaseAuth.instance.currentUser!.uid}',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                            ),
+                            maxLines: 1,
+                          )
+                        ]
+                    ),
                   ),
+                  Expanded(
+                    flex: 2,
+                    child: Text(''),
+                  ),
+                  /*
                   Expanded(
                     flex: 1,
                     child: Container(
@@ -119,14 +155,15 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                               child: SvgPicture.asset('assets/icon/leaderboard.svg'),
                             ),
                             Padding(padding: EdgeInsets.all(8)),
-                            Text(
-                                '排行榜',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    letterSpacing: 1.0
-                                )
+                            AutoSizeText(
+                              '排行榜',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  letterSpacing: 1.0
+                              ),
+                              maxLines: 1,
                             ),
                           ],
                         ),
@@ -134,9 +171,12 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                       ),
                     ),
                   ),
+
+                   */
                 ],
               )
           ),
+          /*
           Expanded(
             flex: 1,
             child: Container(
@@ -206,6 +246,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 )
             ),
           ),
+          */
         ],
       ),
     );

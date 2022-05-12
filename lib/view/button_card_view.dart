@@ -54,7 +54,7 @@ class ButtonCardView extends StatelessWidget {
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            fontSize: 20,
                             letterSpacing: 1.0,
                             color: Color(0xFFFEFEFE),
                           ),
@@ -65,7 +65,7 @@ class ButtonCardView extends StatelessWidget {
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 14,
+                            fontSize: 16,
                             letterSpacing: 1.0,
                             color: Color(0xFFFEFEFE),
                           ),

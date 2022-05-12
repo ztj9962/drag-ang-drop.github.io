@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -291,13 +292,14 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                                               ),
                                             ),
                                           ),
-                                          const Text(
+                                          const AutoSizeText(
                                             '再聽一次',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.black,
                                             ),
+                                            maxLines: 1,
                                           ),
                                         ],
                                       ),
@@ -334,13 +336,14 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                                               ),
                                             ),
                                           ),
-                                          const Text(
+                                          const AutoSizeText(
                                             '下一題',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.black,
                                             ),
+                                            maxLines: 1,
                                           ),
                                         ],
                                       ),
@@ -400,7 +403,10 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                                           children: <Widget>[
                                             Container(
                                               padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                                              child: Text('在這裡聽看看類似的發音吧！'),
+                                              child: AutoSizeText(
+                                                '在這裡聽看看類似的發音吧',
+                                                maxLines: 1,
+                                              )
                                             ),
                                             Container(
                                               padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),

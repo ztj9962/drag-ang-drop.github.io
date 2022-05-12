@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -254,14 +255,22 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                         ),
                         Expanded(
                             flex: 2,
-                            child: Text(_wordData['word']!, style: TextStyle(fontSize: 28))
+                            child: AutoSizeText(
+                              _wordData['word']!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 28),
+                              maxLines: 1,
+                            )
                         ),
                         Expanded(
-                          flex: 2,
-                          child: Text('[${_wordData['wordIPA']!}]')
+                            flex: 2,
+                            child: AutoSizeText(
+                              '[${_wordData['wordIPA']!}]',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20),
+                              maxLines: 1,
+                            )
                         ),
-
-
 
                       ],
                     ),
@@ -269,14 +278,23 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                       thickness: 2,
                       color: Colors.black,
                     ),
-                    Text('Index(${_wordData['index']}); Ranking(${_wordData['wordRanking']}); ${_wordData['classificationName']}(${_wordData['orderNo']}); ${_wordData['wordLevel']}'),
-                    const Text(''),
+                    /*
+                    AutoSizeText(
+                      'Index(${_wordData['index']}); Ranking(${_wordData['wordRanking']}); ${_wordData['classificationName']}(${_wordData['orderNo']}); ${_wordData['wordLevel']}',
+                      maxLines: 1,
+                    ),
+                    */
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const ScrollPhysics(),
                         itemCount: _wordData['wordMeaningList'].length,
                         itemBuilder: (context, index2) {
-                          return Center(child: Text('[${_wordData['wordMeaningList'][index2]['pos']}] ${_wordData['wordMeaningList'][index2]['meaning']}'));
+                          return Center(
+                              child: AutoSizeText(
+                                '[${_wordData['wordMeaningList'][index2]['pos']}] ${_wordData['wordMeaningList'][index2]['meaning']}',
+                                maxLines: 1,
+                              )
+                          );
                         }
                     ),
                   ],
@@ -381,13 +399,14 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                                               ),
                                             ),
                                           ),
-                                          const Text(
+                                          const AutoSizeText(
                                             '再聽一次',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.black,
                                             ),
+                                            maxLines: 1,
                                           ),
                                         ],
                                       ),
@@ -424,13 +443,14 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                                               ),
                                             ),
                                           ),
-                                          const Text(
+                                          const AutoSizeText(
                                             '下一題',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.black,
                                             ),
+                                            maxLines: 1,
                                           ),
                                         ],
                                       ),
@@ -490,7 +510,10 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
                                           children: <Widget>[
                                             Container(
                                               padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                                              child: Text('在這裡聽看看類似的發音吧！'),
+                                              child: AutoSizeText(
+                                                '在這裡聽看看類似的發音吧',
+                                                maxLines: 1,
+                                              )
                                             ),
                                             Container(
                                               padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),

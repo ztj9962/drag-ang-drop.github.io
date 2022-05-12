@@ -2,14 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/api_util.dart';
-import 'package:alicsnet_app/view/button_card_view.dart';
-import 'package:alicsnet_app/view/sentence_type_list_view.dart';
-import 'package:alicsnet_app/view/title_view.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter_tts/flutter_tts.dart';
@@ -24,7 +22,7 @@ class VocabularyPracticeWordIndexPage extends StatefulWidget {
 enum TtsState { playing, stopped, paused, continued }
 
 class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWordIndexPage> {
-  TextEditingController editingController = TextEditingController();
+  TextEditingController _editingController = TextEditingController();
   List<Widget> listViews = <Widget>[];
   int _sliderMin = 1;
   int _sliderMax = 9991;
@@ -242,7 +240,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                   }
                   //EasyLoading.dismiss();
                 },
-                controller: editingController,
+                controller: _editingController,
                 decoration: const InputDecoration(
                     labelText: "Search",
                     hintText: "Search",
@@ -288,75 +286,85 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                       //label: 'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}',
                       label: 'Index ${_sliderIndex} ~ ${_sliderIndex + 9}',
                     ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            '${_sliderEducationLevel} Index ${_sliderIndex} ~ ${_sliderIndex + 9}',
-                            style: TextStyle(color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                              flex: 5,
+                              child: AutoSizeText(
+                                '${_sliderEducationLevel}\n(${_sliderIndex} ~ ${_sliderIndex + 9})',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                                maxLines: 2,
+                              )
                           ),
-                        ),
-                        Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      backgroundColor: PageTheme.vocabulary_practice_total_green_1,
-                                      radius: 18.0,
-                                      child: IconButton(
-                                        icon: Icon(Icons.add),
-                                        color: Colors.white,
-                                        onPressed: () async {
-                                          _adjustSliderIndex(1);
-                                        },
+                          Expanded(
+                              flex: 3,
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(4),
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        backgroundColor: PageTheme.vocabulary_practice_total_green_1,
+                                        radius: 20.0,
+                                        child: IconButton(
+                                          icon: Icon(Icons.remove),
+                                          color: Colors.white,
+                                          onPressed: () async {
+                                            _adjustSliderIndex(-1);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      backgroundColor: PageTheme.vocabulary_practice_total_green_1,
-                                      radius: 18.0,
-                                      child: IconButton(
-                                        icon: Icon(Icons.remove),
-                                        color: Colors.white,
-                                        onPressed: () async {
-                                          _adjustSliderIndex(-1);
-                                        },
+                                  Padding(
+                                    padding: EdgeInsets.all(4),
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        backgroundColor: PageTheme.vocabulary_practice_total_green_1,
+                                        radius: 20.0,
+                                        child: IconButton(
+                                          icon: Icon(Icons.add),
+                                          color: Colors.white,
+                                          onPressed: () async {
+                                            _adjustSliderIndex(1);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: TextField(
-                            onSubmitted: (value) {
-                              if (int.tryParse(value) != null) {
-                                _adjustSliderIndex(int.tryParse(value)! - _sliderIndex);
-                              }
-                            },
-                            decoration: const InputDecoration(
-                              fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(25.0))
-                                )
+                                ],
+                              )
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: TextField(
+                              controller: TextEditingController(text: _sliderIndex.toString()),
+                              onSubmitted: (value) {
+                                if (int.tryParse(value) != null) {
+                                  _adjustSliderIndex(int.tryParse(value)! - _sliderIndex);
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(25.0))
+                                  )
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+
+
 
                   ],
                 ),
@@ -395,18 +403,27 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 flex: 3,
                                 child: Column(
                                   children: <Widget>[
-                                    Text(_wordData[index]['word'], style: TextStyle(fontSize: 24)),
-                                    Text('[${_wordData[index]['wordIPA']}]')
-
+                                    AutoSizeText(
+                                      _wordData[index]['word'],
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                      ),
+                                      maxLines: 1,
+                                    ),
+                                    AutoSizeText(
+                                      '[${_wordData[index]['wordIPA']}]',
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                      maxLines: 1,
+                                    ),
                                   ],
                                 )
                             ),
                             Expanded(
                               flex: 2,
                               child: OutlinedButton(
-
                                 style: ButtonStyle(
-
                                     side: MaterialStateProperty.all(
                                         BorderSide(
 
@@ -432,14 +449,24 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                           thickness: 2,
                           color: Colors.black,
                         ),
-                        Text('Index(${_wordData[index]['index']}); Ranking(${_wordData[index]['wordRanking']}); ${_wordData[index]['classificationName']}(${_wordData[index]['orderNo']}); ${_wordData[index]['wordLevel']}'),
-                        const Text(''),
+                        /*
+                        AutoSizeText(
+                          'Index(${_wordData[index]['index']}); Ranking(${_wordData[index]['wordRanking']}); ${_wordData[index]['classificationName']}(${_wordData[index]['orderNo']}); ${_wordData[index]['wordLevel']}',
+                          maxLines: 1,
+                        ),
+                        */
+
                         ListView.builder(
                             shrinkWrap: true,
                             physics: const ScrollPhysics(),
                             itemCount: _wordData[index]['wordMeaningList'].length,
                             itemBuilder: (context, index2) {
-                              return Center(child: Text('[${_wordData[index]['wordMeaningList'][index2]['pos']}] ${_wordData[index]['wordMeaningList'][index2]['meaning']}'));
+                              return Center(
+                                  child: AutoSizeText(
+                                    '[${_wordData[index]['wordMeaningList'][index2]['pos']}] ${_wordData[index]['wordMeaningList'][index2]['meaning']}',
+                                    maxLines: 1,
+                                  )
+                              );
                             }
                         ),
                       ],
