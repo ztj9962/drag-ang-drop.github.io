@@ -155,6 +155,8 @@ class authRespository {
     try {
       final User? currentUser = _firebaseAuth.currentUser;
       if (currentUser != null) {
+        if (currentUser.providerData[0].displayName != null) currentUser.updateDisplayName(currentUser.providerData[0].displayName);
+        if (currentUser.providerData[0].photoURL != null) currentUser.updatePhotoURL(currentUser.providerData[0].photoURL);
         return true;
       } else {
         return false;
