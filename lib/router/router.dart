@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:sels_app/page/customArticle_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:sels_app/page/index/index_page.dart';
 import 'package:sels_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
 import 'package:sels_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart';
@@ -19,6 +20,7 @@ import 'package:sels_app/page/vocabulary_practice_word/vocabulary_practice_word_
     AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
     AutoRoute(path: '/voabulary_practice_word_index', page: VocabularyPracticeWordIndexPage),
     AutoRoute(path: '/voabulary_practice_word_learn', page: VocabularyPracticeWordLearnPage),
+    AutoRoute(path: '/customArticle_practice_sentence_index',page: CustomArticlePracticeSentenceIndexPage),
   ],
 )
 class $AppRouter {}

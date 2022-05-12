@@ -40,6 +40,8 @@ dependencies:
   in_app_purchase: ^3.0.2
   provider: ^6.0.2
   flutter_svg: ^1.0.3
+  charts_flutter: ^0.12.0
+  fl_chart: ^0.50.1
 
   # About Login
   firebase_core: ^1.15.0
