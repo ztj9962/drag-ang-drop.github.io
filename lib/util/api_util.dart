@@ -9,7 +9,7 @@ class APIUtil {
 
   static Future<String> getSentences({String sentenceLevel :'', String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentences'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -31,7 +31,7 @@ class APIUtil {
 
   static Future<String> getSentencesByID(sentencesID) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentencesByID'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getSentencesByID'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -45,7 +45,7 @@ class APIUtil {
 
   static Future<String> getPhoneticExercisesSentencesByWordSet(String learningClassification, String learningPhase) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getPhoneticExercisesSentencesByWordSet'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getPhoneticExercisesSentencesByWordSet'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -60,7 +60,7 @@ class APIUtil {
 
   static Future<String> checkSentences(String questionText, String answerText, {int correctCombo:0}) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
+      Uri.https('api.alicsnet.com', 'app/sentence/checkSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -77,7 +77,7 @@ class APIUtil {
 
   static Future<String> checkGrammar(String sentenceText) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/grammar/checkGrammar'),
+      Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -91,7 +91,7 @@ class APIUtil {
 
   static Future<String> sendMessageToConversation(String accessToken, String conversationID, String message) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/rasa/sendMessageToConversation'),
+      Uri.https('api.alicsnet.com', 'app/rasa/sendMessageToConversation'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -106,7 +106,7 @@ class APIUtil {
   }
   static Future<void> getConversationTokenAndID() async {
     final response = await http.get(
-      Uri.https('sels.nkfust.edu.tw', 'app/rasa/getConversationTokenAndID'),
+      Uri.https('api.alicsnet.com', 'app/rasa/getConversationTokenAndID'),
     );
     String json = response.body.toString();
     var data = jsonDecode(json.toString());
@@ -124,7 +124,7 @@ class APIUtil {
 
   static Future<String> getQuizHistory(String uuid) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/quiz/getQuizHistory'),
+      Uri.https('api.alicsnet.com', 'app/quiz/getQuizHistory'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -138,7 +138,7 @@ class APIUtil {
 
   static Future<String> getQuizDataByID(quizID, String uuid) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/quiz/getQuizDataByID'),
+      Uri.https('api.alicsnet.com', 'app/quiz/getQuizDataByID'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -153,7 +153,7 @@ class APIUtil {
 
   static Future<String> saveQuizData(String uuid, String quizTitle, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/quiz/saveQuizData'),
+      Uri.https('api.alicsnet.com', 'app/quiz/saveQuizData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -172,7 +172,7 @@ class APIUtil {
 
   static Future<String> updateQuizData(String uuid, int quizID, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/quiz/updateQuizData'),
+      Uri.https('api.alicsnet.com', 'app/quiz/updateQuizData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -191,7 +191,7 @@ class APIUtil {
 
   static Future<String> minimalPairOneFinder(ipa) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/oneFinder'),
+      Uri.https('api.alicsnet.com', 'app/minimalPair/oneFinder'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -205,7 +205,7 @@ class APIUtil {
 
   static Future<String> minimalPairTwoFinder(ipa1, ipa2) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/twoFinder'),
+      Uri.https('api.alicsnet.com', 'app/minimalPair/twoFinder'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -220,7 +220,7 @@ class APIUtil {
 
   static Future<String> minimalPairWordFinder(word1) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/minimalPair/wordFinder'),
+      Uri.https('api.alicsnet.com', 'app/minimalPair/wordFinder'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -234,7 +234,7 @@ class APIUtil {
 
   static Future<String> checkPronunciation(String questionText, String answerText) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/checkSentences'),
+      Uri.https('api.alicsnet.com', 'app/sentence/checkSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -249,7 +249,7 @@ class APIUtil {
 
   static Future<String> getWordLearning(String learningClassification, String learningPhase) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordLearning'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordLearning'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -265,7 +265,7 @@ class APIUtil {
 
   static Future<String> getWordSetList(String uid, String learningClassification) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetList'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordSetList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -280,7 +280,7 @@ class APIUtil {
 
   static Future<String> addWordSet(String uid, String learningClassification) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/addWordSet'),
+      Uri.https('api.alicsnet.com', 'app/word/addWordSet'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -296,7 +296,7 @@ class APIUtil {
 
   static Future<String> getSentenceTopicData() async {
     final response = await http.get(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentenceTopicData'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getSentenceTopicData'),
     );
     String json = response.body.toString();
     return json;
@@ -304,7 +304,7 @@ class APIUtil {
 
   static Future<String> getWordSetClassificationData() async {
     final response = await http.get(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetClassificationData'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordSetClassificationData'),
     );
     String json = response.body.toString();
     return json;
@@ -312,7 +312,7 @@ class APIUtil {
 
   static Future<String> getWordSetTotalList(String index) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordSetTotalList'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordSetTotalList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -326,7 +326,7 @@ class APIUtil {
 
   static Future<String> getWordList(String index, {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordList'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -341,7 +341,7 @@ class APIUtil {
 
   static Future<String> getWordRowIndex(String word) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordRowIndex'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordRowIndex'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -354,7 +354,7 @@ class APIUtil {
   }
   static Future<String> getWordData(String word) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/word/getWordData'),
+      Uri.https('api.alicsnet.com', 'app/word/getWordData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
