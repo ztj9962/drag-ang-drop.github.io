@@ -47,7 +47,7 @@ class _GrammarCorrectionMainPage extends State<GrammarCorrectionMainPage>
                 children: [
                   Padding(padding: EdgeInsets.all(10)),
                   AutoSizeText(
-                    '請輸入想要校正的文法',
+                    '請輸入想要校正的文法:',
                     maxLines: 1,
                     style: TextStyle(
                         fontSize: 20,
@@ -96,7 +96,7 @@ class _GrammarCorrectionMainPage extends State<GrammarCorrectionMainPage>
               children: [
                 Padding(padding: EdgeInsets.all(10)),
                 AutoSizeText(
-                  '這裡是建議的結果',
+                  '這裡是建議的結果:',
                   maxLines: 1,
                   style: TextStyle(
                       fontSize: 20,
