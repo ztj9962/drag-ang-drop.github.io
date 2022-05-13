@@ -1,44 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
-
-import 'package:alicsnet_app/util/hexcolor_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-import 'package:alicsnet_app/util/api_util.dart';
-import 'package:alicsnet_app/util/shared_preferences_util.dart';
-
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:speech_to_text/speech_recognition_error.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 
 import '../page_theme.dart';
 
 class SyllablePracticeSearchPage extends StatefulWidget {
-  String searchSearchController = '';
-
-  SyllablePracticeSearchPage(String searchSearchController) {
-    this.searchSearchController = searchSearchController;
-  }
 
   @override
   _SyllablePracticeSearchPage createState() => _SyllablePracticeSearchPage();
 }
 
 class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
-  //final searchWordController = TextEditingController();
-  String _searchWordController = '';
-
-  List<int> _sstIndex = [0, 0];
-
-  _SyllablePracticeWordPage(String searchWordController) {
-    this._searchWordController = searchWordController;
-  }
-
 
   List<String> _wordData = ['1','2','3'];
 
@@ -50,8 +21,6 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
   @override
   void dispose() {
     super.dispose();
-    //searchWordController.dispose();
-    EasyLoading.dismiss();
   }
 
   @override
@@ -69,8 +38,6 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
             color: Color(0xFFFEFEFE),
           ),maxLines: 1,
         ),
-
-
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
@@ -183,7 +150,6 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
             ),
             const Divider(
               thickness: 2,
-
             ),
           ],
         ),
