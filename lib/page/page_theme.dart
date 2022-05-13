@@ -18,6 +18,7 @@ class PageTheme {
   static const Color learn_record_index_top_bar_no_select = Color(0xFFC9C9CA);
   static const Color learn_record_score_green = Color(0xFF387B38);
   static const Color learn_record_score_dark_green = Color(0xFF003F24);
+  static const Color cutom_article_practice_background = Color(0xff3464af);
 
   static const TextStyle index_vocabulary_test_index_text = TextStyle(fontWeight: FontWeight.w600,fontSize: 18);
 
