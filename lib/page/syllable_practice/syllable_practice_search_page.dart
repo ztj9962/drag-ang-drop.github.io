@@ -2,12 +2,21 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:alicsnet_app/page/page_theme.dart';
-
+import 'package:alicsnet_app/util/hexcolor_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
+import '../page_theme.dart';
 
 class SyllablePracticeSearchPage extends StatefulWidget {
   String searchSearchController = '';
@@ -50,15 +59,15 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: PageTheme.vocabulary_search_background,
-        title:  Text(
+        backgroundColor: PageTheme.syllable_search_background,
+        title:  AutoSizeText(
           '尋找單詞相似詞',
           style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 18,
             letterSpacing: 3.0,
             color: Color(0xFFFEFEFE),
-          ),
+          ),maxLines: 1,
         ),
 
 
@@ -106,7 +115,7 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
                                   flex: 1,
                                   child: CircleAvatar(
                                     radius: 30,
-                                    backgroundColor:PageTheme.vocabulary_search_background,
+                                    backgroundColor:PageTheme.syllable_search_background,
                                     child: IconButton(
                                       iconSize: 45,
                                       icon: Icon(Icons.volume_up),
@@ -120,8 +129,8 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
                                   flex: 3,
                                   child: Column(
                                     children: <Widget>[
-                                      Text('word,wear', style: TextStyle(fontSize: 24)),
-                                      Text('[拼音]')
+                                      AutoSizeText('word,wear',maxLines: 1, style: TextStyle(fontSize: 24)),
+                                      AutoSizeText('[拼音]',maxLines: 1,)
                                     ],
                                   )
                               ),
@@ -139,7 +148,7 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
                                   flex: 1,
                                   child: CircleAvatar(
                                     radius: 20,
-                                    backgroundColor: PageTheme.vocabulary_search_background,
+                                    backgroundColor: PageTheme.syllable_search_background,
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
                                       iconSize: 30,
@@ -154,7 +163,7 @@ class _SyllablePracticeSearchPage extends State<SyllablePracticeSearchPage> {
                                   flex: 3,
                                   child: Column(
                                     children: <Widget>[
-                                      Text('word,wear', style: TextStyle(fontSize: 24)),
+                                      AutoSizeText('word,wear',maxLines: 1, style: TextStyle(fontSize: 24)),
                                     ],
                                   )
                               ),
