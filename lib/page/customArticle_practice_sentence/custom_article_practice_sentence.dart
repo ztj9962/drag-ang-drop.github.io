@@ -10,7 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:sels_app/page/customArticle_practice_sentence/bar_char_widget.dart';
 import 'package:sels_app/page/customArticle_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
-import 'package:sels_app/page/customArticle_practice_sentence/example_data.dart';
+import 'package:sels_app/model/sentence_example_data.dart';
 import 'package:sels_app/page/login/fade_animation.dart';
 import 'package:sels_app/util/api_util.dart';
 
