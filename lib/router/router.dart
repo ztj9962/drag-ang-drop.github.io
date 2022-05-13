@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/page/grammar_practice/grammar_correction_main_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_index_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_level_select_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_questing_page.dart';
@@ -30,6 +31,7 @@ import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_w
     AutoRoute(path: '/vocabulary_test_questing', page: IndexVocabularyTestQuestingPage),
     AutoRoute(path: '/syllable_practice_search', page: SyllablePracticeSearchPage),
     AutoRoute(path: '/syllable_practice_main_page',page: SyllablePracticeMainPage3),
+    AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage)
   ],
 )
 class $AppRouter {}
