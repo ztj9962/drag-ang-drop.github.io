@@ -1,3 +1,8 @@
+import 'package:alicsnet_app/page/index/index_vocabulary_test_index_page.dart';
+import 'package:alicsnet_app/page/index/index_vocabulary_test_level_select_page.dart';
+import 'package:alicsnet_app/page/index/index_vocabulary_test_questing_page.dart';
+import 'package:alicsnet_app/page/syllable_practice/syllable_practice_main_page3.dart';
+import 'package:alicsnet_app/page/syllable_practice/syllable_practice_search_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
@@ -6,6 +11,7 @@ import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practi
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/login/sign_in_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_learn_page.dart';
+
 
 // flutter pub run build_runner watch --delete-conflicting-outputs
 
@@ -19,6 +25,11 @@ import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_w
     AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
     AutoRoute(path: '/voabulary_practice_word_index', page: VocabularyPracticeWordIndexPage),
     AutoRoute(path: '/voabulary_practice_word_learn', page: VocabularyPracticeWordLearnPage),
+    //New Pages Below ↓↓↓
+    AutoRoute(path: '/vocabulary_test_select_level', page: IndexVocabularyTestLevelSelectPage),
+    AutoRoute(path: '/vocabulary_test_questing', page: IndexVocabularyTestQuestingPage),
+    AutoRoute(path: '/syllable_practice_search', page: SyllablePracticeSearchPage),
+    AutoRoute(path: '/syllable_practice_main_page',page: SyllablePracticeMainPage3),
   ],
 )
 class $AppRouter {}

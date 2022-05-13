@@ -12,6 +12,8 @@ class PageTheme {
   static const Color shadowing_english_speaking_background = Color(0xFF003F24);
   static const Color voabulary_practice_sentence_background = Color(0xFFF5BB4A);
   static const Color minimal_pair_background = Color(0xFFA6B5DD);
+  static const Color syllable_search_background = Color(0xFFA6B5DD);
+  static const Color syllable_main_page_background = Color(0xFFA6B5DD);
   static const Color grammar_correction_background = Color(0xFF633C93);
   static const Color use_you_own_text_background = Color(0xFFE17CAE);
   static const Color learn_record_index_top_bar_select = Color(0xFF130620);
