@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
@@ -36,15 +37,15 @@ class _IndexVocabularyTestLevelSelectPage
           children: <Widget>[
             const Padding(
                 padding: EdgeInsets.all(8),
-                child: Text('選擇您的測試級別',
-                    style: PageTheme.index_vocabulary_test_index_text)),
+                child: AutoSizeText('選擇您的測試級別',
+                    style: PageTheme.index_vocabulary_test_index_text,maxLines: 1,)),
             const Padding(
                 padding: EdgeInsets.all(8),
-                child: Text('Please select your test level．',
-                    style: PageTheme.index_vocabulary_test_index_text)),
+                child: AutoSizeText('Please select your test level．',
+                    style: PageTheme.index_vocabulary_test_index_text,maxLines: 1,)),
             const Padding(
                 padding: EdgeInsets.all(8),
-                child: Text('友情提示:為確保結果的準確性，不會的請點擊選項E．',
+                child: AutoSizeText('友情提示:為確保結果的準確性，不會的請點擊選項E。',maxLines: 2,
                     style: PageTheme.index_vocabulary_test_index_text)),
             Center(
                 child: ListView.builder(
@@ -88,7 +89,7 @@ class _IndexVocabularyTestLevelSelectPage
                   padding: const EdgeInsets.all(10.0),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("1. 350  Kindergarten"),
+                    child: AutoSizeText("1. 350  Kindergarten",maxLines: 1,),
                   )),
               Flexible(fit: FlexFit.tight, child: SizedBox()),
               Align(
@@ -98,10 +99,6 @@ class _IndexVocabularyTestLevelSelectPage
             ],
           ),
           onPressed: () {
-            //APIUtil.getConversationTokenAndID();
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('重置成功！'),
-            ));
           },
         ),
       ));
