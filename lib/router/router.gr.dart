@@ -10,13 +10,14 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i12;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 
 import '../page/index/index_page.dart' as _i2;
 import '../page/index/index_vocabulary_test_level_select_page.dart' as _i8;
 import '../page/index/index_vocabulary_test_questing_page.dart' as _i9;
 import '../page/login/sign_in_page.dart' as _i1;
+import '../page/syllable_practice/syllable_practice_main_page3.dart' as _i11;
 import '../page/syllable_practice/syllable_practice_search_page.dart' as _i10;
 import '../page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart'
     as _i3;
@@ -29,22 +30,22 @@ import '../page/vocabulary_practice_word/vocabulary_practice_word_index_page.dar
 import '../page/vocabulary_practice_word/vocabulary_practice_word_learn_page.dart'
     as _i7;
 
-class AppRouter extends _i11.RootStackRouter {
-  AppRouter([_i12.GlobalKey<_i12.NavigatorState>? navigatorKey])
+class AppRouter extends _i12.RootStackRouter {
+  AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     SignInRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData, child: _i1.SignInPage());
     },
     IndexRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.IndexPage());
     },
     VocabularyPracticeSentenceIndexRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: const _i3.VocabularyPracticeSentenceIndexPage());
     },
@@ -53,7 +54,7 @@ class AppRouter extends _i11.RootStackRouter {
           routeData.argsAs<VocabularyPracticeSentenceLearnAutoRouteArgs>(
               orElse: () =>
                   const VocabularyPracticeSentenceLearnAutoRouteArgs());
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i4.VocabularyPracticeSentenceLearnAutoPage(
               key: args.key,
@@ -68,7 +69,7 @@ class AppRouter extends _i11.RootStackRouter {
           routeData.argsAs<VocabularyPracticeSentenceLearnManualRouteArgs>(
               orElse: () =>
                   const VocabularyPracticeSentenceLearnManualRouteArgs());
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i5.VocabularyPracticeSentenceLearnManualPage(
               key: args.key,
@@ -76,61 +77,65 @@ class AppRouter extends _i11.RootStackRouter {
               topicName: args.topicName));
     },
     VocabularyPracticeWordIndexRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: const _i6.VocabularyPracticeWordIndexPage());
     },
     VocabularyPracticeWordLearnRoute.name: (routeData) {
       final args = routeData.argsAs<VocabularyPracticeWordLearnRouteArgs>();
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i7.VocabularyPracticeWordLearnPage(
               key: args.key, word: args.word));
     },
     IndexVocabularyTestLevelSelectRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: const _i8.IndexVocabularyTestLevelSelectPage());
     },
     IndexVocabularyTestQuestingRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
           routeData: routeData,
           child: const _i9.IndexVocabularyTestQuestingPage());
     },
     SyllablePracticeSearchRoute.name: (routeData) {
-      final args = routeData.argsAs<SyllablePracticeSearchRouteArgs>();
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i10.SyllablePracticeSearchPage(args.searchSearchController));
+      return _i12.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i10.SyllablePracticeSearchPage());
+    },
+    SyllablePracticeMainRoute3.name: (routeData) {
+      return _i12.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i11.SyllablePracticeMainPage3());
     }
   };
 
   @override
-  List<_i11.RouteConfig> get routes => [
-        _i11.RouteConfig(SignInRoute.name, path: '/'),
-        _i11.RouteConfig(IndexRoute.name, path: '/index'),
-        _i11.RouteConfig(VocabularyPracticeSentenceIndexRoute.name,
+  List<_i12.RouteConfig> get routes => [
+        _i12.RouteConfig(SignInRoute.name, path: '/'),
+        _i12.RouteConfig(IndexRoute.name, path: '/index'),
+        _i12.RouteConfig(VocabularyPracticeSentenceIndexRoute.name,
             path: '/voabulary_practice_sentence_index'),
-        _i11.RouteConfig(VocabularyPracticeSentenceLearnAutoRoute.name,
+        _i12.RouteConfig(VocabularyPracticeSentenceLearnAutoRoute.name,
             path: '/voabulary_practice_sentence_auto'),
-        _i11.RouteConfig(VocabularyPracticeSentenceLearnManualRoute.name,
+        _i12.RouteConfig(VocabularyPracticeSentenceLearnManualRoute.name,
             path: '/voabulary_practice_sentence_manual'),
-        _i11.RouteConfig(VocabularyPracticeWordIndexRoute.name,
+        _i12.RouteConfig(VocabularyPracticeWordIndexRoute.name,
             path: '/voabulary_practice_word_index'),
-        _i11.RouteConfig(VocabularyPracticeWordLearnRoute.name,
+        _i12.RouteConfig(VocabularyPracticeWordLearnRoute.name,
             path: '/voabulary_practice_word_learn'),
-        _i11.RouteConfig(IndexVocabularyTestLevelSelectRoute.name,
+        _i12.RouteConfig(IndexVocabularyTestLevelSelectRoute.name,
             path: '/vocabulary_test_select_level'),
-        _i11.RouteConfig(IndexVocabularyTestQuestingRoute.name,
+        _i12.RouteConfig(IndexVocabularyTestQuestingRoute.name,
             path: '/vocabulary_test_questing'),
-        _i11.RouteConfig(SyllablePracticeSearchRoute.name,
-            path: '/syllable_practice_search')
+        _i12.RouteConfig(SyllablePracticeSearchRoute.name,
+            path: '/syllable_practice_search'),
+        _i12.RouteConfig(SyllablePracticeMainRoute3.name,
+            path: '/syllable_practice_main_page')
       ];
 }
 
 /// generated route for
 /// [_i1.SignInPage]
-class SignInRoute extends _i11.PageRouteInfo<void> {
+class SignInRoute extends _i12.PageRouteInfo<void> {
   const SignInRoute() : super(SignInRoute.name, path: '/');
 
   static const String name = 'SignInRoute';
@@ -138,7 +143,7 @@ class SignInRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.IndexPage]
-class IndexRoute extends _i11.PageRouteInfo<void> {
+class IndexRoute extends _i12.PageRouteInfo<void> {
   const IndexRoute() : super(IndexRoute.name, path: '/index');
 
   static const String name = 'IndexRoute';
@@ -146,7 +151,7 @@ class IndexRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.VocabularyPracticeSentenceIndexPage]
-class VocabularyPracticeSentenceIndexRoute extends _i11.PageRouteInfo<void> {
+class VocabularyPracticeSentenceIndexRoute extends _i12.PageRouteInfo<void> {
   const VocabularyPracticeSentenceIndexRoute()
       : super(VocabularyPracticeSentenceIndexRoute.name,
             path: '/voabulary_practice_sentence_index');
@@ -157,9 +162,9 @@ class VocabularyPracticeSentenceIndexRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.VocabularyPracticeSentenceLearnAutoPage]
 class VocabularyPracticeSentenceLearnAutoRoute
-    extends _i11.PageRouteInfo<VocabularyPracticeSentenceLearnAutoRouteArgs> {
+    extends _i12.PageRouteInfo<VocabularyPracticeSentenceLearnAutoRouteArgs> {
   VocabularyPracticeSentenceLearnAutoRoute(
-      {_i12.Key? key,
+      {_i13.Key? key,
       String topicClass = '',
       String topicName = '',
       List<int> sentencesIDData = const [],
@@ -193,7 +198,7 @@ class VocabularyPracticeSentenceLearnAutoRouteArgs {
         'learningPhase': ''
       }});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String topicClass;
 
@@ -214,9 +219,9 @@ class VocabularyPracticeSentenceLearnAutoRouteArgs {
 /// generated route for
 /// [_i5.VocabularyPracticeSentenceLearnManualPage]
 class VocabularyPracticeSentenceLearnManualRoute
-    extends _i11.PageRouteInfo<VocabularyPracticeSentenceLearnManualRouteArgs> {
+    extends _i12.PageRouteInfo<VocabularyPracticeSentenceLearnManualRouteArgs> {
   VocabularyPracticeSentenceLearnManualRoute(
-      {_i12.Key? key, String topicClass = '', String topicName = ''})
+      {_i13.Key? key, String topicClass = '', String topicName = ''})
       : super(VocabularyPracticeSentenceLearnManualRoute.name,
             path: '/voabulary_practice_sentence_manual',
             args: VocabularyPracticeSentenceLearnManualRouteArgs(
@@ -229,7 +234,7 @@ class VocabularyPracticeSentenceLearnManualRouteArgs {
   const VocabularyPracticeSentenceLearnManualRouteArgs(
       {this.key, this.topicClass = '', this.topicName = ''});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String topicClass;
 
@@ -243,7 +248,7 @@ class VocabularyPracticeSentenceLearnManualRouteArgs {
 
 /// generated route for
 /// [_i6.VocabularyPracticeWordIndexPage]
-class VocabularyPracticeWordIndexRoute extends _i11.PageRouteInfo<void> {
+class VocabularyPracticeWordIndexRoute extends _i12.PageRouteInfo<void> {
   const VocabularyPracticeWordIndexRoute()
       : super(VocabularyPracticeWordIndexRoute.name,
             path: '/voabulary_practice_word_index');
@@ -254,8 +259,8 @@ class VocabularyPracticeWordIndexRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i7.VocabularyPracticeWordLearnPage]
 class VocabularyPracticeWordLearnRoute
-    extends _i11.PageRouteInfo<VocabularyPracticeWordLearnRouteArgs> {
-  VocabularyPracticeWordLearnRoute({_i12.Key? key, required String word})
+    extends _i12.PageRouteInfo<VocabularyPracticeWordLearnRouteArgs> {
+  VocabularyPracticeWordLearnRoute({_i13.Key? key, required String word})
       : super(VocabularyPracticeWordLearnRoute.name,
             path: '/voabulary_practice_word_learn',
             args: VocabularyPracticeWordLearnRouteArgs(key: key, word: word));
@@ -266,7 +271,7 @@ class VocabularyPracticeWordLearnRoute
 class VocabularyPracticeWordLearnRouteArgs {
   const VocabularyPracticeWordLearnRouteArgs({this.key, required this.word});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String word;
 
@@ -278,7 +283,7 @@ class VocabularyPracticeWordLearnRouteArgs {
 
 /// generated route for
 /// [_i8.IndexVocabularyTestLevelSelectPage]
-class IndexVocabularyTestLevelSelectRoute extends _i11.PageRouteInfo<void> {
+class IndexVocabularyTestLevelSelectRoute extends _i12.PageRouteInfo<void> {
   const IndexVocabularyTestLevelSelectRoute()
       : super(IndexVocabularyTestLevelSelectRoute.name,
             path: '/vocabulary_test_select_level');
@@ -288,7 +293,7 @@ class IndexVocabularyTestLevelSelectRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.IndexVocabularyTestQuestingPage]
-class IndexVocabularyTestQuestingRoute extends _i11.PageRouteInfo<void> {
+class IndexVocabularyTestQuestingRoute extends _i12.PageRouteInfo<void> {
   const IndexVocabularyTestQuestingRoute()
       : super(IndexVocabularyTestQuestingRoute.name,
             path: '/vocabulary_test_questing');
@@ -298,24 +303,20 @@ class IndexVocabularyTestQuestingRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.SyllablePracticeSearchPage]
-class SyllablePracticeSearchRoute
-    extends _i11.PageRouteInfo<SyllablePracticeSearchRouteArgs> {
-  SyllablePracticeSearchRoute({required String searchSearchController})
+class SyllablePracticeSearchRoute extends _i12.PageRouteInfo<void> {
+  const SyllablePracticeSearchRoute()
       : super(SyllablePracticeSearchRoute.name,
-            path: '/syllable_practice_search',
-            args: SyllablePracticeSearchRouteArgs(
-                searchSearchController: searchSearchController));
+            path: '/syllable_practice_search');
 
   static const String name = 'SyllablePracticeSearchRoute';
 }
 
-class SyllablePracticeSearchRouteArgs {
-  const SyllablePracticeSearchRouteArgs({required this.searchSearchController});
+/// generated route for
+/// [_i11.SyllablePracticeMainPage3]
+class SyllablePracticeMainRoute3 extends _i12.PageRouteInfo<void> {
+  const SyllablePracticeMainRoute3()
+      : super(SyllablePracticeMainRoute3.name,
+            path: '/syllable_practice_main_page');
 
-  final String searchSearchController;
-
-  @override
-  String toString() {
-    return 'SyllablePracticeSearchRouteArgs{searchSearchController: $searchSearchController}';
-  }
+  static const String name = 'SyllablePracticeMainRoute3';
 }
