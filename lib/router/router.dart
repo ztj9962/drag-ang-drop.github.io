@@ -1,9 +1,10 @@
-import 'package:alicsnet_app/page/index/index_learn_record_index_page.dart';
-import 'package:alicsnet_app/page/index/index_vocabulary_test_level_select_page.dart';
-import 'package:alicsnet_app/page/index/index_vocabulary_test_questing_page.dart';
-import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
-import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_auto_page.dart';
-import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_manual_page.dart';
+import 'package:alicsnet_app/page/new_template/grammar_correction_main_page.dart';
+import 'package:alicsnet_app/page/new_template/index_learn_record_index_page.dart';
+import 'package:alicsnet_app/page/new_template/index_learn_record_score_page.dart';
+import 'package:alicsnet_app/page/new_template/index_vocabulary_test_level_select_page.dart';
+import 'package:alicsnet_app/page/new_template/index_vocabulary_test_questing_page.dart';
+import 'package:alicsnet_app/page/syllable_practice/syllable_practice_main_page3.dart';
+import 'package:alicsnet_app/page/syllable_practice/syllable_practice_search_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
@@ -26,15 +27,13 @@ import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_w
     AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
     AutoRoute(path: '/voabulary_practice_word_index', page: VocabularyPracticeWordIndexPage),
     AutoRoute(path: '/voabulary_practice_word_learn', page: VocabularyPracticeWordLearnPage),
-
-    AutoRoute(path: '/minimal_pair_index', page: MinimalPairIndexPage),
-    AutoRoute(path: '/minimal_pair_auto', page: MinimalPairLearnAutoPage),
-    AutoRoute(path: '/minimal_pair_manual', page: MinimalPairLearnManualPage),
-
     //New Pages Below ↓↓↓
     AutoRoute(path: '/vocabulary_test_select_level', page: IndexVocabularyTestLevelSelectPage),
     AutoRoute(path: '/vocabulary_test_questing', page: IndexVocabularyTestQuestingPage),
-    AutoRoute(path: '/learn_record_index', page: IndexLearnRecordIndexPage),
+    AutoRoute(path: '/syllable_practice_search', page: SyllablePracticeSearchPage),
+    AutoRoute(path: '/syllable_practice_main_page',page: SyllablePracticeMainPage3),
+    AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),
+    AutoRoute(path: '/vocabulary_record_index_page',page: IndexLearnRecordIndexPage),
   ],
 )
 class $AppRouter {}

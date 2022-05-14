@@ -1,19 +1,20 @@
+import 'package:alicsnet_app/page/new_template/index_learn_record_score_page.dart';
 import 'package:flutter/material.dart';
-import 'package:alicsnet_app/page/index/index_learn_record_score_page.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+
 import 'dart:ui';
-
-
 
 class IndexLearnRecordIndexPage extends StatefulWidget {
   const IndexLearnRecordIndexPage({Key? key}) : super(key: key);
 
   @override
-  _IndexLearnRecordIndexPageState createState() => _IndexLearnRecordIndexPageState();
+  _IndexLearnRecordIndexPageState createState() =>
+      _IndexLearnRecordIndexPageState();
 }
 
-class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage> with SingleTickerProviderStateMixin {
-  late TabController mController;// tab控制器
+class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage>
+    with SingleTickerProviderStateMixin {
+  late TabController mController; // tab控制器
   late Widget tabBody;
   int selectedIndex = 0;
   List<Widget> containerList = [
@@ -24,6 +25,7 @@ class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage> w
     Container(
       color: PageTheme.index_body_background,
       //child: const IndexLearnRecordIndexPage(),
+
     ),
   ];
   final List<Tab> titleTabs = <Tab>[
@@ -49,10 +51,13 @@ class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage> w
     ),
   ];
 
+
+
   @override
   void initState() {
     changePage(0);
-    mController = TabController(initialIndex: 0,length: titleTabs.length, vsync: this);
+    mController =
+        TabController(initialIndex: 0, length: titleTabs.length, vsync: this);
     super.initState();
   }
 
@@ -105,6 +110,5 @@ class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage> w
       selectedIndex = newIndex;
       tabBody = containerList[newIndex];
     });
-
   }
 }
