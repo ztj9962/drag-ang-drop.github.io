@@ -1,6 +1,6 @@
 {
-    "name": "alicsnet_app",
-    "short_name": "alicsnet_app",
+    "name": "Alicsnet APP",
+    "short_name": "Alicsnet APP",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
