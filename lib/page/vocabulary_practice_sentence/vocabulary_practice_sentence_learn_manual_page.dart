@@ -643,8 +643,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
       _answerTextWidget = [ TextSpan(text: _answerText), ];
       _answerIPATextWidget = [ const TextSpan(text: ''), ];
     });
-    if(isFinalResult){
-      _responseChatBot(text);
+    if(isFinalResult && _answerText!=""){
+      _responseChatBot(_answerText);
     }
   }
 
