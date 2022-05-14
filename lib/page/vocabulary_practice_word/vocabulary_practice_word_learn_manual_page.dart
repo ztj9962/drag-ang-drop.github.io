@@ -17,18 +17,18 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class VocabularyPracticeWordLearnPage extends StatefulWidget {
+class VocabularyPracticeWordLearnManualPage extends StatefulWidget {
 
   final String word;
-  const VocabularyPracticeWordLearnPage ({ Key? key, required this.word }): super(key: key);
+  const VocabularyPracticeWordLearnManualPage ({ Key? key, required this.word }): super(key: key);
 
   @override
-  _VocabularyPracticeWordLearnPageState createState() => _VocabularyPracticeWordLearnPageState();
+  _VocabularyPracticeWordLearnManualPageState createState() => _VocabularyPracticeWordLearnManualPageState();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWordLearnPage> {
+class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracticeWordLearnManualPage> {
   late String _word;
   late Map<String, dynamic> _wordData = {'index': 1, 'classificationName': 'Kindergarten', 'orderNo': 1, 'word': '', 'wordRanking': 1, 'wordType': 'None', 'wordLevel': 'A1', 'wordIPA': 'ðə', 'wordSource': 'cerf1000', 'wordMeaningList': []};
 
@@ -91,7 +91,7 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
     _word = widget.word;
     super.initState();
 
-    initVocabularyPracticeWordLearnPage();
+    initVocabularyPracticeWordLearnManualPage();
   }
 
   @override
@@ -102,7 +102,7 @@ class _VocabularyPracticeWordLearnPageState extends State<VocabularyPracticeWord
     speechToText.stop();
   }
 
-  Future<void> initVocabularyPracticeWordLearnPage() async {
+  Future<void> initVocabularyPracticeWordLearnManualPage() async {
     await initWordData();
     initTts();
     initSpeechState();

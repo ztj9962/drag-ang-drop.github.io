@@ -35,7 +35,7 @@ import '../page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_
     as _i5;
 import '../page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart'
     as _i6;
-import '../page/vocabulary_practice_word/vocabulary_practice_word_learn_page.dart'
+import '../page/vocabulary_practice_word/vocabulary_practice_word_learn_manual_page.dart'
     as _i7;
 
 class AppRouter extends _i16.RootStackRouter {
@@ -89,11 +89,12 @@ class AppRouter extends _i16.RootStackRouter {
           routeData: routeData,
           child: const _i6.VocabularyPracticeWordIndexPage());
     },
-    VocabularyPracticeWordLearnRoute.name: (routeData) {
-      final args = routeData.argsAs<VocabularyPracticeWordLearnRouteArgs>();
+    VocabularyPracticeWordLearnManualRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<VocabularyPracticeWordLearnManualRouteArgs>();
       return _i16.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i7.VocabularyPracticeWordLearnPage(
+          child: _i7.VocabularyPracticeWordLearnManualPage(
               key: args.key, word: args.word));
     },
     MinimalPairIndexRoute.name: (routeData) {
@@ -169,8 +170,8 @@ class AppRouter extends _i16.RootStackRouter {
             path: '/voabulary_practice_sentence_manual'),
         _i16.RouteConfig(VocabularyPracticeWordIndexRoute.name,
             path: '/voabulary_practice_word_index'),
-        _i16.RouteConfig(VocabularyPracticeWordLearnRoute.name,
-            path: '/voabulary_practice_word_learn'),
+        _i16.RouteConfig(VocabularyPracticeWordLearnManualRoute.name,
+            path: '/voabulary_practice_word_manual'),
         _i16.RouteConfig(MinimalPairIndexRoute.name,
             path: '/minimal_pair_index'),
         _i16.RouteConfig(MinimalPairLearnAutoRoute.name,
@@ -314,19 +315,21 @@ class VocabularyPracticeWordIndexRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.VocabularyPracticeWordLearnPage]
-class VocabularyPracticeWordLearnRoute
-    extends _i16.PageRouteInfo<VocabularyPracticeWordLearnRouteArgs> {
-  VocabularyPracticeWordLearnRoute({_i18.Key? key, required String word})
-      : super(VocabularyPracticeWordLearnRoute.name,
-            path: '/voabulary_practice_word_learn',
-            args: VocabularyPracticeWordLearnRouteArgs(key: key, word: word));
+/// [_i7.VocabularyPracticeWordLearnManualPage]
+class VocabularyPracticeWordLearnManualRoute
+    extends _i16.PageRouteInfo<VocabularyPracticeWordLearnManualRouteArgs> {
+  VocabularyPracticeWordLearnManualRoute({_i18.Key? key, required String word})
+      : super(VocabularyPracticeWordLearnManualRoute.name,
+            path: '/voabulary_practice_word_manual',
+            args: VocabularyPracticeWordLearnManualRouteArgs(
+                key: key, word: word));
 
-  static const String name = 'VocabularyPracticeWordLearnRoute';
+  static const String name = 'VocabularyPracticeWordLearnManualRoute';
 }
 
-class VocabularyPracticeWordLearnRouteArgs {
-  const VocabularyPracticeWordLearnRouteArgs({this.key, required this.word});
+class VocabularyPracticeWordLearnManualRouteArgs {
+  const VocabularyPracticeWordLearnManualRouteArgs(
+      {this.key, required this.word});
 
   final _i18.Key? key;
 
@@ -334,7 +337,7 @@ class VocabularyPracticeWordLearnRouteArgs {
 
   @override
   String toString() {
-    return 'VocabularyPracticeWordLearnRouteArgs{key: $key, word: $word}';
+    return 'VocabularyPracticeWordLearnManualRouteArgs{key: $key, word: $word}';
   }
 }
 

@@ -434,9 +434,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     foregroundColor: MaterialStateProperty.all(PageTheme.vocabulary_practice_total_green_1,),
                                     textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
                                 ),
-                                child: const Text('練習發音'),
+                                child: const Text('手動'),
                                 onPressed: () {
-                                  AutoRouter.of(context).push(VocabularyPracticeWordLearnRoute(word:_wordData[index]['word']));
+                                  AutoRouter.of(context).push(VocabularyPracticeWordLearnManualRoute(word:_wordData[index]['word']));
                                 },
                               ),
                             ),
