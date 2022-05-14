@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/page/index/index_learn_record_index_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_level_select_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_questing_page.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
@@ -33,6 +34,7 @@ import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_w
     //New Pages Below ↓↓↓
     AutoRoute(path: '/vocabulary_test_select_level', page: IndexVocabularyTestLevelSelectPage),
     AutoRoute(path: '/vocabulary_test_questing', page: IndexVocabularyTestQuestingPage),
+    AutoRoute(path: '/learn_record_index', page: IndexLearnRecordIndexPage),
   ],
 )
 class $AppRouter {}

@@ -41,7 +41,7 @@ dependencies:
   provider: ^6.0.2
   flutter_svg: ^1.0.3
   auto_size_text: ^3.0.0
-
+  percent_indicator: ^4.0.1
   # About Login
   firebase_core: ^1.15.0
   firebase_auth: ^3.3.16
