@@ -82,6 +82,16 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+        imagePath: 'assets/icon/customArticle.svg',
+        backgroundColor: PageTheme.cutom_article_practice_background,
+        titleTxt: '自訂文章句子練習',
+        descripTxt: 'English text here',
+        onTapFunction: (){
+          AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
+        },
+      ),
+    );
+
     /*
     listViews.add(
       ButtonCardView(

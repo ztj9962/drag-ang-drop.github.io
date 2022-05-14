@@ -77,7 +77,7 @@ class APIUtil {
 
   static Future<String> checkGrammar(String sentenceText) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
+      Uri.https('sels.nkfust.edu.tw', 'app/grammar/checkGrammar2'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -373,6 +373,52 @@ class APIUtil {
       Uri.https('api.alicsnet.com', 'app/minimalPair/getIPAAvailable'),
     );
     String json = response.body.toString();
+    return json;
+  }
+
+  static Future<List> getSentenceSegmentation(String article) async{
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/sentSegmentation'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'article':article,
+      }
+    );
+    var json = jsonDecode(response.body);
+    return json['data'];
+
+  }
+
+  static Future getSentenceIPA(List sentenceList) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentenceIPA'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceList':jsonEncode(sentenceList),
+      },
+    );
+
+    var json = jsonDecode(response.body);
+    return json['value'];
+  }
+
+  static Future getStatitics(String article,String userId) async {
+    final response = await http.post(
+      Uri.https('sels.nkfust.edu.tw', 'api/alics/getStatitics'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'user_id':userId,
+        'test_input':article,
+      },
+    );
+
+    var json = jsonDecode(response.body);
     return json;
   }
 
