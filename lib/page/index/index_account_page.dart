@@ -93,7 +93,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                       width: 64,
                       height: 64,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage('${FirebaseAuth.instance.currentUser!.photoURL}'),
+                        backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL ?? 'https://picsum.photos/100/100'),
                       ),
                     ),
                   ),
@@ -104,7 +104,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           AutoSizeText(
-                            '${FirebaseAuth.instance.currentUser!.displayName}',
+                            '${FirebaseAuth.instance.currentUser?.displayName}',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold
@@ -112,7 +112,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                             maxLines: 1,
                           ),
                           AutoSizeText(
-                            '${FirebaseAuth.instance.currentUser!.email}',
+                            '${FirebaseAuth.instance.currentUser?.email}',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold
@@ -120,7 +120,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                             maxLines: 1,
                           ),
                           AutoSizeText(
-                            '${FirebaseAuth.instance.currentUser!.uid}',
+                            '${FirebaseAuth.instance.currentUser?.uid}',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold

@@ -242,8 +242,8 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                 },
                 controller: _editingController,
                 decoration: const InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
+                    labelText: "搜尋單詞",
+                    hintText: "搜尋單詞",
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0))

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
-import 'package:alicsnet_app/page/syllable_practice/syllable_practice_main_page2.dart';
 import 'package:alicsnet_app/view/button_card_view.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 
@@ -72,6 +71,17 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ),
     );
 
+    listViews.add(
+      ButtonCardView(
+        imagePath: 'assets/icon/minimal_pair.svg',
+        backgroundColor: PageTheme.minimal_pair_background,
+        titleTxt: '相似音標或字節口語練習',
+        descripTxt: 'Minimal or Semi-minimal PairPractices',
+        onTapFunction: (){
+          AutoRouter.of(context).pushNamed("/minimal_pair_index");
+        },
+      ),
+    );
     /*
     listViews.add(
       ButtonCardView(
@@ -85,18 +95,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ),
     );
      */
-
-    listViews.add(
-      ButtonCardView(
-        imagePath: 'assets/icon/minimal_pair.svg',
-        backgroundColor: PageTheme.minimal_pair_background,
-        titleTxt: '相似音標或字節口語練習',
-        descripTxt: 'Minimal or Semi-minimal PairPractices',
-        onTapFunction: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SyllablePracticeMainPage()));
-        },
-      ),
-    );
 
     /*
     listViews.add(

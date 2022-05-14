@@ -203,7 +203,7 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> minimalPairTwoFinder(ipa1, ipa2) async {
+  static Future<String> minimalPairTwoFinder(ipa1, ipa2, {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/twoFinder'),
       headers: <String, String>{
@@ -212,13 +212,14 @@ class APIUtil {
       body: {
         'ipa1': ipa1.toString(),
         'ipa2': ipa2.toString(),
+        'dataLimit': dataLimit,
       },
     );
     String json = response.body.toString();
     return json;
   }
 
-  static Future<String> minimalPairWordFinder(word1) async {
+  static Future<String> minimalPairWordFinder(word1, {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/wordFinder'),
       headers: <String, String>{
@@ -226,6 +227,7 @@ class APIUtil {
       },
       body: {
         'word1': word1.toString(),
+        'dataLimit': dataLimit,
       },
     );
     String json = response.body.toString();
@@ -361,6 +363,14 @@ class APIUtil {
       body: {
         'word': word,
       },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getIPAAvailable() async {
+    final response = await http.get(
+      Uri.https('api.alicsnet.com', 'app/minimalPair/getIPAAvailable'),
     );
     String json = response.body.toString();
     return json;
