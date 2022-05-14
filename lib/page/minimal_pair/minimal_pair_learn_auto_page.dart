@@ -757,7 +757,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       _answerText = text;
     });
 
-    if(text != '' && isFinalResult){
+    if(_answerText != '' && isFinalResult){
       sendChatMessage(true, 'Me', [TextSpan(text: text)]);
       _finishQuizData['secondsArray']!.add(_answerSeconds);
 
