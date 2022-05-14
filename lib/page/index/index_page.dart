@@ -1,7 +1,7 @@
+import 'package:alicsnet_app/page/new_template/index_learn_record_index_page.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/index/index_account_page.dart';
 import 'package:alicsnet_app/page/index/index_home_page.dart';
-import 'package:alicsnet_app/page/index/index_learn_record_index_page.dart';
 import 'package:alicsnet_app/page/index/index_setting_page.dart';
 import 'package:alicsnet_app/page/index/index_vocabulary_test_index_page.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
