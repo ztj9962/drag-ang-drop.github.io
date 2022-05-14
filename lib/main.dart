@@ -11,6 +11,7 @@ import 'package:alicsnet_app/model/purchase_provider_model.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -41,21 +42,33 @@ class MyApp extends StatelessWidget {
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
-    ],
-    child:
-    MaterialApp.router(
-      title: 'Alicsnet APP',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: PageTheme.fontName,
-        primarySwatch: Colors.blue,
-      ),
-      builder: EasyLoading.init(),
-      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
-      routeInformationParser:_appRouter.defaultRouteParser(),
-    ),);
+
+    return FlutterWebFrame(
+      maximumSize: Size(720.0, 1280.0),
+      enabled: kIsWeb,
+      backgroundColor: Colors.white10,
+      builder: (context) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
+          ],
+          child: MaterialApp.router(
+            title: 'Alicsnet APP',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: PageTheme.fontName,
+              primarySwatch: Colors.blue,
+            ),
+            builder: EasyLoading.init(),
+            routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
+            routeInformationParser:_appRouter.defaultRouteParser(),
+          )
+        );
+      },
+    );
+
+
+
+
   }
 }
