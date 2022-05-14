@@ -148,6 +148,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     await initAnswerTimer();
     await initTts();
     await initSpeechState();
+    await initWordData();
     await initTestQuestions();
     await initChatBot();
   }
@@ -296,7 +297,6 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
 
-
     var getSentences;
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'10');
@@ -374,7 +374,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.minimal_pair_background,
+          backgroundColor: PageTheme.vocabulary_practice_total_background,
           title: (_quizID != 0)? Text('記錄檔') : (_wordSet['learningClassification'] != '')? Text('單字集') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
         ),
         body: Column(
@@ -392,7 +392,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
               ),
               const Divider(
                 thickness: 1,
-                color: PageTheme.minimal_pair_background,
+                color: PageTheme.vocabulary_practice_total_background,
               ),
               Expanded(
                 flex: 1,
@@ -406,7 +406,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.minimal_pair_background,
+                          backgroundColor: PageTheme.vocabulary_practice_total_background,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
