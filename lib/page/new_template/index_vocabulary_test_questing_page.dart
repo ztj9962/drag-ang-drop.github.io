@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
@@ -13,7 +14,7 @@ class IndexVocabularyTestQuestingPage extends StatefulWidget {
 class _IndexVocabularyTestQuestingPage
     extends State<IndexVocabularyTestQuestingPage> {
   List<Widget> listViews = <Widget>[];
-  List<String> text = ['A','B','C','D','E'];
+  List<String> text = ['A', 'B', 'C', 'D', 'E'];
 
   @override
   void initState() {
@@ -68,12 +69,18 @@ class _IndexVocabularyTestQuestingPage
                 padding: const EdgeInsets.all(10.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text("第一題"),
+                  child: AutoSizeText(
+                    "第一題",
+                    maxLines: 1,
+                  ),
                 )),
             Flexible(fit: FlexFit.tight, child: SizedBox()),
             Align(
               alignment: Alignment.centerRight,
-              child: Text("1/50"),
+              child: AutoSizeText(
+                "1/50",
+                maxLines: 1,
+              ),
             )
           ],
         ),
@@ -100,16 +107,12 @@ class _IndexVocabularyTestQuestingPage
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle:
                 MaterialStateProperty.all(const TextStyle(fontSize: 24))),
-        child: Row(
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text("題目"),
-                )),
-            Flexible(fit: FlexFit.tight, child: SizedBox()),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(70.0),
+          child: AutoSizeText(
+            "題目",
+            maxLines: 1,
+          ),
         ),
         onPressed: () {},
       ),
@@ -136,7 +139,7 @@ class _IndexVocabularyTestQuestingPage
                   padding: const EdgeInsets.all(10.0),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text(text[i]+"選項"),
+                    child: AutoSizeText(text[i] + "選項",maxLines: 1,),
                   )),
               Flexible(fit: FlexFit.tight, child: SizedBox()),
             ],
