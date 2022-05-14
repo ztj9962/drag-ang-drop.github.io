@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-
+import 'package:alicsnet_app/model/auth_respository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +48,8 @@ class _CustomArticlePracticeSentenceIndexPage
   void initState() {
     super.initState();
     creatTopic();
-    userId =  FirebaseAuth.instance.currentUser!.uid;
+    userId = FirebaseAuth.instance.currentUser!.uid;
+    //getUid();
     //createTopic();
   }
 
@@ -57,9 +59,9 @@ class _CustomArticlePracticeSentenceIndexPage
     super.dispose();
   }
 
-
   //創建topiWidget
-  void creatTopic() {
+  void creatTopic() async{
+
     sentenceExampleData.sentence.keys.forEach((key) {
       topicList.add(
         Padding(
@@ -165,7 +167,7 @@ class _CustomArticlePracticeSentenceIndexPage
             title: Column(
               children: <Widget>[
                 Text(
-                  '自定義文章句子練習',
+                  '自訂文章句子練習',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
