@@ -135,8 +135,6 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
       ));
     }
     EasyLoading.dismiss();
-
-
   }
 
   Future<void> initSpeechState() async {

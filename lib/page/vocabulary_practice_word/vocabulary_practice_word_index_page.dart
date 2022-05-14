@@ -421,7 +421,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 )
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 1,
                               child: OutlinedButton(
                                 style: ButtonStyle(
                                     side: MaterialStateProperty.all(
@@ -434,9 +434,34 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     foregroundColor: MaterialStateProperty.all(PageTheme.vocabulary_practice_total_green_1,),
                                     textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
                                 ),
-                                child: const Text('手動'),
+                                child: const AutoSizeText(
+                                  '手動',
+                                  maxLines: 1,
+                                ),
                                 onPressed: () {
                                   AutoRouter.of(context).push(VocabularyPracticeWordLearnManualRoute(word:_wordData[index]['word']));
+                                },
+                              ),
+                            ),Expanded(
+                              flex: 1,
+                              child: OutlinedButton(
+                                style: ButtonStyle(
+                                    side: MaterialStateProperty.all(
+                                        BorderSide(
+
+                                            color: PageTheme.vocabulary_practice_total_green_1,
+                                            width: 1.0,
+                                            style: BorderStyle.solid)
+                                    ),
+                                    foregroundColor: MaterialStateProperty.all(PageTheme.vocabulary_practice_total_green_1,),
+                                    textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
+                                ),
+                                child: const AutoSizeText(
+                                  '自動',
+                                  maxLines: 1,
+                                ),
+                                onPressed: () {
+                                  AutoRouter.of(context).push(VocabularyPracticeWordLearnAutoRoute(word:_wordData[index]['word']));
                                 },
                               ),
                             ),
