@@ -11,7 +11,7 @@
         </intent>
     </queries>
    <application
-        android:label="alicsnet_app"
+        android:label="Alicsnet APP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

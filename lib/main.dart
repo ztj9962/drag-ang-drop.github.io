@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     ],
     child:
     MaterialApp.router(
-      title: 'English Study',
+      title: 'Alicsnet APP',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: PageTheme.fontName,
