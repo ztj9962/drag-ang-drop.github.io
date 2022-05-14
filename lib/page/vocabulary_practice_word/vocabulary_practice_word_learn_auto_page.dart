@@ -745,7 +745,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
       _answerText = text;
     });
 
-    if(text != '' && isFinalResult){
+    if(isFinalResult && _answerText!=""){
       sendChatMessage(true, 'Me', [TextSpan(text: text)]);
       _finishQuizData['secondsArray']!.add(_answerSeconds);
 
@@ -757,7 +757,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
         _allowTouchButtons['pauseButton'] = false;
       });
 
-      _responseChatBot(text);
+      _responseChatBot(_answerText);
     }
   }
 
