@@ -35,7 +35,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: PageTheme.voabulary_practice_sentence_background,
+        backgroundColor: PageTheme.app_theme_blue,
         title: Column(
           children: <Widget>[
             Text(
@@ -80,14 +80,14 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     listViews.add(
       const TitleView(
         titleTxt: '發音練習',
-        titleColor: PageTheme.voabulary_practice_sentence_background,
+        titleColor: PageTheme.app_theme_blue,
       ),
     );
 
     listViews.add(
       ButtonCardView(
         imagePath: 'assets/icon/sentence_practice.svg',
-        backgroundColor: PageTheme.voabulary_practice_sentence_background,
+        backgroundColor: PageTheme.app_theme_blue,
         titleTxt: '發音練習(自動)',
         descripTxt: 'SubTitle text here',
         onTapFunction: (){
@@ -98,7 +98,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     listViews.add(
       ButtonCardView(
         imagePath: 'assets/icon/sentence_practice.svg',
-        backgroundColor: PageTheme.voabulary_practice_sentence_background,
+        backgroundColor: PageTheme.app_theme_blue,
         titleTxt: '發音練習(手動)',
         descripTxt: 'SubTitle text here',
         onTapFunction: (){
@@ -111,7 +111,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     listViews.add(
       const TitleView(
         titleTxt: '主題式發音練習',
-        titleColor: PageTheme.voabulary_practice_sentence_background,
+        titleColor: PageTheme.app_theme_blue,
       ),
     );
 

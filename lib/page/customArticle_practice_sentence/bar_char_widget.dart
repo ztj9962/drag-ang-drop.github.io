@@ -1,7 +1,8 @@
 
+import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import '../page_theme.dart';
+
 class _BarChart extends StatelessWidget {
 
   List data = [];
@@ -270,7 +271,7 @@ class BarChartSample3State extends State<BarChartSample3> {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: PageTheme.cutom_article_practice_background,
+        color: PageTheme.app_theme_blue,
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,

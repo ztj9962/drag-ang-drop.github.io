@@ -47,7 +47,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: PageTheme.minimal_pair_background,
+          backgroundColor: PageTheme.app_theme_blue,
           centerTitle: true,
           title: Column(
             children: const [
@@ -72,7 +72,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                         maxLines: 1,
                       ),
                       style: ElevatedButton.styleFrom(
-                          primary: PageTheme.minimal_pair_background,
+                          primary: PageTheme.app_theme_blue,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           shadowColor: Colors.black,
@@ -91,7 +91,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                     width: 350,
                     decoration: BoxDecoration(
                       border:
-                      Border.all(color: PageTheme.minimal_pair_background),
+                      Border.all(color: PageTheme.app_theme_blue),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: DropdownButton(
@@ -102,7 +102,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       hint: AutoSizeText(
                         '   請選擇第一個字元',
                         style:
-                        TextStyle(color: PageTheme.minimal_pair_background),
+                        TextStyle(color: PageTheme.app_theme_blue),
                         maxLines: 1,
                       ),
                       items: _IPA1List?.map<DropdownMenuItem<String>>((String value) {
@@ -111,7 +111,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                           child: AutoSizeText(
                             '   ${value}',
                             style:
-                            TextStyle(color: PageTheme.minimal_pair_background),
+                            TextStyle(color: PageTheme.app_theme_blue),
                             maxLines: 1,
                           ),
                         );
@@ -135,7 +135,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                     width: 350,
                     decoration: BoxDecoration(
                       border:
-                      Border.all(color: PageTheme.minimal_pair_background),
+                      Border.all(color: PageTheme.app_theme_blue),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: DropdownButton(
@@ -146,7 +146,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       hint: AutoSizeText(
                         '   請選擇第二個字元',
                         style:
-                        TextStyle(color: PageTheme.minimal_pair_background),
+                        TextStyle(color: PageTheme.app_theme_blue),
                         maxLines: 1,
                       ),
                       items: _IPA2List?.map<DropdownMenuItem<String>>((String value) {
@@ -155,7 +155,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                           child: AutoSizeText(
                             '   ${value}',
                             style:
-                            TextStyle(color: PageTheme.minimal_pair_background),
+                            TextStyle(color: PageTheme.app_theme_blue),
                             maxLines: 1,
                           ),
                         );
@@ -182,7 +182,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                         maxLines: 1,
                       ),
                       style: ElevatedButton.styleFrom(
-                          primary: PageTheme.minimal_pair_background,
+                          primary: PageTheme.app_theme_blue,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           shadowColor: Colors.black,
@@ -229,7 +229,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                         style: TextStyle(fontSize: 20),
                       ),
                       style: ElevatedButton.styleFrom(
-                          primary: PageTheme.minimal_pair_background,
+                          primary: PageTheme.app_theme_blue,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           shadowColor: Colors.black,
@@ -269,7 +269,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       maxLines: 1,
                     ),
                     style: ElevatedButton.styleFrom(
-                        primary: PageTheme.minimal_pair_background,
+                        primary: PageTheme.app_theme_blue,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         shadowColor: Colors.black,

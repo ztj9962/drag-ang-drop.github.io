@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/view/outlined_button_card_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
@@ -48,9 +49,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
     );
 
     listViews.add(
-      ButtonCardView(
+      OutlinedButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_word_02.svg',
-        backgroundColor: PageTheme.vocabulary_practice_total_background,
         titleTxt: 'Most common words with examplos',
         descripTxt: '一萬個最常用的單字和例句',
         onTapFunction: (){
@@ -60,9 +60,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
     );
 
     listViews.add(
-      ButtonCardView(
+      OutlinedButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_topics.svg',
-        backgroundColor: PageTheme.voabulary_practice_sentence_background,
         titleTxt: 'Common English based on topics',
         descripTxt: '生活英語情境',
         onTapFunction: (){
@@ -71,9 +70,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ),
     );
     listViews.add(
-      ButtonCardView(
+      OutlinedButtonCardView(
         imagePath: 'assets/icon/customArticle_02.svg',
-        backgroundColor: PageTheme.minimal_pair_background,
         titleTxt: 'User Input',
         descripTxt: '學習者提供教材',
         onTapFunction: (){
@@ -83,9 +81,8 @@ class _IndexHomePageState extends State<IndexHomePage> {
     );
 
     listViews.add(
-      ButtonCardView(
+      OutlinedButtonCardView(
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        backgroundColor: PageTheme.minimal_pair_background,
         titleTxt: 'Minimal Pair',
         descripTxt: '相似字音練習',
         onTapFunction: (){

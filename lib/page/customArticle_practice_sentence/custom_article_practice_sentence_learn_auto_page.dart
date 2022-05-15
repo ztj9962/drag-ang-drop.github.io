@@ -4,11 +4,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:io' show Platform;
 import 'dart:math';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -273,7 +271,7 @@ class _CustomArticlePracticeSentenceLearnAutoPage extends State<CustomArticlePra
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.cutom_article_practice_background,
+          backgroundColor: PageTheme.app_theme_blue,
           title:  Text("自動-句子練習"),
         ),
         body: Column(
@@ -291,7 +289,7 @@ class _CustomArticlePracticeSentenceLearnAutoPage extends State<CustomArticlePra
               ),
               const Divider(
                 thickness: 1,
-                color: PageTheme.cutom_article_practice_background,
+                color: PageTheme.app_theme_blue,
               ),
               Expanded(
                 flex: 1,
@@ -305,7 +303,7 @@ class _CustomArticlePracticeSentenceLearnAutoPage extends State<CustomArticlePra
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.cutom_article_practice_background,
+                          backgroundColor: PageTheme.app_theme_blue,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),

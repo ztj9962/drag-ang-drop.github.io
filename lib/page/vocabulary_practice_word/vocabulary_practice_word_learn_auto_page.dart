@@ -374,7 +374,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.vocabulary_practice_total_background,
+          backgroundColor: PageTheme.app_theme_blue,
           title: (_quizID != 0)? Text('記錄檔') : (_wordSet['learningClassification'] != '')? Text('單字集') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
         ),
         body: Column(
@@ -392,7 +392,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
               ),
               const Divider(
                 thickness: 1,
-                color: PageTheme.vocabulary_practice_total_background,
+                color: PageTheme.app_theme_blue,
               ),
               Expanded(
                 flex: 1,
@@ -406,7 +406,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.vocabulary_practice_total_background,
+                          backgroundColor: PageTheme.app_theme_blue,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),

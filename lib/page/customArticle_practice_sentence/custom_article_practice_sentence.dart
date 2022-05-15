@@ -1,10 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
-import 'package:alicsnet_app/model/auth_respository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
-import 'package:auto_route/auto_route.dart';
+import 'dart:math';import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -17,7 +13,6 @@ import 'package:alicsnet_app/page/login/fade_animation.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 
 import 'package:alicsnet_app/page/page_theme.dart';
-import 'custom_article_practice_sentence_learn_auto_page.dart';
 
 class CustomArticlePracticeSentenceIndexPage extends StatefulWidget {
   const CustomArticlePracticeSentenceIndexPage({Key? key}) : super(key: key);
@@ -84,7 +79,7 @@ class _CustomArticlePracticeSentenceIndexPage
             },
             child: Text('${key}'),
             style: ElevatedButton.styleFrom(
-                primary: PageTheme.cutom_article_practice_background),
+                primary: PageTheme.app_theme_blue),
           ),
         ),
       );
@@ -163,7 +158,7 @@ class _CustomArticlePracticeSentenceIndexPage
         backgroundColor: Colors.white, //Color(0xffffdef5),
         appBar: AppBar(
             centerTitle: true,
-            backgroundColor: PageTheme.cutom_article_practice_background,
+            backgroundColor: PageTheme.app_theme_blue,
             title: Column(
               children: <Widget>[
                 Text(

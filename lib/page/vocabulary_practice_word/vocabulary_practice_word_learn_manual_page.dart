@@ -226,7 +226,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.vocabulary_practice_total_background,
+          backgroundColor: PageTheme.app_theme_blue,
           title: Text('練習發音\n${_word}', textAlign: TextAlign.center),
         ),
         body: Column(
@@ -301,7 +301,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
               const Divider(
                 thickness: 1,
-                color: PageTheme.vocabulary_practice_total_background,
+                color: PageTheme.app_theme_blue,
               ),
               Expanded(
                 flex: 5,
@@ -319,7 +319,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                                     text: '',
                                     style: const TextStyle(
                                       fontSize: 20 ,
-                                      color: PageTheme.vocabulary_practice_total_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     children: _replyTextWidget,
                                   ),
@@ -383,7 +383,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.vocabulary_practice_total_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
@@ -426,7 +426,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.vocabulary_practice_total_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: const Icon(Icons.navigate_next_outlined),
@@ -458,7 +458,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                               ),
                               const Divider(
                                 thickness: 1,
-                                color: PageTheme.vocabulary_practice_total_background,
+                                color: PageTheme.app_theme_blue,
                               ),
                               Container(
                                 padding: EdgeInsets.all(8),
@@ -496,7 +496,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                                   children: <Widget>[
                                     const Divider(
                                       thickness: 1,
-                                      color: PageTheme.vocabulary_practice_total_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     Container(
                                       padding: const EdgeInsets.all(8),
@@ -564,7 +564,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
               const Divider(
                 thickness: 1,
-                color: PageTheme.vocabulary_practice_total_background,
+                color: PageTheme.app_theme_blue,
               ),
               Expanded(
                 flex: 1,
@@ -578,7 +578,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.vocabulary_practice_total_background,
+                          backgroundColor: PageTheme.app_theme_blue,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),

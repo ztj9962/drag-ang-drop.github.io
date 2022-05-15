@@ -201,7 +201,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.minimal_pair_background,
+          backgroundColor: PageTheme.app_theme_blue,
           title: Text('(手動)(' ),
         ),
         body: Column(
@@ -222,7 +222,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                                     text: '',
                                     style: const TextStyle(
                                       fontSize: 20 ,
-                                      color: PageTheme.minimal_pair_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     children: _replyTextWidget,
                                   ),
@@ -286,7 +286,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.minimal_pair_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
@@ -329,7 +329,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.minimal_pair_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: const Icon(Icons.navigate_next_outlined),
@@ -361,7 +361,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                               ),
                               const Divider(
                                 thickness: 1,
-                                color: PageTheme.minimal_pair_background,
+                                color: PageTheme.app_theme_blue,
                               ),
                               Container(
                                 padding: EdgeInsets.all(8),
@@ -399,7 +399,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                                   children: <Widget>[
                                     const Divider(
                                       thickness: 1,
-                                      color: PageTheme.minimal_pair_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     Container(
                                       padding: const EdgeInsets.all(8),
@@ -467,7 +467,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
 
               const Divider(
                 thickness: 1,
-                color: PageTheme.minimal_pair_background,
+                color: PageTheme.app_theme_blue,
               ),
 
               Expanded(
@@ -482,7 +482,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.minimal_pair_background,
+                          backgroundColor: PageTheme.app_theme_blue,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),

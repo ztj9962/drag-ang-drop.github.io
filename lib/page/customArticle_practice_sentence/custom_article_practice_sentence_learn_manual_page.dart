@@ -198,7 +198,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.cutom_article_practice_background,
+          backgroundColor: PageTheme.app_theme_blue,
           title: Text('(手動)(' + '句子練習'  ')' ),
         ),
         body: Column(
@@ -219,7 +219,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                                     text: '',
                                     style: const TextStyle(
                                       fontSize: 20 ,
-                                      color: PageTheme.cutom_article_practice_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     children: _replyTextWidget,
                                   ),
@@ -283,7 +283,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.cutom_article_practice_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
@@ -320,7 +320,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.cutom_article_practice_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: const Icon(Icons.navigate_before_outlined,),
@@ -354,7 +354,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                                         children: [
                                           Center(
                                             child: CircleAvatar(
-                                              backgroundColor: PageTheme.cutom_article_practice_background,
+                                              backgroundColor: PageTheme.app_theme_blue,
                                               radius: 25.0,
                                               child: IconButton(
                                                 icon: const Icon(Icons.navigate_next_outlined),
@@ -386,7 +386,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                               ),
                               const Divider(
                                 thickness: 1,
-                                color: PageTheme.cutom_article_practice_background,
+                                color: PageTheme.app_theme_blue,
                               ),
                               Container(
                                 padding: EdgeInsets.all(8),
@@ -424,7 +424,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                                   children: <Widget>[
                                     const Divider(
                                       thickness: 1,
-                                      color: PageTheme.cutom_article_practice_background,
+                                      color: PageTheme.app_theme_blue,
                                     ),
                                     Container(
                                       padding: const EdgeInsets.all(8),
@@ -489,7 +489,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
               const Divider(
                 thickness: 1,
-                color: PageTheme.cutom_article_practice_background,
+                color: PageTheme.app_theme_blue,
               ),
 
               Expanded(
@@ -504,7 +504,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
                       Expanded(
                         flex: 1,
                         child: CircleAvatar(
-                          backgroundColor: PageTheme.cutom_article_practice_background,
+                          backgroundColor: PageTheme.app_theme_blue,
                           radius: 40.0,
                           child: IconButton(
                             icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),

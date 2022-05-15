@@ -181,7 +181,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: PageTheme.vocabulary_practice_total_background,
+        backgroundColor: PageTheme.app_theme_blue,
         title: Column(
           children: <Widget>[
             Text(
@@ -256,7 +256,10 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: PageTheme.vocabulary_practice_total_background,
+                  border: Border.all(
+                    color: PageTheme.app_theme_blue,
+                    width: 2,
+                  ),
                   borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                 ),
                 child: Column(
@@ -278,8 +281,8 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                       },
                       min: _sliderMin.toDouble(),
                       max: _sliderMax.toDouble(),
-                      activeColor: PageTheme.vocabulary_practice_total_green_1,
-                      inactiveColor: Colors.white,
+                      activeColor: PageTheme.app_theme_blue,
+                      inactiveColor: Colors.lightBlue,
                       divisions: (_sliderMax - _sliderMin),
                       //value: _applicationSettingsDataTtsRate,
                       value: _sliderIndex.toDouble(),
@@ -298,7 +301,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20,
-                                  color: Colors.white,
+                                  color: PageTheme.app_theme_blue,
                                 ),
                                 maxLines: 2,
                               )
@@ -311,7 +314,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     padding: EdgeInsets.all(4),
                                     child: Center(
                                       child: CircleAvatar(
-                                        backgroundColor: PageTheme.vocabulary_practice_total_green_1,
+                                        backgroundColor: PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.remove),
@@ -327,7 +330,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     padding: EdgeInsets.all(4),
                                     child: Center(
                                       child: CircleAvatar(
-                                        backgroundColor: PageTheme.vocabulary_practice_total_green_1,
+                                        backgroundColor: PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.add),
@@ -373,7 +376,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
 
             ),
             Container(
-              padding: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(8.0),
               child: ListView.separated(
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
@@ -381,6 +384,13 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                 itemBuilder: (context, index) {
                   return Container(
                     padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: PageTheme.app_theme_blue,
+                        width: 2,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    ),
                     child: Column(
                       children: <Widget>[
 
@@ -390,7 +400,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 flex: 1,
                                 child: IconButton(
                                   icon: Icon(Icons.volume_up),
-                                  color: Colors.black,
+                                  color: PageTheme.app_theme_blue,
                                   onPressed: () async {
                                     //_adjustSliderIndex(-1);
                                     print(_wordData[index]['word']);
@@ -400,19 +410,21 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 )
                             ),
                             Expanded(
-                                flex: 3,
+                                flex: 4,
                                 child: Column(
                                   children: <Widget>[
                                     AutoSizeText(
                                       _wordData[index]['word'],
-                                      style: const TextStyle(
+                                      style: TextStyle(
+                                        color: PageTheme.app_theme_blue,
                                         fontSize: 24,
                                       ),
                                       maxLines: 1,
                                     ),
                                     AutoSizeText(
                                       '[${_wordData[index]['wordIPA']}]',
-                                      style: const TextStyle(
+                                      style: TextStyle(
+                                        color: PageTheme.app_theme_blue,
                                         fontSize: 20,
                                       ),
                                       maxLines: 1,
@@ -421,17 +433,17 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 )
                             ),
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: OutlinedButton(
                                 style: ButtonStyle(
                                     side: MaterialStateProperty.all(
                                         BorderSide(
 
-                                            color: PageTheme.vocabulary_practice_total_green_1,
+                                            color: PageTheme.app_theme_blue,
                                             width: 1.0,
                                             style: BorderStyle.solid)
                                     ),
-                                    foregroundColor: MaterialStateProperty.all(PageTheme.vocabulary_practice_total_green_1,),
+                                    foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
                                     textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
                                 ),
                                 child: const AutoSizeText(
@@ -443,17 +455,17 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                 },
                               ),
                             ),Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: OutlinedButton(
                                 style: ButtonStyle(
                                     side: MaterialStateProperty.all(
                                         BorderSide(
 
-                                            color: PageTheme.vocabulary_practice_total_green_1,
+                                            color: PageTheme.app_theme_blue,
                                             width: 1.0,
                                             style: BorderStyle.solid)
                                     ),
-                                    foregroundColor: MaterialStateProperty.all(PageTheme.vocabulary_practice_total_green_1,),
+                                    foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
                                     textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
                                 ),
                                 child: const AutoSizeText(
@@ -472,7 +484,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         ),
                         const Divider(
                           thickness: 2,
-                          color: Colors.black,
+                          color: PageTheme.app_theme_blue,
                         ),
                         /*
                         AutoSizeText(
@@ -489,6 +501,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                               return Center(
                                   child: AutoSizeText(
                                     '[${_wordData[index]['wordMeaningList'][index2]['pos']}] ${_wordData[index]['wordMeaningList'][index2]['meaning']}',
+                                    style: TextStyle(
+                                      color: PageTheme.app_theme_blue,
+                                    ),
                                     maxLines: 1,
                                   )
                               );
@@ -499,10 +514,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                   );
                 },
                 separatorBuilder: (context, index){
-                  return const Divider(
-                    thickness: 2,
-                    color: PageTheme.vocabulary_practice_total_green_1,
-                  );
+                  return const Padding(padding: const EdgeInsets.all(8.0));
                 },
               ),
             ),
