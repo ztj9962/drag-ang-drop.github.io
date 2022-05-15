@@ -229,7 +229,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -262,7 +262,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -275,7 +275,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       "01  ",
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 40,
+                                          fontSize: 35,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -284,7 +284,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       '  /35',
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 30,
+                                          fontSize: 25,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -312,7 +312,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -325,7 +325,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       "01  ",
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 40,
+                                          fontSize: 35,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -334,7 +334,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       '  /35',
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 30,
+                                          fontSize: 25,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -411,7 +411,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -444,7 +444,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -457,7 +457,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       "01  ",
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 40,
+                                          fontSize: 35,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -466,7 +466,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       '  /35',
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 30,
+                                          fontSize: 25,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -494,7 +494,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                             Padding(padding: EdgeInsets.all(7)),
                             new CircularPercentIndicator(
                               backgroundWidth: 15,
-                              radius: 60.0,
+                              radius: 55.0,
                               lineWidth: 13.0,
                               animation: true,
                               animationDuration: 1200,
@@ -507,7 +507,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       "01  ",
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 40,
+                                          fontSize: 35,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
@@ -516,7 +516,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       '  /35',
                                       style: TextStyle(
                                           height: 1,
-                                          fontSize: 30,
+                                          fontSize: 25,
                                           color: PageTheme.learn_record_score_dark_green),
                                     ),
                                   ),
