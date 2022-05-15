@@ -42,7 +42,25 @@ class MyApp extends StatelessWidget {
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-
+    
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
+    ],
+    child:
+    MaterialApp.router(
+      title: 'Alicsnet APP',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: PageTheme.fontName,
+        primarySwatch: Colors.blue,
+      ),
+      builder: EasyLoading.init(),
+      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
+      routeInformationParser:_appRouter.defaultRouteParser(),
+    ),);
+    /*
+    //強制限制 Web 版尺寸
     return FlutterWebFrame(
       maximumSize: Size(720.0, 1280.0),
       enabled: kIsWeb,
@@ -66,6 +84,7 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+    */
 
 
 
