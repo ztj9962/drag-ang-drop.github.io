@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:io' show Platform;
 import 'dart:math';
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -387,7 +388,18 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: (_quizID != 0)? Text('記錄檔') : (_wordSet['learningClassification'] != '')? Text('單字集') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
         body: Column(
             children: <Widget>[

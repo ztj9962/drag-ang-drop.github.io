@@ -50,9 +50,15 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
           backgroundColor: PageTheme.app_theme_black,
           centerTitle: true,
           title: Column(
-            children: const [
-              Text("音標練習"),
-              Text("Minimal Pair", style: TextStyle(fontSize: 12.0)),
+            children: <Widget>[
+              AutoSizeText(
+                'Minimal Pair',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '相似字音練習',
+                maxLines: 1,
+              ),
             ],
           ),
         ),

@@ -185,28 +185,16 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         backgroundColor: PageTheme.app_theme_black,
         title: Column(
           children: <Widget>[
-            Text(
-              '口語句子練習',
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-                letterSpacing: 3.0,
-                color: Color(0xFFFEFEFE),
-              ),
+            AutoSizeText(
+              'Most common words with examplos',
+              maxLines: 1,
             ),
-            Text(
-              'Sentence Voabulary Practice',
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                letterSpacing: 3.0,
-                color: Color(0xFFFEFEFE),
-              ),
+            AutoSizeText(
+              '一萬個最常用的單字和例句',
+              maxLines: 1,
             ),
           ],
         ),
-
-
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),

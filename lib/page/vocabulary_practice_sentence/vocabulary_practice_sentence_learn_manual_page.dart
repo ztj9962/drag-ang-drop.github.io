@@ -194,7 +194,18 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: Text('(手動)(' + _topicClass + ': ' + _topicName + ')' ),
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
         body: Column(
             children: <Widget>[

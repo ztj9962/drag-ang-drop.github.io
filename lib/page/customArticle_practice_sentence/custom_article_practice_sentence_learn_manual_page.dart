@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -199,7 +200,18 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: Text('(手動)(' + '句子練習'  ')' ),
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
         body: Column(
             children: <Widget>[

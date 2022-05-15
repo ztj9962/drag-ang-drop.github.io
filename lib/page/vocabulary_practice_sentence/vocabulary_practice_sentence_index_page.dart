@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart';
@@ -38,28 +39,16 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
         backgroundColor: PageTheme.app_theme_black,
         title: Column(
           children: <Widget>[
-            Text(
-              '口語句子練習',
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-                letterSpacing: 3.0,
-                color: Color(0xFFFEFEFE),
-              ),
+            AutoSizeText(
+              'Common English based on topics',
+              maxLines: 1,
             ),
-            Text(
-              'Sentence Voabulary Practice',
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                letterSpacing: 3.0,
-                color: Color(0xFFFEFEFE),
-              ),
+            AutoSizeText(
+              '生活英語情境',
+              maxLines: 1,
             ),
           ],
         ),
-
-
       ),
       body: ListView.builder(
           padding: EdgeInsets.only(

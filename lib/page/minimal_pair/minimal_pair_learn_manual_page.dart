@@ -202,7 +202,18 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: Text('(手動)(' ),
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
         body: Column(
             children: <Widget>[

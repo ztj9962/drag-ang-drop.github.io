@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -161,26 +162,17 @@ class _CustomArticlePracticeSentenceIndexPage
             backgroundColor: PageTheme.app_theme_black,
             title: Column(
               children: <Widget>[
-                Text(
-                  '自訂文章句子練習',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    letterSpacing: 3.0,
-                    color: Color(0xFFFEFEFE),
-                  ),
+                AutoSizeText(
+                  'User Input',
+                  maxLines: 1,
                 ),
-                Text(
-                  'Custom Article Practice',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    letterSpacing: 3.0,
-                    color: Color(0xFFFEFEFE),
-                  ),
+                AutoSizeText(
+                  '學習者提供教材',
+                  maxLines: 1,
                 ),
               ],
-            )),
+            ),
+        ),
         body: ListView(
           padding: EdgeInsets.only(
             top: 24,

@@ -227,7 +227,18 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: Text('練習發音\n${_word}', textAlign: TextAlign.center),
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
         body: Column(
             children: <Widget>[
