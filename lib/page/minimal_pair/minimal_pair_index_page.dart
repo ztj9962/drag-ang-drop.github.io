@@ -47,7 +47,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: PageTheme.app_theme_blue,
+          backgroundColor: PageTheme.app_theme_black,
           centerTitle: true,
           title: Column(
             children: const [

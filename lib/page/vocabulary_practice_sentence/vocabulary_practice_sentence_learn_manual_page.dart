@@ -193,7 +193,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.app_theme_blue,
+          backgroundColor: PageTheme.app_theme_black,
           title: Text('(手動)(' + _topicClass + ': ' + _topicName + ')' ),
         ),
         body: Column(

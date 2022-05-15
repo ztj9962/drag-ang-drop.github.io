@@ -182,7 +182,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: PageTheme.app_theme_blue,
+        backgroundColor: PageTheme.app_theme_black,
         title: Column(
           children: <Widget>[
             Text(

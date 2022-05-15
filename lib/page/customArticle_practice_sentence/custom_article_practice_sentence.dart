@@ -158,7 +158,7 @@ class _CustomArticlePracticeSentenceIndexPage
         backgroundColor: Colors.white, //Color(0xffffdef5),
         appBar: AppBar(
             centerTitle: true,
-            backgroundColor: PageTheme.app_theme_blue,
+            backgroundColor: PageTheme.app_theme_black,
             title: Column(
               children: <Widget>[
                 Text(

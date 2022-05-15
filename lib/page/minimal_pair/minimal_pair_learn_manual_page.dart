@@ -201,7 +201,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.app_theme_blue,
+          backgroundColor: PageTheme.app_theme_black,
           title: Text('(手動)(' ),
         ),
         body: Column(

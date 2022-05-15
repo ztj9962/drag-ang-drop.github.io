@@ -58,7 +58,7 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: PageTheme.index_bar_background,
+        backgroundColor: PageTheme.app_theme_black,
         title: Text(
           selectedTitle,
           style: const TextStyle(

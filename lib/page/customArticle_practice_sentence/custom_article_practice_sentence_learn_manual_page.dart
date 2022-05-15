@@ -198,7 +198,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.app_theme_blue,
+          backgroundColor: PageTheme.app_theme_black,
           title: Text('(手動)(' + '句子練習'  ')' ),
         ),
         body: Column(

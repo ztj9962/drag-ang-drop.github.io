@@ -386,7 +386,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: PageTheme.app_theme_blue,
+          backgroundColor: PageTheme.app_theme_black,
           title: (_quizID != 0)? Text('記錄檔') : (_wordSet['learningClassification'] != '')? Text('單字集') : Text('(自)[${_applicationSettingsDataListenAndSpeakLevel}/${_applicationSettingsDataListenAndSpeakRanking.round().toString()}] (${_topicClass}:${_topicName})' ),
         ),
         body: Column(
