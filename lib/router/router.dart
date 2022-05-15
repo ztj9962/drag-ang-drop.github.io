@@ -7,8 +7,8 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_learn_auto_page.dart';
 import 'package:alicsnet_app/page/new_template/grammar_correction_main_page.dart';
 import 'package:alicsnet_app/page/new_template/index_learn_record_index_page.dart';
-import 'package:alicsnet_app/page/new_template/index_vocabulary_test_level_select_page.dart';
-import 'package:alicsnet_app/page/new_template/index_vocabulary_test_questing_page.dart';
+import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
+import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_questing_page.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart';
@@ -27,6 +27,7 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
   routes: <AutoRoute>[
     AutoRoute(path: '/', page: SignInPage, initial: true),
     AutoRoute(path: '/index', page: IndexPage),
+
     AutoRoute(path: '/voabulary_practice_sentence_index', page: VocabularyPracticeSentenceIndexPage),
     AutoRoute(path: '/voabulary_practice_sentence_auto', page: VocabularyPracticeSentenceLearnAutoPage),
     AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
@@ -43,9 +44,10 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
     AutoRoute(path: '/customArticle_practice_sentence_auto',page: CustomArticlePracticeSentenceLearnAutoPage),
     AutoRoute(path: '/customArticle_practice_sentence_manual',page: CustomArticlePracticeSentenceLearnManualPage),
 
+    AutoRoute(path: '/vocabulary_test_index', page: VocabularyTestIndexPage),
+    AutoRoute(path: '/vocabulary_test_questing', page: VocabularyTestQuestingPage),
+
     //New Pages Below ↓↓↓
-    AutoRoute(path: '/vocabulary_test_select_level', page: IndexVocabularyTestLevelSelectPage),
-    AutoRoute(path: '/vocabulary_test_questing', page: IndexVocabularyTestQuestingPage),
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),
     AutoRoute(path: '/vocabulary_record_index_page',page: IndexLearnRecordIndexPage),
   ],

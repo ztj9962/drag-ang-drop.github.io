@@ -1,18 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:alicsnet_app/page/page_theme.dart';
 
-class IndexVocabularyTestQuestingPage extends StatefulWidget {
-  const IndexVocabularyTestQuestingPage({Key? key}) : super(key: key);
+class VocabularyTestQuestingPage extends StatefulWidget {
+  const VocabularyTestQuestingPage({Key? key}) : super(key: key);
 
   @override
-  _IndexVocabularyTestQuestingPage createState() =>
-      _IndexVocabularyTestQuestingPage();
+  _VocabularyTestQuestingPage createState() =>
+      _VocabularyTestQuestingPage();
 }
 
-class _IndexVocabularyTestQuestingPage
-    extends State<IndexVocabularyTestQuestingPage> {
+class _VocabularyTestQuestingPage
+    extends State<VocabularyTestQuestingPage> {
   List<Widget> listViews = <Widget>[];
   List<String> text = ['A', 'B', 'C', 'D', 'E'];
 

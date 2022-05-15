@@ -26,9 +26,6 @@ import '../page/minimal_pair/minimal_pair_learn_auto_page.dart' as _i10;
 import '../page/minimal_pair/minimal_pair_learn_manual_page.dart' as _i11;
 import '../page/new_template/grammar_correction_main_page.dart' as _i17;
 import '../page/new_template/index_learn_record_index_page.dart' as _i18;
-import '../page/new_template/index_vocabulary_test_level_select_page.dart'
-    as _i15;
-import '../page/new_template/index_vocabulary_test_questing_page.dart' as _i16;
 import '../page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart'
     as _i3;
 import '../page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart'
@@ -41,6 +38,8 @@ import '../page/vocabulary_practice_word/vocabulary_practice_word_learn_auto_pag
     as _i7;
 import '../page/vocabulary_practice_word/vocabulary_practice_word_learn_manual_page.dart'
     as _i8;
+import '../page/vocabulary_test/vocabulary_test_index_page.dart' as _i15;
+import '../page/vocabulary_test/vocabulary_test_questing_page.dart' as _i16;
 
 class AppRouter extends _i19.RootStackRouter {
   AppRouter([_i20.GlobalKey<_i20.NavigatorState>? navigatorKey])
@@ -157,15 +156,13 @@ class AppRouter extends _i19.RootStackRouter {
               questionList: args.questionList,
               questionIPAList: args.questionIPAList));
     },
-    IndexVocabularyTestLevelSelectRoute.name: (routeData) {
+    VocabularyTestIndexRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: const _i15.IndexVocabularyTestLevelSelectPage());
+          routeData: routeData, child: const _i15.VocabularyTestIndexPage());
     },
-    IndexVocabularyTestQuestingRoute.name: (routeData) {
+    VocabularyTestQuestingRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: const _i16.IndexVocabularyTestQuestingPage());
+          routeData: routeData, child: const _i16.VocabularyTestQuestingPage());
     },
     GrammarCorrectionMainRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
@@ -205,9 +202,9 @@ class AppRouter extends _i19.RootStackRouter {
             path: '/customArticle_practice_sentence_auto'),
         _i19.RouteConfig(CustomArticlePracticeSentenceLearnManualRoute.name,
             path: '/customArticle_practice_sentence_manual'),
-        _i19.RouteConfig(IndexVocabularyTestLevelSelectRoute.name,
-            path: '/vocabulary_test_select_level'),
-        _i19.RouteConfig(IndexVocabularyTestQuestingRoute.name,
+        _i19.RouteConfig(VocabularyTestIndexRoute.name,
+            path: '/vocabulary_test_index'),
+        _i19.RouteConfig(VocabularyTestQuestingRoute.name,
             path: '/vocabulary_test_questing'),
         _i19.RouteConfig(GrammarCorrectionMainRoute.name,
             path: '/grammar_correction_main_page'),
@@ -539,23 +536,22 @@ class CustomArticlePracticeSentenceLearnManualRouteArgs {
 }
 
 /// generated route for
-/// [_i15.IndexVocabularyTestLevelSelectPage]
-class IndexVocabularyTestLevelSelectRoute extends _i19.PageRouteInfo<void> {
-  const IndexVocabularyTestLevelSelectRoute()
-      : super(IndexVocabularyTestLevelSelectRoute.name,
-            path: '/vocabulary_test_select_level');
+/// [_i15.VocabularyTestIndexPage]
+class VocabularyTestIndexRoute extends _i19.PageRouteInfo<void> {
+  const VocabularyTestIndexRoute()
+      : super(VocabularyTestIndexRoute.name, path: '/vocabulary_test_index');
 
-  static const String name = 'IndexVocabularyTestLevelSelectRoute';
+  static const String name = 'VocabularyTestIndexRoute';
 }
 
 /// generated route for
-/// [_i16.IndexVocabularyTestQuestingPage]
-class IndexVocabularyTestQuestingRoute extends _i19.PageRouteInfo<void> {
-  const IndexVocabularyTestQuestingRoute()
-      : super(IndexVocabularyTestQuestingRoute.name,
+/// [_i16.VocabularyTestQuestingPage]
+class VocabularyTestQuestingRoute extends _i19.PageRouteInfo<void> {
+  const VocabularyTestQuestingRoute()
+      : super(VocabularyTestQuestingRoute.name,
             path: '/vocabulary_test_questing');
 
-  static const String name = 'IndexVocabularyTestQuestingRoute';
+  static const String name = 'VocabularyTestQuestingRoute';
 }
 
 /// generated route for
