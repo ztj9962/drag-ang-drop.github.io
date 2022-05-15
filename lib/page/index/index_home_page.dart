@@ -49,10 +49,10 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       ButtonCardView(
-        imagePath: 'assets/icon/vocabulary_practice_word.svg',
+        imagePath: 'assets/icon/vocabulary_practice_word_02.svg',
         backgroundColor: PageTheme.vocabulary_practice_total_background,
-        titleTxt: '一萬常用單字句子口語練習',
-        descripTxt: 'Spoken English sentence pracctice of 10,000 commonly used words',
+        titleTxt: 'Most common words with examplos',
+        descripTxt: '一萬個最常用的單字和例句',
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
@@ -61,35 +61,35 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       ButtonCardView(
-        imagePath: 'assets/icon/sentence_practice.svg',
+        imagePath: 'assets/icon/vocabulary_practice_topics.svg',
         backgroundColor: PageTheme.voabulary_practice_sentence_background,
-        titleTxt: '主題情境句子口語練習',
-        descripTxt: 'Spoken English sentence practices based on topic',
+        titleTxt: 'Common English based on topics',
+        descripTxt: '生活英語情境',
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
+        },
+      ),
+    );
+    listViews.add(
+      ButtonCardView(
+        imagePath: 'assets/icon/customArticle_02.svg',
+        backgroundColor: PageTheme.minimal_pair_background,
+        titleTxt: 'User Input',
+        descripTxt: '學習者提供教材',
+        onTapFunction: (){
+          AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
       ),
     );
 
     listViews.add(
       ButtonCardView(
-        imagePath: 'assets/icon/minimal_pair.svg',
+        imagePath: 'assets/icon/minimal_pair_02.svg',
         backgroundColor: PageTheme.minimal_pair_background,
-        titleTxt: '相似音標或字節口語練習',
-        descripTxt: 'Minimal or Semi-minimal PairPractices',
+        titleTxt: 'Minimal Pair',
+        descripTxt: '相似字音練習',
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
-        },
-      ),
-    );
-    listViews.add(
-      ButtonCardView(
-        imagePath: 'assets/icon/customArticle.svg',
-        backgroundColor: PageTheme.cutom_article_practice_background,
-        titleTxt: '自訂文章句子練習',
-        descripTxt: 'English text here',
-        onTapFunction: (){
-          AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
       ),
     );
