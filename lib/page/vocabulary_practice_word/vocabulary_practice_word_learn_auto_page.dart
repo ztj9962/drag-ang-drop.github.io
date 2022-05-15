@@ -23,8 +23,8 @@ import 'package:wakelock/wakelock.dart';
 
 class VocabularyPracticeWordLearnAutoPage extends StatefulWidget {
 
-  final String word;
-  const VocabularyPracticeWordLearnAutoPage ({ Key? key, required this.word }): super(key: key);
+  final List wordRankingList;
+  const VocabularyPracticeWordLearnAutoPage ({ Key? key, required this.wordRankingList }): super(key: key);
 
   @override
   _VocabularyPracticeWordLearnAutoPage createState() => _VocabularyPracticeWordLearnAutoPage();
@@ -41,8 +41,8 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
   var _startTime;
 
-  late String _word;
-  late Map<String, dynamic> _wordData = {'index': 1, 'classificationName': 'Kindergarten', 'orderNo': 1, 'word': '', 'wordRanking': 1, 'wordType': 'None', 'wordLevel': 'A1', 'wordIPA': 'ðə', 'wordSource': 'cerf1000', 'wordMeaningList': []};
+  late List _wordRankingList;
+  late List<Map<String, dynamic>> _wordData = [{'index': 1, 'classificationName': 'Kindergarten', 'orderNo': 1, 'word': '', 'wordRanking': 1, 'wordType': 'None', 'wordLevel': 'A1', 'wordIPA': 'ðə', 'wordSource': 'cerf1000', 'wordMeaningList': []}];
 
 
 
@@ -122,7 +122,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
   @override
   void initState() {
-    _word = widget.word;
+    _wordRankingList = widget.wordRankingList;
     super.initState();
     initVocabularyPracticeWordLearnAutoPage();
   }
@@ -148,7 +148,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     await initAnswerTimer();
     await initTts();
     await initSpeechState();
-    await initWordData();
+    //await initWordData();
     await initTestQuestions();
     await initChatBot();
   }
@@ -264,24 +264,31 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     await sendNextQuestion();
   }
 
+  /*
   Future<void> initWordData() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try{
-      var getWordData;
-      String getWordDataJSON = await APIUtil.getWordData(_word);
-      getWordData = jsonDecode(getWordDataJSON.toString());
-      print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
+      List<Map<String, dynamic>> wordData = [];
+      _wordList.forEach((element) async {
+        var getWordData;
+        String getWordDataJSON = await APIUtil.getWordData(element);
+        getWordData = jsonDecode(getWordDataJSON.toString());
+        print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
 
-      if (getWordData['apiStatus'] == 'success') {
-        print(getWordData['data']);
-        setState(() {
-          _wordData = getWordData['data'];
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getWordData['apiMessage']),
-        ));
-      }
+        if (getWordData['apiStatus'] == 'success') {
+          print(getWordData['data']);
+          _wordData.add(getWordData['data']);
+          //wordData.addAll(getWordData['data']);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(getWordData['apiMessage']),
+          ));
+        }
+
+      });
+      setState(() {
+        _wordData = wordData;
+      });
     } catch(e) {
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -290,24 +297,28 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     }
     EasyLoading.dismiss();
   }
+  */
 
   Future<void> initTestQuestions() async {
 
     List questionsData = [];
     _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    for (var i=0; i<_wordRankingList.length; i++) {
+      var getSentences;
+      do {
+        String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordRankingList[i].toString(), sentenceMaxLength:'12', dataLimit:'10');
+        getSentences = jsonDecode(getSentencesJSON.toString());
+        print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        if(getSentences['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getSentences['apiStatus'] != 'success');
 
-    var getSentences;
-    do {
-      String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'10');
-      getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-      if(getSentences['apiStatus'] != 'success') {
-        await Future.delayed(Duration(seconds: 1));
-      }
-    } while (getSentences['apiStatus'] != 'success');
+      questionsData.addAll(getSentences['data']);
+    }
 
-    if (getSentences['data'].length == 0) {
+    if (questionsData.length == 0) {
       context.router.pop();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('哎呀，找不到相關資料'),
@@ -315,7 +326,8 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
       return;
     }
 
-    questionsData.addAll(getSentences['data']);
+
+
     EasyLoading.dismiss();
     print('questionsData');
     print(questionsData);

@@ -20,7 +20,7 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
 
 
 
-// router generator 指令: flutter packages pub run build_runner build
+// router generator 指令: flutter packages pub run build_runner build --delete-conflicting-outputs
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',

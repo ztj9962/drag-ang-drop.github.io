@@ -25,8 +25,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   TextEditingController _editingController = TextEditingController();
   List<Widget> listViews = <Widget>[];
   int _sliderMin = 1;
-  int _sliderMax = 9991;
+  int _sliderMax = 10000;
   int _sliderIndex = 1;
+  int _dataLimit = 10;
   String _sliderEducationLevel = '國小';
 
   Map<String, dynamic> _wordSetData = {
@@ -80,7 +81,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       var getWordList;
       List<dynamic> wordData;
       do {
-        String getWordListJSON = await APIUtil.getWordList(_sliderIndex.toString(), dataLimit: '10');
+        String getWordListJSON = await APIUtil.getWordList(_sliderIndex.toString(), dataLimit: _dataLimit.toString());
         getWordList = jsonDecode(getWordListJSON.toString());
         print('getWordSetTotalList 2 apiStatus:' + getWordList['apiStatus'] + ' apiMessage:' + getWordList['apiMessage']);
         if(getWordList['apiStatus'] != 'success') {
@@ -251,6 +252,93 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                 ),
               ),
             ),
+
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.all(4),
+                      child:OutlinedButton(
+                        style: ButtonStyle(
+                            side: MaterialStateProperty.all(
+                                BorderSide(
+                                    color: PageTheme.app_theme_blue,
+                                    width: 1.0,
+                                    style: BorderStyle.solid
+                                )
+                            ),
+                            foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
+                            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
+                        ),
+                        child: const AutoSizeText(
+                          '5個',
+                          maxLines: 1,
+                        ),
+                        onPressed: () {
+                          _adjustDataLimit(5);
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.all(4),
+                      child:OutlinedButton(
+                        style: ButtonStyle(
+                            side: MaterialStateProperty.all(
+                                BorderSide(
+                                    color: PageTheme.app_theme_blue,
+                                    width: 1.0,
+                                    style: BorderStyle.solid
+                                )
+                            ),
+                            foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
+                            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
+                        ),
+                        child: const AutoSizeText(
+                          '10個',
+                          maxLines: 1,
+                        ),
+                        onPressed: () {
+                          _adjustDataLimit(10);
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.all(4),
+                      child:OutlinedButton(
+                        style: ButtonStyle(
+                            side: MaterialStateProperty.all(
+                                BorderSide(
+                                    color: PageTheme.app_theme_blue,
+                                    width: 1.0,
+                                    style: BorderStyle.solid
+                                )
+                            ),
+                            foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
+                            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
+                        ),
+                        child: const AutoSizeText(
+                          '15個',
+                          maxLines: 1,
+                        ),
+                        onPressed: () {
+                          _adjustDataLimit(15);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
@@ -280,14 +368,14 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         _adjustSliderEducationLevel();
                       },
                       min: _sliderMin.toDouble(),
-                      max: _sliderMax.toDouble(),
+                      max: _sliderMax.toDouble() - _dataLimit.toDouble() + 1,
                       activeColor: PageTheme.app_theme_blue,
                       inactiveColor: Colors.lightBlue,
-                      divisions: (_sliderMax - _sliderMin),
+                      divisions: (_sliderMax - _dataLimit - _sliderMin),
                       //value: _applicationSettingsDataTtsRate,
                       value: _sliderIndex.toDouble(),
                       //label: 'Ranking ${_sliderIndex * 10 - 9} ~ ${_sliderIndex * 10}',
-                      label: 'Index ${_sliderIndex} ~ ${_sliderIndex + 9}',
+                      label: '${_sliderIndex} ~ ${_sliderIndex + _dataLimit - 1}',
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
@@ -297,7 +385,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                           Expanded(
                               flex: 5,
                               child: AutoSizeText(
-                                '${_sliderEducationLevel}\n(${_sliderIndex} ~ ${_sliderIndex + 9})',
+                                '${_sliderEducationLevel}\n(${_sliderIndex} ~ ${_sliderIndex + _dataLimit - 1})',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -366,14 +454,40 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         ],
                       ),
                     ),
-
-
-
                   ],
                 ),
               ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                  child: OutlinedButton(
+                    style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                            BorderSide(
 
-
+                                color: PageTheme.app_theme_blue,
+                                width: 1.0,
+                                style: BorderStyle.solid)
+                        ),
+                        foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
+                        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
+                    ),
+                    child: AutoSizeText(
+                      '一次練習以下 ${_dataLimit} 個單字(自動)',
+                      maxLines: 1,
+                    ),
+                    onPressed: () {
+                      List wordRankingList = [];
+                      _wordData.forEach((element) {
+                        wordRankingList.add(element['wordRanking']);
+                      });
+                      //print(wordList);
+                      print(_wordData);
+                      AutoRouter.of(context).push(VocabularyPracticeWordLearnAutoRoute(wordRankingList:wordRankingList));
+                    },
+                  ),
+                )
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
@@ -454,32 +568,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                   AutoRouter.of(context).push(VocabularyPracticeWordLearnManualRoute(word:_wordData[index]['word']));
                                 },
                               ),
-                            ),Expanded(
-                              flex: 2,
-                              child: OutlinedButton(
-                                style: ButtonStyle(
-                                    side: MaterialStateProperty.all(
-                                        BorderSide(
-
-                                            color: PageTheme.app_theme_blue,
-                                            width: 1.0,
-                                            style: BorderStyle.solid)
-                                    ),
-                                    foregroundColor: MaterialStateProperty.all(PageTheme.app_theme_blue,),
-                                    textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))
-                                ),
-                                child: const AutoSizeText(
-                                  '自動',
-                                  maxLines: 1,
-                                ),
-                                onPressed: () {
-                                  AutoRouter.of(context).push(VocabularyPracticeWordLearnAutoRoute(word:_wordData[index]['word']));
-                                },
-                              ),
                             ),
-
-
-
                           ],
                         ),
                         const Divider(
@@ -574,22 +663,26 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
    */
 
   void _adjustSliderIndex(int value) {
-
     int sliderIndex = _sliderIndex + value;
-
-    if( (sliderIndex >= _sliderMin) && (sliderIndex <= _sliderMax) ){
+    if( (sliderIndex >= _sliderMin) && (sliderIndex <= (_sliderMax - _dataLimit + 1)) ){
       setState(() => _sliderIndex = sliderIndex);
       initWordList();
     } else {
+      if (sliderIndex < _sliderMin) {
+        setState(() => _sliderIndex = _sliderMin);
+        initWordList();
+      }
+      if (sliderIndex > (_sliderMax - _dataLimit + 1)) {
+        setState(() => _sliderIndex = (_sliderMax - _dataLimit + 1));
+        initWordList();
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Opps: 已超出範圍'),
       ));
     }
-
   }
 
   void _adjustSliderEducationLevel() {
-
     String sliderEducationLevel = '國小';
     if (_sliderIndex > 6000) {
       sliderEducationLevel = '大學';
@@ -599,6 +692,16 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       sliderEducationLevel = '國中';
     }
     setState(() => _sliderEducationLevel = sliderEducationLevel);
+  }
+
+  void _adjustDataLimit(int value) {
+    setState(() {
+      _dataLimit = value;
+    });
+    if (_sliderIndex > (_sliderMax - _dataLimit + 1)) {
+      setState(() => _sliderIndex = (_sliderMax - _dataLimit + 1));
+    }
+    initWordList();
   }
 
 }
