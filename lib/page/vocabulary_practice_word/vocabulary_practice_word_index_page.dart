@@ -186,7 +186,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         title: Column(
           children: <Widget>[
             AutoSizeText(
-              'Most common words with examplos',
+              'Common words with examplos',
               maxLines: 1,
             ),
             AutoSizeText(

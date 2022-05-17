@@ -40,7 +40,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
         title: Column(
           children: <Widget>[
             AutoSizeText(
-              'Common English based on topics',
+              'Sentences based on chat topics',
               maxLines: 1,
             ),
             AutoSizeText(

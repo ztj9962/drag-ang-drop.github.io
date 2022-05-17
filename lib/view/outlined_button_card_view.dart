@@ -7,17 +7,21 @@ class OutlinedButtonCardView extends StatelessWidget {
   final String imagePath;
   final Color backgroundColor;
   final Color textColor;
-  final String titleTxt;
-  final String descripTxt;
+  final String titleText;
+  final AutoSizeGroup? titleTextSizeGroup;
+  final AutoSizeGroup? descripTextSizeGroup;
+  final String descripText;
   final Function()? onTapFunction;
 
   const OutlinedButtonCardView({Key? key,
     required this.imagePath,
     this.backgroundColor = PageTheme.app_theme_blue,
     this.textColor = PageTheme.app_theme_blue,
-    required this.titleTxt,
-    required this.descripTxt,
-    this.onTapFunction
+    required this.titleText,
+    required this.descripText,
+    this.titleTextSizeGroup,
+    this.descripTextSizeGroup,
+    this.onTapFunction,
   }) : super(key: key);
 
   @override
@@ -56,7 +60,7 @@ class OutlinedButtonCardView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         AutoSizeText(
-                          titleTxt,
+                          titleText,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -64,10 +68,11 @@ class OutlinedButtonCardView extends StatelessWidget {
                             letterSpacing: 1.0,
                             color: textColor,
                           ),
+                          group: titleTextSizeGroup,
                           maxLines: 1,
                         ),
                         AutoSizeText(
-                          descripTxt,
+                          descripText,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -75,6 +80,7 @@ class OutlinedButtonCardView extends StatelessWidget {
                             letterSpacing: 1.0,
                             color: textColor,
                           ),
+                          group: descripTextSizeGroup,
                           maxLines: 2,
                         )
 

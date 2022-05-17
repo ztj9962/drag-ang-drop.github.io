@@ -52,7 +52,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
           title: Column(
             children: <Widget>[
               AutoSizeText(
-                'Minimal Pair',
+                'Pronunciation - Minimal pairs',
                 maxLines: 1,
               ),
               AutoSizeText(

@@ -1,5 +1,6 @@
 import 'package:alicsnet_app/view/outlined_button_card_view.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/view/button_card_view.dart';
@@ -41,6 +42,9 @@ class _IndexHomePageState extends State<IndexHomePage> {
   }
 
   void addAllListData() {
+    var titleTextSizeGroup = AutoSizeGroup();
+    var descripTextSizeGroup = AutoSizeGroup();
+
     listViews.add(
       const TitleView(
         titleTxt: '英語日常口語練習',
@@ -51,8 +55,10 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_word_02.svg',
-        titleTxt: 'Most common words with examplos',
-        descripTxt: '一萬個最常用的單字和例句',
+        titleText: 'Common words with examplos',
+        descripText: '一萬個最常用的單字和例句',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
@@ -62,8 +68,10 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_topics.svg',
-        titleTxt: 'Common English based on topics',
-        descripTxt: '生活英語情境',
+        titleText: 'Sentences based on chat topics',
+        descripText: '生活英語情境',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
         },
@@ -72,8 +80,10 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         imagePath: 'assets/icon/customArticle_02.svg',
-        titleTxt: 'User Input',
-        descripTxt: '學習者提供教材',
+        titleText: 'User document input',
+        descripText: '學習者提供教材',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
@@ -83,8 +93,10 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleTxt: 'Minimal Pair',
-        descripTxt: '相似字音練習',
+        titleText: 'Pronunciation - Minimal pairs',
+        descripText: '相似字音練習',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: (){
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
         },

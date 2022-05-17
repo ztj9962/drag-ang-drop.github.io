@@ -163,7 +163,7 @@ class _CustomArticlePracticeSentenceIndexPage
             title: Column(
               children: <Widget>[
                 AutoSizeText(
-                  'User Input',
+                  'User document input',
                   maxLines: 1,
                 ),
                 AutoSizeText(
