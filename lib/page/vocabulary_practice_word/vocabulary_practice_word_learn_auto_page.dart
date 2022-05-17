@@ -205,21 +205,21 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -227,7 +227,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
@@ -244,7 +244,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -252,7 +252,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -310,7 +310,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
       do {
         String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordRankingList[i].toString(), sentenceMaxLength:'12', dataLimit:'10');
         getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        //print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
@@ -330,8 +330,8 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
 
     EasyLoading.dismiss();
-    print('questionsData');
-    print(questionsData);
+    //print('questionsData');
+    //print(questionsData);
     _questionsData = questionsData;
     _totalTestQuestions = questionsData.length;
     return;
@@ -645,11 +645,11 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
-    print(sttLastWords);
+    //print(sttLastWords);
     _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
   }
 
@@ -671,7 +671,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -685,7 +685,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -698,7 +698,7 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -787,10 +787,10 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
 
 
   void _responseChatBot(text) async {
-    print('_responseChatBot('+text);
+    //print('_responseChatBot('+text);
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
-    print(checkSentencesJSON.toString());
+    //print(checkSentencesJSON.toString());
 
     if(checkSentences['apiStatus'] == 'success'){
 
@@ -874,13 +874,13 @@ class _VocabularyPracticeWordLearnAutoPage extends State<VocabularyPracticeWordL
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
-      print(_finishQuizData);
+      //print(_finishQuizData);
       await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       await Future.delayed(Duration(seconds: 1));
       _responseChatBot(text);
     }

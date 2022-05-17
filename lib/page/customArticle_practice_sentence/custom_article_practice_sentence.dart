@@ -88,8 +88,8 @@ class _CustomArticlePracticeSentenceIndexPage
   }
   //將輸入文章做作文法校正、分句、文章分析
   void addSentence() async {
-    print(userId);
-    print(_controller.text);
+    //print(userId);
+    //print(_controller.text);
     setState(() {
       sentenceIPAlist = [];
       isloading = true;
@@ -101,7 +101,7 @@ class _CustomArticlePracticeSentenceIndexPage
     if (_controller.text != "") {
       String grammar_response = await APIUtil.checkGrammar(_controller.text);
       analyzeResponse = await APIUtil.getStatitics(grammar_response,userId);
-      print(analyzeResponse);
+      //print(analyzeResponse);
       var checkedGrammar = jsonDecode(grammar_response);
       if (checkedGrammar['apiStatus'] == 'success') {
         list = await APIUtil.getSentenceSegmentation(

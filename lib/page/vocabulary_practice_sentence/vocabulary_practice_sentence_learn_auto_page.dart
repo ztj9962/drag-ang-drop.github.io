@@ -4,12 +4,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:io' show Platform;
 import 'dart:math';
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -210,21 +208,21 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -232,7 +230,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
@@ -249,7 +247,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -257,7 +255,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -283,7 +281,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       do {
         String getQuizDataByIDJSON = await APIUtil.getQuizDataByID(_quizID, _applicationSettingsDataUUID);
         getQuizDataByID = jsonDecode(getQuizDataByIDJSON.toString());
-        print('getQuizDataByID 1 apiStatus:' + getQuizDataByID['apiStatus'] + ' apiMessage:' + getQuizDataByID['apiMessage']);
+        //print('getQuizDataByID 1 apiStatus:' + getQuizDataByID['apiStatus'] + ' apiMessage:' + getQuizDataByID['apiMessage']);
         if(getQuizDataByID['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
@@ -291,8 +289,8 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       questionsData.addAll(getQuizDataByID['data']);
 
       EasyLoading.dismiss();
-      print('questionsData');
-      print(questionsData);
+      //print('questionsData');
+      //print(questionsData);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
@@ -308,15 +306,15 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
         do {
           String getSentencesByIDJSON = await APIUtil.getSentencesByID(sentencesID);
           getSentencesByID = jsonDecode(getSentencesByIDJSON.toString());
-          print('getSentences 6 apiStatus:' + getSentencesByID['apiStatus'] + ' apiMessage:' + getSentencesByID['apiMessage']);
+          //print('getSentences 6 apiStatus:' + getSentencesByID['apiStatus'] + ' apiMessage:' + getSentencesByID['apiMessage']);
           await Future.delayed(Duration(seconds: 1));
         } while (getSentencesByID['apiStatus'] != 'success');
         questionsData.addAll(getSentencesByID['data']);
       }
 
       EasyLoading.dismiss();
-      print('questionsData');
-      print(questionsData);
+      //print('questionsData');
+      //print(questionsData);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
@@ -328,16 +326,16 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       do {
         String getPhoneticExercisesSentencesByWordSetJSON = await APIUtil.getPhoneticExercisesSentencesByWordSet(_wordSet['learningClassification'].toString(), _wordSet['learningPhase'].toString());
         getPhoneticExercisesSentencesByWordSet = jsonDecode(getPhoneticExercisesSentencesByWordSetJSON.toString());
-        print('getWordLearning 6 apiStatus:' + getPhoneticExercisesSentencesByWordSet['apiStatus'] + ' apiMessage:' + getPhoneticExercisesSentencesByWordSet['apiMessage']);
+        //print('getWordLearning 6 apiStatus:' + getPhoneticExercisesSentencesByWordSet['apiStatus'] + ' apiMessage:' + getPhoneticExercisesSentencesByWordSet['apiMessage']);
         await Future.delayed(Duration(seconds: 1));
       } while (getPhoneticExercisesSentencesByWordSet['apiStatus'] != 'success');
       questionsData.addAll(getPhoneticExercisesSentencesByWordSet['data']);
       questionsData.shuffle();
 
       EasyLoading.dismiss();
-      print('questionsData');
-      print(questionsData);
-      print(questionsData.length);
+      //print('questionsData');
+      //print(questionsData);
+      //print(questionsData.length);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
@@ -374,7 +372,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'1', sentenceMaxLength:'3', dataLimit:'7', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
       getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      //print('getSentences 1 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
       }
@@ -384,7 +382,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'4', sentenceMaxLength:'5', dataLimit:'6', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
       getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      //print('getSentences 2 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
       }
@@ -394,7 +392,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'6', sentenceMaxLength:'8', dataLimit:'5', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
       getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      //print('getSentences 3 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
       }
@@ -404,7 +402,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'9', sentenceMaxLength:'10', dataLimit:'4', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
       getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      //print('getSentences 4 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
       }
@@ -414,7 +412,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     do {
       String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, sentenceMinLength:'11', sentenceMaxLength:'12', dataLimit:'3', sentenceTopic :_topicName, sentenceClass:_topicClass, sentenceRanking:_applicationSettingsDataListenAndSpeakRanking.round().toString());
       getSentences = jsonDecode(getSentencesJSON.toString());
-      print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+      //print('getSentences 5 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
       if(getSentences['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
       }
@@ -426,7 +424,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       do {
         String getSentencesJSON = await APIUtil.getSentences(sentenceLevel:_applicationSettingsDataListenAndSpeakLevel, dataLimit:'1', sentenceTopic :_topicName, sentenceClass:_topicClass);
         getSentences = jsonDecode(getSentencesJSON.toString());
-        print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        //print('getSentences 6 apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         if(getSentences['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
@@ -435,8 +433,8 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     }
 
     EasyLoading.dismiss();
-    print('questionsData');
-    print(questionsData);
+    //print('questionsData');
+    //print(questionsData);
     _questionsData = questionsData;
     _totalTestQuestions = questionsData.length;
     return;
@@ -743,11 +741,11 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
-    print(sttLastWords);
+    //print(sttLastWords);
     _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
   }
 
@@ -769,7 +767,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -783,7 +781,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -796,7 +794,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -885,10 +883,10 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
 
 
   void _responseChatBot(text) async {
-    print('_responseChatBot('+text);
+    //print('_responseChatBot('+text);
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
-    print(checkSentencesJSON.toString());
+    //print(checkSentencesJSON.toString());
 
     if(checkSentences['apiStatus'] == 'success'){
 
@@ -972,13 +970,13 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
-      print(_finishQuizData);
+      //print(_finishQuizData);
       await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       await Future.delayed(Duration(seconds: 1));
       _responseChatBot(text);
     }
@@ -1015,7 +1013,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
         do {
           String updateQuizDataJSON = await APIUtil.updateQuizData(_applicationSettingsDataUUID, _quizID, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray'], _finishQuizData['secondsArray']);
           updateQuizData = jsonDecode(updateQuizDataJSON.toString());
-          print('updateQuizData 1 apiStatus:' + updateQuizData['apiStatus'] + ' apiMessage:' + updateQuizData['apiMessage']);
+          //print('updateQuizData 1 apiStatus:' + updateQuizData['apiStatus'] + ' apiMessage:' + updateQuizData['apiMessage']);
           if(updateQuizData['apiStatus'] != 'success') {
             EasyLoading.show(status: '儲存資料發生錯誤，正在重試......\n${updateQuizData['apiMessage']}');
             await Future.delayed(Duration(seconds: 1));
@@ -1091,7 +1089,7 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
                 do {
                   String saveQuizDataJSON = await APIUtil.saveQuizData(_applicationSettingsDataUUID, textInputController.text, _finishQuizData['sentenceIDArray'], _finishQuizData['sentenceAnswerArray'], _finishQuizData['scoreArray'], _finishQuizData['secondsArray']);
                   saveQuizData = jsonDecode(saveQuizDataJSON.toString());
-                  print('saveQuizData 1 apiStatus:' + saveQuizData['apiStatus'] + ' apiMessage:' + saveQuizData['apiMessage']);
+                  //print('saveQuizData 1 apiStatus:' + saveQuizData['apiStatus'] + ' apiMessage:' + saveQuizData['apiMessage']);
                   if(saveQuizData['apiStatus'] != 'success') {
                     await Future.delayed(Duration(seconds: 1));
                   }

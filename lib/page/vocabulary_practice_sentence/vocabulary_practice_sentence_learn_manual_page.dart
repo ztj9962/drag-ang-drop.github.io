@@ -133,21 +133,21 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -155,14 +155,14 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -181,7 +181,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -552,7 +552,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -577,7 +577,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -591,7 +591,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -604,7 +604,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -810,7 +810,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
         _allowTouchButtons['speakButton'] = false;
       });
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(const Duration(seconds:1));
       _responseChatBot(text);
     }
@@ -858,7 +858,7 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
           //_allowTouchButtons['nextButton'] = true;
         });
       } else {
-        print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        //print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         sleep(const Duration(seconds:1));
         getTestQuestions();
       }

@@ -34,9 +34,12 @@ class authRespository {
           email: email,
           actionCodeSettings: acs,
         )
-        .catchError(
-            (onError) => print('Error sending email verification $onError'))
-        .then((value) => print('Successfully sent email verification'));
+        .catchError((onError) {
+              //print('Error sending email verification $onError');
+        })
+        .then((value) {
+          //print('Successfully sent email verification');
+        });
   }
 
   static Future<void> siginLink(Uri link, String email) async{
@@ -45,9 +48,9 @@ class authRespository {
           .signInWithEmailLink(email: email, emailLink: link.toString())
           .then((value) {
         var userEmail = value.user;
-        print('Successfully signed in with email link!');
+        //print('Successfully signed in with email link!');
       }).catchError((onError) {
-        print('Error signing in with email link $onError');
+        //print('Error signing in with email link $onError');
       });
     }
   }

@@ -56,10 +56,10 @@ class PurchaseProviderModel with ChangeNotifier{
 
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
     purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
-      print(purchaseDetails.status);
+      //print(purchaseDetails.status);
       switch (purchaseDetails.status) {
         case PurchaseStatus.pending:
-          print("pending");
+          //print("pending");
         //  _showPendingUI();
           break;
         case PurchaseStatus.purchased:
@@ -68,9 +68,9 @@ class PurchaseProviderModel with ChangeNotifier{
         // if (!valid) {
         //   _handleInvalidPurchase(purchaseDetails);
         // }
-          print(purchaseDetails.verificationData.localVerificationData);
+          //print(purchaseDetails.verificationData.localVerificationData);
           Map purchaseData = json.decode(purchaseDetails.verificationData.localVerificationData);
-          print(purchaseData['productId']);
+          //print(purchaseData['productId']);
           String platformTag = 'unknown';
           if (isIOS) platformTag = 'ios';
           if (isAndroid) platformTag = 'android';
@@ -79,7 +79,7 @@ class PurchaseProviderModel with ChangeNotifier{
           verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, platformTag);
           break;
         case PurchaseStatus.error:
-          print(purchaseDetails.error!);
+          //print(purchaseDetails.error!);
           // _handleError(purchaseDetails.error!);
           break;
         default:
@@ -87,7 +87,7 @@ class PurchaseProviderModel with ChangeNotifier{
       }
 
       if (purchaseDetails.pendingCompletePurchase) {
-        print("pendingCompletePurchase");
+        //print("pendingCompletePurchase");
         await _iap.completePurchase(purchaseDetails);
       }
     });
@@ -103,13 +103,13 @@ class PurchaseProviderModel with ChangeNotifier{
     final response = await http.get(
       Uri.http('10.0.2.2:8000', 'api/verify/${platform}',queryParameters));
     String json = response.body.toString();
-    print(json);
+    //print(json);
   }
 
   Future<void> _getProducts() async {
     Set<String> ids = Set.from(myProductID);
     ProductDetailsResponse response = await _iap.queryProductDetails(ids);
-    print(response.productDetails[3].id);
+    //print(response.productDetails[3].id);
     response.productDetails.forEach((element) {
       products[element.id] = element;
     });

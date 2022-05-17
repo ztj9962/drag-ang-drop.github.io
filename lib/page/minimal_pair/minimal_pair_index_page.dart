@@ -249,8 +249,8 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                               content: Text('請記得要輸入喔'),
                             ));
                           } else {
-                            print(_dropdownValue1);
-                            print(_dropdownValue2);
+                            //print(_dropdownValue1);
+                            //print(_dropdownValue2);
                             AutoRouter.of(context).push(MinimalPairLearnManualRoute(IPA1:_dropdownValue1!, IPA2:_dropdownValue2!));
                           }
                         } else {
@@ -259,7 +259,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                               content: Text('請記得要輸入喔'),
                             ));
                           } else {
-                            print(_searchWordController.text);
+                            //print(_searchWordController.text);
                             AutoRouter.of(context).push(MinimalPairLearnManualRoute(word:_searchWordController.text));
                           }
                         }
@@ -289,8 +289,8 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                             content: Text('請記得要輸入喔'),
                           ));
                         } else {
-                          print(_dropdownValue1);
-                          print(_dropdownValue2);
+                          //print(_dropdownValue1);
+                          //print(_dropdownValue2);
                           AutoRouter.of(context).push(MinimalPairLearnAutoRoute(IPA1:_dropdownValue1!, IPA2:_dropdownValue2!));
                         }
                       } else {
@@ -299,7 +299,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                             content: Text('請記得要輸入喔'),
                           ));
                         } else {
-                          print(_searchWordController.text);
+                          //print(_searchWordController.text);
                           AutoRouter.of(context).push(MinimalPairLearnAutoRoute(word:_searchWordController.text));
                         }
                       }

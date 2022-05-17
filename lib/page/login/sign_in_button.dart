@@ -28,7 +28,7 @@ class SigninButton extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               bool signIn = await authRespository.isSignedIn();
               if(signIn == true){
-                print(authRespository.getUid());
+                //print(authRespository.getUid());
                 prefs.setBool("isSignIn", true);
                 AutoRouter.of(context).replaceNamed("/index");
               }
@@ -66,7 +66,7 @@ class SigninButton extends StatelessWidget {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 bool signIn = await authRespository.isSignedIn();
                 if(signIn == true){
-                  print(authRespository.getUid());
+                  //print(authRespository.getUid());
                   prefs.setBool("isSignIn", true);
                   AutoRouter.of(context).replaceNamed("/index");
                 }

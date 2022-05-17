@@ -133,21 +133,21 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -155,14 +155,14 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -181,7 +181,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -190,7 +190,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
   Future<void> initSentenceIPA() async{
     List ipa = await APIUtil.getSentenceIPA(_questionList);
     _questionIPAList = ipa;
-    print(_questionIPAList);
+    //print(_questionIPAList);
     return;
   }
 
@@ -583,7 +583,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -610,7 +610,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
   void sttStatusListener(String status) {
     // print(
     // 'Received listener status: $status, listening: ${speech.isListening}');
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -623,7 +623,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -636,7 +636,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -854,7 +854,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
         _allowTouchButtons['speakButton'] = false;
       });
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(const Duration(seconds:1));
       _responseChatBot(text);
     }
@@ -863,7 +863,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
   Future<void> getTestQuestions({String questionText = '', String questionIPAText = '', String questionChineseText = '', String aboutWord = ''}) async {
     if(questionText == ''){
-      print('Tap:${questionIndex}'+ 'length:${_questionList.length-1}');
+      //print('Tap:${questionIndex}'+ 'length:${_questionList.length-1}');
 
       setState(() {
         _replyText = '請稍候......';
@@ -905,7 +905,7 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
       _allowTouchButtons['nextButton'] = true;
       _allowTouchButtons['beforeButton'] = true;
     });
-    print(questionIndex);
+    //print(questionIndex);
     if(questionIndex == _questionList.length-1){
       setState(() {
         _allowTouchButtons['nextButton'] = false;

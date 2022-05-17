@@ -209,21 +209,21 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -231,7 +231,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
@@ -248,7 +248,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -256,7 +256,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -281,12 +281,12 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       do {
         String minimalPairTwoFinderJSON = await APIUtil.minimalPairTwoFinder(_IPA1, _IPA2, dataLimit: '10');
         minimalPairTwoFinder = jsonDecode(minimalPairTwoFinderJSON.toString());
-        print('minimalPairTwoFinder 1 apiStatus:' + minimalPairTwoFinder['apiStatus'] + ' apiMessage:' + minimalPairTwoFinder['apiMessage']);
+        //print('minimalPairTwoFinder 1 apiStatus:' + minimalPairTwoFinder['apiStatus'] + ' apiMessage:' + minimalPairTwoFinder['apiMessage']);
         if(minimalPairTwoFinder['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
       } while (minimalPairTwoFinder['apiStatus'] != 'success');
-      print(minimalPairTwoFinder['data']);
+      //print(minimalPairTwoFinder['data']);
 
       minimalPairTwoFinder['data'].forEach((value) {
         questionsData.add({
@@ -297,8 +297,8 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       });
 
       EasyLoading.dismiss();
-      print('questionsData');
-      print(questionsData);
+      //print('questionsData');
+      //print(questionsData);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
@@ -310,7 +310,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       do {
         String minimalPairWordFinderJSON = await APIUtil.minimalPairWordFinder(_word, dataLimit: '10');
         minimalPairWordFinder = jsonDecode(minimalPairWordFinderJSON.toString());
-        print('minimalPairTwoFinder 1 apiStatus:' + minimalPairWordFinder['apiStatus'] + ' apiMessage:' + minimalPairWordFinder['apiMessage']);
+        //print('minimalPairTwoFinder 1 apiStatus:' + minimalPairWordFinder['apiStatus'] + ' apiMessage:' + minimalPairWordFinder['apiMessage']);
         if(minimalPairWordFinder['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
@@ -333,8 +333,8 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       });
 
       EasyLoading.dismiss();
-      print('questionsData');
-      print(questionsData);
+      //print('questionsData');
+      //print(questionsData);
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
@@ -645,11 +645,11 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
-    print(sttLastWords);
+    //print(sttLastWords);
     _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
   }
 
@@ -671,7 +671,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -685,7 +685,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -698,7 +698,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -787,10 +787,10 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
 
 
   void _responseChatBot(text) async {
-    print('_responseChatBot('+text);
+    //print('_responseChatBot('+text);
     String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
-    print(checkSentencesJSON.toString());
+    //print(checkSentencesJSON.toString());
 
     if(checkSentences['apiStatus'] == 'success'){
 
@@ -874,13 +874,13 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
-      print(_finishQuizData);
+      //print(_finishQuizData);
       await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
 
 
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       await Future.delayed(Duration(seconds: 1));
       _responseChatBot(text);
     }

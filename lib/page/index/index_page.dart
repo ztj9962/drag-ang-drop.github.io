@@ -78,7 +78,7 @@ class _IndexPageState extends State<IndexPage> {
               //color: const Color(0xFFFEFEFE),
             ),
             onTap: (){
-              print('Tap logo');
+              //print('Tap logo');
             },
           ),
         ),
@@ -92,7 +92,7 @@ class _IndexPageState extends State<IndexPage> {
                 color: const Color(0xFFFEFEFE),
               ),
               onTap: (){
-                print('Tap microphone');
+                //print('Tap microphone');
               },
             ),
           ),

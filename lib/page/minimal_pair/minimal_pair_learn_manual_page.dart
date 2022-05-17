@@ -141,21 +141,21 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -163,14 +163,14 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -189,7 +189,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -560,7 +560,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -585,7 +585,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -599,7 +599,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -612,7 +612,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -818,7 +818,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
         _allowTouchButtons['speakButton'] = false;
       });
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(const Duration(seconds:1));
       _responseChatBot(text);
     }
@@ -860,9 +860,9 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
               _IPA1, _IPA2, dataLimit: '10');
           minimalPairTwoFinder =
               jsonDecode(minimalPairTwoFinderJSON.toString());
-          print('minimalPairTwoFinder 1 apiStatus:' +
-              minimalPairTwoFinder['apiStatus'] + ' apiMessage:' +
-              minimalPairTwoFinder['apiMessage']);
+          //print('minimalPairTwoFinder 1 apiStatus:' +
+          //    minimalPairTwoFinder['apiStatus'] + ' apiMessage:' +
+          //    minimalPairTwoFinder['apiMessage']);
           if (minimalPairTwoFinder['apiStatus'] != 'success') {
             await Future.delayed(Duration(seconds: 1));
           }
@@ -889,7 +889,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
         do {
           String minimalPairWordFinderJSON = await APIUtil.minimalPairWordFinder(_word, dataLimit: '10');
           minimalPairWordFinder = jsonDecode(minimalPairWordFinderJSON.toString());
-          print('minimalPairTwoFinder 1 apiStatus:' + minimalPairWordFinder['apiStatus'] + ' apiMessage:' + minimalPairWordFinder['apiMessage']);
+          //print('minimalPairTwoFinder 1 apiStatus:' + minimalPairWordFinder['apiStatus'] + ' apiMessage:' + minimalPairWordFinder['apiMessage']);
           if(minimalPairWordFinder['apiStatus'] != 'success') {
             await Future.delayed(Duration(seconds: 1));
           }

@@ -1,11 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
-import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_auto_page.dart';
-import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_manual_page.dart';
-import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/view/button_card_view.dart';
 import 'package:alicsnet_app/view/sentence_type_list_view.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 

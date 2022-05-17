@@ -2,8 +2,6 @@ import 'package:alicsnet_app/view/outlined_button_card_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:alicsnet_app/page/page_theme.dart';
-import 'package:alicsnet_app/view/button_card_view.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 
 class IndexHomePage extends StatefulWidget {

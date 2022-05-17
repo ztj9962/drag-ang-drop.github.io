@@ -1,17 +1,13 @@
-import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:alicsnet_app/model/purchase_provider_model.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
-import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -85,9 +81,5 @@ class MyApp extends StatelessWidget {
       },
     );
     */
-
-
-
-
   }
 }

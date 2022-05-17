@@ -279,7 +279,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     ),
                   ),
                   onTap: (){
-                    print('aa');
+                    //print('aa');
                   },
                 ),
               ),
@@ -313,7 +313,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     ),
                   ),
                   onTap: (){
-                    print('aa');
+                    //print('aa');
                   },
                 ),
               ),
@@ -347,7 +347,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     ),
                   ),
                   onTap: (){
-                    print('aa');
+                    //print('aa');
                   },
                 ),
               ),

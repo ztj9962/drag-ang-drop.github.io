@@ -111,11 +111,11 @@ class APIUtil {
     String json = response.body.toString();
     var data = jsonDecode(json.toString());
     if(data['apiStatus'] == 'success'){
-      print(data['data']['accessToken']);
+      //print(data['data']['accessToken']);
       SharedPreferencesUtil.saveData<String>('applicationSettingsDataAccessToken', data['data']['accessToken']);
       SharedPreferencesUtil.saveData<String>('applicationSettingsDataConversationID', data['data']['conversationID']);
     } else {
-      print('_responseAPI Error apiStatus:' + data['apiStatus'] + ' apiMessage:' + data['apiMessage']);
+      //print('_responseAPI Error apiStatus:' + data['apiStatus'] + ' apiMessage:' + data['apiMessage']);
       sleep(Duration(seconds:1));
       getConversationTokenAndID();
     }

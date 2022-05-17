@@ -116,10 +116,10 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
       var getWordData;
       String getWordDataJSON = await APIUtil.getWordData(_word);
       getWordData = jsonDecode(getWordDataJSON.toString());
-      print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
+      //print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
 
       if (getWordData['apiStatus'] == 'success') {
-        print(getWordData['data']);
+        //print(getWordData['data']);
         setState(() {
           _wordData = getWordData['data'];
         });
@@ -129,7 +129,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         ));
       }
     } catch(e) {
-      print('Error: $e');
+      //print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('連線發生錯誤，請稍候再重試'),
       ));
@@ -166,21 +166,21 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
     flutterTts.setStartHandler(() {
       setState(() {
-        print("Playing");
+        //print("Playing");
         ttsState = TtsState.playing;
       });
     });
 
     flutterTts.setCompletionHandler(() {
       setState(() {
-        print("Complete");
+        //print("Complete");
         ttsState = TtsState.stopped;
       });
     });
 
     flutterTts.setCancelHandler(() {
       setState(() {
-        print("Cancel");
+        //print("Cancel");
         ttsState = TtsState.stopped;
       });
     });
@@ -188,14 +188,14 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
     if (isWeb || isIOS) {
       flutterTts.setPauseHandler(() {
         setState(() {
-          print("Paused");
+          //print("Paused");
           ttsState = TtsState.paused;
         });
       });
 
       flutterTts.setContinueHandler(() {
         setState(() {
-          print("Continued");
+          //print("Continued");
           ttsState = TtsState.continued;
         });
       });
@@ -214,7 +214,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
     flutterTts.setErrorHandler((msg) {
       setState(() {
-        print("error: $msg");
+        //print("error: $msg");
         ttsState = TtsState.stopped;
       });
     });
@@ -256,7 +256,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                               color: Colors.black,
                               onPressed: () async {
                                 //_adjustSliderIndex(-1);
-                                print(_wordData['word']);
+                                //print(_wordData['word']);
                                 ttsRateSlow = !ttsRateSlow;
                                 await _ttsSpeak(_wordData['word'], 'en-US');
                               },
@@ -656,7 +656,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    print('Result listener $sttResultListened');
+    //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -681,7 +681,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
   }
 
   void sttStatusListener(String status) {
-    print('Received listener status: $status, listening: ${speechToText.isListening}');
+    //print('Received listener status: $status, listening: ${speechToText.isListening}');
     setState(() {
       sttLastStatus = status;
     });
@@ -695,7 +695,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
     setState(() {
       _sttCurrentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    //print(selectedVal);
   }
 
 
@@ -708,7 +708,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      //print(engine);
     }
   }
   Future _ttsSpeak(String speakMessage, String speakLanguage) async {
@@ -914,7 +914,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         _allowTouchButtons['speakButton'] = false;
       });
     } else {
-      print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
+      //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       sleep(const Duration(seconds:1));
       _responseChatBot(text);
     }
@@ -950,8 +950,8 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
       String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'10');
       var getSentences = jsonDecode(getSentencesJSON.toString());
-      print(_word);
-      print(getSentences);
+      //print(_word);
+      //print(getSentences);
 
       if(getSentences['apiStatus'] == 'success'){
         final _random = Random().nextInt(getSentences['data'].length);
@@ -964,7 +964,7 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
           //_allowTouchButtons['nextButton'] = true;
         });
       } else {
-        print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
+        //print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
         sleep(const Duration(seconds:1));
         getTestQuestions();
       }
