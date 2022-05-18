@@ -77,7 +77,7 @@ class APIUtil {
 
   static Future<String> checkGrammar(String sentenceText) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/grammar/checkGrammar2'),
+      Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -378,7 +378,7 @@ class APIUtil {
 
   static Future<List> getSentenceSegmentation(String article) async{
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/sentSegmentation'),
+      Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -393,7 +393,7 @@ class APIUtil {
 
   static Future getSentenceIPA(List sentenceList) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentenceIPA'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getSentenceIPA'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -403,7 +403,7 @@ class APIUtil {
     );
 
     var json = jsonDecode(response.body);
-    return json['value'];
+    return json['data'];
   }
 
   static Future getStatitics(String article,String userId) async {

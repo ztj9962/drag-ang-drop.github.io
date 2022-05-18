@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';import 'package:auto_route/auto_route.dart';
+import 'dart:math';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +12,8 @@ import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/model/sentence_example_data.dart';
 import 'package:alicsnet_app/page/login/fade_animation.dart';
 import 'package:alicsnet_app/util/api_util.dart';
-
 import 'package:alicsnet_app/page/page_theme.dart';
-
+import 'bar_char_widget.dart';
 class CustomArticlePracticeSentenceIndexPage extends StatefulWidget {
   const CustomArticlePracticeSentenceIndexPage({Key? key}) : super(key: key);
 
@@ -39,12 +38,10 @@ class _CustomArticlePracticeSentenceIndexPage
   int inputWordCount = 0;
   List<Widget> topicList = [];
 
-  late Image image ;
   @override
   void initState() {
     super.initState();
     creatTopic();
-    userId = FirebaseAuth.instance.currentUser!.uid;
     //getUid();
     //createTopic();
   }
@@ -89,7 +86,7 @@ class _CustomArticlePracticeSentenceIndexPage
   //將輸入文章做作文法校正、分句、文章分析
   void addSentence() async {
     //print(userId);
-    //print(_controller.text);
+    print(_controller.text);
     setState(() {
       sentenceIPAlist = [];
       isloading = true;
@@ -100,12 +97,13 @@ class _CustomArticlePracticeSentenceIndexPage
     List analyzeResponse =[];
     if (_controller.text != "") {
       String grammar_response = await APIUtil.checkGrammar(_controller.text);
-      analyzeResponse = await APIUtil.getStatitics(grammar_response,userId);
+      print(grammar_response);
       //print(analyzeResponse);
       var checkedGrammar = jsonDecode(grammar_response);
       if (checkedGrammar['apiStatus'] == 'success') {
         list = await APIUtil.getSentenceSegmentation(
             checkedGrammar['data']['sentenceTextChecked']);
+        print(list);
       } else {
         final text = "文章內容包含除英文之外的字元";
         final snackbar = SnackBar(
@@ -115,41 +113,14 @@ class _CustomArticlePracticeSentenceIndexPage
       }
     }
     ipa = await APIUtil.getSentenceIPA(list);
-
-    image =  Image.network('https://sels.nkfust.edu.tw/api/alics/getPhoto?user_id=${userId}&index=${new Random().nextInt(100)}');
-    final Completer<void> completer = Completer<void>();
-    image.image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo info, bool syncCall)=> completer.complete()));
-    await completer.future;
-    if (mounted) {
-      setState(() {
-        sentenceIPAlist = ipa;
-        isloading = false;
-        sentencelist = list;
-      });
-
-    }
-
-
-    /*if(await getPhoto()){
-      setState(() {
-        sentenceIPAlist = ipa;
-        isloading = false;
-        sentencelist = list;
-      });
-    }*/
+    print(ipa);
+    setState(() {
+      sentenceIPAlist = ipa;
+      isloading = false;
+      sentencelist = list;
+    });
   }
 
-  Future<bool> getPhoto() async{
-    imageCache?.clear();
-    Image test =  Image.network('https://sels.nkfust.edu.tw/api/alics/getPhoto?user_id=${userId}');
-    final Completer<void> completer = Completer<void>();
-    test.image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo info, bool syncCall)=> completer.complete()));
-    await completer.future;
-    if (mounted) {
-      image = test;
-    }
-    return true;
-  }
 
 
   @override
@@ -322,7 +293,7 @@ class _CustomArticlePracticeSentenceIndexPage
                 ],
               ),
             ),
-           // BarChartSample3(),
+            BarChartSample3(),
             if (sentencelist.length >= 1 && !isloading)
               FadeAnimation(1, Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,10 +313,7 @@ class _CustomArticlePracticeSentenceIndexPage
                         color: PageTheme.cutom_article_practice_background,
                         borderRadius: BorderRadius.circular(15)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20,left: 20),
-                    child: image,
-                  ),
+                  //PieChartSample2(),
                   SizedBox(height: 30,),
                   Padding(
                     padding: const EdgeInsets.only(left: 12, right: 12),
