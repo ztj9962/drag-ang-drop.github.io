@@ -98,7 +98,7 @@ class AppRouter extends _i20.RootStackRouter {
       return _i20.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i7.VocabularyPracticeWordLearnAutoPage(
-              key: args.key, word: args.word));
+              key: args.key, wordRankingList: args.wordRankingList));
     },
     VocabularyPracticeWordLearnManualRoute.name: (routeData) {
       final args =
@@ -356,26 +356,27 @@ class VocabularyPracticeWordIndexRoute extends _i20.PageRouteInfo<void> {
 /// [_i7.VocabularyPracticeWordLearnAutoPage]
 class VocabularyPracticeWordLearnAutoRoute
     extends _i20.PageRouteInfo<VocabularyPracticeWordLearnAutoRouteArgs> {
-  VocabularyPracticeWordLearnAutoRoute({_i21.Key? key, required String word})
+  VocabularyPracticeWordLearnAutoRoute(
+      {_i21.Key? key, required List<dynamic> wordRankingList})
       : super(VocabularyPracticeWordLearnAutoRoute.name,
             path: '/voabulary_practice_word_auto',
-            args:
-                VocabularyPracticeWordLearnAutoRouteArgs(key: key, word: word));
+            args: VocabularyPracticeWordLearnAutoRouteArgs(
+                key: key, wordRankingList: wordRankingList));
 
   static const String name = 'VocabularyPracticeWordLearnAutoRoute';
 }
 
 class VocabularyPracticeWordLearnAutoRouteArgs {
   const VocabularyPracticeWordLearnAutoRouteArgs(
-      {this.key, required this.word});
+      {this.key, required this.wordRankingList});
 
   final _i21.Key? key;
 
-  final String word;
+  final List<dynamic> wordRankingList;
 
   @override
   String toString() {
-    return 'VocabularyPracticeWordLearnAutoRouteArgs{key: $key, word: $word}';
+    return 'VocabularyPracticeWordLearnAutoRouteArgs{key: $key, wordRankingList: $wordRankingList}';
   }
 }
 
