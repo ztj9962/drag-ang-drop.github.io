@@ -424,7 +424,7 @@ class APIUtil {
 
   static Future<String> vocabularyTestGetQuestion({String indexMin :'', String indexMax :'', String dataLimit :''}) async {
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/vocabularyTest/getQuestion'),
+      Uri.https('api.alicsnet.com', 'app/vocabularyTest/getQuestion'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
