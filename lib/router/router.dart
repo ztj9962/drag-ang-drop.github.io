@@ -1,3 +1,5 @@
+import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
+import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_auto_page.dart';
@@ -32,6 +34,7 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
     AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
 
     AutoRoute(path: '/voabulary_practice_word_index', page: VocabularyPracticeWordIndexPage),
+    AutoRoute(path: '/voabulary_practice_word_list', page: VocabularyPracticeWordListPage),
     AutoRoute(path: '/voabulary_practice_word_auto', page: VocabularyPracticeWordLearnAutoPage),
     AutoRoute(path: '/voabulary_practice_word_manual', page: VocabularyPracticeWordLearnManualPage),
 
@@ -42,6 +45,8 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
     AutoRoute(path: '/customArticle_practice_sentence_index',page: CustomArticlePracticeSentenceIndexPage),
     AutoRoute(path: '/customArticle_practice_sentence_auto',page: CustomArticlePracticeSentenceLearnAutoPage),
     AutoRoute(path: '/customArticle_practice_sentence_manual',page: CustomArticlePracticeSentenceLearnManualPage),
+
+    AutoRoute(path: '/learnig_auto_generic',page: LearningAutoGenericPage),
 
     //New Pages Below ↓↓↓
     AutoRoute(path: '/vocabulary_test_select_level', page: IndexVocabularyTestLevelSelectPage),

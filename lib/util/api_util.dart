@@ -354,6 +354,7 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+
   static Future<String> getWordData(String word) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordData'),
@@ -419,6 +420,36 @@ class APIUtil {
     );
 
     var json = jsonDecode(response.body);
+    return json;
+  }
+
+
+  static Future<String> vocabularyGetList(String index, {String dataLimit = ''}) async {
+    final response = await http.post(
+      Uri.https('api-develop.alicsnet.com', 'app/vocabulary/getList'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'index': index,
+        'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> vocabularyGetRowIndex(String word) async {
+    final response = await http.post(
+      Uri.https('api-develop.alicsnet.com', 'app/vocabulary/getRowIndex'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'word': word,
+      },
+    );
+    String json = response.body.toString();
     return json;
   }
 
