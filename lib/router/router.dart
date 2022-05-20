@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_report_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_auto_page.dart';
@@ -46,6 +47,7 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
 
     AutoRoute(path: '/vocabulary_test_index', page: VocabularyTestIndexPage),
     AutoRoute(path: '/vocabulary_test_questing', page: VocabularyTestQuestingPage),
+    AutoRoute(path: '/vocabulary_test_report', page: VocabularyTestReportPage),
 
     //New Pages Below ↓↓↓
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),

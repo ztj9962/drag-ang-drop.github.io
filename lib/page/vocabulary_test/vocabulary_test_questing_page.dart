@@ -1,24 +1,34 @@
+import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VocabularyTestQuestingPage extends StatefulWidget {
-  const VocabularyTestQuestingPage({Key? key}) : super(key: key);
+  final List<dynamic> vocabularyTestQuestionList;
+  const VocabularyTestQuestingPage ({ Key? key, required this.vocabularyTestQuestionList }): super(key: key);
 
   @override
   _VocabularyTestQuestingPage createState() =>
       _VocabularyTestQuestingPage();
 }
 
-class _VocabularyTestQuestingPage
-    extends State<VocabularyTestQuestingPage> {
+class _VocabularyTestQuestingPage extends State<VocabularyTestQuestingPage> {
+  late List<dynamic> _vocabularyTestQuestionList;
+
+  int _part = 0;
+  List<String> _chooseAnswerList = [];
+
+
   List<Widget> listViews = <Widget>[];
   List<String> text = ['A', 'B', 'C', 'D', 'E'];
 
   @override
   void initState() {
-    addAllListData();
+    _vocabularyTestQuestionList = widget.vocabularyTestQuestionList;
     super.initState();
+    _initVocabularyTestQuestingPage();
   }
 
   @override
@@ -28,129 +38,408 @@ class _VocabularyTestQuestingPage
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: SingleChildScrollView(
-          child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        padding: EdgeInsets.only(
-          top: 24,
-          bottom: 62,
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: PageTheme.index_bar_background,
+          title: Column(
+            children: <Widget>[
+              Text(
+                '詞彙測驗',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  letterSpacing: 3.0,
+                  color: Color(0xFFFEFEFE),
+                ),
+              ),
+              Text(
+                'Voabulary Test',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  letterSpacing: 3.0,
+                  color: Color(0xFFFEFEFE),
+                ),
+              ),
+            ],
+          ),
         ),
-        itemCount: listViews.length,
-        itemBuilder: (BuildContext context, index) {
-          return listViews[index];
-        },
-      )),
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              //color: PageTheme.app_theme_blue,
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                          ),
+                          child: Column(
+                              children: <Widget>[
+                                AutoSizeText(
+                                  '${_part + 1}/${_vocabularyTestQuestionList.length}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    //color: PageTheme.app_theme_blue,
+                                    color: Colors.black,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: AutoSizeText(
+                                    '題目：\n${_vocabularyTestQuestionList[_part]['content']}',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      //color: PageTheme.app_theme_blue,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                          flex: 1,
+                                          child: AutoSizeText(
+                                            '${_vocabularyTestQuestionList[_part]['id']}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              //color: PageTheme.app_theme_blue,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          )
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: AutoSizeText(
+                                            '${_vocabularyTestQuestionList[_part]['source']}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              //color: PageTheme.app_theme_blue,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          )
+                                      ),
+                                    ]
+                                ),
+                              ]
+                          )
+                      )
+                  ),
+
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                      side: BorderSide(color: Colors.red))
+                              ),
+                              side: MaterialStateProperty.all(BorderSide(
+                                //color: Colors.blue,
+                                  width: 2.0,
+                                  style: BorderStyle.solid)
+                              ),
+                              foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        'A.',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 8,
+                                      child: AutoSizeText(
+                                        '${_vocabularyTestQuestionList[_part]['selectionList'][0]}',
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                ]
+                            ),
+                          ),
+                          onPressed: () {
+                            _chooseAnswer(_vocabularyTestQuestionList[_part]['selectionList'][0]);
+                          },
+                        ),
+                      )
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                    side: BorderSide(color: Colors.red))
+                            ),
+                            side: MaterialStateProperty.all(BorderSide(
+                              //color: Colors.blue,
+                                width: 2.0,
+                                style: BorderStyle.solid)
+                            ),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        'B.',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 8,
+                                      child: AutoSizeText(
+                                        '${_vocabularyTestQuestionList[_part]['selectionList'][1]}',
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                ]
+                            ),
+                          ),
+                          onPressed: () {
+                            _chooseAnswer(_vocabularyTestQuestionList[_part]['selectionList'][1]);
+                          },
+                        ),
+                      )
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                    side: BorderSide(color: Colors.red))
+                            ),
+                            side: MaterialStateProperty.all(BorderSide(
+                              //color: Colors.blue,
+                                width: 2.0,
+                                style: BorderStyle.solid)
+                            ),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        'C.',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 8,
+                                      child: AutoSizeText(
+                                        '${_vocabularyTestQuestionList[_part]['selectionList'][2]}',
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                ]
+                            ),
+                          ),
+                          onPressed: () {
+                            _chooseAnswer(_vocabularyTestQuestionList[_part]['selectionList'][2]);
+                          },
+                        ),
+                      )
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                    side: BorderSide(color: Colors.red))
+                            ),
+                            side: MaterialStateProperty.all(BorderSide(
+                              //color: Colors.blue,
+                                width: 2.0,
+                                style: BorderStyle.solid)
+                            ),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        'D.',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 8,
+                                      child: AutoSizeText(
+                                        '${_vocabularyTestQuestionList[_part]['selectionList'][3]}',
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                ]
+                            ),
+                          ),
+                          onPressed: () {
+                            _chooseAnswer(_vocabularyTestQuestionList[_part]['selectionList'][3]);
+                          },
+                        ),
+                      )
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                    side: BorderSide(color: Colors.red))
+                            ),
+                            side: MaterialStateProperty.all(BorderSide(
+                              //color: Colors.blue,
+                                width: 2.0,
+                                style: BorderStyle.solid)
+                            ),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        'E.',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 8,
+                                      child: AutoSizeText(
+                                        '不知道',
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          //color: PageTheme.app_theme_blue,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                ]
+                            ),
+                          ),
+                          onPressed: () {
+                            _chooseAnswer('不知道');
+                          },
+                        ),
+                      )
+                  ),
+
+                ]
+            )
+        )
     );
   }
 
-  void addAllListData() {
-    listViews.add(Container(
-      margin: EdgeInsets.all(10),
-      child: OutlinedButton(
-        style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red))),
-            side: MaterialStateProperty.all(BorderSide(
-                //color: Colors.blue,
-                width: 2.0,
-                style: BorderStyle.solid)),
-            foregroundColor: MaterialStateProperty.all(Colors.black),
-            textStyle:
-                MaterialStateProperty.all(const TextStyle(fontSize: 24))),
-        child: Row(
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
-                    "第一題",
-                    maxLines: 1,
-                  ),
-                )),
-            Flexible(fit: FlexFit.tight, child: SizedBox()),
-            Align(
-              alignment: Alignment.centerRight,
-              child: AutoSizeText(
-                "1/50",
-                maxLines: 1,
-              ),
-            )
-          ],
-        ),
-        onPressed: () {
-          //APIUtil.getConversationTokenAndID();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('重置成功！'),
-          ));
-        },
-      ),
-    ));
-    listViews.add(Container(
-      margin: EdgeInsets.all(10),
-      child: OutlinedButton(
-        style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red))),
-            side: MaterialStateProperty.all(BorderSide(
-                //color: Colors.blue,
-                width: 2.0,
-                style: BorderStyle.solid)),
-            foregroundColor: MaterialStateProperty.all(Colors.black),
-            textStyle:
-                MaterialStateProperty.all(const TextStyle(fontSize: 24))),
-        child: Padding(
-          padding: const EdgeInsets.all(70.0),
-          child: AutoSizeText(
-            "題目",
-            maxLines: 1,
-          ),
-        ),
-        onPressed: () {},
-      ),
-    ));
-    for (var i = 0; i < 5; i++) {
-      listViews.add(Container(
-        margin: EdgeInsets.all(10),
-        child: OutlinedButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.red))),
-              side: MaterialStateProperty.all(BorderSide(
-                  //color: Colors.blue,
-                  width: 2.0,
-                  style: BorderStyle.solid)),
-              foregroundColor: MaterialStateProperty.all(Colors.black),
-              textStyle:
-                  MaterialStateProperty.all(const TextStyle(fontSize: 24))),
-          child: Row(
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(text[i] + "選項",maxLines: 1,),
-                  )),
-              Flexible(fit: FlexFit.tight, child: SizedBox()),
-            ],
-          ),
-          onPressed: () {
-            //APIUtil.getConversationTokenAndID();
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('重置成功！'),
-            ));
-          },
-        ),
-      ));
-    }
+
+  void _initVocabularyTestQuestingPage() {
+    print(_vocabularyTestQuestionList);
   }
+
+  void _chooseAnswer(chooseAnswer) {
+    _chooseAnswerList.add(chooseAnswer);
+    if (_chooseAnswerList.length == _vocabularyTestQuestionList.length) {
+      print(_chooseAnswerList);
+      AutoRouter.of(context).replace(VocabularyTestReportRoute(vocabularyTestQuestionList: _vocabularyTestQuestionList, chooseAnswerList: _chooseAnswerList));
+
+      return;
+    }
+
+    setState(() {
+      _part += 1;
+    });
+  }
+
+
 }
+

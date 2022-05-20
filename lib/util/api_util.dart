@@ -422,5 +422,21 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> vocabularyTestGetQuestion({String indexMin :'', String indexMax :'', String dataLimit :''}) async {
+    final response = await http.post(
+      Uri.https('api-develop.alicsnet.com', 'app/vocabularyTest/getQuestion'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'indexMin': indexMin,
+        'indexMax': indexMax,
+        'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
 
 }
