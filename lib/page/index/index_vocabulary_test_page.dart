@@ -1,14 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 
-class IndexVocabularyTestIndexPage extends StatefulWidget {
-  const IndexVocabularyTestIndexPage({Key? key}) : super(key: key);
+class IndexVocabularyTestPage extends StatefulWidget {
+  const IndexVocabularyTestPage({Key? key}) : super(key: key);
 
   @override
-  _IndexVocabularyTestIndexPageState createState() => _IndexVocabularyTestIndexPageState();
+  _IndexVocabularyTestPageState createState() => _IndexVocabularyTestPageState();
 }
 
-class _IndexVocabularyTestIndexPageState extends State<IndexVocabularyTestIndexPage> {
+class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
 
   @override
   void initState() {
@@ -49,8 +50,7 @@ class _IndexVocabularyTestIndexPageState extends State<IndexVocabularyTestIndexP
                 ),
                 child: const Text('  開始測驗  '),
                 onPressed: () {
-                  //APIUtil.getConversationTokenAndID();
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('重置成功！'),));
+                  AutoRouter.of(context).pushNamed("/vocabulary_test_index");
                 },
               ),
             ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/index/index_account_page.dart';
 import 'package:alicsnet_app/page/index/index_home_page.dart';
 import 'package:alicsnet_app/page/index/index_setting_page.dart';
-import 'package:alicsnet_app/page/index/index_vocabulary_test_index_page.dart';
+import 'package:alicsnet_app/page/index/index_vocabulary_test_page.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -30,7 +30,7 @@ class _IndexPageState extends State<IndexPage> {
     ),
     Container(
       color: PageTheme.index_body_background,
-      child: const IndexVocabularyTestIndexPage(),
+      child: const IndexVocabularyTestPage(),
     ),
     Container(
       color: PageTheme.index_body_background,
@@ -160,10 +160,10 @@ class _IndexPageState extends State<IndexPage> {
       case 1:
         newTitle = "學習記錄";
         break;
+       */
       case 2:
         newTitle = "詞彙測驗";
         break;
-       */
       case 3:
         newTitle = "帳戶";
         break;
