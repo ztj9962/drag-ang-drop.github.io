@@ -410,13 +410,13 @@ class _VocabularyTestQuestingPage extends State<VocabularyTestQuestingPage> {
 
 
   void _initVocabularyTestQuestingPage() {
-    print(_vocabularyTestQuestionList);
+    //print(_vocabularyTestQuestionList);
   }
 
   void _chooseAnswer(chooseAnswer) {
     _chooseAnswerList.add(chooseAnswer);
     if (_chooseAnswerList.length == _vocabularyTestQuestionList.length) {
-      print(_chooseAnswerList);
+      //print(_chooseAnswerList);
       AutoRouter.of(context).replace(VocabularyTestReportRoute(vocabularyTestQuestionList: _vocabularyTestQuestionList, chooseAnswerList: _chooseAnswerList));
 
       return;

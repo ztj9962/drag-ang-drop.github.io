@@ -258,8 +258,8 @@ class _VocabularyTestReportPage extends State<VocabularyTestReportPage> {
 
 
   void _initVocabularyTestReportPage() {
-    print(_vocabularyTestQuestionList);
-    print(_chooseAnswerList);
+    //print(_vocabularyTestQuestionList);
+    //print(_chooseAnswerList);
     for (int i=0; i<_vocabularyTestQuestionList.length; i++) {
       if (_vocabularyTestQuestionList[i]['answer'] == _chooseAnswerList[i]) {
         setState(() {
