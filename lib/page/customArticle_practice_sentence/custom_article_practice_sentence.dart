@@ -66,8 +66,8 @@ class _CustomArticlePracticeSentenceIndexPage
             onPressed: () {
               int count = 0;
               for (var i = 0;
-                  i < sentenceExampleData.sentence[key].split(" ").length;
-                  i++) {
+              i < sentenceExampleData.sentence[key].split(" ").length;
+              i++) {
                 if (r.hasMatch(
                     sentenceExampleData.sentence[key].split(" ")[i])) {
                   count += 1;
@@ -158,20 +158,18 @@ class _CustomArticlePracticeSentenceIndexPage
         key: _scaffoldKey,
         backgroundColor: Colors.white, //Color(0xffffdef5),
         appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: PageTheme.app_theme_black,
-            title: Column(
-              children: <Widget>[
-                AutoSizeText(
-                  'User document input',
-                  maxLines: 1,
-                ),
-                AutoSizeText(
-                  '學習者提供教材',
-                  maxLines: 1,
-                ),
-              ],
+          centerTitle: true,
+          backgroundColor: PageTheme.app_theme_black,
+          title: AutoSizeText(
+            '學習者提供教材',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
             ),
+            maxLines: 1,
+
+          ),
         ),
         body: ListView(
           padding: EdgeInsets.only(
@@ -217,7 +215,7 @@ class _CustomArticlePracticeSentenceIndexPage
                   border: Border.all(
                     width: 2,
                     color:
-                        PageTheme.cutom_article_practice_background.withOpacity(0.5),
+                    PageTheme.cutom_article_practice_background.withOpacity(0.5),
                   ),
                 ),
                 child: ListView(
@@ -260,7 +258,7 @@ class _CustomArticlePracticeSentenceIndexPage
                                     affinity: TextAffinity.downstream,
                                     isDirectional: false),
                                 composing:
-                                    new TextRange(start: 0, end: maxLength));
+                                new TextRange(start: 0, end: maxLength));
                             _controller.text = text;
                           }
                         })
@@ -285,44 +283,44 @@ class _CustomArticlePracticeSentenceIndexPage
                   Expanded(child: Container()),
                   isloading
                       ? Container(
-                          padding: EdgeInsets.all(3),
-                          height: 40,
-                          width: 100,
-                          child: Center(
-                              child: CircularProgressIndicator(
+                      padding: EdgeInsets.all(3),
+                      height: 40,
+                      width: 100,
+                      child: Center(
+                          child: CircularProgressIndicator(
                             color: PageTheme.cutom_article_practice_background,
                             strokeWidth: 4.0,
                           )))
                       : GestureDetector(
-                          onTap: () {
-                            addSentence();
-                            SystemChannels.textInput
-                                .invokeMethod('TextInput.hide');
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(3),
-                            height: 40,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: PageTheme.cutom_article_practice_background,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    offset: const Offset(0, 1),
-                                  ),
-                                ]),
-                            child: Center(
-                                child: Text(
-                              "提交",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                          ),
-                        ),
+                    onTap: () {
+                      addSentence();
+                      SystemChannels.textInput
+                          .invokeMethod('TextInput.hide');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          color: PageTheme.cutom_article_practice_background,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: const Offset(0, 1),
+                            ),
+                          ]),
+                      child: Center(
+                          child: Text(
+                            "提交",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                  ),
                 ],
               ),
             ),
-           // BarChartSample3(),
+            // BarChartSample3(),
             if (sentencelist.length >= 1 && !isloading)
               FadeAnimation(1, Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

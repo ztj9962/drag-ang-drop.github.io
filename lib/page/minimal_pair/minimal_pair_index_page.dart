@@ -49,17 +49,14 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
         appBar: AppBar(
           backgroundColor: PageTheme.app_theme_black,
           centerTitle: true,
-          title: Column(
-            children: <Widget>[
-              AutoSizeText(
-                'Pronunciation - Minimal pairs',
-                maxLines: 1,
-              ),
-              AutoSizeText(
-                '相似字音練習',
-                maxLines: 1,
-              ),
-            ],
+          title: AutoSizeText(
+            '相似字音練習',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
+            ),
+            maxLines: 1,
           ),
         ),
         body: SingleChildScrollView(

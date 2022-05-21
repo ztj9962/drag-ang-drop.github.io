@@ -1,4 +1,5 @@
 import 'package:alicsnet_app/page/new_template/index_learn_record_index_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/index/index_account_page.dart';
 import 'package:alicsnet_app/page/index/index_home_page.dart';
@@ -59,14 +60,14 @@ class _IndexPageState extends State<IndexPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: PageTheme.app_theme_black,
-        title: Text(
+        title: AutoSizeText(
           selectedTitle,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 32,
             letterSpacing: 3.0,
             color: Color(0xFFFEFEFE),
           ),
+          maxLines: 1,
         ),
         leadingWidth: 96,
         leading: Padding(

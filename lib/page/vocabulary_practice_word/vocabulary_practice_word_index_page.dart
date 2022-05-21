@@ -9,6 +9,7 @@ import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -183,17 +184,14 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: PageTheme.app_theme_black,
-        title: Column(
-          children: <Widget>[
-            AutoSizeText(
-              'Common words with examplos',
-              maxLines: 1,
-            ),
-            AutoSizeText(
-              '一萬個最常用的單字和例句',
-              maxLines: 1,
-            ),
-          ],
+        title: AutoSizeText(
+          '一萬個最常用的單字和例句',
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            letterSpacing: 3.0,
+            color: Color(0xFFFEFEFE),
+          ),
+          maxLines: 1,
         ),
       ),
       body: SingleChildScrollView(

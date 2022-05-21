@@ -38,27 +38,14 @@ class _VocabularyTestReportPage extends State<VocabularyTestReportPage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.index_bar_background,
-          title: Column(
-            children: <Widget>[
-              Text(
-                '詞彙測驗',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                  letterSpacing: 3.0,
-                  color: Color(0xFFFEFEFE),
-                ),
-              ),
-              Text(
-                'Voabulary Test',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  letterSpacing: 3.0,
-                  color: Color(0xFFFEFEFE),
-                ),
-              ),
-            ],
+          title: AutoSizeText(
+            '',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
+            ),
+            maxLines: 1,
           ),
         ),
         body: SingleChildScrollView(

@@ -29,32 +29,29 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: PageTheme.app_theme_black,
-        title: Column(
-          children: <Widget>[
-            AutoSizeText(
-              'Sentences based on chat topics',
-              maxLines: 1,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: PageTheme.app_theme_black,
+          title: AutoSizeText(
+            '生活英語情境',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
             ),
-            AutoSizeText(
-              '生活英語情境',
-              maxLines: 1,
-            ),
-          ],
-        ),
-      ),
-      body: ListView.builder(
-          padding: EdgeInsets.only(
-            top: 24,
-            bottom: 62,
+            maxLines: 1,
           ),
-          itemCount: listViews.length,
-          itemBuilder:  (BuildContext context, int index) {
-            return listViews[index];
-          }
-      )
+        ),
+        body: ListView.builder(
+            padding: EdgeInsets.only(
+              top: 24,
+              bottom: 62,
+            ),
+            itemCount: listViews.length,
+            itemBuilder:  (BuildContext context, int index) {
+              return listViews[index];
+            }
+        )
     );
   }
 

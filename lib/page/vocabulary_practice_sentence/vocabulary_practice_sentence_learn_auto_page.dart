@@ -484,17 +484,14 @@ class _VocabularyPracticeSentenceLearnAutoPage extends State<VocabularyPracticeS
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: PageTheme.app_theme_black,
-          title: Column(
-            children: <Widget>[
-              AutoSizeText(
-                '',
-                maxLines: 1,
-              ),
-              AutoSizeText(
-                '',
-                maxLines: 1,
-              ),
-            ],
+          title: AutoSizeText(
+            '',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
+            ),
+            maxLines: 1,
           ),
         ),
         body: Column(
