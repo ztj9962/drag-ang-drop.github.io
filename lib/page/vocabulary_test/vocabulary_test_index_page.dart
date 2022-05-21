@@ -19,7 +19,7 @@ class VocabularyTestIndexPage extends StatefulWidget {
 
 class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
   List<dynamic> _vocabularyTestQuestionList = [];
-  List<Widget> listViews = <Widget>[];
+  List<Widget> _listViews = <Widget>[];
 
   @override
   void initState() {
@@ -53,9 +53,9 @@ class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
               top: 24,
               bottom: 62,
             ),
-            itemCount: listViews.length,
+            itemCount: _listViews.length,
             itemBuilder:  (BuildContext context, int index) {
-              return listViews[index];
+              return _listViews[index];
             }
         )
     );
@@ -64,27 +64,29 @@ class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
 
   void _addAllListData() {
 
-    listViews.add(
+    var titleTextSizeGroup = AutoSizeGroup();
+
+    _listViews.add(
       const Padding(
           padding: EdgeInsets.all(8),
           child: AutoSizeText('選擇您的測試級別',
             style: PageTheme.index_vocabulary_test_index_text,maxLines: 1,)),
     );
 
-    listViews.add(
+    _listViews.add(
       const Padding(
           padding: EdgeInsets.all(8),
           child: AutoSizeText('Please select your test level．',
             style: PageTheme.index_vocabulary_test_index_text,maxLines: 1,)),
     );
 
-    listViews.add(
+    _listViews.add(
       const Padding(
           padding: EdgeInsets.all(8),
           child: AutoSizeText('友情提示:為確保結果的準確性，不會的請點擊選項E。',maxLines: 2,
               style: PageTheme.index_vocabulary_test_index_text)),
     );
-    listViews.add(
+    _listViews.add(
         Container(
           margin: EdgeInsets.all(10),
           child: OutlinedButton(
@@ -108,6 +110,7 @@ class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
                       flex: 9,
                       child: AutoSizeText(
                           '1. 常用單字 1~300 字 詞彙測驗',
+                          group: titleTextSizeGroup,
                           maxLines: 1
                       )
                   ),
@@ -128,7 +131,7 @@ class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
         )
     );
 
-    listViews.add(
+    _listViews.add(
         Container(
           margin: EdgeInsets.all(10),
           child: OutlinedButton(
@@ -152,6 +155,7 @@ class _VocabularyTestIndexPage extends State<VocabularyTestIndexPage> {
                       flex: 9,
                       child: AutoSizeText(
                           '2. 常用單字 301~500 字 詞彙測驗',
+                          group: titleTextSizeGroup,
                           maxLines: 1
                       )
                   ),
