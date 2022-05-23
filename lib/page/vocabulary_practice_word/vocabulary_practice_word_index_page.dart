@@ -24,7 +24,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   int _rowIndexSliderMax = 10000;
   int _rowIndexSliderIndex = 1;
   int _amountSliderIndex = 5;
-  int _dataLimit = 10;
+  int _dataLimit = 5;
   String _sliderEducationLevel = '國小';
 
   List<dynamic> _vocabularyList = [];
@@ -37,6 +37,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   @override
   void dispose() {
     super.dispose();
+    EasyLoading.dismiss();
   }
 
   @override

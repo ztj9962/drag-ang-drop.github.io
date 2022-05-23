@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class VocabularyPracticeWordListPage extends StatefulWidget {
   final List<dynamic> vocabularyList;
@@ -46,6 +47,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   @override
   void dispose() {
     super.dispose();
+    EasyLoading.dismiss();
   }
 
   @override
@@ -111,7 +113,17 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
-                                    AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: ["1"], ipaList: ["2"], translateList: ["3"]));
+                                    List<String> contentList = [];
+                                    List<String> ipaList = [];
+                                    List<String> translateList = [];
+                                    for (final vocabularyData in _vocabularyList) {
+                                      for (final sentence in vocabularyData['sentenceList']) {
+                                        contentList.add(sentence['sentenceContent']);
+                                        ipaList.add(sentence['sentenceIPA']);
+                                        translateList.add(sentence['sentenceChinese']);
+                                      }
+                                    }
+                                    AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: contentList, ipaList: ipaList, translateList: translateList));
                                   }
                               ),
                             ),
