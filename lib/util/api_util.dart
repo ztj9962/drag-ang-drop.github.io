@@ -376,7 +376,7 @@ class APIUtil {
     return json;
   }
 
-  static Future<List> getSentenceSegmentation(String article) async{
+  static Future getSentenceSegmentation(String article) async{
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
       headers: <String, String>{
@@ -386,8 +386,8 @@ class APIUtil {
         'article':article,
       }
     );
-    var json = jsonDecode(response.body);
-    return json['data'];
+    var json = jsonDecode(response.body.toString());
+    return json;
 
   }
 
@@ -402,19 +402,18 @@ class APIUtil {
       },
     );
 
-    var json = jsonDecode(response.body);
-    return json['data'];
+    var json = jsonDecode(response.body.toString());
+    return json;
   }
 
-  static Future getStatitics(String article,String userId) async {
+  static Future getStatitics(String article) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'api/alics/getStatitics'),
+      Uri.https('api.alicsnet.com', 'app/article/getStatitics'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'user_id':userId,
-        'test_input':article,
+        'articleContent':article,
       },
     );
 
