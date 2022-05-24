@@ -77,7 +77,7 @@ class APIUtil {
 
   static Future<String> checkGrammar(String sentenceText) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/grammar/checkGrammar2'),
+      Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -376,9 +376,9 @@ class APIUtil {
     return json;
   }
 
-  static Future<List> getSentenceSegmentation(String article) async{
+  static Future getSentenceSegmentation(String article) async{
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/sentSegmentation'),
+      Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -386,14 +386,14 @@ class APIUtil {
         'article':article,
       }
     );
-    var json = jsonDecode(response.body);
-    return json['data'];
+    var json = jsonDecode(response.body.toString());
+    return json;
 
   }
 
   static Future getSentenceIPA(List sentenceList) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'app/sentence/getSentenceIPA'),
+      Uri.https('api.alicsnet.com', 'app/sentence/getSentenceIPA'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -402,19 +402,18 @@ class APIUtil {
       },
     );
 
-    var json = jsonDecode(response.body);
-    return json['value'];
+    var json = jsonDecode(response.body.toString());
+    return json;
   }
 
-  static Future getStatitics(String article,String userId) async {
+  static Future getStatitics(String article) async {
     final response = await http.post(
-      Uri.https('sels.nkfust.edu.tw', 'api/alics/getStatitics'),
+      Uri.https('api.alicsnet.com', 'app/article/getStatitics'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'user_id':userId,
-        'test_input':article,
+        'articleContent':article,
       },
     );
 
