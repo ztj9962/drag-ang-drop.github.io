@@ -549,9 +549,11 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
           if (i < questionTextArray.length) questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
         }
       }
+      /*
       questionTextWidget.add(
           TextSpan(text: '\n[${_ipaList[_part - 1]}]')
       );
+      */
       questionTextWidget.add(
           TextSpan(text: '\n${_translateList[_part - 1]}')
       );
@@ -648,9 +650,11 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget.add(
           TextSpan(text: '${_contentList[_part - 1]}')
       );
+      /*
       questionTextWidget.add(
           TextSpan(text: '\n[${_ipaList[_part - 1]}]')
       );
+       */
       questionTextWidget.add(
           TextSpan(text: '\n${_translateList[_part - 1]}')
       );

@@ -64,26 +64,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onSubmitted: (value) async {
-                  await _searchVocabularyRowIndex(value);
-                },
-                controller: _editingController,
-                decoration: const InputDecoration(
-                    labelText: "搜尋單詞",
-                    hintText: "搜尋單詞",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0))
-                    )
-                ),
-              ),
-            ),
-            Padding(
               padding: const EdgeInsets.all(8),
               child: TitleView(
-                titleTxt: '選擇詞彙級別',
+                titleTxt: '1. 選擇詞彙級別或直接搜尋單字',
                 titleColor: Colors.black,
               ),
             ),
@@ -106,6 +89,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         setState(() {
                           _rowIndexSliderIndex = value.toInt();
                         });
+                        _adjustSliderEducationLevel();
                       },
                       onChangeEnd: (value) {
                         setState(() {
@@ -207,9 +191,27 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
             ),
 
             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onSubmitted: (value) async {
+                  await _searchVocabularyRowIndex(value);
+                },
+                controller: _editingController,
+                decoration: const InputDecoration(
+                    labelText: "搜尋單詞",
+                    hintText: "搜尋單詞",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0))
+                    )
+                ),
+              ),
+            ),
+
+            Padding(
               padding: const EdgeInsets.all(8),
               child: TitleView(
-                titleTxt: '選擇練習字數',
+                titleTxt: '2. 選擇練習字數',
                 titleColor: Colors.black,
               ),
             ),
@@ -240,7 +242,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         _adjustDataLimit(_amountSliderIndex);
                       },
                       min: 5,
-                      max: 20,
+                      max: 10,
                       activeColor: PageTheme.app_theme_blue,
                       inactiveColor: Colors.lightBlue,
                       divisions: 15,
@@ -309,7 +311,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
           sleep(Duration(seconds:1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
-
+      print(responseJSONDecode);
       vocabularyList = responseJSONDecode['data'];
 
       setState(() {
@@ -342,7 +344,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       if (int.tryParse(responseJSONDecode['data']['index'].toString()) != null) {
         _adjustRowIndexSliderIndex(int.tryParse(responseJSONDecode['data']['index'].toString())! - _rowIndexSliderIndex);
       }
-
     } catch(e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
@@ -367,6 +368,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         content: Text('Opps: 目標 ${sliderIndex} 已超出範圍'),
       ));
     }
+    _adjustSliderEducationLevel();
   }
 
   void _adjustSliderEducationLevel() {

@@ -426,7 +426,7 @@ class APIUtil {
 
   static Future<String> vocabularyGetList(String index, {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/vocabulary/getList'),
+      Uri.https('api.alicsnet.com', 'app/vocabulary/getList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -441,12 +441,27 @@ class APIUtil {
 
   static Future<String> vocabularyGetRowIndex(String word) async {
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/vocabulary/getRowIndex'),
+      Uri.https('api.alicsnet.com', 'app/vocabulary/getRowIndex'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
         'word': word,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> vocabularyGetSentenceList(String index, {String dataLimit = ''}) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'app/vocabulary/getSentenceList'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'index': index,
+        'dataLimit': dataLimit,
       },
     );
     String json = response.body.toString();

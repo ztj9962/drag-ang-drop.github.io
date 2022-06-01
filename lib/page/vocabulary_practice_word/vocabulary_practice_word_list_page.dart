@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:alicsnet_app/util/api_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +19,7 @@ class VocabularyPracticeWordListPage extends StatefulWidget {
 
 class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordListPage> {
   late List<dynamic> _vocabularyList;
+  List<dynamic> _vocabularySentenceList = [];
   var _wordTextSizeGroup = AutoSizeGroup();
   var _wordIPATextSizeGroup = AutoSizeGroup();
   var _wordMeaningTextSizeGroup = AutoSizeGroup();
@@ -40,7 +45,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   @override
   void initState() {
     _vocabularyList = widget.vocabularyList;
-    print(_vocabularyList);
+    //print(_vocabularyList);
     super.initState();
   }
 
@@ -113,11 +118,17 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
+
+                                    await _getVocabularySentenceList();
+
                                     List<String> contentList = [];
                                     List<String> ipaList = [];
                                     List<String> translateList = [];
-                                    for (final vocabularyData in _vocabularyList) {
-                                      for (final sentence in vocabularyData['sentenceList']) {
+                                    //print(_vocabularyList);
+                                    for (final vocabularyData in _vocabularySentenceList) {
+                                      print(vocabularyData);
+                                      //return;
+                                      for (final sentence in vocabularyData!['sentenceList']!) {
                                         contentList.add(sentence['sentenceContent']);
                                         ipaList.add(sentence['sentenceIPA']);
                                         translateList.add(sentence['sentenceChinese']);
@@ -146,7 +157,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
-
+                                    await _getVocabularySentenceList();
+                                    AutoRouter.of(context).push(LearningManualVocabularyPraticeWordRoute(vocabularyList: _vocabularyList, vocabularySentenceList: _vocabularySentenceList));
                                   }
                               ),
                             ),
@@ -245,5 +257,35 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   other
    */
 
+  Future<void> _getVocabularySentenceList() async {
+    if (_vocabularySentenceList.length == _vocabularyList.length) return;
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    try{
+      var responseJSONDecode;
+      int doLimit = 1;
+      List<dynamic> vocabularySentenceList;
+      do {
+        String responseJSON = await APIUtil.vocabularyGetSentenceList(_vocabularyList[0]['rowIndex'].toString(), dataLimit: _vocabularyList.length.toString());
+        responseJSONDecode = jsonDecode(responseJSON.toString());
+        if(responseJSONDecode['apiStatus'] != 'success') {
+          doLimit += 1;
+          if (doLimit > 3) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
+          sleep(Duration(seconds:1));
+        }
+      } while (responseJSONDecode['apiStatus'] != 'success');
+      print(responseJSONDecode);
+      vocabularySentenceList = responseJSONDecode['data'];
+
+      setState(() {
+        _vocabularySentenceList = vocabularySentenceList;
+      });
+
+    } catch(e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: $e'),
+      ));
+    }
+    EasyLoading.dismiss();
+  }
 
 }
