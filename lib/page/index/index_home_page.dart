@@ -27,15 +27,18 @@ class _IndexHomePageState extends State<IndexHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: EdgeInsets.only(
-          top: 24,
-          bottom: 62,
-        ),
-        itemCount: listViews.length,
-        itemBuilder:  (BuildContext context, int index) {
-          return listViews[index];
-        }
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24),
+      child: ListView.builder(
+          padding: EdgeInsets.only(
+            top: 24,
+            bottom: 62,
+          ),
+          itemCount: listViews.length,
+          itemBuilder:  (BuildContext context, int index) {
+            return listViews[index];
+          }
+      ),
     );
   }
 

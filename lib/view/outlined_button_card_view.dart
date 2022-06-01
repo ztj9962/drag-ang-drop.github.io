@@ -28,7 +28,7 @@ class OutlinedButtonCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 8),
+        padding: const EdgeInsets.only(top: 8, bottom: 8),
         child: GestureDetector(
           onTap: onTapFunction,
           child: Container(

@@ -17,25 +17,30 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class VocabularyPracticeWordLearnManualPage extends StatefulWidget {
+class LearningManualVocabularyPraticeWordPage extends StatefulWidget {
 
-  final String word;
-  const VocabularyPracticeWordLearnManualPage ({ Key? key, required this.word }): super(key: key);
+  final List<dynamic> vocabularyList;
+  final List<dynamic> vocabularySentenceList;
+  const LearningManualVocabularyPraticeWordPage ({ Key? key, required this.vocabularyList, required this.vocabularySentenceList }): super(key: key);
 
   @override
-  _VocabularyPracticeWordLearnManualPageState createState() => _VocabularyPracticeWordLearnManualPageState();
+  _LearningManualVocabularyPraticeWordPageState createState() => _LearningManualVocabularyPraticeWordPageState();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracticeWordLearnManualPage> {
-  late String _word;
-  late Map<String, dynamic> _wordData = {'index': 1, 'classificationName': 'Kindergarten', 'orderNo': 1, 'word': '', 'wordRanking': 1, 'wordType': 'None', 'wordLevel': 'A1', 'wordIPA': 'ðə', 'wordSource': 'cerf1000', 'wordMeaningList': []};
+class _LearningManualVocabularyPraticeWordPageState extends State<LearningManualVocabularyPraticeWordPage> {
+
+  late List<dynamic> _vocabularyList;
+  late List<dynamic> _vocabularySentenceList;
+
+  int _wordIndex = 0;
+  int _sentenceIndex = 0;
 
   final _allowTouchButtons = {
     'reListenButton' : false,
     'speakButton' : false,
-    'nextButton' : false,
+    'nextButton' : true,
   };
   String _questionText = '';
   String _questionIPAText = '';
@@ -43,12 +48,12 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
-  List<TextSpan> _questionTextWidget = [ const TextSpan(text: 'is my time to go to school to wo dow sorhb sonw'), ];
-  List<TextSpan> _questionIPATextWidget = [ const TextSpan(text: '[IPA]'), ];
-  List<TextSpan> _questionChineseWidget = [ const TextSpan(text: 'Ch'), ];
-  List<TextSpan> _replyTextWidget = [ const TextSpan(text: '_replyTextWidget'), ];
-  List<TextSpan> _answerTextWidget = [ const TextSpan(text: "_answerTextWidget"), ];
-  List<TextSpan> _answerIPATextWidget = [ const TextSpan(text: '_answerIPATextWidget'), ];
+  List<TextSpan> _questionTextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _questionIPATextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _questionChineseWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _replyTextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _answerTextWidget = [ const TextSpan(text: ""), ];
+  List<TextSpan> _answerIPATextWidget = [ const TextSpan(text: ''), ];
   List<String> _ipaAboutList = ['111', '222'];
   bool _viewIPAAboutList = false;
   int _correctCombo = 0;
@@ -88,10 +93,12 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
   @override
   void initState() {
-    _word = widget.word;
+    _vocabularyList = widget.vocabularyList;
+    _vocabularySentenceList = widget.vocabularySentenceList;
+    print(_vocabularyList);
+    print(_vocabularySentenceList);
     super.initState();
-
-    initVocabularyPracticeWordLearnManualPage();
+    initLearningManualVocabularyPraticeWordPage();
   }
 
   @override
@@ -101,125 +108,6 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
     flutterTts.stop();
     speechToText.stop();
   }
-
-  Future<void> initVocabularyPracticeWordLearnManualPage() async {
-    await initWordData();
-    initTts();
-    initSpeechState();
-    getTestQuestions();
-  }
-
-
-  Future<void> initWordData() async {
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try{
-      var getWordData;
-      String getWordDataJSON = await APIUtil.getWordData(_word);
-      getWordData = jsonDecode(getWordDataJSON.toString());
-      //print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
-
-      if (getWordData['apiStatus'] == 'success') {
-        //print(getWordData['data']);
-        setState(() {
-          _wordData = getWordData['data'];
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getWordData['apiMessage']),
-        ));
-      }
-    } catch(e) {
-      //print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('連線發生錯誤，請稍候再重試'),
-      ));
-    }
-    EasyLoading.dismiss();
-  }
-
-  Future<void> initSpeechState() async {
-    var sttHasSpeech = await speechToText.initialize(
-        onError: sttErrorListener,
-        onStatus: sttStatusListener,
-        debugLogging: true,
-        finalTimeout: const Duration(milliseconds: 0));
-    if (sttHasSpeech) {
-      _sttLocaleNames = await speechToText.locales();
-
-      var systemLocale = await speechToText.systemLocale();
-      //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
-    }
-
-    if (!mounted) return;
-
-    setState(() {
-      _sttHasSpeech = sttHasSpeech;
-    });
-  }
-
-  initTts() async {
-    flutterTts = FlutterTts();
-
-    if (isAndroid) {
-      _getDefaultEngine();
-    }
-
-    flutterTts.setStartHandler(() {
-      setState(() {
-        //print("Playing");
-        ttsState = TtsState.playing;
-      });
-    });
-
-    flutterTts.setCompletionHandler(() {
-      setState(() {
-        //print("Complete");
-        ttsState = TtsState.stopped;
-      });
-    });
-
-    flutterTts.setCancelHandler(() {
-      setState(() {
-        //print("Cancel");
-        ttsState = TtsState.stopped;
-      });
-    });
-
-    if (isWeb || isIOS) {
-      flutterTts.setPauseHandler(() {
-        setState(() {
-          //print("Paused");
-          ttsState = TtsState.paused;
-        });
-      });
-
-      flutterTts.setContinueHandler(() {
-        setState(() {
-          //print("Continued");
-          ttsState = TtsState.continued;
-        });
-      });
-    }
-
-    if (isIOS) {
-      await flutterTts
-          .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
-        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
-        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
-        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
-        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
-      ]);
-    }
-
-
-    flutterTts.setErrorHandler((msg) {
-      setState(() {
-        //print("error: $msg");
-        ttsState = TtsState.stopped;
-      });
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -245,41 +133,69 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                   children: <Widget>[
 
                     Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(Icons.volume_up),
-                              color: Colors.black,
-                              onPressed: () async {
-                                //_adjustSliderIndex(-1);
-                                //print(_wordData['word']);
-                                ttsRateSlow = !ttsRateSlow;
-                                await _ttsSpeak(_wordData['word'], 'en-US');
-                              },
-                            )
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: AutoSizeText(
-                              _wordData['word']!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 28),
-                              maxLines: 1,
-                            )
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: AutoSizeText(
-                              '[${_wordData['wordIPA']!}]',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20),
-                              maxLines: 1,
-                            )
-                        ),
+                        children: <Widget>[
+                          Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                icon: const Icon(Icons.navigate_before),
+                                color: Colors.black,
+                                onPressed: () async {
+                                  _adjustWordIndex(-1);
+                                },
+                              )
+                          ),
+                          Expanded(
+                              flex: 8,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                        icon: Icon(Icons.volume_up),
+                                        color: Colors.black,
+                                        onPressed: () async {
+                                          //_adjustSliderIndex(-1);
+                                          //print(_wordData['word']);
+                                          ttsRateSlow = !ttsRateSlow;
+                                          await _ttsSpeak(_vocabularyList[_wordIndex]['word'], 'en-US');
+                                        },
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        _vocabularyList[_wordIndex]['word'],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 28),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        '[${_vocabularyList[_wordIndex]['wordIPA']}]',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20),
+                                        maxLines: 1,
+                                      )
+                                  ),
 
-                      ],
+                                ],
+                              )
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                icon: const Icon(Icons.navigate_next),
+                                color: Colors.black,
+                                onPressed: () async {
+                                  _adjustWordIndex(1);
+                                },
+                              )
+                          ),
+                        ]
                     ),
+
                     const Divider(
                       thickness: 2,
                       color: Colors.black,
@@ -293,11 +209,11 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const ScrollPhysics(),
-                        itemCount: _wordData['wordMeaningList'].length,
+                        itemCount: _vocabularyList[_wordIndex]['wordMeaningList'].length,
                         itemBuilder: (context, index2) {
                           return Center(
                               child: AutoSizeText(
-                                '[${_wordData['wordMeaningList'][index2]['pos']}] ${_wordData['wordMeaningList'][index2]['meaning']}',
+                                '[${_vocabularyList[_wordIndex]['wordMeaningList'][index2]['pos']}] ${_vocabularyList[_wordIndex]['wordMeaningList'][index2]['meaning']}',
                                 maxLines: 1,
                               )
                           );
@@ -443,7 +359,8 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
                                                   if(_allowTouchButtons['nextButton']!){
                                                     await _ttsStop();
                                                     await sttStopListening();
-                                                    await getTestQuestions();
+                                                    //await getTestQuestions();
+                                                    _adjustSentenceIndex(1);
                                                   }
                                                 },
                                               ),
@@ -615,6 +532,99 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         )
     );
   }
+
+
+
+  Future<void> initLearningManualVocabularyPraticeWordPage() async {
+    initTts();
+    initSpeechState();
+    _adjustWordIndex(0);
+  }
+
+  Future<void> initSpeechState() async {
+    var sttHasSpeech = await speechToText.initialize(
+        onError: sttErrorListener,
+        onStatus: sttStatusListener,
+        debugLogging: true,
+        finalTimeout: const Duration(milliseconds: 0));
+    if (sttHasSpeech) {
+      _sttLocaleNames = await speechToText.locales();
+
+      var systemLocale = await speechToText.systemLocale();
+      //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _sttHasSpeech = sttHasSpeech;
+    });
+  }
+
+  initTts() async {
+    flutterTts = FlutterTts();
+
+    if (isAndroid) {
+      _getDefaultEngine();
+    }
+
+    flutterTts.setStartHandler(() {
+      setState(() {
+        //print("Playing");
+        ttsState = TtsState.playing;
+      });
+    });
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        //print("Complete");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setCancelHandler(() {
+      setState(() {
+        //print("Cancel");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    if (isWeb || isIOS) {
+      flutterTts.setPauseHandler(() {
+        setState(() {
+          //print("Paused");
+          ttsState = TtsState.paused;
+        });
+      });
+
+      flutterTts.setContinueHandler(() {
+        setState(() {
+          //print("Continued");
+          ttsState = TtsState.continued;
+        });
+      });
+    }
+
+    if (isIOS) {
+      await flutterTts
+          .setIosAudioCategory(IosTextToSpeechAudioCategory.playback, [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
+      ]);
+    }
+
+
+    flutterTts.setErrorHandler((msg) {
+      setState(() {
+        //print("error: $msg");
+        ttsState = TtsState.stopped;
+      });
+    });
+  }
+
+
 
   /*
   speech_to_text
@@ -918,15 +928,26 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
   }
 
+  Future<void> _adjustWordIndex(int value) async {
 
+    await _ttsStop();
+    await sttStopListening();
 
+    int wordIndex = _wordIndex + value;
+    if( (wordIndex >= 0) && (wordIndex <= (_vocabularyList.length - 1)) ){
+      setState(() => _wordIndex = wordIndex);
+    }
+    _adjustSentenceIndex(0);
+  }
 
+  Future<void> _adjustSentenceIndex(int value) async {
 
-  Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String questionChineseText : '', String aboutWord:''}) async {
+    await _ttsStop();
+    await sttStopListening();
 
-    if(questionText == ''){
+    if (_vocabularySentenceList[_wordIndex]['sentenceList'].length == 0) {
       setState(() {
-        _replyText = '請稍候......';
+        _replyText = 'No sentence here';
         _replyTextWidget = [ TextSpan(text: _replyText), ];
         _questionText = '';
         _questionIPAText = '';
@@ -944,59 +965,43 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         _allowTouchButtons['speakButton'] = false;
         _allowTouchButtons['nextButton'] = false;
       });
-
-      String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'10');
-      var getSentences = jsonDecode(getSentencesJSON.toString());
-      //print(_word);
-      //print(getSentences);
-
-      if(getSentences['apiStatus'] == 'success'){
-        final _random = Random().nextInt(getSentences['data'].length);
-        String sentenceContent = getSentences['data'][_random]['sentenceContent'];
-        String sentenceIPA = getSentences['data'][_random]['sentenceIPA'];
-        String sentenceChinese = getSentences['data'][_random]['sentenceChinese'];
-        getTestQuestions(questionText: sentenceContent, questionIPAText: sentenceIPA, questionChineseText: sentenceChinese);
-
-        setState(() {
-          //_allowTouchButtons['nextButton'] = true;
-        });
-      } else {
-        //print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        sleep(const Duration(seconds:1));
-        getTestQuestions();
-      }
       return;
     }
+
+    int sentenceIndex = _sentenceIndex + value;
+    if( (sentenceIndex >= 0) && (sentenceIndex <= (_vocabularySentenceList[_wordIndex]['sentenceList'].length - 1)) ){
+      setState(() => _sentenceIndex = sentenceIndex);
+    } else {
+      setState(() => _sentenceIndex = 0);
+    }
+
 
     setState(() {
       _replyText = 'Repeat after me: ';
       _replyTextWidget = [ TextSpan(text: _replyText), ];
-      _questionText = questionText;
+      _questionText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceContent'];
       _questionTextWidget = [ TextSpan(text: _questionText), ];
-      _questionIPAText = questionIPAText;
+      _questionIPAText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceIPA'];
       _questionIPATextWidget = [ TextSpan(text: '[' + _questionIPAText + ']'), ];
-      _questionChineseText = questionChineseText;
+      _questionChineseText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceChinese'];
       _questionChineseWidget = [ TextSpan(text: _questionChineseText), ];
       ttsRateSlow = false;
+      _answerText = '';
+      _answerIPAText = '';
+      _answerTextWidget = [];
+      _answerIPATextWidget = [];
+      _ipaAboutList = [];
+      _viewIPAAboutList = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;
       _allowTouchButtons['nextButton'] = true;
     });
     await _ttsSpeak('Repeat after me', 'en-US');
-    await _ttsSpeak(questionText, 'en-US');
+    await _ttsSpeak(_questionText, 'en-US');
 
     await sttStartListening();
     return;
-
   }
-
-
-
-
-
-
-
-
 
 
 
