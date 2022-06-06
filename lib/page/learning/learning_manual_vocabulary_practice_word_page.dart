@@ -136,12 +136,15 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
                         children: <Widget>[
                           Expanded(
                               flex: 1,
-                              child: IconButton(
-                                icon: const Icon(Icons.navigate_before),
-                                color: Colors.black,
-                                onPressed: () async {
-                                  _adjustWordIndex(-1);
-                                },
+                              child: Visibility(
+                                  visible: (_wordIndex > 0),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_before),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      _adjustWordIndex(-1);
+                                    },
+                                  )
                               )
                           ),
                           Expanded(
@@ -166,7 +169,7 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
                                       child: AutoSizeText(
                                         _vocabularyList[_wordIndex]['word'],
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 28),
+                                        style: TextStyle(fontSize: 24),
                                         maxLines: 1,
                                       )
                                   ),
@@ -185,12 +188,15 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
                           ),
                           Expanded(
                               flex: 1,
-                              child: IconButton(
-                                icon: const Icon(Icons.navigate_next),
-                                color: Colors.black,
-                                onPressed: () async {
-                                  _adjustWordIndex(1);
-                                },
+                              child: Visibility(
+                                  visible: (_wordIndex < (_vocabularyList.length - 1)),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_next),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      _adjustWordIndex(1);
+                                    },
+                                  )
                               )
                           ),
                         ]
@@ -432,11 +438,11 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
                                         child: Stack(
                                           children: <Widget>[
                                             Container(
-                                              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                                              child: AutoSizeText(
-                                                '在這裡聽看看類似的發音吧',
-                                                maxLines: 1,
-                                              )
+                                                padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                                child: AutoSizeText(
+                                                  '在這裡聽看看類似的發音吧',
+                                                  maxLines: 1,
+                                                )
                                             ),
                                             Container(
                                               padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
@@ -977,7 +983,7 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
 
 
     setState(() {
-      _replyText = 'Repeat after me: ';
+      _replyText = 'Repeat after me: (${_sentenceIndex + 1}/${_vocabularySentenceList[_wordIndex]['sentenceList'].length})';
       _replyTextWidget = [ TextSpan(text: _replyText), ];
       _questionText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceContent'];
       _questionTextWidget = [ TextSpan(text: _questionText), ];
