@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
   final _appRouter = AppRouter();
   bool? isSignin;
   MyApp({bool? isSignin}):isSignin = isSignin;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
