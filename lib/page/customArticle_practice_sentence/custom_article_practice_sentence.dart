@@ -33,7 +33,7 @@ class _CustomArticlePracticeSentenceIndexPage
   List sentencelist = [];
   List sentenceIPAlist = [];
   bool isloading = false;
-  bool practice_auto = false;
+  bool practice_auto = true;
   int inputWordCount = 0;
   List<TextSpan> outOfRangeWord = [];
   List<Widget> topicList = [];
@@ -56,24 +56,27 @@ class _CustomArticlePracticeSentenceIndexPage
       topicList.add(
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: ElevatedButton(
-            onPressed: () {
-              int count = 0;
-              for (var i = 0;
-              i < sentenceExampleData.sentence[key].split(" ").length;
-              i++) {
-                if (r.hasMatch(
-                    sentenceExampleData.sentence[key].split(" ")[i])) {
-                  count += 1;
+          child: SizedBox(
+            height: 24,
+            child: ElevatedButton(
+              onPressed: () {
+                int count = 0;
+                for (var i = 0;
+                i < sentenceExampleData.sentence[key].split(" ").length;
+                i++) {
+                  if (r.hasMatch(
+                      sentenceExampleData.sentence[key].split(" ")[i])) {
+                    count += 1;
+                  }
                 }
-              }
-              setState(() {
-                inputWordCount = count;
-              });
-              _controller.text = sentenceExampleData.sentence[key];
-            },
-            child: Text('${key}'),
-            style: ElevatedButton.styleFrom(primary: PageTheme.app_theme_blue),
+                setState(() {
+                  inputWordCount = count;
+                });
+                _controller.text = sentenceExampleData.sentence[key];
+              },
+              child: Text('${key}'),
+              style: ElevatedButton.styleFrom(primary: PageTheme.app_theme_blue),
+            ),
           ),
         ),
       );
@@ -82,7 +85,6 @@ class _CustomArticlePracticeSentenceIndexPage
 
   //將輸入文章做作文法校正、分句、文章分析
   void addSentence() async {
-    //print(userId);
     print(_controller.text);
     setState(() {
       pieChartData = [];
@@ -94,55 +96,66 @@ class _CustomArticlePracticeSentenceIndexPage
     var sentenceSegmentation;
     var ipa;
     var getStatitics;
-    if (_controller.text != "") {
-      String grammar_response = await APIUtil.checkGrammar(_controller.text);
-      var checkedGrammar = jsonDecode(grammar_response);
-      if (checkedGrammar['apiStatus'] == 'success') {
-        sentenceSegmentation = await APIUtil.getSentenceSegmentation(
-            checkedGrammar['data']['sentenceTextChecked']);
-        getStatitics = await APIUtil.getStatitics(
-            checkedGrammar['data']['sentenceTextChecked']);
-      } else {
-        setState(() {
-          isloading = false;
-        });
-        final text = "文章內容包含除英文之外的字元";
-        final snackbar = SnackBar(
-          content: Text(text),
-        );
-        _scaffoldKey.currentState?.showSnackBar(snackbar);
-      }
-      if (sentenceSegmentation['apiStatus'] == 'success' &&
-          getStatitics['apiStatus'] == 'success') {
-        print(sentenceSegmentation['data']);
-        ipa = await APIUtil.getSentenceIPA(sentenceSegmentation['data']);
-        if (ipa['apiStatus'] == 'success') {
-          print(getStatitics['data']['statitics']);
+    try{
+      if (_controller.text != "" && inputWordCount>0) {
+        String grammar_response = await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
+        var checkedGrammar = jsonDecode(grammar_response);
+        if (checkedGrammar['apiStatus'] == 'success') {
+          sentenceSegmentation = await APIUtil.getSentenceSegmentation(
+              checkedGrammar['data']['sentenceTextChecked']);
+          getStatitics = await APIUtil.getStatitics(
+              checkedGrammar['data']['sentenceTextChecked']);
+        } else {
           setState(() {
-            pieChartData = getStatitics['data']['statitics'];
-            sentenceIPAlist = ipa['data'];
             isloading = false;
-            sentencelist = sentenceSegmentation['data'];
           });
-          if (getStatitics['data']['word'] != null) {
-            List w = getStatitics['data']['word'];
-            w.forEach((element) {
-              outOfRangeWord.add(TextSpan(
-                  text: element,
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline)));
-              outOfRangeWord.add(TextSpan(text: ", "));
+          final text = "文章內容包含除英文之外的字元";
+          final snackbar = SnackBar(
+            content: Text(text),
+          );
+          _scaffoldKey.currentState?.showSnackBar(snackbar);
+        }
+        if (sentenceSegmentation['apiStatus'] == 'success' &&
+            getStatitics['apiStatus'] == 'success') {
+          print(sentenceSegmentation['data']);
+          ipa = await APIUtil.getSentenceIPA(sentenceSegmentation['data']);
+          if (ipa['apiStatus'] == 'success') {
+            print(getStatitics['data']['statitics']);
+            setState(() {
+              pieChartData = getStatitics['data']['statitics'];
+              sentenceIPAlist = ipa['data'];
+              isloading = false;
+              sentencelist = sentenceSegmentation['data'];
             });
+            if (getStatitics['data']['word'] != null) {
+              List w = getStatitics['data']['word'];
+              w.forEach((element) {
+                outOfRangeWord.add(TextSpan(
+                    text: element,
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline)));
+                outOfRangeWord.add(TextSpan(text: ", "));
+              });
+            } else {
+              List w = ['null'];
+              w.forEach((element) {
+                outOfRangeWord.add(TextSpan(
+                  text: element,
+                ));
+              });
+            }
           } else {
-            List w = ['null'];
-            w.forEach((element) {
-              outOfRangeWord.add(TextSpan(
-                text: element,
-              ));
+            final text = "發生異常";
+            final snackbar = SnackBar(
+              content: Text(text),
+            );
+            _scaffoldKey.currentState?.showSnackBar(snackbar);
+            setState(() {
+              isloading = false;
             });
           }
-        } else {
+        }else{
           final text = "發生異常";
           final snackbar = SnackBar(
             content: Text(text),
@@ -152,17 +165,28 @@ class _CustomArticlePracticeSentenceIndexPage
             isloading = false;
           });
         }
+      } else {
+        setState(() {
+          isloading = false;
+        });
+        final text = "請輸入文章";
+        final snackbar = SnackBar(
+          content: Text(text),
+        );
+        _scaffoldKey.currentState?.showSnackBar(snackbar);
       }
-    } else {
+    }catch(error){
       setState(() {
         isloading = false;
       });
-      final text = "請輸入文章";
+      final text = "發生異常";
       final snackbar = SnackBar(
         content: Text(text),
       );
       _scaffoldKey.currentState?.showSnackBar(snackbar);
+      return;
     }
+
   }
 
   @override
@@ -185,7 +209,7 @@ class _CustomArticlePracticeSentenceIndexPage
         ),
         body: ListView(
           padding: EdgeInsets.only(
-            top: 24,
+            top: 16,
             bottom: 62,
           ),
           children: [
@@ -197,7 +221,16 @@ class _CustomArticlePracticeSentenceIndexPage
                   child: Text("Example Article",
                       style: TextStyle(
                           color: PageTheme.cutom_article_practice_background,
-                          fontSize: 22,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Text("範例文章",
+                      style: TextStyle(
+                          color: PageTheme.cutom_article_practice_background.withOpacity(0.8),
+                          fontSize: 14,
+                          height: 1.0,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
@@ -209,13 +242,17 @@ class _CustomArticlePracticeSentenceIndexPage
                 ),
               ],
             ),
-            Container(
-                height: 20,
+            /*Container(
+                height: 24,
                 margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: topicList,
-                )),
+                )),*/
+            Padding(
+              padding: const EdgeInsets.only(top: 10,right: 10,left: 10),
+              child: Wrap(runSpacing:5.0,children: topicList,),
+            ),
             Container(
                 margin: const EdgeInsets.only(
                     top: 10, left: 20, right: 20, bottom: 5),
@@ -242,10 +279,11 @@ class _CustomArticlePracticeSentenceIndexPage
                         minLines: 1,
                         controller: _controller,
                         onChanged: (String newVal) {
+                          String article = newVal.replaceAll("\n", " ");
                           int count = 0;
                           String pastText = "";
-                          for (var i = 0; i < newVal.split(" ").length; i++) {
-                            if (r.hasMatch(newVal.split(' ')[i])) {
+                          for (var i = 0; i < article.split(" ").length; i++) {
+                            if (r.hasMatch(article.split(' ')[i])) {
                               count += 1;
                             }
                           }
@@ -253,10 +291,10 @@ class _CustomArticlePracticeSentenceIndexPage
                             setState(() {
                               inputWordCount = count;
                             });
-                            text = newVal;
+                            text = article;
                           } else {
                             for (var i = 0; i < 500; i++) {
-                              pastText += newVal.split(' ')[i] + " ";
+                              pastText += article.split(' ')[i] + " ";
                             }
                             _controller.text = pastText;
                             setState(() {
@@ -343,14 +381,14 @@ class _CustomArticlePracticeSentenceIndexPage
                         padding: const EdgeInsets.only(left: 12),
                         child: Row(
                           children: [
-                            Text("Article Analyze",
+                            Text("Word Grade Level Distribution",
                                 style: TextStyle(
                                     color: PageTheme
                                         .cutom_article_practice_background,
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold)),
                             SizedBox(
-                              width: 5,
+                              width: 2,
                             ),
                             IconButton(
                               onPressed: () {
@@ -366,6 +404,15 @@ class _CustomArticlePracticeSentenceIndexPage
                             )
                           ],
                         )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Text("單字級別分佈",
+                          style: TextStyle(
+                              color: PageTheme.cutom_article_practice_background.withOpacity(0.8),
+                              fontSize: 14,
+                              height: 1.0,
+                              fontWeight: FontWeight.bold)),
+                    ),
                     Container(
                       height: 3,
                       margin: EdgeInsets.only(
@@ -394,64 +441,28 @@ class _CustomArticlePracticeSentenceIndexPage
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Text("Sentence Shadow Speaking",
+                          style: TextStyle(
+                              color: PageTheme.cutom_article_practice_background,
+                              fontSize: 18,
+                              height: 1.0,
+                              fontWeight: FontWeight.bold)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12, right: 12),
                       child: Row(
                         children: [
-                          Text("Sentence",
+                          Text("句子跟讀",
                               style: TextStyle(
                                   color: PageTheme
-                                      .cutom_article_practice_background,
-                                  fontSize: 22,
+                                      .cutom_article_practice_background.withOpacity(0.8),
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold)),
                           Expanded(child: Container()),
-                          SizedBox(
-                            height: 30,
-                            width: 100,
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  if (!practice_auto) {
-                                    AutoRouter.of(context).push(
-                                        CustomArticlePracticeSentenceLearnManualRoute(
-                                      questionList: sentencelist,
-                                      questionIPAList: sentenceIPAlist,
-                                    ));
-                                  } else {
-                                    AutoRouter.of(context).push(
-                                        CustomArticlePracticeSentenceLearnAutoRoute(
-                                      questionList: sentencelist,
-                                    ));
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    primary: PageTheme
-                                        .cutom_article_practice_background),
-                                child: Text('練習')),
-                          ),
-                          Expanded(child: Container()),
-                          Row(
-                            children: [
-                              Text("Auto：",
-                                  style: TextStyle(
-                                      color: PageTheme
-                                          .cutom_article_practice_background,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold)),
-                              Switch(
-                                value: practice_auto,
-                                onChanged: (value) {
-                                  setState(() {
-                                    practice_auto = !practice_auto;
-                                  });
-                                },
-                                activeColor:
-                                    PageTheme.cutom_article_practice_background,
-                                activeTrackColor: Color(0xffcbdaff),
-                              ),
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -462,6 +473,54 @@ class _CustomArticlePracticeSentenceIndexPage
                           color: PageTheme.cutom_article_practice_background,
                           borderRadius: BorderRadius.circular(15)),
                     ),
+                    SizedBox(height: 10,),
+                    Row(
+                      children: [
+                        Expanded(child: Container()),
+                        SizedBox(
+                          height: 30,
+                          width: 100,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                if (!practice_auto) {
+                                  AutoRouter.of(context).push(
+                                      CustomArticlePracticeSentenceLearnManualRoute(
+                                        questionList: sentencelist,
+                                        questionIPAList: sentenceIPAlist,
+                                      ));
+                                } else {
+                                  AutoRouter.of(context).push(
+                                      CustomArticlePracticeSentenceLearnAutoRoute(
+                                        questionList: sentencelist,
+                                      ));
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: PageTheme
+                                      .cutom_article_practice_background),
+                              child: Text('口語練習')),
+                        ),
+                        SizedBox(width: 8,),
+                            Text("Auto：",
+                                style: TextStyle(
+                                    color: PageTheme
+                                        .cutom_article_practice_background,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                            Switch(
+                              value: practice_auto,
+                              onChanged: (value) {
+                                setState(() {
+                                  practice_auto = !practice_auto;
+                                });
+                              },
+                              activeColor:
+                              PageTheme.cutom_article_practice_background,
+                              activeTrackColor: Color(0xffcbdaff),
+                            ),
+                        Expanded(child: Container()),
+                      ],
+                    )
                   ],
                 ),
               ),
