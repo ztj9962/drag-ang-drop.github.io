@@ -17,25 +17,30 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class VocabularyPracticeWordLearnManualPage extends StatefulWidget {
+class LearningManualVocabularyPraticeWordPage extends StatefulWidget {
 
-  final String word;
-  const VocabularyPracticeWordLearnManualPage ({ Key? key, required this.word }): super(key: key);
+  final List<dynamic> vocabularyList;
+  final List<dynamic> vocabularySentenceList;
+  const LearningManualVocabularyPraticeWordPage ({ Key? key, required this.vocabularyList, required this.vocabularySentenceList }): super(key: key);
 
   @override
-  _VocabularyPracticeWordLearnManualPageState createState() => _VocabularyPracticeWordLearnManualPageState();
+  _LearningManualVocabularyPraticeWordPageState createState() => _LearningManualVocabularyPraticeWordPageState();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracticeWordLearnManualPage> {
-  late String _word;
-  late Map<String, dynamic> _wordData = {'index': 1, 'classificationName': 'Kindergarten', 'orderNo': 1, 'word': '', 'wordRanking': 1, 'wordType': 'None', 'wordLevel': 'A1', 'wordIPA': 'ðə', 'wordSource': 'cerf1000', 'wordMeaningList': []};
+class _LearningManualVocabularyPraticeWordPageState extends State<LearningManualVocabularyPraticeWordPage> {
+
+  late List<dynamic> _vocabularyList;
+  late List<dynamic> _vocabularySentenceList;
+
+  int _wordIndex = 0;
+  int _sentenceIndex = 0;
 
   final _allowTouchButtons = {
     'reListenButton' : false,
     'speakButton' : false,
-    'nextButton' : false,
+    'nextButton' : true,
   };
   String _questionText = '';
   String _questionIPAText = '';
@@ -43,12 +48,12 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
-  List<TextSpan> _questionTextWidget = [ const TextSpan(text: 'is my time to go to school to wo dow sorhb sonw'), ];
-  List<TextSpan> _questionIPATextWidget = [ const TextSpan(text: '[IPA]'), ];
-  List<TextSpan> _questionChineseWidget = [ const TextSpan(text: 'Ch'), ];
-  List<TextSpan> _replyTextWidget = [ const TextSpan(text: '_replyTextWidget'), ];
-  List<TextSpan> _answerTextWidget = [ const TextSpan(text: "_answerTextWidget"), ];
-  List<TextSpan> _answerIPATextWidget = [ const TextSpan(text: '_answerIPATextWidget'), ];
+  List<TextSpan> _questionTextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _questionIPATextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _questionChineseWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _replyTextWidget = [ const TextSpan(text: ''), ];
+  List<TextSpan> _answerTextWidget = [ const TextSpan(text: ""), ];
+  List<TextSpan> _answerIPATextWidget = [ const TextSpan(text: ''), ];
   List<String> _ipaAboutList = ['111', '222'];
   bool _viewIPAAboutList = false;
   int _correctCombo = 0;
@@ -88,10 +93,12 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
   @override
   void initState() {
-    _word = widget.word;
+    _vocabularyList = widget.vocabularyList;
+    _vocabularySentenceList = widget.vocabularySentenceList;
+    print(_vocabularyList);
+    print(_vocabularySentenceList);
     super.initState();
-
-    initVocabularyPracticeWordLearnManualPage();
+    initLearningManualVocabularyPraticeWordPage();
   }
 
   @override
@@ -102,39 +109,442 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
     speechToText.stop();
   }
 
-  Future<void> initVocabularyPracticeWordLearnManualPage() async {
-    await initWordData();
-    initTts();
-    initSpeechState();
-    getTestQuestions();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: PageTheme.app_theme_black,
+          title: AutoSizeText(
+            '',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
+            ),
+            maxLines: 1,
+          ),
+        ),
+        body: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+
+                    Row(
+                        children: <Widget>[
+                          Expanded(
+                              flex: 1,
+                              child: Visibility(
+                                  visible: (_wordIndex > 0),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_before),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      _adjustWordIndex(-1);
+                                    },
+                                  )
+                              )
+                          ),
+                          Expanded(
+                              flex: 8,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                        icon: Icon(Icons.volume_up),
+                                        color: Colors.black,
+                                        onPressed: () async {
+                                          //_adjustSliderIndex(-1);
+                                          //print(_wordData['word']);
+                                          ttsRateSlow = !ttsRateSlow;
+                                          await _ttsSpeak(_vocabularyList[_wordIndex]['word'], 'en-US');
+                                        },
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        _vocabularyList[_wordIndex]['word'],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 24),
+                                        maxLines: 1,
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: AutoSizeText(
+                                        '[${_vocabularyList[_wordIndex]['wordIPA']}]',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20),
+                                        maxLines: 1,
+                                      )
+                                  ),
+
+                                ],
+                              )
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Visibility(
+                                  visible: (_wordIndex < (_vocabularyList.length - 1)),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.navigate_next),
+                                    color: Colors.black,
+                                    onPressed: () async {
+                                      _adjustWordIndex(1);
+                                    },
+                                  )
+                              )
+                          ),
+                        ]
+                    ),
+
+                    const Divider(
+                      thickness: 2,
+                      color: Colors.black,
+                    ),
+                    /*
+                    AutoSizeText(
+                      'Index(${_wordData['index']}); Ranking(${_wordData['wordRanking']}); ${_wordData['classificationName']}(${_wordData['orderNo']}); ${_wordData['wordLevel']}',
+                      maxLines: 1,
+                    ),
+                    */
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemCount: _vocabularyList[_wordIndex]['wordMeaningList'].length,
+                        itemBuilder: (context, index2) {
+                          return Center(
+                              child: AutoSizeText(
+                                '[${_vocabularyList[_wordIndex]['wordMeaningList'][index2]['pos']}] ${_vocabularyList[_wordIndex]['wordMeaningList'][index2]['meaning']}',
+                                maxLines: 1,
+                              )
+                          );
+                        }
+                    ),
+                  ],
+                ),
+              ),
+
+              const Divider(
+                thickness: 1,
+                color: PageTheme.app_theme_blue,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                    padding: const EdgeInsets.all(0),
+                    child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Text.rich(
+                                  TextSpan(
+                                    text: '',
+                                    style: const TextStyle(
+                                      fontSize: 20 ,
+                                      color: PageTheme.app_theme_blue,
+                                    ),
+                                    children: _replyTextWidget,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: '',
+                                      style: const TextStyle(
+                                        fontSize: 24 ,
+                                        color: Colors.black,
+                                      ),
+                                      children: _questionTextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: '',
+                                      style: const TextStyle(
+                                        fontSize: 18 ,
+                                        color: Colors.black,
+                                      ),
+                                      children: _questionChineseWidget,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: '',
+                                      style: const TextStyle(
+                                        fontSize: 18 ,
+                                        color: Colors.black,
+                                      ),
+                                      children: _questionIPATextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                height: 100,
+                                //color: Colors.blue,
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CircleAvatar(
+                                              backgroundColor: PageTheme.app_theme_blue,
+                                              radius: 25.0,
+                                              child: IconButton(
+                                                icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
+                                                color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
+                                                onPressed: () async {
+                                                  if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                                                    ttsRateSlow = !ttsRateSlow;
+                                                    await _ttsSpeak(_questionText, 'en-US');
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const AutoSizeText(
+                                            '再聽一次',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Container(
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Container(
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CircleAvatar(
+                                              backgroundColor: PageTheme.app_theme_blue,
+                                              radius: 25.0,
+                                              child: IconButton(
+                                                icon: const Icon(Icons.navigate_next_outlined),
+                                                color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
+                                                onPressed: () async {
+                                                  if(_allowTouchButtons['nextButton']!){
+                                                    await _ttsStop();
+                                                    await sttStopListening();
+                                                    //await getTestQuestions();
+                                                    _adjustSentenceIndex(1);
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const AutoSizeText(
+                                            '下一題',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 1,
+                                color: PageTheme.app_theme_blue,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: '',
+                                      style: const TextStyle(
+                                        fontSize: 24 ,
+                                        color: Colors.black,
+                                      ),
+                                      children: _answerTextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: '',
+                                      style: const TextStyle(
+                                        fontSize: 18 ,
+                                        color: Colors.black,
+                                      ),
+                                      children: _answerIPATextWidget,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: _viewIPAAboutList,
+                                child: Column(
+                                  children: <Widget>[
+                                    const Divider(
+                                      thickness: 1,
+                                      color: PageTheme.app_theme_blue,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child:  Card(
+                                        color: Colors.white,
+                                        margin: EdgeInsets.all(0.0),
+                                        elevation: 2.0,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                                padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                                child: AutoSizeText(
+                                                  '在這裡聽看看類似的發音吧',
+                                                  maxLines: 1,
+                                                )
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
+                                              child: ListView.separated(
+                                                shrinkWrap: true,
+                                                physics: const ScrollPhysics(),
+                                                itemCount: _ipaAboutList.length,
+                                                itemBuilder: (context, index) {
+                                                  return ListTile(
+                                                    leading: const Icon(Icons.hearing_outlined),
+                                                    title: Text.rich(
+                                                      TextSpan(
+                                                        text: _ipaAboutList[index],
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onTap: () async {
+                                                      ttsRateSlow = true;
+                                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
+                                                      ttsRateSlow = !ttsRateSlow;
+                                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
+                                                    },
+
+                                                  );
+                                                },
+                                                separatorBuilder: (context, index){
+                                                  return const Divider(
+                                                    height: 1,
+                                                    thickness: 1,
+
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]
+                        )
+                    )
+                ),
+              ),
+
+              const Divider(
+                thickness: 1,
+                color: PageTheme.app_theme_blue,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: SvgPicture.asset('assets/icon/audio.svg'),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: CircleAvatar(
+                          backgroundColor: PageTheme.app_theme_blue,
+                          radius: 40.0,
+                          child: IconButton(
+                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
+                            color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
+                            onPressed: () {
+                              if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                if( !_sttHasSpeech || speechToText.isListening ){
+                                  sttStopListening();
+                                } else {
+                                  sttStartListening();
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: SvgPicture.asset('assets/icon/audio.svg'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ]
+        )
+    );
   }
 
 
-  Future<void> initWordData() async {
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try{
-      var getWordData;
-      String getWordDataJSON = await APIUtil.getWordData(_word);
-      getWordData = jsonDecode(getWordDataJSON.toString());
-      //print('getWordData 2 apiStatus:' + getWordData['apiStatus'] + ' apiMessage:' + getWordData['apiMessage']);
 
-      if (getWordData['apiStatus'] == 'success') {
-        //print(getWordData['data']);
-        setState(() {
-          _wordData = getWordData['data'];
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getWordData['apiMessage']),
-        ));
-      }
-    } catch(e) {
-      //print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('連線發生錯誤，請稍候再重試'),
-      ));
-    }
-    EasyLoading.dismiss();
+  Future<void> initLearningManualVocabularyPraticeWordPage() async {
+    initTts();
+    initSpeechState();
+    _adjustWordIndex(0);
   }
 
   Future<void> initSpeechState() async {
@@ -221,400 +631,6 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
   }
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: PageTheme.app_theme_black,
-          title: AutoSizeText(
-            '',
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              letterSpacing: 3.0,
-              color: Color(0xFFFEFEFE),
-            ),
-            maxLines: 1,
-          ),
-        ),
-        body: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(Icons.volume_up),
-                              color: Colors.black,
-                              onPressed: () async {
-                                //_adjustSliderIndex(-1);
-                                //print(_wordData['word']);
-                                ttsRateSlow = !ttsRateSlow;
-                                await _ttsSpeak(_wordData['word'], 'en-US');
-                              },
-                            )
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: AutoSizeText(
-                              _wordData['word']!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 28),
-                              maxLines: 1,
-                            )
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: AutoSizeText(
-                              '[${_wordData['wordIPA']!}]',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20),
-                              maxLines: 1,
-                            )
-                        ),
-
-                      ],
-                    ),
-                    const Divider(
-                      thickness: 2,
-                      color: Colors.black,
-                    ),
-                    /*
-                    AutoSizeText(
-                      'Index(${_wordData['index']}); Ranking(${_wordData['wordRanking']}); ${_wordData['classificationName']}(${_wordData['orderNo']}); ${_wordData['wordLevel']}',
-                      maxLines: 1,
-                    ),
-                    */
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemCount: _wordData['wordMeaningList'].length,
-                        itemBuilder: (context, index2) {
-                          return Center(
-                              child: AutoSizeText(
-                                '[${_wordData['wordMeaningList'][index2]['pos']}] ${_wordData['wordMeaningList'][index2]['meaning']}',
-                                maxLines: 1,
-                              )
-                          );
-                        }
-                    ),
-                  ],
-                ),
-              ),
-
-              const Divider(
-                thickness: 1,
-                color: PageTheme.app_theme_blue,
-              ),
-              Expanded(
-                flex: 5,
-                child: Container(
-                    padding: const EdgeInsets.all(0),
-                    child: SingleChildScrollView(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '',
-                                    style: const TextStyle(
-                                      fontSize: 20 ,
-                                      color: PageTheme.app_theme_blue,
-                                    ),
-                                    children: _replyTextWidget,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: const TextStyle(
-                                        fontSize: 24 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _questionTextWidget,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: const TextStyle(
-                                        fontSize: 18 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _questionChineseWidget,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: const TextStyle(
-                                        fontSize: 18 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _questionIPATextWidget,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                height: 100,
-                                //color: Colors.blue,
-                                child: Row(
-                                  children: <Widget>[
-                                    Flexible(
-                                      flex: 1,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child: CircleAvatar(
-                                              backgroundColor: PageTheme.app_theme_blue,
-                                              radius: 25.0,
-                                              child: IconButton(
-                                                icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined ),
-                                                color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.white : Colors.grey ,
-                                                onPressed: () async {
-                                                  if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                                                    ttsRateSlow = !ttsRateSlow;
-                                                    await _ttsSpeak(_questionText, 'en-US');
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          const AutoSizeText(
-                                            '再聽一次',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 1,
-                                      child: Container(
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 1,
-                                      child: Container(
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 1,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child: CircleAvatar(
-                                              backgroundColor: PageTheme.app_theme_blue,
-                                              radius: 25.0,
-                                              child: IconButton(
-                                                icon: const Icon(Icons.navigate_next_outlined),
-                                                color: (_allowTouchButtons['nextButton']! ) ? Colors.white : Colors.grey ,
-                                                onPressed: () async {
-                                                  if(_allowTouchButtons['nextButton']!){
-                                                    await _ttsStop();
-                                                    await sttStopListening();
-                                                    await getTestQuestions();
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          const AutoSizeText(
-                                            '下一題',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Divider(
-                                thickness: 1,
-                                color: PageTheme.app_theme_blue,
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: const TextStyle(
-                                        fontSize: 24 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _answerTextWidget,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: '',
-                                      style: const TextStyle(
-                                        fontSize: 18 ,
-                                        color: Colors.black,
-                                      ),
-                                      children: _answerIPATextWidget,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: _viewIPAAboutList,
-                                child: Column(
-                                  children: <Widget>[
-                                    const Divider(
-                                      thickness: 1,
-                                      color: PageTheme.app_theme_blue,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      child:  Card(
-                                        color: Colors.white,
-                                        margin: EdgeInsets.all(0.0),
-                                        elevation: 2.0,
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Container(
-                                              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                                              child: AutoSizeText(
-                                                '在這裡聽看看類似的發音吧',
-                                                maxLines: 1,
-                                              )
-                                            ),
-                                            Container(
-                                              padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
-                                              child: ListView.separated(
-                                                shrinkWrap: true,
-                                                physics: const ScrollPhysics(),
-                                                itemCount: _ipaAboutList.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    leading: const Icon(Icons.hearing_outlined),
-                                                    title: RichText(
-                                                      text: TextSpan(
-                                                        text: _ipaAboutList[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    onTap: () async {
-                                                      ttsRateSlow = true;
-                                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
-                                                      ttsRateSlow = !ttsRateSlow;
-                                                      await _ttsSpeak(_ipaAboutList[index], 'en-US');
-                                                    },
-
-                                                  );
-                                                },
-                                                separatorBuilder: (context, index){
-                                                  return const Divider(
-                                                    height: 1,
-                                                    thickness: 1,
-
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ]
-                        )
-                    )
-                ),
-              ),
-
-              const Divider(
-                thickness: 1,
-                color: PageTheme.app_theme_blue,
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: CircleAvatar(
-                          backgroundColor: PageTheme.app_theme_blue,
-                          radius: 40.0,
-                          child: IconButton(
-                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
-                            color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
-                            onPressed: () {
-                              if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                if( !_sttHasSpeech || speechToText.isListening ){
-                                  sttStopListening();
-                                } else {
-                                  sttStartListening();
-                                }
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ]
-        )
-    );
-  }
 
   /*
   speech_to_text
@@ -918,15 +934,26 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
 
   }
 
+  Future<void> _adjustWordIndex(int value) async {
 
+    await _ttsStop();
+    await sttStopListening();
 
+    int wordIndex = _wordIndex + value;
+    if( (wordIndex >= 0) && (wordIndex <= (_vocabularyList.length - 1)) ){
+      setState(() => _wordIndex = wordIndex);
+    }
+    _adjustSentenceIndex(0);
+  }
 
+  Future<void> _adjustSentenceIndex(int value) async {
 
-  Future<void> getTestQuestions({String questionText : '', String questionIPAText : '', String questionChineseText : '', String aboutWord:''}) async {
+    await _ttsStop();
+    await sttStopListening();
 
-    if(questionText == ''){
+    if (_vocabularySentenceList[_wordIndex]['sentenceList'].length == 0) {
       setState(() {
-        _replyText = '請稍候......';
+        _replyText = 'No sentence here';
         _replyTextWidget = [ TextSpan(text: _replyText), ];
         _questionText = '';
         _questionIPAText = '';
@@ -944,59 +971,43 @@ class _VocabularyPracticeWordLearnManualPageState extends State<VocabularyPracti
         _allowTouchButtons['speakButton'] = false;
         _allowTouchButtons['nextButton'] = false;
       });
-
-      String getSentencesJSON = await APIUtil.getSentences(sentenceRankingLocking:_wordData['wordRanking'].toString(), sentenceMaxLength:'12', dataLimit:'10');
-      var getSentences = jsonDecode(getSentencesJSON.toString());
-      //print(_word);
-      //print(getSentences);
-
-      if(getSentences['apiStatus'] == 'success'){
-        final _random = Random().nextInt(getSentences['data'].length);
-        String sentenceContent = getSentences['data'][_random]['sentenceContent'];
-        String sentenceIPA = getSentences['data'][_random]['sentenceIPA'];
-        String sentenceChinese = getSentences['data'][_random]['sentenceChinese'];
-        getTestQuestions(questionText: sentenceContent, questionIPAText: sentenceIPA, questionChineseText: sentenceChinese);
-
-        setState(() {
-          //_allowTouchButtons['nextButton'] = true;
-        });
-      } else {
-        //print('sendTestQuestions Error apiStatus:' + getSentences['apiStatus'] + ' apiMessage:' + getSentences['apiMessage']);
-        sleep(const Duration(seconds:1));
-        getTestQuestions();
-      }
       return;
     }
 
+    int sentenceIndex = _sentenceIndex + value;
+    if( (sentenceIndex >= 0) && (sentenceIndex <= (_vocabularySentenceList[_wordIndex]['sentenceList'].length - 1)) ){
+      setState(() => _sentenceIndex = sentenceIndex);
+    } else {
+      setState(() => _sentenceIndex = 0);
+    }
+
+
     setState(() {
-      _replyText = 'Repeat after me: ';
+      _replyText = 'Repeat after me: (${_sentenceIndex + 1}/${_vocabularySentenceList[_wordIndex]['sentenceList'].length})';
       _replyTextWidget = [ TextSpan(text: _replyText), ];
-      _questionText = questionText;
+      _questionText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceContent'];
       _questionTextWidget = [ TextSpan(text: _questionText), ];
-      _questionIPAText = questionIPAText;
+      _questionIPAText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceIPA'];
       _questionIPATextWidget = [ TextSpan(text: '[' + _questionIPAText + ']'), ];
-      _questionChineseText = questionChineseText;
+      _questionChineseText = _vocabularySentenceList[_wordIndex]['sentenceList'][_sentenceIndex]['sentenceChinese'];
       _questionChineseWidget = [ TextSpan(text: _questionChineseText), ];
       ttsRateSlow = false;
+      _answerText = '';
+      _answerIPAText = '';
+      _answerTextWidget = [];
+      _answerIPATextWidget = [];
+      _ipaAboutList = [];
+      _viewIPAAboutList = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;
       _allowTouchButtons['nextButton'] = true;
     });
     await _ttsSpeak('Repeat after me', 'en-US');
-    await _ttsSpeak(questionText, 'en-US');
+    await _ttsSpeak(_questionText, 'en-US');
 
     await sttStartListening();
     return;
-
   }
-
-
-
-
-
-
-
-
 
 
 

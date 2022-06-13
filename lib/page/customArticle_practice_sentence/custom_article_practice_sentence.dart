@@ -429,8 +429,8 @@ class _CustomArticlePracticeSentenceIndexPage
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: RichText(
-                        text: TextSpan(
+                      child: Text.rich(
+                        TextSpan(
                           text: 'Out of 10K range：',
                           style: TextStyle(
                             color: Colors.black54,
@@ -582,8 +582,8 @@ class CustomAlertDialog extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    RichText(
-                      text: TextSpan(
+                    Text.rich(
+                      TextSpan(
                           text: 'Alics各等級單字分配如下\n',
                           style: TextStyle(color: Colors.black54,height: 1.5),
                         children: [

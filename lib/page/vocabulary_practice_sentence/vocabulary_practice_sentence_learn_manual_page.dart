@@ -217,8 +217,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                             children: <Widget>[
                               Container(
                                 padding: const EdgeInsets.all(8),
-                                child: RichText(
-                                  text: TextSpan(
+                                child: Text.rich(
+                                  TextSpan(
                                     text: '',
                                     style: const TextStyle(
                                       fontSize: 20 ,
@@ -231,8 +231,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                               Container(
                                 padding: EdgeInsets.all(8),
                                 child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
+                                  child: Text.rich(
+                                    TextSpan(
                                       text: '',
                                       style: const TextStyle(
                                         fontSize: 24 ,
@@ -246,8 +246,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
+                                  child: Text.rich(
+                                    TextSpan(
                                       text: '',
                                       style: const TextStyle(
                                         fontSize: 18 ,
@@ -261,8 +261,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                               Container(
                                 padding: EdgeInsets.all(8),
                                 child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
+                                  child: Text.rich(
+                                    TextSpan(
                                       text: '',
                                       style: const TextStyle(
                                         fontSize: 18 ,
@@ -366,8 +366,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                               Container(
                                 padding: EdgeInsets.all(8),
                                 child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
+                                  child: Text.rich(
+                                    TextSpan(
                                       text: '',
                                       style: const TextStyle(
                                         fontSize: 24 ,
@@ -381,8 +381,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
+                                  child: Text.rich(
+                                    TextSpan(
                                       text: '',
                                       style: const TextStyle(
                                         fontSize: 18 ,
@@ -425,8 +425,8 @@ class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPr
                                                 itemBuilder: (context, index) {
                                                   return ListTile(
                                                     leading: const Icon(Icons.hearing_outlined),
-                                                    title: RichText(
-                                                      text: TextSpan(
+                                                    title: Text.rich(
+                                                      TextSpan(
                                                         text: _ipaAboutList[index],
                                                         style: const TextStyle(
                                                           fontSize: 12,

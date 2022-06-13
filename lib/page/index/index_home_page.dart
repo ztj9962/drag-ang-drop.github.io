@@ -27,15 +27,18 @@ class _IndexHomePageState extends State<IndexHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: EdgeInsets.only(
-          top: 24,
-          bottom: 62,
-        ),
-        itemCount: listViews.length,
-        itemBuilder:  (BuildContext context, int index) {
-          return listViews[index];
-        }
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24),
+      child: ListView.builder(
+          padding: EdgeInsets.only(
+            top: 24,
+            bottom: 62,
+          ),
+          itemCount: listViews.length,
+          itemBuilder:  (BuildContext context, int index) {
+            return listViews[index];
+          }
+      ),
     );
   }
 
@@ -53,7 +56,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         imagePath: 'assets/icon/vocabulary_practice_word_02.svg',
-        titleText: 'Common words with exemplos',
+        titleText: 'Common words with examples',
         descripText: '一萬個最常用的單字和例句',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
