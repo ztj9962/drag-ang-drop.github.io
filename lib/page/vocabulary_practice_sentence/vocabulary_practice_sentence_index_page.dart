@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/hexcolor_util.dart';
@@ -111,7 +112,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
               children: List.generate(value['title']!.length, (index) {
                 if (index == 0) return Container();
                 //return Text(value['title'][index]);
-                print(value['title'][index]);
+                //print(value['title'][index]);
                 return Stack(
                     children: <Widget>[
                       Padding(
@@ -163,8 +164,48 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                                     Flexible(
                                       flex: 1,
                                       child: GestureDetector(
-                                        onTap: (){
-                                          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
+                                        onTap: () async {
+                                          //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
+
+
+                                          EasyLoading.show(status: '正在讀取資料，請稍候......');
+                                          List<dynamic> sentenceList;
+                                          try{
+                                            var responseJSONDecode;
+                                            int doLimit = 1;
+                                            do {
+                                              String responseJSON = await APIUtil.getSentences(sentenceTopic:value['title'][index], dataLimit: '25');
+                                              responseJSONDecode = jsonDecode(responseJSON.toString());
+                                              if(responseJSONDecode['apiStatus'] != 'success') {
+                                                doLimit += 1;
+                                                if (doLimit > 1) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
+                                                sleep(Duration(seconds:1));
+                                              }
+                                            } while (responseJSONDecode['apiStatus'] != 'success');
+                                            //print(responseJSONDecode);
+                                            sentenceList = responseJSONDecode['data'];
+
+
+                                          } catch(e) {
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                              content: Text('Error: $e'),
+                                            ));
+                                            EasyLoading.dismiss();
+                                            return;
+                                          }
+                                          EasyLoading.dismiss();
+
+                                          List<String> contentList = [];
+                                          List<String> ipaList = [];
+                                          List<String> translateList = [];
+                                          //print(_vocabularyList);
+                                          for (final sentence in sentenceList) {
+                                            contentList.add(sentence['sentenceContent']);
+                                            ipaList.add(sentence['sentenceIPA']);
+                                            translateList.add(sentence['sentenceChinese']);
+                                          }
+                                          AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: contentList, ipaList: ipaList, translateList: translateList));
+
                                         },
                                         //onTap: sentenceTypeListData!.onTapFunction,
                                         child: Container(
