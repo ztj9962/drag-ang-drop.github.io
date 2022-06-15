@@ -32,7 +32,7 @@ class SentenceTypeListData {
     //print(topicListData);
 
     EasyLoading.dismiss();
-
+print(topicListData['data']);
     if(key == ''){
       List<SentenceTypeListData> list = [];
       topicListData['data'].forEach((key, value) {
@@ -54,17 +54,17 @@ class SentenceTypeListData {
     }else{
       List<SentenceTypeListData> list = [];
 
-      for (int i = 1; i < topicListData[key]!['title']!.length; i++) {
+      for (int i = 1; i < topicListData['data'][key]!['title']!.length; i++) {
         list.add(
           SentenceTypeListData(
-            imagePath: 'assets/sels_app/' + topicListData[key]!['appIcon']![i] + '.png',
-            titleTxt: topicListData[key]!['title']![i],
-            descripTxt: topicListData[key]!['descrip']![i],
+            imagePath: 'assets/sels_app/' + topicListData['data'][key]!['appIcon']![i] + '.png',
+            titleTxt: topicListData['data'][key]!['title']![i],
+            descripTxt: topicListData['data'][key]!['descrip']![i],
             onTapFunction: (){
 
             },
-            startColor: topicListData[key]!['appStartColor']![i],
-            endColor: topicListData[key]!['appEndColor']![i],
+            startColor: topicListData['data'][key]!['appStartColor']![i],
+            endColor: topicListData['data'][key]!['appEndColor']![i],
           ),
         );
       }

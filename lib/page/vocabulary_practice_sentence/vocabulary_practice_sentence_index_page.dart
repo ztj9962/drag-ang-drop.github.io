@@ -98,9 +98,212 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
 
     listViews.add(
       SentenceTypeListView(
-        //showIndex: '',
+        showIndex: 'Animals',
       ),
     );
+    
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Appearance',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Communication'
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Culture',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Food_and_drink',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Functions',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Health',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Homes_and_buildings',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Leisure',
+      ),
+    );
+
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Notions',
+      ),
+    );
+/*
+    listViews.add(
+      TitleView(
+        titleTxt: 'People',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'People',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Politics and society',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Politics_and_society',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Science and technology',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Science_and_technology',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Sport',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Sport',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'The natural world',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'The_natural_world',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Time and space',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Time_and_space',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Travel',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      SentenceTypeListView(
+        showIndex: 'Travel',
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController,
+      ),
+    );
+    
+ */
+
+
+
+
+
+
+
   }
 
 }
