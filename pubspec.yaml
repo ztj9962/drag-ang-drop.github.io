@@ -57,6 +57,7 @@ dependencies:
 
   #
   wakelock: ^0.6.1
+  flutter_emoji: ^2.0.0
 
 dev_dependencies:
   build_runner:

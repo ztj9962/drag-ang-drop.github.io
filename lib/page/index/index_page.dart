@@ -114,7 +114,7 @@ class _IndexPageState extends State<IndexPage> {
                 width: 40,
                 color: selectedIndex == 0 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
-            label: 'ᅳ',
+            label: '—',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -122,7 +122,7 @@ class _IndexPageState extends State<IndexPage> {
                 width: 40,
                 color: selectedIndex == 1 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
-            label: 'ᅳ',
+            label: '—',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -130,7 +130,7 @@ class _IndexPageState extends State<IndexPage> {
                 width: 40,
                 color: selectedIndex == 2 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
-            label: 'ᅳ',
+            label: '—',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -138,7 +138,7 @@ class _IndexPageState extends State<IndexPage> {
                 width: 40,
                 color: selectedIndex == 3 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
-            label: 'ᅳ',
+            label: '—',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -146,7 +146,7 @@ class _IndexPageState extends State<IndexPage> {
                 width: 40,
                 color: selectedIndex == 4 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
-            label: 'ᅳ',
+            label: '—',
           ),
         ],
       ),
