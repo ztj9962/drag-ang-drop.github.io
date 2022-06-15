@@ -1,8 +1,15 @@
+import 'dart:convert';
+
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/hexcolor_util.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
-import 'package:alicsnet_app/view/sentence_type_list_view.dart';
 import 'package:alicsnet_app/view/title_view.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 
 class VocabularyPracticeSentenceIndexPage extends StatefulWidget {
   const VocabularyPracticeSentenceIndexPage({Key? key}) : super(key: key);
@@ -13,17 +20,18 @@ class VocabularyPracticeSentenceIndexPage extends StatefulWidget {
 
 class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPracticeSentenceIndexPage> {
 
-  List<Widget> listViews = <Widget>[];
+  List<Widget> _listViews = <Widget>[];
 
   @override
   void initState() {
-    addAllListData();
     super.initState();
+    initVocabularyPracticeSentenceIndexPage();
   }
 
   @override
   void dispose() {
     super.dispose();
+    EasyLoading.dismiss();
   }
 
   @override
@@ -42,267 +50,231 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
             maxLines: 1,
           ),
         ),
-        body: ListView.builder(
-            padding: EdgeInsets.only(
-              top: 24,
-              bottom: 62,
-            ),
-            itemCount: listViews.length,
-            itemBuilder:  (BuildContext context, int index) {
-              return listViews[index];
-            }
+        body: Padding(
+          padding: const EdgeInsets.only(left: 24, right: 24),
+          child: ListView.builder(
+              padding: EdgeInsets.only(
+                top: 24,
+                bottom: 62,
+              ),
+              itemCount: _listViews.length,
+              itemBuilder:  (BuildContext context, int index) {
+                return _listViews[index];
+              }
+          ),
         )
     );
   }
 
-
-  void addAllListData() {
-    /*
-    listViews.add(
-      const TitleView(
-        titleTxt: '發音練習',
-        titleColor: PageTheme.app_theme_blue,
-      ),
-    );
-
-    listViews.add(
-      ButtonCardView(
-        imagePath: 'assets/icon/sentence_practice.svg',
-        backgroundColor: PageTheme.app_theme_blue,
-        titleTxt: '發音練習(自動)',
-        descripTxt: 'SubTitle text here',
-        onTapFunction: (){
-          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute());
-        },
-      ),
-    );
-    listViews.add(
-      ButtonCardView(
-        imagePath: 'assets/icon/sentence_practice.svg',
-        backgroundColor: PageTheme.app_theme_blue,
-        titleTxt: '發音練習(手動)',
-        descripTxt: 'SubTitle text here',
-        onTapFunction: (){
-          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnManualRoute());
-        },
-      ),
-    );
-    */
-
-    listViews.add(
-      const TitleView(
-        titleTxt: '主題式發音練習',
-        titleColor: PageTheme.app_theme_blue,
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Animals',
-      ),
-    );
-    
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Appearance',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Communication'
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Culture',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Food_and_drink',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Functions',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Health',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Homes_and_buildings',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Leisure',
-      ),
-    );
-
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Notions',
-      ),
-    );
-/*
-    listViews.add(
-      TitleView(
-        titleTxt: 'People',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'People',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Politics and society',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Politics_and_society',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Science and technology',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Science_and_technology',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Sport',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Sport',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'The natural world',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'The_natural_world',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Time and space',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Time_and_space',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      TitleView(
-        titleTxt: 'Travel',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve: Interval((1 / count) * 11, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SentenceTypeListView(
-        showIndex: 'Travel',
-        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-                parent: widget.animationController!,
-                curve: Interval((1 / count) * 12, 1.0, curve: Curves.fastOutSlowIn))),
-        mainScreenAnimationController: widget.animationController,
-      ),
-    );
-    
- */
+  initVocabularyPracticeSentenceIndexPage() async {
+    await initIPAList();
+  }
 
 
+  Future<void> initIPAList() async {
 
+    Map<String, dynamic> topicListData;
 
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var getIPAAvailable;
+    do {
+      String topicListDataJSON = await APIUtil.getSentenceTopicData();
+      topicListData = jsonDecode(topicListDataJSON.toString());
 
+      if (topicListData['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (topicListData['apiStatus'] != 'success');
 
+    EasyLoading.dismiss();
+
+    List<Widget> listViews = <Widget>[];
+
+    //print(topicListData['data']);
+    topicListData['data'].forEach((key, value) {
+      //print(key);
+      //print(value);
+
+      listViews.add(
+        TitleView(
+          titleTxt: '${key}',
+          titleColor: Colors.black,
+        )
+      );
+
+      var parser = EmojiParser();
+
+      listViews.add(
+          Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 4,
+              children: List.generate(value['title']!.length, (index) {
+                if (index == 0) return Container();
+                //return Text(value['title'][index]);
+                print(value['title'][index]);
+                return Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 32),
+                        child: Container(
+                          width: 300,
+                          decoration: BoxDecoration(
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: HexColor(value['appEndColor'][index])
+                                      .withOpacity(0.6),
+                                  offset: const Offset(1.1, 4.0),
+                                  blurRadius: 8.0),
+                            ],
+                            gradient: LinearGradient(
+                              colors: <HexColor>[
+                                HexColor(value['appStartColor'][index]),
+                                HexColor(value['appEndColor'][index]),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8.0),
+                              bottomLeft: Radius.circular(8.0),
+                              topLeft: Radius.circular(8.0),
+                              topRight: Radius.circular(54.0),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 54, left: 16, right: 16, bottom: 8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                AutoSizeText(
+                                  value['title'][index],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                    color: PageTheme.white,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      flex: 1,
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
+                                        },
+                                        //onTap: sentenceTypeListData!.onTapFunction,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: PageTheme.nearlyWhite,
+                                            shape: BoxShape.rectangle, // 矩形
+                                            borderRadius: new BorderRadius.circular((20.0)), // 圓角度
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                  color: PageTheme.nearlyBlack.withOpacity(0.4),
+                                                  offset: Offset(8.0, 8.0),
+                                                  blurRadius: 8.0),
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(
+                                              '自動',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: HexColor(value['appEndColor'][index]),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnManualRoute(topicName:value['title'][index]));
+                                        },
+                                        //onTap: sentenceTypeListData!.onTapFunction,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: PageTheme.nearlyWhite,
+                                            shape: BoxShape.rectangle, // 矩形
+                                            borderRadius: new BorderRadius.circular((20.0)), // 圓角度
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                  color: PageTheme.nearlyBlack.withOpacity(0.4),
+                                                  offset: Offset(8.0, 8.0),
+                                                  blurRadius: 8.0),
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(
+                                              '手動',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: HexColor(value['appEndColor'][index]),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Container(
+                          width: 84,
+                          height: 84,
+                          decoration: BoxDecoration(
+                            color: PageTheme.nearlyWhite.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 12,
+                        left: 12,
+                        child: SizedBox(
+                          width: 64,
+                          height: 64,
+                          //child: Image.asset(value['imagePath'][index]),
+                          //child: Image.asset('assets/sels_app/' + value['appIcon'][index] + '.png'),
+                          child: Text(
+                            parser.get(value['appEmojiName'][index]).code,
+                            style: TextStyle(fontSize: 56),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+              }
+              )
+          )
+      );
+
+    });
+
+    setState(() {
+      _listViews = listViews;
+    });
 
   }
 
