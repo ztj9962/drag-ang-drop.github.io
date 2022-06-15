@@ -26,19 +26,19 @@ class _IndexPageState extends State<IndexPage> {
       child: const IndexHomePage(),
     ),
     Container(
-      color: PageTheme.index_body_background,
+      //color: PageTheme.index_body_background,
       child: const IndexLearnRecordIndexPage(),
     ),
     Container(
-      color: PageTheme.index_body_background,
+      //color: PageTheme.index_body_background,
       child: const IndexVocabularyTestPage(),
     ),
     Container(
-      color: PageTheme.index_body_background,
+      //color: PageTheme.index_body_background,
       child: const IndexAccountPage(),
     ),
     Container(
-      color: PageTheme.index_body_background,
+      //color: PageTheme.index_body_background,
       child: const IndexSettingPage(),
     ),
   ];

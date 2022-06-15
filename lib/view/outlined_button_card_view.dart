@@ -44,7 +44,7 @@ class OutlinedButtonCardView extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: SizedBox(
                     width: 96,
                     height: 96,
@@ -52,7 +52,7 @@ class OutlinedButtonCardView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 7,
+                  flex: 8,
                   child:
                   Padding(
                     padding: EdgeInsets.only(left: 8),
