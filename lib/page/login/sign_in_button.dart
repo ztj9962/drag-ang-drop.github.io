@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,12 @@ class SigninButton extends StatelessWidget {
         TextButton(
             onPressed: () async {
               await authRespository.signInWithGoogle();
-              SharedPreferences prefs = await SharedPreferences.getInstance();
               bool signIn = await authRespository.isSignedIn();
               if(signIn == true){
                 //print(authRespository.getUid());
-                prefs.setBool("isSignIn", true);
-                AutoRouter.of(context).replaceNamed("/index");
+                await SharedPreferencesUtil.saveData<bool>('isSignin', true);
+                //AutoRouter.of(context).replaceNamed("/index");
+                AutoRouter.of(context).pop();
               }
             },
             style: TextButton.styleFrom(
@@ -53,7 +54,7 @@ class SigninButton extends StatelessWidget {
                 SizedBox(
                   width: 30,
                 ),
-                Text("Sign in With Google",
+                Text("使用 Google 登入",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
               ],
@@ -91,12 +92,44 @@ class SigninButton extends StatelessWidget {
                   SizedBox(
                     width: 30,
                   ),
-                  Text("Sign in With Apple",
+                  Text("使用 Apple ID 登入",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
                 ],
-              )),
-        /*SizedBox(height: 30),
+              )
+          ),
+        SizedBox(height: 30),
+        TextButton(
+            onPressed: () {
+              AutoRouter.of(context).pop();
+            },
+            style: TextButton.styleFrom(
+              maximumSize: Size(250, 50),
+              minimumSize: Size(250, 50),
+              backgroundColor: Colors.indigoAccent[100],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              primary: Colors.grey,
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                FaIcon(
+                  FontAwesomeIcons.angleLeft,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Text("返回上一頁",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
+            )),
+        SizedBox(height: 30,),
+        /*
         TextButton(
             onPressed: () async {
               await authRespository.signInWithTwitter();

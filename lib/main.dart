@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +14,26 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]).then((_) => runApp(MyApp(isSignin: prefs.getBool("isSignIn"),)));
+  await SystemChrome.setPreferredOrientations(
+      <DeviceOrientation>[
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown
+      ]
+  ).then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
   final _appRouter = AppRouter();
-  bool? isSignin;
-  MyApp({bool? isSignin}):isSignin = isSignin;
+
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       builder: EasyLoading.init(),
-      routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
+      //routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
+      routerDelegate: _appRouter.delegate(initialRoutes: [IndexRoute()]),
       routeInformationParser:_appRouter.defaultRouteParser(),
     ),);
     /*

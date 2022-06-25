@@ -1,3 +1,5 @@
+import 'package:alicsnet_app/page/index/index_page.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,10 +62,11 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                   shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide(style: BorderStyle.solid))),//圆角弧度
                 ),
                 child: const Text('   登出   '),
-                onPressed: () {
+                onPressed: () async {
+                  AutoRouter.of(context).push(IndexRoute());
+                  AutoRouter.of(context).replaceAll([IndexRoute()]);
                   authRespository.SignOut();
-                  signOutState();
-                  AutoRouter.of(context).replaceAll([SignInRoute()]);
+                  await SharedPreferencesUtil.saveData<bool>('isSignin', false);
                 },
               ),
             ),
@@ -359,9 +362,5 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
   }
 
 
-  signOutState() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isSignIn", false);
-  }
 
 }

@@ -1,3 +1,5 @@
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
@@ -10,6 +12,8 @@ class IndexVocabularyTestPage extends StatefulWidget {
 }
 
 class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
+
+  bool? _isSignin = false;
 
   @override
   void initState() {
@@ -49,7 +53,14 @@ class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
                     textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 24))
                 ),
                 child: const Text('  開始測驗  '),
-                onPressed: () {
+                onPressed: () async {
+                  await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+                    setState(() => _isSignin = value);
+                  });
+                  if (_isSignin != true) {
+                    AutoRouter.of(context).push(SignInRoute());
+                    return;
+                  }
                   AutoRouter.of(context).pushNamed("/vocabulary_test_index");
                 },
               ),

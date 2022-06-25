@@ -94,14 +94,14 @@ class SignInPageState extends State<SignInPage> {
                 height: 30,
               ),
               Text(
-                "Welcome",
+                "Alicsnet APP",
                 style: TextStyle(
                   color: Colors.indigoAccent[400],
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text("Choose login method"),
+              Text("請選擇一種登入方式"),
               SizedBox(height: 25),
               SigninButton(),
               SizedBox(height: 35,),

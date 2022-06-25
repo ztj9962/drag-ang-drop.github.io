@@ -1,3 +1,5 @@
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:alicsnet_app/view/outlined_button_card_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -14,6 +16,7 @@ class IndexHomePage extends StatefulWidget {
 class _IndexHomePageState extends State<IndexHomePage> {
 
   List<Widget> listViews = <Widget>[];
+  bool? _isSignin = false;
 
   @override
   void initState() {
@@ -60,7 +63,14 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '一萬個最常用的單字和例句',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: (){
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
       ),
@@ -72,8 +82,14 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleText: 'Sentences based on chat topics',
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: (){
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
         },
       ),
@@ -85,7 +101,14 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '學習者提供教材',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: (){
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
           AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
       ),
@@ -98,7 +121,14 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '相似字音練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: (){
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
         },
       ),

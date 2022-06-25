@@ -1,4 +1,7 @@
 import 'package:alicsnet_app/page/new_template/index_learn_record_index_page.dart';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/index/index_account_page.dart';
@@ -18,17 +21,19 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
 
   int selectedIndex = 0;
-  late String selectedTitle;
-  late Widget tabBody;
+  String selectedTitle = '';
+  Widget tabBody = Container();
   List<Widget> containerList = [
     Container(
       color: PageTheme.index_body_background,
       child: const IndexHomePage(),
     ),
+    /*
     Container(
       //color: PageTheme.index_body_background,
       child: const IndexLearnRecordIndexPage(),
     ),
+     */
     Container(
       //color: PageTheme.index_body_background,
       child: const IndexVocabularyTestPage(),
@@ -42,6 +47,8 @@ class _IndexPageState extends State<IndexPage> {
       child: const IndexSettingPage(),
     ),
   ];
+
+  bool? _isSignin = false;
 
   @override
   void initState() {
@@ -84,6 +91,7 @@ class _IndexPageState extends State<IndexPage> {
           ),
         ),
         actions: <Widget>[
+          /*
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
@@ -97,6 +105,7 @@ class _IndexPageState extends State<IndexPage> {
               },
             ),
           ),
+           */
         ],
       ),
       body: tabBody,
@@ -116,6 +125,7 @@ class _IndexPageState extends State<IndexPage> {
             ),
             label: '—',
           ),
+          /*
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
                 'assets/icon/learning_record.svg',
@@ -124,11 +134,12 @@ class _IndexPageState extends State<IndexPage> {
             ),
             label: '—',
           ),
+           */
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
                 'assets/icon/test.svg',
                 width: 40,
-                color: selectedIndex == 2 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
+                color: selectedIndex == 1 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
             label: '—',
           ),
@@ -136,7 +147,7 @@ class _IndexPageState extends State<IndexPage> {
             icon: SvgPicture.asset(
                 'assets/icon/account.svg',
                 width: 40,
-                color: selectedIndex == 3 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
+                color: selectedIndex == 2 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
             label: '—',
           ),
@@ -144,7 +155,7 @@ class _IndexPageState extends State<IndexPage> {
             icon: SvgPicture.asset(
                 'assets/icon/setting.svg',
                 width: 40,
-                color: selectedIndex == 4 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
+                color: selectedIndex == 3 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
             ),
             label: '—',
           ),
@@ -153,22 +164,32 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 
-  void changePage(int index) {
+  Future<void> changePage(int index) async {
+    await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+      setState(() => _isSignin = value);
+    });
+
     int newIndex = index;
     String newTitle = "";
+
+
     switch (index) {
     /*
       case 1:
         newTitle = "學習記錄";
         break;
        */
-      case 2:
+      case 1:
         newTitle = "詞彙測驗";
         break;
-      case 3:
+      case 2:
+        if (_isSignin != true) {
+          AutoRouter.of(context).push(SignInRoute());
+          changePage(0);
+        }
         newTitle = "帳戶";
         break;
-      case 4:
+      case 3:
         newTitle = "設定";
         break;
       case 0:
