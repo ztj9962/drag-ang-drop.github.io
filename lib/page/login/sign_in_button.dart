@@ -68,8 +68,9 @@ class SigninButton extends StatelessWidget {
                 bool signIn = await authRespository.isSignedIn();
                 if(signIn == true){
                   //print(authRespository.getUid());
-                  prefs.setBool("isSignIn", true);
-                  AutoRouter.of(context).replaceNamed("/index");
+                  await SharedPreferencesUtil.saveData<bool>('isSignin', true);
+                  //AutoRouter.of(context).replaceNamed("/index");
+                  AutoRouter.of(context).pop();
                 }
               },
               style: TextButton.styleFrom(
