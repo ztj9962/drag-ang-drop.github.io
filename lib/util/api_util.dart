@@ -2,12 +2,29 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:alicsnet_app/util/recaptcha_service.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+
+
+bool get isIOS => !kIsWeb && Platform.isIOS;
+bool get isAndroid => !kIsWeb && Platform.isAndroid;
+bool get isWeb => kIsWeb;
 
 class APIUtil {
 
   static Future<String> getSentences({String sentenceLevel :'', String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
+
+    bool _isNotABot = await RecaptchaService.isNotABot();
+    if (!_isNotABot && isWeb) {
+      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
+      return json;
+    }
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentences'),
       headers: <String, String>{
@@ -30,6 +47,7 @@ class APIUtil {
   }
 
   static Future<String> getSentencesByID(sentencesID) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentencesByID'),
       headers: <String, String>{
@@ -44,6 +62,7 @@ class APIUtil {
   }
 
   static Future<String> getPhoneticExercisesSentencesByWordSet(String learningClassification, String learningPhase) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getPhoneticExercisesSentencesByWordSet'),
       headers: <String, String>{
@@ -76,6 +95,7 @@ class APIUtil {
 
 
   static Future<String> checkGrammar(String sentenceText) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
       headers: <String, String>{
@@ -90,6 +110,7 @@ class APIUtil {
 
 
   static Future<String> sendMessageToConversation(String accessToken, String conversationID, String message) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/rasa/sendMessageToConversation'),
       headers: <String, String>{
@@ -123,6 +144,7 @@ class APIUtil {
   }
 
   static Future<String> getQuizHistory(String uuid) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/getQuizHistory'),
       headers: <String, String>{
@@ -137,6 +159,7 @@ class APIUtil {
   }
 
   static Future<String> getQuizDataByID(quizID, String uuid) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/getQuizDataByID'),
       headers: <String, String>{
@@ -152,6 +175,7 @@ class APIUtil {
   }
 
   static Future<String> saveQuizData(String uuid, String quizTitle, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/saveQuizData'),
       headers: <String, String>{
@@ -171,6 +195,7 @@ class APIUtil {
   }
 
   static Future<String> updateQuizData(String uuid, int quizID, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/updateQuizData'),
       headers: <String, String>{
@@ -190,6 +215,7 @@ class APIUtil {
   }
 
   static Future<String> minimalPairOneFinder(ipa) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/oneFinder'),
       headers: <String, String>{
@@ -204,6 +230,7 @@ class APIUtil {
   }
 
   static Future<String> minimalPairTwoFinder(ipa1, ipa2, {String dataLimit = ''}) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/twoFinder'),
       headers: <String, String>{
@@ -220,6 +247,7 @@ class APIUtil {
   }
 
   static Future<String> minimalPairWordFinder(word1, {String dataLimit = ''}) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/wordFinder'),
       headers: <String, String>{
@@ -235,6 +263,7 @@ class APIUtil {
   }
 
   static Future<String> checkPronunciation(String questionText, String answerText) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/checkSentences'),
       headers: <String, String>{
@@ -250,6 +279,7 @@ class APIUtil {
   }
 
   static Future<String> getWordLearning(String learningClassification, String learningPhase) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordLearning'),
       headers: <String, String>{
@@ -266,6 +296,7 @@ class APIUtil {
 
 
   static Future<String> getWordSetList(String uid, String learningClassification) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordSetList'),
       headers: <String, String>{
@@ -281,6 +312,7 @@ class APIUtil {
   }
 
   static Future<String> addWordSet(String uid, String learningClassification) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/addWordSet'),
       headers: <String, String>{
@@ -297,6 +329,13 @@ class APIUtil {
 
 
   static Future<String> getSentenceTopicData() async {
+
+    bool _isNotABot = await RecaptchaService.isNotABot();
+    if (!_isNotABot && isWeb) {
+      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
+      return json;
+    }
+
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentenceTopicData'),
     );
@@ -305,6 +344,7 @@ class APIUtil {
   }
 
   static Future<String> getWordSetClassificationData() async {
+
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/word/getWordSetClassificationData'),
     );
@@ -313,6 +353,7 @@ class APIUtil {
   }
 
   static Future<String> getWordSetTotalList(String index) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordSetTotalList'),
       headers: <String, String>{
@@ -327,6 +368,7 @@ class APIUtil {
   }
 
   static Future<String> getWordList(String index, {String dataLimit = ''}) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordList'),
       headers: <String, String>{
@@ -342,6 +384,7 @@ class APIUtil {
   }
 
   static Future<String> getWordRowIndex(String word) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordRowIndex'),
       headers: <String, String>{
@@ -356,6 +399,7 @@ class APIUtil {
   }
 
   static Future<String> getWordData(String word) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/word/getWordData'),
       headers: <String, String>{
@@ -370,6 +414,7 @@ class APIUtil {
   }
 
   static Future<String> getIPAAvailable() async {
+
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/minimalPair/getIPAAvailable'),
     );
@@ -378,6 +423,7 @@ class APIUtil {
   }
 
   static Future getSentenceSegmentation(String article) async{
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
       headers: <String, String>{
@@ -393,6 +439,7 @@ class APIUtil {
   }
 
   static Future getSentenceIPA(List sentenceList) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentenceIPA'),
       headers: <String, String>{
@@ -408,6 +455,7 @@ class APIUtil {
   }
 
   static Future getStatitics(String article) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/article/getStatitics'),
       headers: <String, String>{
@@ -423,6 +471,7 @@ class APIUtil {
   }
 
   static Future<String> vocabularyTestGetQuestion({String indexMin :'', String indexMax :'', String dataLimit :''}) async {
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabularyTest/getQuestion'),
       headers: <String, String>{
@@ -440,6 +489,13 @@ class APIUtil {
 
 
   static Future<String> vocabularyGetList(String index, {String dataLimit = ''}) async {
+
+    bool _isNotABot = await RecaptchaService.isNotABot();
+    if (!_isNotABot && isWeb) {
+      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
+      return json;
+    }
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getList'),
       headers: <String, String>{
@@ -455,6 +511,13 @@ class APIUtil {
   }
 
   static Future<String> vocabularyGetRowIndex(String word) async {
+
+    bool _isNotABot = await RecaptchaService.isNotABot();
+    if (!_isNotABot && isWeb) {
+      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
+      return json;
+    }
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getRowIndex'),
       headers: <String, String>{
@@ -469,6 +532,13 @@ class APIUtil {
   }
 
   static Future<String> vocabularyGetSentenceList(String index, {String dataLimit = ''}) async {
+
+    bool _isNotABot = await RecaptchaService.isNotABot();
+    if (!_isNotABot && isWeb) {
+      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
+      return json;
+    }
+
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getSentenceList'),
       headers: <String, String>{

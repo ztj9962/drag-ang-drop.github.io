@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/util/recaptcha_service.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -9,13 +10,32 @@ import 'package:alicsnet_app/model/purchase_provider_model.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart'; //--1
+
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 
+bool get isIOS => !kIsWeb && Platform.isIOS;
+bool get isAndroid => !kIsWeb && Platform.isAndroid;
+bool get isWeb => kIsWeb;
+
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+
+
+  if (isWeb) {
+    //await GRecaptchaV3.ready("6Le-di0hAAAAANzDwQ0Tn29KJ1ve0AQYJR7SmCQ2"); //--2
+    await RecaptchaService.initiate();
+    /*
+    bool ready = await GRecaptchaV3.ready("<your Recaptcha site key>"); //--2
+    print("Is Recaptcha ready? $ready");
+     */
+  }
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

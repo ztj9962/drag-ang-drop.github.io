@@ -119,7 +119,9 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
 
-                                    await _getVocabularySentenceList();
+                                    if (!await _getVocabularySentenceList()) {
+                                      return;
+                                    }
 
                                     List<String> contentList = [];
                                     List<String> ipaList = [];
@@ -157,7 +159,10 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
-                                    await _getVocabularySentenceList();
+
+                                    if (!await _getVocabularySentenceList()) {
+                                      return;
+                                    }
                                     AutoRouter.of(context).push(LearningManualVocabularyPraticeWordRoute(vocabularyList: _vocabularyList, vocabularySentenceList: _vocabularySentenceList));
                                   }
                               ),
@@ -257,11 +262,11 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   other
    */
 
-  Future<void> _getVocabularySentenceList() async {
-    if (_vocabularySentenceList.length == _vocabularyList.length) return;
+  Future<bool> _getVocabularySentenceList() async {
+    if (_vocabularySentenceList.length == _vocabularyList.length) return true;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
     try{
-      var responseJSONDecode;
       int doLimit = 1;
       List<dynamic> vocabularySentenceList;
       do {
@@ -270,7 +275,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
         if(responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
           if (doLimit > 3) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds:1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
       print(responseJSONDecode);
@@ -286,6 +291,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       ));
     }
     EasyLoading.dismiss();
+    return responseJSONDecode['apiStatus'] == 'success';
   }
 
 }

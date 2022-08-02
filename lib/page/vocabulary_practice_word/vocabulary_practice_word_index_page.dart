@@ -1,5 +1,5 @@
+
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/view/title_view.dart';
@@ -279,7 +279,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                   onPressed: () async {
-                    await _getVocabularyList();
+                    if (!await _getVocabularyList()) {
+                      return;
+                    }
                     AutoRouter.of(context).push(VocabularyPracticeWordListRoute(vocabularyList:_vocabularyList));
                   }
               ),
@@ -293,10 +295,10 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   /*
   other
    */
-  Future<void> _getVocabularyList() async {
+  Future<bool> _getVocabularyList() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
     try{
-      var responseJSONDecode;
       int doLimit = 1;
       List<dynamic> vocabularyList;
       do {
@@ -305,28 +307,26 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         if(responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
           if (doLimit > 3) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds:1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
-      print(responseJSONDecode);
       vocabularyList = responseJSONDecode['data'];
-
       setState(() {
         _vocabularyList = vocabularyList;
       });
-
     } catch(e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
       ));
     }
     EasyLoading.dismiss();
+    return responseJSONDecode['apiStatus'] == 'success';
   }
 
-  Future<void> _searchVocabularyRowIndex(String word) async {
+  Future<bool> _searchVocabularyRowIndex(String word) async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
     try{
-      var responseJSONDecode;
       int doLimit = 1;
       do {
         String responseJSON = await APIUtil.vocabularyGetRowIndex(word);
@@ -334,7 +334,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
         if(responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
           if (doLimit > 1) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
-          sleep(Duration(seconds:1));
+          await Future.delayed(Duration(seconds:1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
 
@@ -347,6 +347,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       ));
     }
     EasyLoading.dismiss();
+    return responseJSONDecode['apiStatus'] == 'success';
   }
 
 
