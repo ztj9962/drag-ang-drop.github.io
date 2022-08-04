@@ -484,4 +484,20 @@ class APIUtil {
   }
 
 
+  static Future<String> recaptchaSiteverify(String secret, String token, {String remoteip = ''}) async {
+    final response = await http.post(
+      Uri.https('api-develop.alicsnet.com', 'app/recaptcha/siteverify'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'secret': secret,
+        'token': token,
+        'remoteip': remoteip,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
 }
