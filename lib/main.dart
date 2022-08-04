@@ -1,5 +1,4 @@
-import 'package:alicsnet_app/util/recaptcha_service.dart';
-import 'package:alicsnet_app/util/shared_preferences_util.dart';
+import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +7,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:alicsnet_app/model/purchase_provider_model.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:g_recaptcha_v3/g_recaptcha_v3.dart'; //--1
+
 
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -26,15 +25,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-
-  if (isWeb) {
-    //await GRecaptchaV3.ready("6Le-di0hAAAAANzDwQ0Tn29KJ1ve0AQYJR7SmCQ2"); //--2
-    await RecaptchaService.initiate();
-    /*
-    bool ready = await GRecaptchaV3.ready("<your Recaptcha site key>"); //--2
-    print("Is Recaptcha ready? $ready");
-     */
-  }
+  await RecaptchaUtil.initiate();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -64,24 +55,24 @@ class MyApp extends StatelessWidget {
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-    
+
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
-    ],
-    child:
-    MaterialApp.router(
-      title: 'Alicsnet APP',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: PageTheme.fontName,
-        primarySwatch: Colors.blue,
-      ),
-      builder: EasyLoading.init(),
-      //routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
-      routerDelegate: _appRouter.delegate(initialRoutes: [IndexRoute()]),
-      routeInformationParser:_appRouter.defaultRouteParser(),
-    ),);
+      providers: [
+        ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
+      ],
+      child:
+      MaterialApp.router(
+        title: 'Alicsnet APP',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: PageTheme.fontName,
+          primarySwatch: Colors.blue,
+        ),
+        builder: EasyLoading.init(),
+        //routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
+        routerDelegate: _appRouter.delegate(initialRoutes: [IndexRoute()]),
+        routeInformationParser:_appRouter.defaultRouteParser(),
+      ),);
     /*
     //強制限制 Web 版尺寸
     return FlutterWebFrame(
