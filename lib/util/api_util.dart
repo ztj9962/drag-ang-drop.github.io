@@ -570,4 +570,119 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> getPreferenceSentenceByRank(String rank) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/sentence/get30RankedSentenceListByWord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'rank': rank,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getPreferenceDataByID(String id) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/sentence/getPreferDataBySentenceID'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'id': id,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sentRecommandAddQuery(String id,String chinese) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentRecommandAddQuery'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceId': id,
+        'chinese': chinese,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sentRecommandEditQuery(String id,String chinese) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentRecommandEditQuery'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'recommandId': id,
+        'chinese': chinese,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getUserSentenceLikeRecord(String uid) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/getUserSentenceLikeRecord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uid': uid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getUserRecommendLikeRecord(String uid) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/getUserRecommendLikeRecord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'uid': uid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sentUserSentenceLikeRecord(String sentenceId, String uid) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentUserSentenceLikeRecord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceId': sentenceId,
+        'uid': uid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sentUserRecommendLikeRecord(String recommendId, String uid) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentUserRecommendLikeRecord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'recommendId': recommendId,
+        'uid': uid,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

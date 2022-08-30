@@ -134,6 +134,25 @@ class _IndexHomePageState extends State<IndexHomePage> {
       ),
     );
 
+    listViews.add(
+      OutlinedButtonCardView(
+        imagePath: 'assets/icon/recommend_translate.svg',
+        titleText: 'Recommend translations',
+        descripText: '推薦翻譯系統',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
+          AutoRouter.of(context).pushNamed("/preference_translation_search");
+        },
+      ),
+    );
     /*
     listViews.add(
       ButtonCardView(
