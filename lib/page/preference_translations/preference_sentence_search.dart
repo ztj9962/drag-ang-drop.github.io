@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
@@ -24,7 +25,11 @@ class _PreferenceTranslationSearchPageState
   int _rowIndexSliderMin = 1;
   int _rowIndexSliderMax = 10000;
   int _rowIndexSliderIndex = 1;
-  int _amountSliderIndex = 5;
+  int initMode = 0;
+  String sentenceSearched = '';
+  bool _checkCase = false;
+  bool _searchAsVocabulary = false;
+
   int _dataLimit = 5;
   String _sliderEducationLevel = '國小';
 
@@ -33,7 +38,10 @@ class _PreferenceTranslationSearchPageState
 
   @override
   void initState() {
-    listViews.add(Center(child: AutoSizeText('現在還沒有任何搜尋結果，趕快來試試看吧!')),
+    listViews.add(
+      Center(
+          child: AutoSizeText('現在還沒有任何搜尋結果，趕快來試試看吧!',
+              style: TextStyle(color: PageTheme.app_theme_blue))),
     );
     super.initState();
   }
@@ -67,7 +75,7 @@ class _PreferenceTranslationSearchPageState
             Padding(
               padding: const EdgeInsets.all(8),
               child: TitleView(
-                titleTxt: '1. 選擇詞彙級別或直接搜尋單字',
+                titleTxt: '1. 選擇詞彙級別或直接搜尋句子',
                 titleColor: Colors.black,
               ),
             ),
@@ -197,24 +205,6 @@ class _PreferenceTranslationSearchPageState
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onSubmitted: (value) async {
-                  if (!await _botChallenge('_searchVocabularyRowIndex')) {
-                    return;
-                  }
-                  await _searchVocabularyRowIndex(value);
-                },
-                controller: _editingController,
-                decoration: const InputDecoration(
-                    labelText: "搜尋單詞",
-                    hintText: "搜尋單詞",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
             Padding(padding: EdgeInsets.all(15)),
             Container(
               width: 350,
@@ -223,7 +213,7 @@ class _PreferenceTranslationSearchPageState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const AutoSizeText(
-                        '搜尋句子',
+                        '通過排行搜尋句子',
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         style: TextStyle(fontSize: 20),
@@ -240,91 +230,101 @@ class _PreferenceTranslationSearchPageState
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                   onPressed: () async {
+                    initMode = 0;
                     await _getSentenceByRank(_rowIndexSliderIndex.toString());
-                    List<dynamic> datalist =
-                        _sentenceInfoList['data'] as List<dynamic>;
-                    listViews = [];
-                    for (var i = 0; i < datalist.length; i++) {
-                      listViews.add(
-                        Container(
-                          height: 150,
-                          child: OutlinedButton(
-                              onPressed: () {
-                                Map datalist = _sentenceInfoList['data'][i];
-                                AutoRouter.of(context).push(
-                                    PreferenceTranslationEditRoute(
-                                        sentenceDataList: datalist));
-                              },
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
-                                          child: AutoSizeText(
-                                    _sentenceInfoList['data'][i]['wordRank']
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: PageTheme.app_theme_blue),
-                                  ))),
-                                  Expanded(
-                                      child: Container(
-                                          child: AutoSizeText(
-                                    _sentenceInfoList['data'][i]['word'],
-                                    textAlign: TextAlign.center,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: PageTheme.app_theme_blue),
-                                  ))),
-                                  Padding(padding: EdgeInsets.all(8)),
-                                  Expanded(
-                                    flex: 7,
-                                    child: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          AutoSizeText(
-                                            _sentenceInfoList['data'][i]
-                                                ['sentenceContent'],
-                                            textAlign: TextAlign.start,
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color:
-                                                    PageTheme.app_theme_blue),
-                                          ),
-                                          AutoSizeText(
-                                            _sentenceInfoList['data'][i]
-                                                ['sentenceChinese'],
-                                            textAlign: TextAlign.start,
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color:
-                                                    PageTheme.app_theme_blue),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                              //style: OutlinedButton.styleFrom(side: BorderSide(width: 2)),
-                              ),
-                        ),
-                      );
-                      setState(() {});
-                    }
-                    //AutoRouter.of(context).push(VocabularyPracticeWordListRoute(vocabularyList:_vocabularyList));
+                    listInit(0);
                   }),
             ),
+            Padding(padding: EdgeInsets.all(15)),
+            AutoSizeText(
+              '或',
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: TextStyle(fontSize: 30),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 75,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: PageTheme.app_theme_blue,
+                    width: 2,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onSubmitted: (value) async {
+                          initMode = 1;
+                          sentenceSearched = value;
+                          await _getSentenceByRank(value);
+                          listInit(1);
+                        },
+                        controller: _editingController,
+                        decoration: const InputDecoration(
+                            labelText: "搜尋句子或單字",
+                            hintText: "搜尋句子或單字",
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)))),
+                      ),
+                    ),
+                    /*
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Checkbox(
+                                  onChanged: (bool? value) {
+                                    _checkCase = !_checkCase;
+
+                                    setState(() {});
+                                  },
+                                  value: _checkCase,
+                                ),
+                                const AutoSizeText(
+                                  '忽略大小寫',
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  style: TextStyle(fontSize: 20,color: PageTheme.app_theme_blue),
+                                )
+                              ],
+                            )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Checkbox(
+                                  onChanged: (bool? value) {
+                                    _searchAsVocabulary = !_searchAsVocabulary;
+
+                                    setState(() {});
+                                  },
+                                  value: _searchAsVocabulary,
+                                ),
+                                const AutoSizeText(
+                                  '當作單字查詢',
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  style: TextStyle(fontSize: 20,color: PageTheme.app_theme_blue),
+                                )
+                              ],
+                            )),
+                          ],
+                        )),*/
+                  ],
+                ),
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(15)),
             Padding(
               padding: const EdgeInsets.all(8),
               child: TitleView(
@@ -372,59 +372,132 @@ class _PreferenceTranslationSearchPageState
   /*
   other
    */
-  Future<bool> _botChallenge(String action) async {
-    var responseJSONDecode;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try {
-      String responseJSON = await RecaptchaUtil.getVerificationResponse(action);
-      responseJSONDecode = jsonDecode(responseJSON.toString());
 
-      if (responseJSONDecode['apiStatus'] != 'success') {
-        throw Exception('reCAPTCHA: ' + responseJSONDecode['apiMessage']);
+  void listInit(int mode) {
+    List<dynamic> datalist = _sentenceInfoList['data'] as List<dynamic>;
+    List _splitedContent = [];
+    String _splitedString;
+    listViews = [];
+
+    if (datalist.isNotEmpty) {
+      for (var i = 0; i < datalist.length; i++) {
+        if (mode == 1) {
+          _splitedString = _sentenceInfoList['data'][i]['sentenceContent'];
+          _splitedContent = _splitedString
+              .replaceAll(RegExp(sentenceSearched,caseSensitive: false), ';')
+              .split(';');
+
+        }
+        listViews.add(
+          Container(
+            child: OutlinedButton(
+                onPressed: () {
+                  Map datalist = _sentenceInfoList['data'][i];
+                  AutoRouter.of(context)
+                      .push(PreferenceTranslationEditRoute(
+                          sentenceDataList: datalist))
+                      .then(onGoBack);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                              child: AutoSizeText(
+                        mode == 0 ? 'RK' : "ID",
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                             color: PageTheme.app_theme_blue),
+                      ))),
+                      Expanded(
+                        flex: 3,
+                          child: Container(
+                              child: AutoSizeText(
+                        mode == 0
+                            ? _sentenceInfoList['data'][i]['wordRank'].toString()
+                            : _sentenceInfoList['data'][i]['sentenceID']
+                                .toString(),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: PageTheme.app_theme_blue),
+                      ))),
+                      Padding(padding: EdgeInsets.all(8)),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              initMode == 1
+                                  ? RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                            text: _splitedContent[0],
+                                            style: TextStyle(
+                                                color: PageTheme.app_theme_blue)),
+                                        TextSpan(
+                                            text: sentenceSearched,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red)),
+                                        TextSpan(
+                                            text: _splitedContent[1],
+                                            style: TextStyle(
+                                                color: PageTheme.app_theme_blue))
+                                      ]),
+                                    )
+                                  : AutoSizeText(
+                                      _sentenceInfoList['data'][i]
+                                          ['sentenceContent'],
+                                      textAlign: TextAlign.start,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+
+                                          color: PageTheme.app_theme_blue),
+                                    ),
+                              AutoSizeText(
+                                _sentenceInfoList['data'][i]['sentenceChinese'],
+                                textAlign: TextAlign.start,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: PageTheme.app_theme_blue),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+                //style: OutlinedButton.styleFrom(side: BorderSide(width: 2)),
+                ),
+          ),
+        );
+        setState(() {});
       }
-      if (responseJSONDecode['data']['isNotABot'] != true) {
-        throw Exception('reCAPTCHA: reCAPTCHA 驗證失敗，請稍後再試');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
+    } else {
+      listViews.add(
+        Center(
+            child: AutoSizeText(
+          '沒有搜尋結果，請再次嘗試!',
+          style: TextStyle(color: PageTheme.app_theme_blue),
+        )),
+      );
+      setState(() {});
     }
-    EasyLoading.dismiss();
-
-    return responseJSONDecode['data']['isNotABot'];
   }
 
-  Future<bool> _searchVocabularyRowIndex(String word) async {
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var responseJSONDecode;
-    try {
-      int doLimit = 1;
-      do {
-        String responseJSON = await APIUtil.vocabularyGetRowIndex(word);
-        responseJSONDecode = jsonDecode(responseJSON.toString());
-        if (responseJSONDecode['apiStatus'] != 'success') {
-          doLimit += 1;
-          if (doLimit > 1)
-            throw Exception(
-                'API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (responseJSONDecode['apiStatus'] != 'success');
-
-      if (int.tryParse(responseJSONDecode['data']['index'].toString()) !=
-          null) {
-        _adjustRowIndexSliderIndex(
-            int.tryParse(responseJSONDecode['data']['index'].toString())! -
-                _rowIndexSliderIndex);
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-    return responseJSONDecode['apiStatus'] == 'success';
+  FutureOr onGoBack(dynamic value) {
+    listInit(initMode);
+    setState(() {});
   }
 
   //getSentenceByRank
@@ -486,7 +559,7 @@ class _PreferenceTranslationSearchPageState
     setState(() => _sliderEducationLevel = sliderEducationLevel);
   }
 
-  void _adjustDataLimit(int value) {
+/*void _adjustDataLimit(int value) {
     setState(() {
       _dataLimit = value;
     });
@@ -494,5 +567,5 @@ class _PreferenceTranslationSearchPageState
       setState(
           () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
     }
-  }
+  }*/
 }

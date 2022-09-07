@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:alicsnet_app/main.dart';
+import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
 import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:alicsnet_app/view/title_view.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -115,18 +117,16 @@ class _PreferenceTranslationEditPageState
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                padding: const EdgeInsets.all(0),
                                 child: Container(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(0),
                                     child: AutoSizeText(
-                                        '句子ID:' +
+                                        'ID:' +
                                             _sentenceDataList['sentenceID']
                                                 .toString(),
                                         maxLines: 1,
                                         style: TextStyle(
-                                            fontSize: 15,
                                             color: PageTheme.app_theme_blue)),
                                   ),
                                 ),
@@ -134,30 +134,25 @@ class _PreferenceTranslationEditPageState
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                                padding: const EdgeInsets.all(0),
                                 child: AutoSizeText(
                                     '句長:' +
                                         _sentenceDataList['sentenceLength']
                                             .toString(),
                                     maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 15,
                                         color: PageTheme.app_theme_blue)),
                               ),
                             ),
                             Expanded(
-                              flex: 2,
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                                padding: const EdgeInsets.all(0),
                                 child: AutoSizeText(
-                                    '最高單字排行:' +
+                                    '最高字排:' +
                                         _sentenceDataList['sentenceHWR']
                                             .toString(),
                                     maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 15,
                                         color: PageTheme.app_theme_blue)),
                               ),
                             ),
@@ -180,20 +175,29 @@ class _PreferenceTranslationEditPageState
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    AutoSizeText(
-                                        _sentenceDataList['sentenceContent']
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 25,
-                                            color: PageTheme.app_theme_blue)),
-                                    AutoSizeText(
-                                        _sentenceDataList['sentenceChinese']
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 25,
-                                            color: PageTheme.app_theme_blue)),
+                                    Container(
+                                      width: double.infinity,
+                                      child: AutoSizeText(
+                                          _sentenceDataList['sentenceContent']
+                                              .toString(),
+                                          maxLines: 10,
+                                          textAlign: TextAlign.center,
+                                          minFontSize: 12,
+                                          maxFontSize: 50,
+                                          style: TextStyle(
+                                              color: PageTheme.app_theme_blue)),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: AutoSizeText(
+                                          _sentenceDataList['sentenceChinese']
+                                              .toString(),
+                                          maxLines: 10,
+                                          textAlign: TextAlign.center,
+                                          maxFontSize: 50,
+                                          style: TextStyle(
+                                              color: PageTheme.app_theme_blue)),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -306,7 +310,6 @@ class _PreferenceTranslationEditPageState
                                       '${FirebaseAuth.instance.currentUser?.uid}');
                                   List leng = _sentenceRecord['votedSentenceID']
                                       as List;
-                                  print(leng);
                                   if (leng.isEmpty) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
@@ -627,7 +630,56 @@ class _PreferenceTranslationEditPageState
     return responseJSONDecode;
   }
 
+  Future<Map> _sentSentenceClosedRecord(String id, String chinese) async {
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
+    try {
+      int doLimit = 1;
+      do {
+        String responseJSON =
+            await APIUtil.sentSentenceClosedRecord(id, chinese);
+        responseJSONDecode = jsonDecode(responseJSON.toString());
+        //_preferenceMap = responseJSONDecode['data'];
+        if (responseJSONDecode['apiStatus'] != 'success') {
+          doLimit += 1;
+          if (doLimit > 1)
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (responseJSONDecode['apiStatus'] != 'success');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: $e'),
+      ));
+    }
+
+    EasyLoading.dismiss();
+    return responseJSONDecode;
+  }
+
   void pageRefresher() async {
+    List ll = _preferenceMap['likeDislike'] as List;
+    if (ll.isNotEmpty) if (_preferenceMap['likeDislike'][0][0] >= 3) {
+      await _sentSentenceClosedRecord(
+          _sentenceDataList['sentenceID'].toString(),
+          _sentenceDataList['sentenceChinese']);
+      closeDialog(context);
+      //Navigator.pop(context);
+    }
+    List l = _preferenceMap['sentenceRecommandChinese'] as List;
+    //print(_preferenceMap['sentenceRecommandChinese'][0][2]);
+    if (l.isNotEmpty)
+      for (int i = 0; i < l.length; i++) {
+        if (_preferenceMap['sentenceRecommandChinese'][i][2] >= 3) {
+          await _sentSentenceClosedRecord(
+              _sentenceDataList['sentenceID'].toString(),
+              _preferenceMap['sentenceRecommandChinese'][i][1]);
+          closeDialog(context);
+          //Navigator.pop(context);
+        }
+      }
+    //重製列表
     listViews = [];
     List length = _preferenceMap['sentenceRecommandChinese'] as List;
     List liked = _preferenceMap['likeDislike'] as List;
@@ -691,8 +743,8 @@ class _PreferenceTranslationEditPageState
                       AutoSizeText(
                           _preferenceMap['sentenceRecommandChinese'][i][1]
                               .toString(),
-                          style: TextStyle(
-                              fontSize: 30, color: PageTheme.app_theme_blue)),
+                          minFontSize: 20,
+                          style: TextStyle(color: PageTheme.app_theme_blue)),
                     ],
                   ),
                 ),
@@ -763,12 +815,9 @@ class _PreferenceTranslationEditPageState
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50))),
                             onPressed: () async {
-                              int index =
-                                  _preferenceMap['sentenceRecommandChinese'][i]
-                                          [0] -
-                                      1;
-                              print(index);
-                              showAlertDialog(context, index);
+                              //int index =_preferenceMap['sentenceRecommandChinese'][i][0];
+                              //print(index);
+                              showAlertDialog(context, i);
                             }),
                       ),
                     ),
@@ -812,14 +861,15 @@ class _PreferenceTranslationEditPageState
                                 ));
 
                                 await _sentUserRecommendLikeRecord(
-                                    _preferenceMap['sentenceRecommandChinese'][i][0].toString(),
+                                    _preferenceMap['sentenceRecommandChinese']
+                                            [i][0]
+                                        .toString(),
                                     '${FirebaseAuth.instance.currentUser?.uid}');
                                 initList();
                               } else {
                                 for (int j = 0; j < leng.length; j++) {
-                                  print('RecommendIDLoop:'+_preferenceMap['sentenceRecommandChinese'][j][0].toString());
-                                  print('Recommend:'+_recommendRecord['votedRecommendID'][i].toString());
-                                  if (_preferenceMap['sentenceRecommandChinese'][j][0] ==
+                                  if (_preferenceMap['sentenceRecommandChinese']
+                                          [j][0] ==
                                       _recommendRecord['votedRecommendID'][i]) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
@@ -833,7 +883,10 @@ class _PreferenceTranslationEditPageState
                                       content: Text('感謝你的回饋!'),
                                     ));
                                     await _sentUserRecommendLikeRecord(
-                                        _preferenceMap['sentenceRecommandChinese'][i][0].toString(),
+                                        _preferenceMap[
+                                                    'sentenceRecommandChinese']
+                                                [i][0]
+                                            .toString(),
                                         '${FirebaseAuth.instance.currentUser?.uid}');
                                     initList();
                                   }
@@ -856,9 +909,64 @@ class _PreferenceTranslationEditPageState
   void initList() async {
     //listViews=[];
     await _refreshPreference(_sentenceDataList['sentenceID'].toString());
-    print(_sentenceDataList);
-    print(_preferenceMap);
+
     pageRefresher();
+  }
+
+  closeDialog(BuildContext context) {
+    // Init
+    AlertDialog dialog = AlertDialog(
+      title: Text("翻譯讚數超過3，此翻譯已關閉!感謝您的意見!"),
+      content: Container(
+        width: 400,
+        height: 5,
+        padding: const EdgeInsets.all(8),
+      ),
+      actions: [
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Expanded(child: Icon(Icons.done))],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: PageTheme.app_theme_blue,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      shadowColor: Colors.black,
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50))),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    context.router.pop();
+                  }),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    // Show the dialog
+    showGeneralDialog(
+      context: context,
+      pageBuilder: (context, anim1, anim2) {
+        return Wrap();
+      },
+      transitionBuilder: (context, anim1, anim2, child) {
+        return Transform(
+          transform: Matrix4.translationValues(
+            0.0,
+            (1.0 - Curves.easeInOut.transform(anim1.value)) * 200,
+            0.0,
+          ),
+          child: dialog,
+        );
+      },
+      transitionDuration: Duration(milliseconds: 200),
+    );
   }
 
   showAddDialog(BuildContext context) {

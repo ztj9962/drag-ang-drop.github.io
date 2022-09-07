@@ -685,4 +685,33 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+
+  static Future<String> sentSentenceClosedRecord(String sentenceId, String chinese) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentSentenceClosedRecord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceId': sentenceId,
+        'chinese': chinese,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sentenceClauseCount(String sent) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentenceClauseCount'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sent': sent,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }
