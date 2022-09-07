@@ -703,7 +703,7 @@ class APIUtil {
 
   static Future<String> sentenceClauseCount(String sent) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentenceClauseCount'),
+      Uri.https('api.alicsnet.com', 'app/sentence/sentenceClauseCount'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },

@@ -673,7 +673,9 @@ class _PreferenceTranslationEditPageState
   }
 
   void pageRefresher() async {
-    await _sentenceClauseCount(_sentenceDataList['sentenceContent']);
+    try{
+      await _sentenceClauseCount(_sentenceDataList['sentenceContent']);
+    }catch(e){};
     List ll = _preferenceMap['likeDislike'] as List;
     if (ll.isNotEmpty) if (_preferenceMap['likeDislike'][0][0] >= 3) {
       await _sentSentenceClosedRecord(
