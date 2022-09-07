@@ -37,6 +37,7 @@ class _PreferenceTranslationEditPageState
   int _rowIndexSliderIndex = 1;
   int _amountSliderIndex = 5;
   int _dataLimit = 5;
+  int _ClauseCount = 1;
   String _sliderEducationLevel = '國小';
   final FlutterTts flutterTts = FlutterTts();
 
@@ -153,6 +154,18 @@ class _PreferenceTranslationEditPageState
                                             .toString(),
                                     maxLines: 1,
                                     style: TextStyle(
+                                      fontSize: 12,
+                                        color: PageTheme.app_theme_blue)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: AutoSizeText(
+                                    '子句:' +
+                                        _ClauseCount.toString(),
+                                    maxLines: 1,
+                                    style: TextStyle(
                                         color: PageTheme.app_theme_blue)),
                               ),
                             ),
@@ -166,42 +179,39 @@ class _PreferenceTranslationEditPageState
                     ),
                     Expanded(
                       flex: 2,
-                      child: Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Center(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: double.infinity,
-                                      child: AutoSizeText(
-                                          _sentenceDataList['sentenceContent']
-                                              .toString(),
-                                          maxLines: 10,
-                                          textAlign: TextAlign.center,
-                                          minFontSize: 12,
-                                          maxFontSize: 50,
-                                          style: TextStyle(
-                                              color: PageTheme.app_theme_blue)),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: AutoSizeText(
-                                          _sentenceDataList['sentenceChinese']
-                                              .toString(),
-                                          maxLines: 10,
-                                          textAlign: TextAlign.center,
-                                          maxFontSize: 50,
-                                          style: TextStyle(
-                                              color: PageTheme.app_theme_blue)),
-                                    ),
-                                  ],
+                      child: Container(
+                        child: Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  child: AutoSizeText(
+                                      _sentenceDataList['sentenceContent']
+                                          .toString(),
+                                      maxLines: 5,
+                                      textAlign: TextAlign.center,
+                                      minFontSize: 18,
+                                      maxFontSize: 50,
+                                      style: TextStyle(
+                                          color: PageTheme.app_theme_blue)),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  width: double.infinity,
+                                  child: AutoSizeText(
+                                      _sentenceDataList['sentenceChinese']
+                                          .toString(),
+                                      maxLines: 5,
+                                      textAlign: TextAlign.center,
+                                      minFontSize: 18,
+                                      maxFontSize: 50,
+                                      style: TextStyle(
+                                          color: PageTheme.app_theme_blue)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -417,27 +427,31 @@ class _PreferenceTranslationEditPageState
   /*
   other
    */
-  Future<bool> _botChallenge(String action) async {
-    var responseJSONDecode;
+  Future<Map> _sentenceClauseCount(String sent) async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
     try {
-      String responseJSON = await RecaptchaUtil.getVerificationResponse(action);
-      responseJSONDecode = jsonDecode(responseJSON.toString());
-
-      if (responseJSONDecode['apiStatus'] != 'success') {
-        throw Exception('reCAPTCHA: ' + responseJSONDecode['apiMessage']);
-      }
-      if (responseJSONDecode['data']['isNotABot'] != true) {
-        throw Exception('reCAPTCHA: reCAPTCHA 驗證失敗，請稍後再試');
-      }
+      int doLimit = 1;
+      do {
+        String responseJSON = await APIUtil.sentenceClauseCount(sent);
+        responseJSONDecode = jsonDecode(responseJSON.toString());
+        _ClauseCount = responseJSONDecode['data'];
+        if (responseJSONDecode['apiStatus'] != 'success') {
+          doLimit += 1;
+          if (doLimit > 1)
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (responseJSONDecode['apiStatus'] != 'success');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
       ));
     }
-    EasyLoading.dismiss();
 
-    return responseJSONDecode['data']['isNotABot'];
+    EasyLoading.dismiss();
+    return responseJSONDecode;
   }
 
   Future<Map> _refreshPreference(String id) async {
@@ -659,6 +673,7 @@ class _PreferenceTranslationEditPageState
   }
 
   void pageRefresher() async {
+    await _sentenceClauseCount(_sentenceDataList['sentenceContent']);
     List ll = _preferenceMap['likeDislike'] as List;
     if (ll.isNotEmpty) if (_preferenceMap['likeDislike'][0][0] >= 3) {
       await _sentSentenceClosedRecord(
