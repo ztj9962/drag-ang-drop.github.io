@@ -324,7 +324,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
     return responseJSONDecode['data']['isNotABot'];
   }
 
-  Future<void> _getVocabularyList() async {
+  Future<bool> _getVocabularyList() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
     try{

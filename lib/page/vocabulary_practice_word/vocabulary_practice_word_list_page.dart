@@ -290,8 +290,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
     return responseJSONDecode['data']['isNotABot'];
   }
 
-  Future<void> _getVocabularySentenceList() async {
-    if (_vocabularySentenceList.length == _vocabularyList.length) return;
+  Future<bool> _getVocabularySentenceList() async {
+    if (_vocabularySentenceList.length == _vocabularyList.length) return true;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
     try{
