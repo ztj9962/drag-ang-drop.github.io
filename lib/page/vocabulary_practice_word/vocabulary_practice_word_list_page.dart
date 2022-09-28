@@ -267,6 +267,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
    */
 
   Future<bool> _botChallenge(String action) async {
+    return true;
+
     var responseJSONDecode;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try{
