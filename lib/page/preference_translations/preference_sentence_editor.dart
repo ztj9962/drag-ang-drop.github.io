@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:alicsnet_app/main.dart';
-import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
-import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/hexcolor_util.dart';
-import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -166,10 +165,6 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                                         onTap: () async {
                                           //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
 
-                                          if (!await _botChallenge('getSentences')) {
-                                            return;
-                                          }
-
                                           EasyLoading.show(status: '正在讀取資料，請稍候......');
                                           List<dynamic> sentenceList;
                                           EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -331,32 +326,6 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     }
     EasyLoading.dismiss();
     return responseJSONDecode['apiStatus'] == 'success';
-  }
-
-  Future<bool> _botChallenge(String action) async {
-    return true;
-
-    var responseJSONDecode;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try{
-      String responseJSON = await RecaptchaUtil.getVerificationResponse(action);
-      responseJSONDecode = jsonDecode(responseJSON.toString());
-
-      if(responseJSONDecode['apiStatus'] != 'success') {
-        throw Exception('reCAPTCHA: ' + responseJSONDecode['apiMessage']);
-      }
-      if(responseJSONDecode['data']['isNotABot'] != true) {
-        throw Exception('reCAPTCHA: reCAPTCHA 驗證失敗，請稍後再試');
-      }
-
-    } catch(e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-
-    return responseJSONDecode['data']['isNotABot'];
   }
 
 }

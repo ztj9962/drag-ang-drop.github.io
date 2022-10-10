@@ -2,14 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:alicsnet_app/util/recaptcha_service.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-
-
 
 bool get isIOS => !kIsWeb && Platform.isIOS;
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
@@ -18,13 +14,6 @@ bool get isWeb => kIsWeb;
 class APIUtil {
 
   static Future<String> getSentences({String sentenceLevel :'', String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
-
-    bool _isNotABot = await RecaptchaService.isNotABot();
-    if (!_isNotABot && isWeb) {
-      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
-      return json;
-    }
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentences'),
       headers: <String, String>{
@@ -330,12 +319,6 @@ class APIUtil {
 
   static Future<String> getSentenceTopicData() async {
 
-    bool _isNotABot = await RecaptchaService.isNotABot();
-    if (!_isNotABot && isWeb) {
-      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
-      return json;
-    }
-
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentenceTopicData'),
     );
@@ -490,12 +473,6 @@ class APIUtil {
 
   static Future<String> vocabularyGetList(String index, {String dataLimit = ''}) async {
 
-    bool _isNotABot = await RecaptchaService.isNotABot();
-    if (!_isNotABot && isWeb) {
-      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
-      return json;
-    }
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getList'),
       headers: <String, String>{
@@ -512,12 +489,6 @@ class APIUtil {
 
   static Future<String> vocabularyGetRowIndex(String word) async {
 
-    bool _isNotABot = await RecaptchaService.isNotABot();
-    if (!_isNotABot && isWeb) {
-      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
-      return json;
-    }
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getRowIndex'),
       headers: <String, String>{
@@ -533,12 +504,6 @@ class APIUtil {
 
   static Future<String> vocabularyGetSentenceList(String index, {String dataLimit = ''}) async {
 
-    bool _isNotABot = await RecaptchaService.isNotABot();
-    if (!_isNotABot && isWeb) {
-      String json = '{\"apiStatus\": \"error\", \"apiMessage\": \"reCAPTCHA 驗證失敗，請稍後再試\"}';
-      return json;
-    }
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getSentenceList'),
       headers: <String, String>{
@@ -547,23 +512,6 @@ class APIUtil {
       body: {
         'index': index,
         'dataLimit': dataLimit,
-      },
-    );
-    String json = response.body.toString();
-    return json;
-  }
-
-
-  static Future<String> recaptchaSiteverify(String secret, String token, {String remoteip = ''}) async {
-    final response = await http.post(
-      Uri.https('api.alicsnet.com', 'app/recaptcha/siteverify'),
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-      body: {
-        'secret': secret,
-        'token': token,
-        'remoteip': remoteip,
       },
     );
     String json = response.body.toString();

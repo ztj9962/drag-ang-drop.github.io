@@ -1,4 +1,4 @@
-import 'package:alicsnet_app/util/recaptcha_util.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,6 @@ import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:g_recaptcha_v3/g_recaptcha_v3.dart'; //--1
 
 
 
@@ -24,8 +23,6 @@ bool get isWeb => kIsWeb;
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  await RecaptchaUtil.initiate();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

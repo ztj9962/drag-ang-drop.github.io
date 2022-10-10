@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -192,9 +191,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 onSubmitted: (value) async {
-                  if (!await _botChallenge('_searchVocabularyRowIndex')) {
-                    return;
-                  }
                   await _searchVocabularyRowIndex(value);
                 },
                 controller: _editingController,
@@ -283,9 +279,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                   onPressed: () async {
-                    if (!await _botChallenge('_getVocabularyList')) {
-                      return;
-                    }
                     await _getVocabularyList();
                     AutoRouter.of(context).push(VocabularyPracticeWordListRoute(vocabularyList:_vocabularyList));
                   }
@@ -300,32 +293,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   /*
   other
    */
-  Future<bool> _botChallenge(String action) async {
-    return true;
-
-    var responseJSONDecode;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try{
-      String responseJSON = await RecaptchaUtil.getVerificationResponse(action);
-      responseJSONDecode = jsonDecode(responseJSON.toString());
-
-      if(responseJSONDecode['apiStatus'] != 'success') {
-        throw Exception('reCAPTCHA: ' + responseJSONDecode['apiMessage']);
-      }
-      if(responseJSONDecode['data']['isNotABot'] != true) {
-        throw Exception('reCAPTCHA: reCAPTCHA 驗證失敗，請稍後再試');
-      }
-
-    } catch(e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-
-    return responseJSONDecode['data']['isNotABot'];
-  }
-
   Future<bool> _getVocabularyList() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;

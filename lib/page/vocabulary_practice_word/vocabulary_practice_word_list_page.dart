@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:alicsnet_app/util/api_util.dart';
-import 'package:alicsnet_app/util/recaptcha_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -119,10 +118,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
-                                    if (!await _botChallenge('_getVocabularySentenceList')) {
-                                      return;
-                                    }
-
                                     if (!await _getVocabularySentenceList()) {
                                       return;
                                     }
@@ -163,9 +158,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50))),
                                   onPressed: () async {
-                                    if (!await _botChallenge('_getVocabularySentenceList')) {
-                                      return;
-                                    }
                                     await _getVocabularySentenceList();
                                     AutoRouter.of(context).push(LearningManualVocabularyPraticeWordRoute(vocabularyList: _vocabularyList, vocabularySentenceList: _vocabularySentenceList));
                                   }
@@ -265,32 +257,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
 /*
   other
    */
-
-  Future<bool> _botChallenge(String action) async {
-    return true;
-
-    var responseJSONDecode;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    try{
-      String responseJSON = await RecaptchaUtil.getVerificationResponse(action);
-      responseJSONDecode = jsonDecode(responseJSON.toString());
-
-      if(responseJSONDecode['apiStatus'] != 'success') {
-        throw Exception('reCAPTCHA: ' + responseJSONDecode['apiMessage']);
-      }
-      if(responseJSONDecode['data']['isNotABot'] != true) {
-        throw Exception('reCAPTCHA: reCAPTCHA 驗證失敗，請稍後再試');
-      }
-
-    } catch(e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-
-    return responseJSONDecode['data']['isNotABot'];
-  }
 
   Future<bool> _getVocabularySentenceList() async {
     if (_vocabularySentenceList.length == _vocabularyList.length) return true;
