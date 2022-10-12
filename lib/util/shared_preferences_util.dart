@@ -97,13 +97,34 @@ class SharedPreferencesUtil {
 
   // TTSRate
   static Future<bool> setTTSRate(double value) async {
-    if (value < 0.125) {
+    if (value <= 0.125) {
       value = 0.125;
     }
-    if (value > 1.0) {
+    if (0.125 < value && value <= 0.25) {
+      value = 0.25;
+    }
+    if (0.25 < value && value <= 0.375) {
+      value = 0.375;
+    }
+    if (0.375 < value && value <= 0.5) {
+      value = 0.5;
+    }
+    if (0.5 < value && value <= 0.625) {
+      value = 0.625;
+    }
+    if (0.625 < value && value <= 0.75) {
+      value = 0.75;
+    }
+    if (0.75 < value && value <= 0.875) {
+      value = 0.875;
+    }
+    if (0.875 < value) {
       value = 1.0;
     }
     saveData<double>('applicationSettingsDataTtsRate', value);
+    setTTSRateString();
+
+    print('setTTSRate: $value');
     return true;
   }
 
@@ -114,5 +135,89 @@ class SharedPreferencesUtil {
       setTTSRate(res);
     }
     return res;
+  }
+
+  // TTSRateString
+  static Future<bool> setTTSRateString() async {
+    double rate = await getTTSRate();
+    String rateString = '';
+
+    int rateInt = (rate * 1000).toInt();
+
+    switch (rateInt) {
+      case 125:
+        rateString = '0.25倍';
+        break;
+      case 250:
+        rateString = '0.5倍';
+        break;
+      case 375:
+        rateString = '0.75倍';
+        break;
+      case 500:
+        rateString = '一般';
+        break;
+      case 625:
+        rateString = '1.25倍';
+        break;
+      case 750:
+        rateString = '1.5倍';
+        break;
+      case 875:
+        rateString = '1.75倍';
+        break;
+      case 1000:
+        rateString = '2倍';
+        break;
+    }
+
+    saveData<String>('applicationSettingsDataTtsRateString', rateString);
+    return true;
+  }
+
+  static Future<String> getTTSRateString() async {
+    /*
+    String? res = await getData<String>('applicationSettingsDataTtsRateString');
+    if (res == null) {
+      res = '';
+    }
+    return res;
+
+     */
+
+
+    double rate = await getTTSRate();
+    String rateString = '';
+
+    int rateInt = (rate * 1000).toInt();
+
+    switch (rateInt) {
+      case 125:
+        rateString = '0.25倍';
+        break;
+      case 250:
+        rateString = '0.5倍';
+        break;
+      case 375:
+        rateString = '0.75倍';
+        break;
+      case 500:
+        rateString = '一般';
+        break;
+      case 625:
+        rateString = '1.25倍';
+        break;
+      case 750:
+        rateString = '1.5倍';
+        break;
+      case 875:
+        rateString = '1.75倍';
+        break;
+      case 1000:
+        rateString = '2倍';
+        break;
+    }
+
+    return rateString;
   }
 }

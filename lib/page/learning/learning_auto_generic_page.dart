@@ -92,7 +92,8 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   String? ttsEngine;
   double ttsVolume = 1;
   double ttsPitch = 1.0;
-  double ttsRate = 0.5;
+  late double ttsRate;
+  String ttsRateString = '一般';
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
   TtsState ttsState = TtsState.stopped;
@@ -146,7 +147,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
         body: Column(
             children: <Widget>[
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: Container(
                   child: ListView.builder(
                     padding: new EdgeInsets.all(8.0),
@@ -156,45 +157,106 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
                   ),
                 ),
               ),
-              const Divider(
-                thickness: 1,
-                color: PageTheme.app_theme_blue,
-              ),
+
               Expanded(
                 flex: 1,
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: CircleAvatar(
-                          backgroundColor: PageTheme.app_theme_blue,
-                          radius: 40.0,
-                          child: IconButton(
-                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
-                            color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
-                            onPressed: () {
-                              if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                if( !_sttHasSpeech || speechToText.isListening ){
-                                  sttStopListening();
-                                } else {
-                                  sttStartListening();
+                child: Column(
+                  children: [
+                    Divider(
+                      thickness: 1,
+                      color: PageTheme.app_theme_blue,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        //color: Colors.red,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            TextButton(
+                              onPressed: () async {
+                                switch (ttsRateString) {
+                                  case '2倍':
+                                    ttsRate = 0.125;
+                                    break;
+                                  case '0.25倍':
+                                    ttsRate = 0.25;
+                                    break;
+                                  case '0.5倍':
+                                    ttsRate = 0.5;
+                                    break;
+                                  case '一般':
+                                    ttsRate = 0.625;
+                                    break;
+                                  case '1.25倍':
+                                    ttsRate = 0.75;
+                                    break;
+                                  case '1.5倍':
+                                    ttsRate = 0.875;
+                                    break;
+                                  case '1.75倍':
+                                    ttsRate = 1.0;
+                                    break;
+                                  default:
+                                    ttsRate = 0.5;
+                                    break;
                                 }
-                              }
-                            },
-                          ),
+                                setState(() {
+                                  ttsRate = ttsRate;
+                                  ttsRateSlow = false;
+                                });
+                                print(ttsRateSlow.toString());
+                                SharedPreferencesUtil.setTTSRate(ttsRate);
+                                SharedPreferencesUtil.getTTSRateString().then((value) {
+                                  setState(() => ttsRateString = value);
+                                });
+
+                              },
+                              child: Text('語速：${ttsRateString}'),
+                            ),
+                          ],
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
+                    ),
+
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 2,
+                              child: SvgPicture.asset('assets/icon/audio.svg'),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: CircleAvatar(
+                                backgroundColor: PageTheme.app_theme_blue,
+                                radius: 40.0,
+                                child: IconButton(
+                                  icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
+                                  color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
+                                  onPressed: () {
+                                    if(_allowTouchButtons['speakButton']! && !isPlaying ){
+                                      if( !_sttHasSpeech || speechToText.isListening ){
+                                        sttStopListening();
+                                      } else {
+                                        sttStartListening();
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: SvgPicture.asset('assets/icon/audio.svg'),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ]
@@ -224,8 +286,13 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     });
     SharedPreferencesUtil.getTTSRate().then((value) {
       setState(() => ttsRate = value);
+      print('update iiiiiii'+value.toString());
+    });
+    SharedPreferencesUtil.getTTSRateString().then((value) {
+      setState(() => ttsRateString = value);
     });
 
+    /*
     SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
       setState(() => _applicationSettingsDataUUID = value!);
     });
@@ -235,6 +302,8 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
       setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
+
+     */
   }
 
   Future<void> initSpeechState() async {
