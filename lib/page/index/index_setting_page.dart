@@ -104,6 +104,7 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
           inactiveColor: Colors.grey.shade300,
           divisions: 7,
           value: _applicationSettingsDataTtsRate,
+          label: '${(_applicationSettingsDataTtsRate*2).toString()}倍',
         ),
       ],
     );
