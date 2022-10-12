@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:flutter/material.dart';
 
 class IndexSettingPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
   @override
   void initState() {
     super.initState();
+    initIndexSettingPage();
   }
 
   @override
@@ -67,6 +69,7 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
         Slider(
           onChanged: (value) {
             setState(() => _applicationSettingsDataTtsVolume = value);
+            SharedPreferencesUtil.setTTSVolume(value);
           },
           min: 0.0,
           max: 1.0,
@@ -79,24 +82,27 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
         Slider(
           onChanged: (value) {
             setState(() => _applicationSettingsDataTtsPitch = value);
+            SharedPreferencesUtil.setTTSPitch(value);
           },
           min: 0.5,
-          max: 1.0,
+          max: 2.0,
           activeColor: Colors.grey,
           inactiveColor: Colors.grey.shade300,
-          divisions: 10,
+          divisions: 15,
           value: _applicationSettingsDataTtsPitch,
         ),
         const Text('語速 Rate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         Slider(
           onChanged: (value) {
             setState(() => _applicationSettingsDataTtsRate = value);
+            SharedPreferencesUtil.setTTSRate(value);
+            print(value);
           },
-          min: 0.05,
+          min: 0.125,
           max: 1.0,
           activeColor: Colors.grey,
           inactiveColor: Colors.grey.shade300,
-          divisions: 19,
+          divisions: 7,
           value: _applicationSettingsDataTtsRate,
         ),
       ],
@@ -118,6 +124,26 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
         ),
       ],
     );
+  }
+
+
+
+  /*
+  initState() 初始化相關
+   */
+  initIndexSettingPage() async {
+    await initApplicationSettingsData();
+  }
+  initApplicationSettingsData() {
+    SharedPreferencesUtil.getTTSVolume().then((value) {
+      setState(() => _applicationSettingsDataTtsVolume = value);
+    });
+    SharedPreferencesUtil.getTTSPitch().then((value) {
+      setState(() => _applicationSettingsDataTtsPitch = value);
+    });
+    SharedPreferencesUtil.getTTSRate().then((value) {
+      setState(() => _applicationSettingsDataTtsRate = value);
+    });
   }
 
 }

@@ -159,16 +159,16 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
   }
 
   initApplicationSettingsData() {
-
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsVolume').then((value) {
-      setState(() => ttsVolume = value!);
+    SharedPreferencesUtil.getTTSVolume().then((value) {
+      setState(() => ttsVolume = value);
     });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsPitch').then((value) {
-      setState(() => ttsPitch = value!);
+    SharedPreferencesUtil.getTTSPitch().then((value) {
+      setState(() => ttsPitch = value);
     });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsRate').then((value) {
-      setState(() => ttsRate = value!);
+    SharedPreferencesUtil.getTTSRate().then((value) {
+      setState(() => ttsRate = value);
     });
+    
     SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
       setState(() => _applicationSettingsDataUUID = value!);
     });
