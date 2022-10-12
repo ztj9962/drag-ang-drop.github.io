@@ -570,9 +570,9 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
 
   Future<void> sttCancelListening() async {
     await speechToText.cancel();
-      setState(() {
-        sttLevel = 0.0;
-      });
+    setState(() {
+      sttLevel = 0.0;
+    });
     //sleep(Duration(seconds:1));
     //await sttStopListening();
     //await sttStartListening();
@@ -919,4 +919,4 @@ class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticleP
     return;
 
   }
-  }
+}
