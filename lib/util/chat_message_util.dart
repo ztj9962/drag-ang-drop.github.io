@@ -8,7 +8,8 @@ class ChatMessageUtil extends StatelessWidget {
   final List<TextSpan> messageTextWidget ;
   final String messageImage;
   final Widget? actionButton;
-  const ChatMessageUtil ({ Key? key, required this.senderIsMe, required this.senderName, required this.messageTextWidget, this.messageImage = '', this.actionButton }): super(key: key);
+  final bool changeColor;
+  const ChatMessageUtil ({ Key? key, required this.senderIsMe, required this.senderName, required this.messageTextWidget, this.messageImage = '', this.actionButton ,this.changeColor = false}): super(key: key);
 
   Widget messageWidget(){
     if(messageImage != ''){
@@ -94,7 +95,7 @@ class ChatMessageUtil extends StatelessWidget {
               )
                   : BoxDecoration(
                 border: Border.all(),
-                color: Colors.transparent,
+                color: changeColor ? Colors.grey.withOpacity(0.5) : Colors.transparent,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(20.0),

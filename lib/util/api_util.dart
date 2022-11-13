@@ -663,3 +663,18 @@ class APIUtil {
     return json;
   }
 }
+  static Future getCompleteSentenceList(List sent) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'app/sentence/getCompleteSentenceList'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentenceList': jsonEncode(sent),
+      },
+    );
+
+    var json = jsonDecode(response.body.toString());
+    return json;
+  }
+}

@@ -1,5 +1,8 @@
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
+import 'package:alicsnet_app/page/vocabulary_practice_lite/vocabulary_practice_lite_auto.dart';
+import 'package:alicsnet_app/page/vocabulary_practice_lite/vocabulary_practice_lite_index.dart';
+import 'package:alicsnet_app/page/vocabulary_practice_lite/vocabulary_practice_lite_list.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_report_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_word_page.dart';
@@ -57,6 +60,10 @@ import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article
     AutoRoute(path: '/vocabulary_record_index_page',page: IndexLearnRecordIndexPage),
     AutoRoute(path: '/preference_translation_search',page: PreferenceTranslationSearchPage),
     AutoRoute(path: '/preference_translation_edit',page: PreferenceTranslationEditPage),
+    //Lite ↓↓↓
+    AutoRoute(path: '/vocabulary_lite_index_page',page: VocabularyPracticeLiteIndexPage),
+    AutoRoute(path: '/vocabulary_lite_list_page',page: VocabularyPracticeLiteListPage),
+    AutoRoute(path: '/vocabulary_lite_auto_page',page: VocabularyPracticeLiteAutoPage),
   ],
 )
 class $AppRouter {}
