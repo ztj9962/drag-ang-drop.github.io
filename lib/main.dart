@@ -19,7 +19,7 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 bool get isIOS => !kIsWeb && Platform.isIOS;
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
 bool get isWeb => kIsWeb;
-bool isLite = false;
+bool isLite = true;
 
 void main() async {
 

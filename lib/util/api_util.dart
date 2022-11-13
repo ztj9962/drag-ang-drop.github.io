@@ -662,7 +662,7 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
-}
+
   static Future getCompleteSentenceList(List sent) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getCompleteSentenceList'),
@@ -678,3 +678,5 @@ class APIUtil {
     return json;
   }
 }
+
+
