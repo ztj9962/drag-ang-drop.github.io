@@ -98,7 +98,8 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
   String? ttsEngine;
   double ttsVolume = 1;
   double ttsPitch = 1.0;
-  double ttsRate = 0.5;
+  late double ttsRate;
+  String ttsRateString = '一般';
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
   TtsState ttsState = TtsState.stopped;
@@ -177,7 +178,7 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
         body: Column(
             children: <Widget>[
               Expanded(
-                flex: 5,
+                flex: 7,
                 child: Container(
                   child: ListView.builder(
                     padding: new EdgeInsets.all(8.0),
@@ -190,6 +191,58 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
               const Divider(
                 thickness: 1,
                 color: PageTheme.app_theme_blue,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  //color: Colors.red,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () async {
+                          switch (ttsRateString) {
+                            case '2倍':
+                              ttsRate = 0.125;
+                              break;
+                            case '0.25倍':
+                              ttsRate = 0.25;
+                              break;
+                            case '0.5倍':
+                              ttsRate = 0.5;
+                              break;
+                            case '一般':
+                              ttsRate = 0.625;
+                              break;
+                            case '1.25倍':
+                              ttsRate = 0.75;
+                              break;
+                            case '1.5倍':
+                              ttsRate = 0.875;
+                              break;
+                            case '1.75倍':
+                              ttsRate = 1.0;
+                              break;
+                            default:
+                              ttsRate = 0.5;
+                              break;
+                          }
+                          setState(() {
+                            ttsRate = ttsRate;
+                            ttsRateSlow = false;
+                          });
+                          print(ttsRateSlow.toString());
+                          SharedPreferencesUtil.setTTSRate(ttsRate);
+                          SharedPreferencesUtil.getTTSRateString().then((value) {
+                            setState(() => ttsRateString = value);
+                          });
+
+                        },
+                        child: Text('語速：${ttsRateString}'),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Expanded(
                 flex: 1,
@@ -247,15 +300,18 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
   }
 
   initApplicationSettingsData() {
-
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsVolume').then((value) {
-      setState(() => ttsVolume = value!);
+    SharedPreferencesUtil.getTTSVolume().then((value) {
+      setState(() => ttsVolume = value);
     });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsPitch').then((value) {
-      setState(() => ttsPitch = value!);
+    SharedPreferencesUtil.getTTSPitch().then((value) {
+      setState(() => ttsPitch = value);
     });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsRate').then((value) {
-      setState(() => ttsRate = value!);
+    SharedPreferencesUtil.getTTSRate().then((value) {
+      setState(() => ttsRate = value);
+      print('update iiiiiii'+value.toString());
+    });
+    SharedPreferencesUtil.getTTSRateString().then((value) {
+      setState(() => ttsRateString = value);
     });
   }
 
@@ -578,14 +634,14 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
           TextSpan(text: '\n[${_ipaList[_part - 1]}]',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
       if(_mainCheckList[_part - 1])
-      questionTextWidget.add(
-          TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
-      );
+        questionTextWidget.add(
+            TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
+        );
       questionTextWidget.add(
           TextSpan(text: '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
       questionTextWidget.add(
-              TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
+          TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
 
       message = ChatMessageUtil(
