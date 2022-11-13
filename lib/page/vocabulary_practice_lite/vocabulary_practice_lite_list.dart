@@ -28,23 +28,10 @@ class _VocabularyPracticeWordListPageState
   var _wordIPATextSizeGroup = AutoSizeGroup();
   var _wordMeaningTextSizeGroup = AutoSizeGroup();
 
-  TextEditingController _editingController = TextEditingController();
   List<Widget> listViews = <Widget>[];
-  int _sliderMin = 1;
-  int _sliderMax = 10000;
-  int _sliderIndex = 1;
-  int _dataLimit = 10;
-  String _sliderEducationLevel = '國小';
 
   List _CompleteSentenceList = [];
 
-  Map<String, dynamic> _wordSetData = {
-    'wordSetClassification': '',
-    'learningClassificationName': '',
-    'wordSetTotal': 1,
-    'averageScore': 0,
-    'wordSetArray': [],
-  };
 
   @override
   void initState() {
@@ -186,39 +173,6 @@ class _VocabularyPracticeWordListPageState
                               }),
                         ),
                       ),
-                      /*
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                              child: const AutoSizeText(
-                                '手動練習',
-                                maxLines: 1,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                  primary: PageTheme.app_theme_blue,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  shadowColor: Colors.black,
-                                  elevation: 10,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50))),
-                              onPressed: () async {
-                                /*if (!await _botChallenge('_getVocabularySentenceList')) {
-                                      return;
-                                    }*/
-                                await _getVocabularySentenceList();
-                                AutoRouter.of(context).push(
-                                    LearningManualVocabularyPraticeWordRoute(
-                                        vocabularyList: _vocabularyList,
-                                        vocabularySentenceList:
-                                            _vocabularySentenceList));
-                              }),
-                        ),
-                      ),
-                      */
                     ]),
                   ],
                 ),

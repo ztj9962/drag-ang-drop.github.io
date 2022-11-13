@@ -23,7 +23,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeLite
   int _rowIndexSliderMin = 1;
   int _rowIndexSliderMax = 10000;
   int _rowIndexSliderIndex = 1;
-  int _amountSliderIndex = 5;
   int _dataLimit = 5;
   String _sliderEducationLevel = '國小';
 

@@ -44,24 +44,18 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
   late List<bool> _mainCheckList;
   late List<String> _oriLIst;
   late List<int> _idList;
-  int mainCheckIndex = 0;
-  int sentenceCounter = 1;
-  int sentenceTotal = 1;
-  int chunksCounter = 0;
-  List<int> chunksTotal = [];
-  bool changeColor = false;
+  int _mainCheckIndex = 0;
+  int _sentenceCounter = 1;
+  int _sentenceTotal = 1;
+  int _chunksCounter = 0;
+  List<int> _chunksTotal = [];
+  bool _changeColor = false;
 
   int _part = 0;
   final List<Widget> _messages = <Widget>[];
 
   String _answerText = '';
   var _startTime;
-  var _questionStart;
-  var _questionEnd;
-
-  String _applicationSettingsDataUUID = '';
-  String _applicationSettingsDataListenAndSpeakLevel = '';
-  double _applicationSettingsDataListenAndSpeakRanking = 0;
 
   var _allowTouchButtons = {
     'reListenButton' : false,
@@ -127,14 +121,14 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
     int chunksCounting = 0;
     for(int c = 0; c <_oriLIst.length;c++){
       if(c != 0 && _oriLIst[c] != _oriLIst[c-1]){
-        chunksTotal.add(chunksCounting);
+        _chunksTotal.add(chunksCounting);
         chunksCounting = 1;
-        sentenceTotal++;
+        _sentenceTotal++;
       }else{
         chunksCounting++;
       }
     }
-    chunksTotal.add(chunksCounting);
+    _chunksTotal.add(chunksCounting);
     super.initState();
     initLearningAutoGenericPage();
   }
@@ -262,15 +256,6 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
     });
     SharedPreferencesUtil.getData<double>('applicationSettingsDataTtsRate').then((value) {
       setState(() => ttsRate = value!);
-    });
-    SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
-      setState(() => _applicationSettingsDataUUID = value!);
-    });
-    SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
-      setState(() => _applicationSettingsDataListenAndSpeakLevel = value!);
-    });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
-      setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
   }
 
@@ -504,7 +489,7 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
 
   Future sendChatMessage(bool senderIsMe, String senderName, List<TextSpan> messageTextWidget, {bool needSpeak : false, bool canSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
     ChatMessageUtil message = ChatMessageUtil(
-      changeColor: changeColor,
+      changeColor: _changeColor,
       senderIsMe: senderIsMe,
       senderName: senderName,
       messageTextWidget: messageTextWidget,
@@ -594,17 +579,17 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
       );
       if(_mainCheckList[_part - 1])
       questionTextWidget.add(
-          TextSpan(text: '\n${_translateList[sentenceCounter - 1]}')
+          TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
       );
       questionTextWidget.add(
-          TextSpan(text: '\n${_idList[sentenceCounter - 1]} / ${sentenceCounter} of ${sentenceTotal} / ${chunksCounter} of ${chunksTotal[sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
+          TextSpan(text: '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
       questionTextWidget.add(
               TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
 
       message = ChatMessageUtil(
-        changeColor: changeColor,
+        changeColor: _changeColor,
         senderIsMe: false,
         senderName: 'Bot',
         messageTextWidget: questionTextWidget,
@@ -669,7 +654,7 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
   Future<void> sendNextQuestion() async {
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
-    if(_part % 2 == 1) changeColor = true; else changeColor = false;
+    if(_part % 2 == 1) _changeColor = true; else _changeColor = false;
     if( _part > _contentList.length){
       var _endTime = DateTime.now();
       await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
@@ -694,10 +679,10 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
           mainCheckIndex++;
         }*/
       if(_part != 1 && _oriLIst[_part - 1] != _oriLIst[_part - 2]){
-        chunksCounter = 1;
-        sentenceCounter++;
+        _chunksCounter = 1;
+        _sentenceCounter++;
       }else{
-        chunksCounter++;
+        _chunksCounter++;
       }
       //_questionStart = DateTime.now();
       List<TextSpan> questionTextWidget = [];
@@ -710,10 +695,10 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
       );
       if(_mainCheckList[_part - 1])
         questionTextWidget.add(
-            TextSpan(text: '\n${_translateList[sentenceCounter - 1]}')
+            TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
         );
       questionTextWidget.add(
-          TextSpan(text: '\n${_idList[sentenceCounter - 1]} / ${sentenceCounter} of ${sentenceTotal} / ${chunksCounter} of ${chunksTotal[sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
+          TextSpan(text: '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
       );
       questionTextWidget.add(
           TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
