@@ -10,14 +10,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 
-class VocabularyPracticeLiteIndexPage extends StatefulWidget {
-  const VocabularyPracticeLiteIndexPage({Key? key}) : super(key: key);
+class VocabularyPracticeWordLiteIndexPage extends StatefulWidget {
+  const VocabularyPracticeWordLiteIndexPage({Key? key}) : super(key: key);
 
   @override
   _VocabularyPracticeWordIndexPageState createState() => _VocabularyPracticeWordIndexPageState();
 }
 
-class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeLiteIndexPage> {
+class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWordLiteIndexPage> {
 
   TextEditingController _editingController = TextEditingController();
   int _rowIndexSliderMin = 1;
@@ -287,7 +287,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeLite
                       return;
                     }*/
                     await _getVocabularyList();
-                    AutoRouter.of(context).push(VocabularyPracticeLiteListRoute(vocabularyList:_vocabularyList));
+                    AutoRouter.of(context).push(VocabularyPracticeWordLiteListRoute(vocabularyList:_vocabularyList));
                   }
               ),
             ),

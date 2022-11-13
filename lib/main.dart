@@ -67,8 +67,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         builder: EasyLoading.init(),
-        //routerDelegate: _appRouter.delegate(initialRoutes: [isSignin == true ? IndexRoute() : SignInRoute(),]),
-        routerDelegate: isLite ? _appRouter.delegate(initialRoutes: [VocabularyPracticeLiteIndexRoute()]) : _appRouter.delegate(initialRoutes: [IndexRoute()]),
+        routerDelegate: _appRouter.delegate(initialRoutes: [isLite == true ? VocabularyPracticeWordLiteIndexRoute() : IndexRoute()]),
         routeInformationParser:_appRouter.defaultRouteParser(),
       ),);
     /*

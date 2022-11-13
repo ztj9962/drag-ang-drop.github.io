@@ -21,7 +21,7 @@ import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
 
-class VocabularyPracticeLiteAutoPage extends StatefulWidget {
+class LearningAutoVocabularyPracticeWordLitePage extends StatefulWidget {
 
   final List<String> contentList;
   final List<String> ipaList;
@@ -29,15 +29,15 @@ class VocabularyPracticeLiteAutoPage extends StatefulWidget {
   final List<bool> mainCheckList;
   final List<String> oriList;
   final List<int> idList;
-  const VocabularyPracticeLiteAutoPage ({ Key? key, required this.contentList, required this.ipaList, required this.translateList, required this.mainCheckList, required this.oriList, required this.idList}): super(key: key);
+  const LearningAutoVocabularyPracticeWordLitePage ({ Key? key, required this.contentList, required this.ipaList, required this.translateList, required this.mainCheckList, required this.oriList, required this.idList}): super(key: key);
 
   @override
-  _LearningAutoGenericPage createState() => _LearningAutoGenericPage();
+  _LearningAutoVocabularyPracticeWordLitePage createState() => _LearningAutoVocabularyPracticeWordLitePage();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
+class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVocabularyPracticeWordLitePage> {
   late List<String> _contentList;
   late List<String> _ipaList;
   late List<String> _translateList;
@@ -131,7 +131,7 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
     }
     _chunksTotal.add(chunksCounting);
     super.initState();
-    initLearningAutoGenericPage();
+    initLearningAutoVocabularyPracticeWordLitePage();
   }
 
   @override
@@ -290,7 +290,7 @@ class _LearningAutoGenericPage extends State<VocabularyPracticeLiteAutoPage> {
   initState() 初始化相關
    */
 
-  initLearningAutoGenericPage() async {
+  initLearningAutoVocabularyPracticeWordLitePage() async {
     Wakelock.enable();
     await initApplicationSettingsData();
     await initAnswerTimer();

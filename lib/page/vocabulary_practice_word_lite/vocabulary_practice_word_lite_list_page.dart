@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:auto_route/auto_route.dart';
@@ -9,10 +8,10 @@ import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class VocabularyPracticeLiteListPage extends StatefulWidget {
+class VocabularyPracticeWordLiteListPage extends StatefulWidget {
   final List<dynamic> vocabularyList;
 
-  const VocabularyPracticeLiteListPage({Key? key, required this.vocabularyList})
+  const VocabularyPracticeWordLiteListPage({Key? key, required this.vocabularyList})
       : super(key: key);
 
   @override
@@ -21,7 +20,7 @@ class VocabularyPracticeLiteListPage extends StatefulWidget {
 }
 
 class _VocabularyPracticeWordListPageState
-    extends State<VocabularyPracticeLiteListPage> {
+    extends State<VocabularyPracticeWordLiteListPage> {
   late List<dynamic> _vocabularyList;
   List<dynamic> _vocabularySentenceList = [];
   var _wordTextSizeGroup = AutoSizeGroup();
@@ -162,7 +161,7 @@ class _VocabularyPracticeWordListPageState
                                 print('HERE: ${filtedContentList}');
 
                                 AutoRouter.of(context)
-                                    .push(VocabularyPracticeLiteAutoRoute(
+                                    .push(LearningAutoVocabularyPracticeWordLiteRoute(
                                   contentList: filtedContentList,
                                   ipaList: filtedIPA,
                                   translateList: TransNoDupe,
