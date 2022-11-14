@@ -547,24 +547,37 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
     _adjustWordIndex(0);
   }
 
+  /// This initializes SpeechToText. That only has to be done
+  /// once per application, though calling it again is harmless
+  /// it also does nothing. The UX of the sample app ensures that
+  /// it can only be called once.
   Future<void> initSpeechState() async {
-    var sttHasSpeech = await speechToText.initialize(
+    try {
+      var sttHasSpeech = await speechToText.initialize(
         onError: sttErrorListener,
         onStatus: sttStatusListener,
         debugLogging: true,
-        finalTimeout: const Duration(milliseconds: 0));
-    if (sttHasSpeech) {
-      _sttLocaleNames = await speechToText.locales();
+      );
+      if (sttHasSpeech) {
+        // Get the list of languages installed on the supporting platform so they
+        // can be displayed in the UI for selection by the user.
 
-      var systemLocale = await speechToText.systemLocale();
-      //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
+        _sttLocaleNames = await speechToText.locales();
+
+        var systemLocale = await speechToText.systemLocale();
+        //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
+      }
+      if (!mounted) return;
+
+      setState(() {
+        _sttHasSpeech = sttHasSpeech;
+      });
+    } catch (e) {
+      print('Speech recognition failed: ${e.toString()}');
+      setState(() {
+        _sttHasSpeech = false;
+      });
     }
-
-    if (!mounted) return;
-
-    setState(() {
-      _sttHasSpeech = sttHasSpeech;
-    });
   }
 
   initTts() async {
@@ -698,10 +711,6 @@ class _LearningManualVocabularyPraticeWordPageState extends State<LearningManual
     setState(() {
       sttLastStatus = status;
     });
-
-    if (isWeb && sttLastStatus != 'listening' && speechToText.isListening == false) {
-      _handleSubmitted(_answerText, isFinalResult:true);
-    }
   }
 
   void _sttSwitchLang(selectedVal) {

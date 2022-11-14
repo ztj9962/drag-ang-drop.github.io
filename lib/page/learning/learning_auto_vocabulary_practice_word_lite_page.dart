@@ -499,9 +499,6 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     setState(() {
       sttLastStatus = status;
     });
-    if (isWeb && sttLastStatus != 'listening' && speechToText.isListening == false) {
-      _handleSubmitted(_answerText, isFinalResult:true);
-    }
   }
 
   void _sttSwitchLang(selectedVal) {
