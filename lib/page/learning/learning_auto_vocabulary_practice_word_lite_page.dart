@@ -1,9 +1,10 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' show Platform;
 import 'dart:math';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -22,29 +23,38 @@ import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
 
 class LearningAutoVocabularyPracticeWordLitePage extends StatefulWidget {
-
   final List<String> contentList;
   final List<String> ipaList;
   final List<String> translateList;
   final List<bool> mainCheckList;
   final List<String> oriList;
   final List<int> idList;
-  const LearningAutoVocabularyPracticeWordLitePage ({ Key? key, required this.contentList, required this.ipaList, required this.translateList, required this.mainCheckList, required this.oriList, required this.idList}): super(key: key);
+
+  const LearningAutoVocabularyPracticeWordLitePage(
+      {Key? key,
+      required this.contentList,
+      required this.ipaList,
+      required this.translateList,
+      required this.mainCheckList,
+      required this.oriList,
+      required this.idList})
+      : super(key: key);
 
   @override
-  _LearningAutoVocabularyPracticeWordLitePage createState() => _LearningAutoVocabularyPracticeWordLitePage();
+  _LearningAutoVocabularyPracticeWordLitePage createState() =>
+      _LearningAutoVocabularyPracticeWordLitePage();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVocabularyPracticeWordLitePage> {
+class _LearningAutoVocabularyPracticeWordLitePage
+    extends State<LearningAutoVocabularyPracticeWordLitePage> {
   late List<String> _contentList;
   late List<String> _ipaList;
   late List<String> _translateList;
   late List<bool> _mainCheckList;
   late List<String> _oriLIst;
   late List<int> _idList;
-  int _mainCheckIndex = 0;
   int _sentenceCounter = 1;
   int _sentenceTotal = 1;
   int _chunksCounter = 0;
@@ -58,21 +68,18 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
   var _startTime;
 
   var _allowTouchButtons = {
-    'reListenButton' : false,
-    'speakButton' : false,
-    'pauseButton' : true,
+    'reListenButton': false,
+    'speakButton': false,
+    'pauseButton': true,
   };
   int _correctCombo = 0;
   Map _finishQuizData = {
-    'sentenceAnswerArray' : <String>[],
-    'scoreArray' : <int>[],
-    'secondsArrayQ' : <int>[],
-    'secondsArray' : <int>[],
-    'userAnswerRate' : <double>[],
+    'sentenceAnswerArray': <String>[],
+    'scoreArray': <int>[],
+    'secondsArrayQ': <int>[],
+    'secondsArray': <int>[],
+    'userAnswerRate': <double>[],
   };
-
-
-
 
   // 測驗時長計時器
   late Timer _timer;
@@ -103,12 +110,19 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
   TtsState ttsState = TtsState.stopped;
+
   get isPlaying => ttsState == TtsState.playing;
+
   get isStopped => ttsState == TtsState.stopped;
+
   get isPaused => ttsState == TtsState.paused;
+
   get isContinued => ttsState == TtsState.continued;
+
   bool get isIOS => !kIsWeb && Platform.isIOS;
+
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
   bool get isWeb => kIsWeb;
 
   @override
@@ -120,12 +134,12 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     _oriLIst = widget.oriList;
     _idList = widget.idList;
     int chunksCounting = 0;
-    for(int c = 0; c <_oriLIst.length;c++){
-      if(c != 0 && _oriLIst[c] != _oriLIst[c-1]){
+    for (int c = 0; c < _oriLIst.length; c++) {
+      if (c != 0 && _oriLIst[c] != _oriLIst[c - 1]) {
         _chunksTotal.add(chunksCounting);
         chunksCounting = 1;
         _sentenceTotal++;
-      }else{
+      } else {
         chunksCounting++;
       }
     }
@@ -175,115 +189,121 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
             ],
           ),
         ),
-        body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 7,
-                child: Container(
-                  child: ListView.builder(
-                    padding: new EdgeInsets.all(8.0),
-                    reverse: true,
-                    itemBuilder: (_, int index) => _messages[index],
-                    itemCount: _messages.length,
+        body: Column(children: <Widget>[
+          Expanded(
+            flex: 7,
+            child: Container(
+              child: ListView.builder(
+                padding: new EdgeInsets.all(8.0),
+                reverse: true,
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+              ),
+            ),
+          ),
+          const Divider(
+            thickness: 1,
+            color: PageTheme.app_theme_blue,
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              //color: Colors.red,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () async {
+                      switch (ttsRateString) {
+                        case '2倍':
+                          ttsRate = 0.125;
+                          break;
+                        case '0.25倍':
+                          ttsRate = 0.25;
+                          break;
+                        case '0.5倍':
+                          ttsRate = 0.5;
+                          break;
+                        case '一般':
+                          ttsRate = 0.625;
+                          break;
+                        case '1.25倍':
+                          ttsRate = 0.75;
+                          break;
+                        case '1.5倍':
+                          ttsRate = 0.875;
+                          break;
+                        case '1.75倍':
+                          ttsRate = 1.0;
+                          break;
+                        default:
+                          ttsRate = 0.5;
+                          break;
+                      }
+                      setState(() {
+                        ttsRate = ttsRate;
+                        ttsRateSlow = false;
+                      });
+                      print(ttsRateSlow.toString());
+                      SharedPreferencesUtil.setTTSRate(ttsRate);
+                      SharedPreferencesUtil.getTTSRateString().then((value) {
+                        setState(() => ttsRateString = value);
+                      });
+                    },
+                    child: Text('語速：${ttsRateString}'),
                   ),
-                ),
+                ],
               ),
-              const Divider(
-                thickness: 1,
-                color: PageTheme.app_theme_blue,
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  //color: Colors.red,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      TextButton(
-                        onPressed: () async {
-                          switch (ttsRateString) {
-                            case '2倍':
-                              ttsRate = 0.125;
-                              break;
-                            case '0.25倍':
-                              ttsRate = 0.25;
-                              break;
-                            case '0.5倍':
-                              ttsRate = 0.5;
-                              break;
-                            case '一般':
-                              ttsRate = 0.625;
-                              break;
-                            case '1.25倍':
-                              ttsRate = 0.75;
-                              break;
-                            case '1.5倍':
-                              ttsRate = 0.875;
-                              break;
-                            case '1.75倍':
-                              ttsRate = 1.0;
-                              break;
-                            default:
-                              ttsRate = 0.5;
-                              break;
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: SvgPicture.asset('assets/icon/audio.svg'),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: CircleAvatar(
+                      backgroundColor: PageTheme.app_theme_blue,
+                      radius: 40.0,
+                      child: IconButton(
+                        icon: Icon(
+                            (_allowTouchButtons['speakButton']! && !isPlaying)
+                                ? (speechToText.isListening
+                                    ? Icons.stop
+                                    : Icons.mic_none)
+                                : Icons.mic_off_outlined,
+                            size: 30),
+                        color:
+                            (_allowTouchButtons['speakButton']! && !isPlaying)
+                                ? Colors.white
+                                : Colors.grey,
+                        onPressed: () {
+                          if (_allowTouchButtons['speakButton']! &&
+                              !isPlaying) {
+                            if (!_sttHasSpeech || speechToText.isListening) {
+                              sttStopListening();
+                            } else {
+                              sttStartListening();
+                            }
                           }
-                          setState(() {
-                            ttsRate = ttsRate;
-                            ttsRateSlow = false;
-                          });
-                          print(ttsRateSlow.toString());
-                          SharedPreferencesUtil.setTTSRate(ttsRate);
-                          SharedPreferencesUtil.getTTSRateString().then((value) {
-                            setState(() => ttsRateString = value);
-                          });
-
                         },
-                        child: Text('語速：${ttsRateString}'),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: CircleAvatar(
-                          backgroundColor: PageTheme.app_theme_blue,
-                          radius: 40.0,
-                          child: IconButton(
-                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
-                            color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
-                            onPressed: () {
-                              if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                if( !_sttHasSpeech || speechToText.isListening ){
-                                  sttStopListening();
-                                } else {
-                                  sttStartListening();
-                                }
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                    ],
+                  Expanded(
+                    flex: 2,
+                    child: SvgPicture.asset('assets/icon/audio.svg'),
                   ),
-                ),
+                ],
               ),
-            ]
-        )
-    );
+            ),
+          ),
+        ]));
   }
 
   /*
@@ -308,13 +328,12 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     });
     SharedPreferencesUtil.getTTSRate().then((value) {
       setState(() => ttsRate = value);
-      print('update iiiiiii'+value.toString());
+      print('update iiiiiii' + value.toString());
     });
     SharedPreferencesUtil.getTTSRateString().then((value) {
       setState(() => ttsRateString = value);
     });
   }
-
 
   /// This initializes SpeechToText. That only has to be done
   /// once per application, though calling it again is harmless
@@ -411,10 +430,12 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     });
   }
 
-
   Future<void> initChatBot() async {
     _startTime = new DateTime.now();
-    await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')], needSpeak:true, speakMessage:'Quiz is about to start. Please repeat after me', speakLanguage:'en-US');
+    await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')],
+        needSpeak: true,
+        speakMessage: 'Quiz is about to start. Please repeat after me',
+        speakLanguage: 'en-US');
     await sendNextQuestion();
   }
 
@@ -428,7 +449,6 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       _answerSeconds = 0;
     }
   }
-
 
   /*
   speech_to_text
@@ -472,7 +492,7 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
     //print(sttLastWords);
-    _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
+    _handleSubmitted(result.recognizedWords, isFinalResult: result.finalResult);
   }
 
   void sttSoundLevelListener(double level) {
@@ -508,8 +528,6 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     //print(selectedVal);
   }
 
-
-
   /* tts 相關 */
   Future<dynamic> _getLanguages() => flutterTts.getLanguages;
 
@@ -521,12 +539,12 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       //print(engine);
     }
   }
-  Future _ttsSpeak(String speakMessage, String speakLanguage) async {
 
+  Future _ttsSpeak(String speakMessage, String speakLanguage) async {
     await sttStopListening();
 
     await flutterTts.setLanguage(speakLanguage);
-    if(ttsRateSlow){
+    if (ttsRateSlow) {
       await flutterTts.setSpeechRate(ttsRate * 0.22);
     } else {
       await flutterTts.setSpeechRate(ttsRate);
@@ -554,44 +572,69 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
   other
    */
 
-  Future sendChatMessage(bool senderIsMe, String senderName, List<TextSpan> messageTextWidget, {bool needSpeak : false, bool canSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
+  Future sendChatMessage(
+      bool senderIsMe, String senderName, List<TextSpan> messageTextWidget,
+      {bool needSpeak: false,
+      bool canSpeak: false,
+      String speakMessage: '',
+      String speakLanguage: 'en-US'}) async {
     ChatMessageUtil message = ChatMessageUtil(
       changeColor: _changeColor,
       senderIsMe: senderIsMe,
       senderName: senderName,
       messageTextWidget: messageTextWidget,
-      actionButton:
-      (canSpeak)
-          ? IconButton(
-        icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined),
-        color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.black : Colors.grey ,
-        onPressed: () async {
-          /*if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-            ttsRateSlow = !ttsRateSlow;
-            await _ttsSpeak(speakMessage, speakLanguage);
-          }*/
-          _handleSubmitted('A test content', isFinalResult:false);
-        },
-      )
-          : null
-
-      ,
+      actionButton: (canSpeak)
+          ? Column(
+              children: [
+                IconButton(
+                  icon: Icon((_allowTouchButtons['reListenButton']! &&
+                          !speechToText.isListening)
+                      ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                      : Icons.volume_off_outlined),
+                  color: (_allowTouchButtons['reListenButton']! &&
+                          !speechToText.isListening)
+                      ? Colors.black
+                      : Colors.grey,
+                  onPressed: () async {
+                    /*if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+                ttsRateSlow = !ttsRateSlow;
+                await _ttsSpeak(speakMessage, speakLanguage);
+              }*/
+                    _handleSubmitted('A test content', isFinalResult: false);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.analytics_outlined),
+                  color: (_allowTouchButtons['reListenButton']! &&
+                          !speechToText.isListening)
+                      ? Colors.black
+                      : Colors.grey,
+                  onPressed: () async {
+                    //Analysis
+                    AutoRouter.of(context).push(VocabularyPracticeWordLiteAnalysisRoute(
+                        originSentence: messageTextWidget.last.text?.substring(4) ?? ""
+                    ));
+                  },
+                ),
+              ],
+            )
+          : null,
     );
     setState(() {
       _messages.insert(0, message);
     });
 
-    if(needSpeak) {
+    if (needSpeak) {
       await _ttsSpeak(speakMessage, speakLanguage);
     }
   }
 
-  void _handleSubmitted(String text,{bool isFinalResult:false}) {
+  void _handleSubmitted(String text, {bool isFinalResult: false}) {
     setState(() {
       _answerText = text;
     });
 
-    if(_answerText != '' && isFinalResult){
+    if (_answerText != '' && isFinalResult) {
       sendChatMessage(true, 'Me', [TextSpan(text: text)]);
       _finishQuizData['secondsArray']!.add(_answerSeconds);
 
@@ -607,15 +650,15 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     }
   }
 
-
   void _responseChatBot(text) async {
-    String checkSentencesJSON = await APIUtil.checkSentences(_contentList[_part - 1], text, correctCombo:_correctCombo);
+    String checkSentencesJSON = await APIUtil.checkSentences(
+        _contentList[_part - 1], text,
+        correctCombo: _correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
     //print(checkSentencesJSON.toString());
 
-    if(checkSentences['apiStatus'] == 'success'){
-
-      if(checkSentences['data']['ipaTextSimilarity'] == 100){
+    if (checkSentences['apiStatus'] == 'success') {
+      if (checkSentences['data']['ipaTextSimilarity'] == 100) {
         _correctCombo++;
       } else {
         _correctCombo = 0;
@@ -626,51 +669,75 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
       List<TextSpan> questionTextWidget = [];
       for (var i = 0; i < questionTextArray.length; i++) {
-        if(checkSentences['data']['questionError'].containsKey(questionTextArray[i])){
-          questionTextWidget.add(
-              TextSpan(
-                text: questionTextArray[i] + ' ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              )
-          );
+        if (checkSentences['data']['questionError']
+            .containsKey(questionTextArray[i])) {
+          questionTextWidget.add(TextSpan(
+            text: questionTextArray[i] + ' ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ));
         } else {
-          if (i < questionTextArray.length) questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
+          if (i < questionTextArray.length)
+            questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
         }
       }
 
-      questionTextWidget.add(
-          TextSpan(text: '\n[${_ipaList[_part - 1]}]',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
-      if(_mainCheckList[_part - 1])
-        questionTextWidget.add(
-            TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
-        );
-      questionTextWidget.add(
-          TextSpan(text: '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
-      questionTextWidget.add(
-          TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
+      questionTextWidget.add(TextSpan(
+          text: '\n[${_ipaList[_part - 1]}]',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
+      if (_mainCheckList[_part - 1])
+        questionTextWidget
+            .add(TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}'));
+      questionTextWidget.add(TextSpan(
+          text:
+              '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
+      questionTextWidget.add(TextSpan(
+          text: '\n原句:${_oriLIst[_part - 1]}',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
 
       message = ChatMessageUtil(
         changeColor: _changeColor,
         senderIsMe: false,
         senderName: 'Bot',
         messageTextWidget: questionTextWidget,
-        actionButton: IconButton(
-          icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined),
-          color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.black : Colors.grey ,
-          onPressed: () async {
-            if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-              ttsRateSlow = !ttsRateSlow;
-              await _ttsSpeak(checkSentences['data']['questionText'], "en-US");
-            }
-          },
-        )
-        ,
+        actionButton: Column(
+          children: [
+            IconButton(
+              icon: Icon((_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening)
+                  ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                  : Icons.volume_off_outlined),
+              color: (_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening)
+                  ? Colors.black
+                  : Colors.grey,
+              onPressed: () async {
+                if (_allowTouchButtons['reListenButton']! &&
+                    !speechToText.isListening) {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(
+                      checkSentences['data']['questionText'], "en-US");
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.analytics_outlined),
+              color: (_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening)
+                  ? Colors.black
+                  : Colors.grey,
+              onPressed: () async {
+                //Analysis
+                AutoRouter.of(context).push(VocabularyPracticeWordLiteAnalysisRoute(
+                    originSentence: questionTextWidget.last.text?.substring(4) ?? ""
+                ));
+              },
+            ),
+          ],
+        ),
       );
       setState(() {
         _messages[1] = message;
@@ -680,16 +747,15 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       List<TextSpan> answerTextWidget = [];
 
       for (var i = 0; i < answerTextArray.length; i++) {
-        if(checkSentences['data']['answerError'].containsKey(answerTextArray[i])){
-          answerTextWidget.add(
-              TextSpan(
-                text: answerTextArray[i] + ' ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              )
-          );
+        if (checkSentences['data']['answerError']
+            .containsKey(answerTextArray[i])) {
+          answerTextWidget.add(TextSpan(
+            text: answerTextArray[i] + ' ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ));
         } else {
           answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
         }
@@ -706,9 +772,17 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       });
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
-      _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
+      _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length /_finishQuizData['secondsArray']![_part - 1]);
       //print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(
+          false,
+          'Bot',
+          [
+            TextSpan(text:'${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')
+          ],
+          needSpeak: true,
+          speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(),
+          speakLanguage: 'en-US');
       await sendNextQuestion();
     } else {
       //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
@@ -717,66 +791,78 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
     }
   }
 
-
   Future<void> sendNextQuestion() async {
     await Future.delayed(Duration(milliseconds: 780));
+    print(_messages);
     _part++;
-    if(_part % 2 == 1) _changeColor = true; else _changeColor = false;
-    if( _part > _contentList.length){
+    if (_part % 2 == 1)
+      _changeColor = true;
+    else
+      _changeColor = false;
+    if (_part > _contentList.length) {
       var _endTime = DateTime.now();
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')],
+          needSpeak: true,
+          speakMessage: 'Quiz is over',
+          speakLanguage: 'en-US');
       var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
       var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
 
-
-
-      await sendChatMessage(false, 'Bot', [
-        TextSpan(text: '=== 紀錄 ===\n'),
-        TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
-        TextSpan(text: '設定AI語速：${ttsRate.toStringAsFixed(2)} 倍速\n'),
-        TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
-        TextSpan(text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
-        //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
-        //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
-
-      ], needSpeak:false, speakMessage:'', speakLanguage:'en-US');
+      await sendChatMessage(
+          false,
+          'Bot',
+          [
+            TextSpan(text: '=== 紀錄 ===\n'),
+            TextSpan(text: '答對題數/總題數：${_finishQuizData['scoreArray'].where((score) => score == 100).toList().length} / ${_finishQuizData['scoreArray'].length}\n'),
+            TextSpan(text: '設定AI語速：${ttsRate.toStringAsFixed(2)} 倍速\n'),
+            TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
+            TextSpan(text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
+            //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
+            //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
+          ],
+          needSpeak: false,
+          speakMessage: '',
+          speakLanguage: 'en-US');
     } else {
       /*if(_mainCheckList[_part -1])
         {
           mainCheckIndex++;
         }*/
-      if(_part != 1 && _oriLIst[_part - 1] != _oriLIst[_part - 2]){
+      if (_part != 1 && _oriLIst[_part - 1] != _oriLIst[_part - 2]) {
         _chunksCounter = 1;
         _sentenceCounter++;
-      }else{
+      } else {
         _chunksCounter++;
       }
       //_questionStart = DateTime.now();
       List<TextSpan> questionTextWidget = [];
-      questionTextWidget.add(
-          TextSpan(text: '${_contentList[_part - 1]}')
-      );
+      questionTextWidget.add(TextSpan(text: '${_contentList[_part - 1]}'));
 
-      questionTextWidget.add(
-          TextSpan(text: '\n[${_ipaList[_part - 1]}]',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
-      if(_mainCheckList[_part - 1])
-        questionTextWidget.add(
-            TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}')
-        );
-      questionTextWidget.add(
-          TextSpan(text: '\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
-      questionTextWidget.add(
-          TextSpan(text: '\n原句:${_oriLIst[_part-1]}',style: TextStyle(color: Colors.black.withOpacity(0.5)))
-      );
-      await sendChatMessage(false, 'Bot', questionTextWidget, needSpeak:true, canSpeak:true, speakMessage:_contentList[_part - 1], speakLanguage:'en-US');
+      questionTextWidget.add(TextSpan(
+          text: '\n[${_ipaList[_part - 1]}]',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
+      if (_mainCheckList[_part - 1])
+        questionTextWidget
+            .add(TextSpan(text: '\n${_translateList[_sentenceCounter - 1]}'));
+      questionTextWidget.add(TextSpan(
+          text:'\n${_idList[_sentenceCounter - 1]} / ${_sentenceCounter} of ${_sentenceTotal} / ${_chunksCounter} of ${_chunksTotal[_sentenceCounter - 1]}',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
+
+      questionTextWidget.add(TextSpan(
+          text: '\n原句:${_oriLIst[_part - 1]}',
+          style: TextStyle(color: Colors.black.withOpacity(0.5))));
+      await sendChatMessage(false, 'Bot', questionTextWidget,
+          needSpeak: true,
+          canSpeak: true,
+          speakMessage: _contentList[_part - 1],
+          speakLanguage: 'en-US');
       //${_questionsData[_part - 1]['sentenceChinese']}
       //_questionEnd = DateTime.now();
       //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
       //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
       //await sendChatMessage(false, 'Bot', [TextSpan(text: 'The number of seconds in the sentence is: ${ttsRate}')], needSpeak:false, speakMessage:'', speakLanguage: 'en-US');
-      await Future.delayed(Duration(milliseconds: (_part / _contentList.length * 2340).round()));
+      await Future.delayed(
+          Duration(milliseconds: (_part / _contentList.length * 2340).round()));
       setState(() {
         _isActive = true;
       });
@@ -806,15 +892,16 @@ class _LearningAutoVocabularyPracticeWordLitePage extends State<LearningAutoVoca
       });
     }
   }
-
 }
+
+
 
 class CustomAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         child: Stack(
           //overflow: Overflow.visible,
           alignment: Alignment.topCenter,
@@ -828,7 +915,7 @@ class CustomAlertDialog extends StatelessWidget {
                     Text(
                       'Alicsnet App 精簡版',
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     SizedBox(
                       height: 5,
@@ -838,28 +925,36 @@ class CustomAlertDialog extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),
-                    Divider(color: Colors.black54,thickness: 1,),
+                    Divider(
+                      color: Colors.black54,
+                      thickness: 1,
+                    ),
                     SizedBox(
                       height: 5,
                     ),
                     Text.rich(
-                      TextSpan(
-                        text: '題目介面說明如下:\n',
-                        style: TextStyle(color: Colors.black54,height: 1.5),
+                      TextSpan(text: '題目介面說明如下:\n',style: TextStyle(color: Colors.black54, height: 1.5),
                         children: [
-                          TextSpan(text: '◎ the go\n',style: TextStyle(height: 2,color: Colors.black)),
+                          TextSpan(text: '◎ the go\n',style: TextStyle(height: 2, color: Colors.black)),
                           TextSpan(text: '↑ 切塊或句子內容(你需要複誦這個部分)\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 如果該題為句子，這裡或會出現中文翻譯\n',style: TextStyle(height: 1.5,color: Colors.black)),
-                          TextSpan(text: '◎ [ðə goʊ]\n',style: TextStyle(height: 1.5,color: Colors.black)),
+                          TextSpan(text: '◎ 如果該題為句子，這裡或會出現中文翻譯\n',style:TextStyle(height: 1.5, color: Colors.black)),
+                          TextSpan(text: '◎ [ðə goʊ]\n',style:TextStyle(height: 1.5, color: Colors.black)),
                           TextSpan(text: '↑ 切塊或句子音標\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 197786 / 1 of 1 / 1 of 3\n',style: TextStyle(height: 1.5,color: Colors.black)),
+                          TextSpan(text: '◎ 197786 / 1 of 1 / 1 of 3\n',style:TextStyle(height: 1.5, color: Colors.black)),
                           TextSpan(text: '↑ 句子ID / 當前第幾句 of 總句子數量 / 當前句子切塊數量 of 當前句子總切塊數量\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: "◎ 原句:I'm on the go\n",style: TextStyle(height: 1.5,color: Colors.black)),
+                          TextSpan(text: "◎ 原句:I'm on the go\n",style:TextStyle(height: 1.5, color: Colors.black)),
                           TextSpan(text: '↑ 該切片的原始句子\n',style: TextStyle(height: 1.5)),
                         ],
                       ),
                     ),
-                    ElevatedButton(onPressed: (){Navigator.of(context).pop();}, child:Text('OK'),style: ElevatedButton.styleFrom(primary: PageTheme.cutom_article_practice_background),)
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'),
+                      style: ElevatedButton.styleFrom(
+                          primary: PageTheme.cutom_article_practice_background),
+                    )
                   ],
                 ),
               ),
@@ -879,3 +974,57 @@ class CustomAlertDialog extends StatelessWidget {
         ));
   }
 }
+/*
+analysisAlertDialog(BuildContext context,String spacyTreeBase64,List<TableRow> clauseTableRow) {
+  // Init
+  AlertDialog dialog = AlertDialog(
+    title: Text("句型分析"),
+    content: SingleChildScrollView(
+      child: Container(
+        height: 800,
+        width: 800,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+              Table(
+                columnWidths: const <int, TableColumnWidth>{
+                  //指定索引及固定列宽
+                  0: FixedColumnWidth(40.0),
+                  1: FixedColumnWidth(40.0),
+                  2: FixedColumnWidth(40.0),
+                  3: FixedColumnWidth(40.0),
+                  4: FixedColumnWidth(40.0),
+                  5: FixedColumnWidth(40.0),
+                  6: FixedColumnWidth(40.0),
+                },
+                //設定表格樣式
+                border: TableBorder(horizontalInside: BorderSide(width: 1, color: Colors.blue, style: BorderStyle.solid)),
+                children: clauseTableRow,
+              ),
+            Padding(padding: EdgeInsets.all(8)),
+            AutoSizeText('句型樹狀圖',style: TextStyle(height: 1.5)),
+            imageFromBase64String(spacyTreeBase64),
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      ElevatedButton(
+          child: Text("OK"),
+          onPressed: () {
+            Navigator.pop(context);
+          }
+      ),
+    ],
+  );
+
+  // Show the dialog
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      }
+  );
+}*/
+
+
