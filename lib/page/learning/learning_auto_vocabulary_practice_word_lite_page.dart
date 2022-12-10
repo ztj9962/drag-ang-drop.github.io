@@ -96,7 +96,6 @@ class _LearningAutoVocabularyPracticeWordLitePage
   String sttLastStatus = '';
   String _sttCurrentLocaleId = 'en_US';
   int sttResultListened = 0;
-  List<LocaleName> _sttLocaleNames = [];
   final SpeechToText speechToText = SpeechToText();
 
   // flutter_tts
@@ -350,9 +349,9 @@ class _LearningAutoVocabularyPracticeWordLitePage
         // Get the list of languages installed on the supporting platform so they
         // can be displayed in the UI for selection by the user.
 
-        _sttLocaleNames = await speechToText.locales();
+        //_sttLocaleNames = await speechToText.locales();
 
-        var systemLocale = await speechToText.systemLocale();
+        //var systemLocale = await speechToText.systemLocale();
         //_sttCurrentLocaleId = systemLocale?.localeId ?? '';
       }
       if (!mounted) return;
@@ -529,9 +528,9 @@ class _LearningAutoVocabularyPracticeWordLitePage
   }
 
   /* tts 相關 */
-  Future<dynamic> _getLanguages() => flutterTts.getLanguages;
+  //Future<dynamic> _getLanguages() => flutterTts.getLanguages;
 
-  Future<dynamic> _getEngines() => flutterTts.getEngines;
+  //Future<dynamic> _getEngines() => flutterTts.getEngines;
 
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
@@ -558,7 +557,7 @@ class _LearningAutoVocabularyPracticeWordLitePage
     }
   }
 
-  Future _ttsStop() async {
+  /*Future _ttsStop() async {
     var result = await flutterTts.stop();
     if (result == 1) setState(() => ttsState = TtsState.stopped);
   }
@@ -566,7 +565,7 @@ class _LearningAutoVocabularyPracticeWordLitePage
   Future _ttsPause() async {
     var result = await flutterTts.pause();
     if (result == 1) setState(() => ttsState = TtsState.paused);
-  }
+  }*/
 
   /*
   other
@@ -805,7 +804,7 @@ class _LearningAutoVocabularyPracticeWordLitePage
           needSpeak: true,
           speakMessage: 'Quiz is over',
           speakLanguage: 'en-US');
-      var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
+      //var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
       var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
 
       await sendChatMessage(
