@@ -716,9 +716,9 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       await sendChatMessage(false, 'Bot', [
         TextSpan(text: '=== 紀錄 ===\n'),
         TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
-        TextSpan(text: '設定AI語速：${ttsRate.toStringAsFixed(2)} 倍速\n'),
+        TextSpan(text: '設定語速：${ttsRateString}\n'),
         TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
-        TextSpan(text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
+        TextSpan(text: '總測驗時間：${formatDuration(Duration(seconds: _endTime.difference(_startTime).inSeconds))}'),
         //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
         //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
 
@@ -775,6 +775,14 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
         }
       });
     }
+  }
+
+  // Define the function
+  String formatDuration(Duration duration) {
+    String hours = duration.inHours.toString().padLeft(0, '2');
+    String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$hours:$minutes:$seconds";
   }
 
 }
