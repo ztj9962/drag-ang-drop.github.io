@@ -16,6 +16,7 @@ import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practi
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_manual_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
+import 'package:alicsnet_app/page/vocabulary_practice_word_lite/vocabulary_practice_word_lite_analysis_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word_lite/vocabulary_practice_word_lite_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word_lite/vocabulary_practice_word_lite_list_page.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
@@ -59,7 +60,7 @@ import 'package:auto_route/auto_route.dart';
 
     AutoRoute(path: '/vocabulary_practice_word_lite_index',page: VocabularyPracticeWordLiteIndexPage),
     AutoRoute(path: '/vocabulary_practice_word_lite_list',page: VocabularyPracticeWordLiteListPage),
-
+    AutoRoute(path: '/vocabulary_practice_word_lite_analysis',page: VocabularyPracticeWordLiteAnalysisPage),
     //New Pages Below ↓↓↓
     /*
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),

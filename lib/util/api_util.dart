@@ -677,6 +677,35 @@ class APIUtil {
     var json = jsonDecode(response.body.toString());
     return json;
   }
+  static Future getSpacyTreeByString(String sent) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'app/analysis/getSpacyTreeByString'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentence': jsonEncode(sent),
+      },
+    );
+
+    var json = jsonDecode(response.body.toString());
+    return json;
+  }
+  static Future getClauseTableByString(String sent) async {
+    final response = await http.post(
+      Uri.https('api.alicsnet.com', 'app/analysis/getClauseTableByString'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sentence': jsonEncode(sent),
+      },
+    );
+    String noNaN = response.body.toString().replaceAll("NaN", '""');
+    var json = jsonDecode(noNaN);
+    print('processed');
+    return json;
+  }
 }
 
 
