@@ -64,13 +64,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
       ),
@@ -83,13 +76,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
         },
       ),
@@ -102,13 +88,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
       ),
@@ -122,13 +101,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
         },
       ),
@@ -142,13 +114,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/preference_translation_search");
         },
       ),
