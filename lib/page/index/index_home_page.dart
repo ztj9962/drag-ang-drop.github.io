@@ -71,6 +71,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/vocabulary_practice_topics.svg',
         titleText: 'Sentences based on chat topics',
         descripText: '生活英語情境',
@@ -82,6 +83,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
     );
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/customArticle_02.svg',
         titleText: 'User document input',
         descripText: '學習者提供教材',
@@ -95,6 +97,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
         titleText: 'Pronunciation - Minimal pairs',
         descripText: '相似字音練習',
@@ -108,6 +111,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/recommend_translate.svg',
         titleText: 'Recommend translations',
         descripText: '推薦翻譯系統',
