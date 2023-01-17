@@ -120,7 +120,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         }*/
 
         //句型分析表格
-        String clauseTableApi = await APIUtil.getClauseTableByString(
+        var clauseTableApi = await APIUtil.getClauseTableByString(
             _controller.text.replaceAll("\n", " "));
         var clauseTableResponse = jsonDecode(clauseTableApi);
         //print(clauseTableResponse);

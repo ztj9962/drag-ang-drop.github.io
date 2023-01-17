@@ -153,6 +153,27 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        imagePath: 'assets/icon/sentence_analysis.svg',
+        titleText: 'Sentence Analysis',
+        descripText: '句型分析',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+            setState(() => _isSignin = value);
+          });
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            return;
+          }
+          AutoRouter.of(context)
+              .push(SentenceAnalysisIndexRoute(analysisor: ''));
+        },
+      ),
+    );
     /*
     listViews.add(
       ButtonCardView(
