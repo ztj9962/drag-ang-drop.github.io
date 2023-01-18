@@ -79,11 +79,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     try {
       if (_controller.text != "" && inputWordCount > 0) {
         //SpacyTree
-        String spacyTreeResponse = await APIUtil.getSpacyTreeByString(
-            _controller.text.replaceAll("\n", " "));
-        var spacyTreeBase64 = jsonDecode(spacyTreeResponse);
-        if (spacyTreeBase64['apiStatus'] == 'success') {
-          spacyTree = base64.decode(spacyTreeBase64['data']);
+        var spacyTreeResponse = await APIUtil.getSpacyTreeByString(_controller.text.replaceAll("\n", " "));
+        if (spacyTreeResponse['apiStatus'] == 'success') {
+          spacyTree = base64.decode(spacyTreeResponse['data']);
           setState(() {
             isloading = false;
           });
@@ -119,13 +117,14 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }*/
 
-        //句型分析表格
-        var clauseTableApi = await APIUtil.getClauseTableByString(
-            _controller.text.replaceAll("\n", " "));
-        var clauseTableResponse = jsonDecode(clauseTableApi);
-        //print(clauseTableResponse);
-        if (clauseTableResponse['apiStatus'] == 'success') {
-          List tableData = clauseTableResponse['data'] as List;
+        //句型分析表
+        var clauseTableApi = await APIUtil.getClauseTableByString(_controller.text.replaceAll("\n", " "));
+
+        //var clauseTableResponse = jsonDecode(clauseTableApi);
+
+        print(clauseTableApi);
+        if (clauseTableApi['apiStatus'] == 'success') {
+          List tableData = clauseTableApi['data'] as List;
           tableArray.add(TableRow(
             decoration: BoxDecoration(
                 color: PageTheme.cutom_article_practice_background
@@ -137,11 +136,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               //Center(child: AutoSizeText('POS中文',maxLines: 1)),
               Center(child: AutoSizeText('Dependency', maxLines: 1)),
               //Center(child: AutoSizeText('Dependency中文',maxLines: 1)),
-              Center(
-                  child: AutoSizeText(
-                '單字/片語/子句',
-                maxLines: 1,
-              )),
+              Center(child: AutoSizeText('片語/子句',maxLines: 1,)),
             ],
           ));
           for (int i = 0; i < tableData.length; i++) {
