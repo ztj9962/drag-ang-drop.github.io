@@ -125,6 +125,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/sentence_analysis.svg',
         titleText: 'Sentence Analysis',
         descripText: '句型分析',
