@@ -363,7 +363,7 @@ class _CustomArticlePracticeSentenceIndexPage
                                 ]),
                             child: Center(
                                 child: Text(
-                              "提交",
+                              "送出",
                               style: TextStyle(color: Colors.white),
                             )),
                           ),
