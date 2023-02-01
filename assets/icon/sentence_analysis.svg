@@ -1,0 +1,17 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <line transform="rotate(-1.2365 442.518 209.818)" stroke="#1B64A2" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_2" y2="234.78234" x2="458.09024" y1="184.85336" x1="426.94547" stroke-width="12" fill="none"/>
+  <ellipse fill="#fff" stroke="#1B64A2" cx="394.9" cy="132.7" id="svg_1" rx="60" ry="60" stroke-width="18"/>
+  <line stroke="#1B64A2" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="241.61762" x2="325.18238" y1="183.8" x1="365" stroke-width="12" fill="none"/>
+  <ellipse ry="60" rx="60" id="svg_4" cy="295" cx="301" stroke-width="18" stroke="#1B64A2" fill="none"/>
+  <ellipse ry="60" rx="60" id="svg_5" cy="294.8" cx="489" stroke-width="18" stroke="#1B64A2" fill="none"/>
+  <ellipse ry="60" rx="60" id="svg_6" cy="443" cx="212" stroke-width="18" stroke="#1B64A2" fill="none"/>
+  <ellipse ry="60" rx="60" id="svg_7" cy="443" cx="394.5" stroke-width="18" stroke="#1B64A2" fill="none"/>
+  <ellipse ry="60" rx="60" id="svg_8" cy="443" cx="572" stroke-width="18" stroke="#1B64A2" fill="none"/>
+  <line id="svg_9" y2="392.8" x2="243" y1="346.8" x1="274" stroke-width="12" stroke="#1B64A2" fill="none"/>
+  <line id="svg_10" y2="395.8" x2="367" y1="344.8" x1="339" stroke-width="12" stroke="#1B64A2" fill="none"/>
+  <line id="svg_11" y2="394.8" x2="548" y1="347.8" x1="520" stroke-width="12" stroke="#1B64A2" fill="none"/>
+ </g>
+
+</svg>

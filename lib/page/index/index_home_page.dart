@@ -122,6 +122,21 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        showDevelopTag : true,
+        imagePath: 'assets/icon/sentence_analysis.svg',
+        titleText: 'Sentence Analysis',
+        descripText: '句型分析',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context)
+              .push(SentenceAnalysisIndexRoute(analysisor: ''));
+        },
+      ),
+    );
     /*
     listViews.add(
       ButtonCardView(

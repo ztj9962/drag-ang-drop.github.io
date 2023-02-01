@@ -701,7 +701,7 @@ class APIUtil {
         'sentence': jsonEncode(sent),
       },
     );
-    String noNaN = response.body.toString().replaceAll("NaN", '""');
+    var noNaN = response.body.toString().replaceAll("NaN", '""');
     var json = jsonDecode(noNaN);
     print('processed');
     return json;
