@@ -782,9 +782,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       var _endTime = DateTime.now();
       await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
       var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
-      var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
-
-
+      var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c) / _finishQuizData['scoreArray'].length;
 
       await sendChatMessage(false, 'Bot', [
         TextSpan(text: '=== 紀錄 ===\n'),
