@@ -45,31 +45,26 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   List<Widget> _messages = <Widget>[];
 
   String _answerText = '';
-  var _startTime;
-  var _questionStart;
-  var _questionEnd;
-
-  String _applicationSettingsDataUUID = '';
-  String _applicationSettingsDataListenAndSpeakLevel = '';
-  double _applicationSettingsDataListenAndSpeakRanking = 0;
-
   var _allowTouchButtons = {
     'reListenButton' : false,
     'speakButton' : false,
     'pauseButton' : true,
   };
   int _correctCombo = 0;
-  Map _finishQuizData = {
-    'sentenceQuestionIDArray' : <String>[],
+  Map _summaryReportData = {
+    'ttsRateString' : '',
+    'startTime' : '',
     'sentenceQuestionArray' : <String>[],
     'sentenceQuestionIPAArray' : <String>[],
     'sentenceQuestionErrorArray' : <List<String>>[],
     'sentenceQuestionChineseArray' : <String>[],
     'sentenceAnswerArray' : <String>[],
     'sentenceAnswerIPAArray' : <String>[],
+    'sentenceAnswerErrorArray' : <List<String>>[],
     'scoreArray' : <int>[],
     'secondsArray' : <int>[],
     'userAnswerRate' : <double>[],
+    'endTime' : '',
   };
 
 
@@ -287,15 +282,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
                                     icon: Icon(Icons.summarize , size: 30),
                                     color: Colors.white,
                                     onPressed: () {
-                                      AutoRouter.of(context).push(LearningAutoGenericSummaryReportRoute(
-                                          sentenceQuestionIDArray: _finishQuizData['sentenceQuestionIDArray'],
-                                          sentenceQuestionArray: _finishQuizData['sentenceQuestionArray'],
-                                          sentenceQuestionIPAArray: _finishQuizData['sentenceQuestionIPAArray'],
-                                          sentenceQuestionErrorArray: _finishQuizData['sentenceQuestionErrorArray'],
-                                          sentenceQuestionChineseArray: _finishQuizData['sentenceQuestionChineseArray'],
-                                          sentenceAnswerArray: _finishQuizData['sentenceAnswerArray'],
-                                          sentenceAnswerIPAArray: _finishQuizData['sentenceAnswerIPAArray']
-                                      ));
+                                      AutoRouter.of(context).push(LearningAutoGenericSummaryReportRoute(summaryReportData: _summaryReportData));
                                     },
                                   ),
                                 ),
@@ -455,21 +442,24 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     // 清空紀錄
     _messages = [];
     _part = 0;
-    _finishQuizData = {
-      'sentenceQuestionIDArray' : <String>[],
+    _summaryReportData = {
+      'ttsRateString' : '',
+      'startTime' : '',
       'sentenceQuestionArray' : <String>[],
       'sentenceQuestionIPAArray' : <String>[],
       'sentenceQuestionErrorArray' : <List<String>>[],
       'sentenceQuestionChineseArray' : <String>[],
       'sentenceAnswerArray' : <String>[],
       'sentenceAnswerIPAArray' : <String>[],
+      'sentenceAnswerErrorArray' : <List<String>>[],
       'scoreArray' : <int>[],
       'secondsArray' : <int>[],
       'userAnswerRate' : <double>[],
+      'endTime' : '',
     };
 
     // 設定聊天機器人
-    _startTime = new DateTime.now();
+    _summaryReportData['startTime'] = DateTime.now().toString().substring(0, 19);
     await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')], needSpeak:true, speakMessage:'Quiz is about to start. Please repeat after me', speakLanguage:'en-US');
     await sendNextQuestion();
   }
@@ -647,7 +637,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
 
     if(_answerText != '' && isFinalResult){
       sendChatMessage(true, 'Me', [TextSpan(text: text)]);
-      _finishQuizData['secondsArray']!.add(_answerSeconds);
+      _summaryReportData['secondsArray']!.add(_answerSeconds);
 
       setState(() {
         _isActive = false;
@@ -754,17 +744,17 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
         _messages[0] = message;
         _answerText = '';
       });
-      _finishQuizData['sentenceQuestionIDArray']!.add('');
-      _finishQuizData['sentenceQuestionArray']!.add(checkSentences['data']['questionText']);
-      _finishQuizData['sentenceQuestionIPAArray']!.add(checkSentences['data']['questionIPAText']);
-      _finishQuizData['sentenceQuestionErrorArray']!.add(checkSentences['data']['questionError'].keys.toList());
-      _finishQuizData['sentenceQuestionChineseArray']!.add(_translateList[_part - 1]);
-      _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
-      _finishQuizData['sentenceAnswerIPAArray']!.add(checkSentences['data']['answerIPAText']);
-      _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
-      _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
-      //print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      _summaryReportData['sentenceQuestionArray']!.add(checkSentences['data']['questionText']);
+      _summaryReportData['sentenceQuestionIPAArray']!.add(checkSentences['data']['questionIPAText']);
+      _summaryReportData['sentenceQuestionErrorArray']!.add(checkSentences['data']['questionError'].keys.toList());
+      _summaryReportData['sentenceQuestionChineseArray']!.add(_translateList[_part - 1]);
+      _summaryReportData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
+      _summaryReportData['sentenceAnswerIPAArray']!.add(checkSentences['data']['answerIPAText']);
+      _summaryReportData['sentenceAnswerErrorArray']!.add(checkSentences['data']['answerError'].keys.toList());
+      _summaryReportData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
+      _summaryReportData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _summaryReportData['secondsArray']![_part - 1]);
+      //print(_summaryReportData);
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_summaryReportData['secondsArray']![_part - 1].toString()} 秒（${_summaryReportData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
       await sendNextQuestion();
     } else {
       //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
@@ -777,23 +767,10 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   Future<void> sendNextQuestion() async {
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
-    if( _part > _contentList.length){
-      print(_finishQuizData);
-      var _endTime = DateTime.now();
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
-      var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
-      var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c) / _finishQuizData['scoreArray'].length;
-
-      await sendChatMessage(false, 'Bot', [
-        TextSpan(text: '=== 紀錄 ===\n'),
-        TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
-        TextSpan(text: '設定語速：${ttsRateString}\n'),
-        TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
-        TextSpan(text: '總測驗時間：${formatDuration(Duration(seconds: _endTime.difference(_startTime).inSeconds))}'),
-        //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
-        //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
-
-      ], needSpeak:false, speakMessage:'', speakLanguage:'en-US');
+    if( _part > _contentList.length){ // 如果完成所有題目
+      _summaryReportData['ttsRateString'] = ttsRateString;
+      _summaryReportData['endTime'] = DateTime.now().toString().substring(0, 19);
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束。如果您想查看詳細測驗資訊，請點擊右下方的報表按鈕。')], needSpeak:true, speakMessage:'Quiz is over. If you want to view detailed quiz information, please click the report button at the bottom right.', speakLanguage:'en-US');
     } else {
       //_questionStart = DateTime.now();
       List<TextSpan> questionTextWidget = [];
@@ -847,13 +824,4 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       });
     }
   }
-
-  // Define the function
-  String formatDuration(Duration duration) {
-    String hours = duration.inHours.toString().padLeft(0, '2');
-    String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
-    String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return "$hours:$minutes:$seconds";
-  }
-
 }

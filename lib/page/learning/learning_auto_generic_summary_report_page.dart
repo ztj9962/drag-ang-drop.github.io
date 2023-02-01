@@ -6,15 +6,9 @@ import 'package:alicsnet_app/page/page_theme.dart';
 
 class LearningAutoGenericSummaryReportPage extends StatefulWidget {
 
-  final List<String> sentenceQuestionIDArray;
-  final List<String> sentenceQuestionArray;
-  final List<String> sentenceQuestionIPAArray;
-  final List<List<String>> sentenceQuestionErrorArray;
-  final List<String> sentenceQuestionChineseArray;
-  final List<String> sentenceAnswerArray;
-  final List<String> sentenceAnswerIPAArray;
+  final Map summaryReportData;
 
-  const LearningAutoGenericSummaryReportPage ({ Key? key, required this.sentenceQuestionIDArray, required this.sentenceQuestionArray, required this.sentenceQuestionIPAArray, required this.sentenceQuestionErrorArray, required this.sentenceQuestionChineseArray, required this.sentenceAnswerArray, required this.sentenceAnswerIPAArray}): super(key: key);
+  const LearningAutoGenericSummaryReportPage ({ Key? key, required this.summaryReportData}): super(key: key);
 
   @override
   _LearningAutoGenericSummaryReportPage createState() => _LearningAutoGenericSummaryReportPage();
@@ -22,23 +16,30 @@ class LearningAutoGenericSummaryReportPage extends StatefulWidget {
 
 class _LearningAutoGenericSummaryReportPage extends State<LearningAutoGenericSummaryReportPage> {
 
-  late List<String> _sentenceQuestionIDArray;
-  late List<String> _sentenceQuestionArray;
-  late List<String> _sentenceQuestionIPAArray;
-  late List<List<String>> _sentenceQuestionErrorArray;
-  late List<String> _sentenceQuestionChineseArray;
-  late List<String> _sentenceAnswerArray;
-  late List<String> _sentenceAnswerIPAArray;
+  Map _summaryReportData = {
+    'ttsRateString' : '',
+    'startTime' : '',
+    'sentenceQuestionArray' : <String>[],
+    'sentenceQuestionIPAArray' : <String>[],
+    'sentenceQuestionErrorArray' : <List<String>>[],
+    'sentenceQuestionChineseArray' : <String>[],
+    'sentenceAnswerArray' : <String>[],
+    'sentenceAnswerIPAArray' : <String>[],
+    'sentenceAnswerErrorArray' : <List<String>>[],
+    'scoreArray' : <int>[],
+    'secondsArray' : <int>[],
+    'userAnswerRate' : <double>[],
+    'endTime' : '',
+  };
+
+  //全局key-截图key
+  final GlobalKey boundaryKey = GlobalKey();
+
 
   @override
   void initState() {
-    _sentenceQuestionIDArray = widget.sentenceQuestionIDArray;
-    _sentenceQuestionArray = widget.sentenceQuestionArray;
-    _sentenceQuestionIPAArray = widget.sentenceQuestionIPAArray;
-    _sentenceQuestionErrorArray = widget.sentenceQuestionErrorArray;
-    _sentenceQuestionChineseArray = widget.sentenceQuestionChineseArray;
-    _sentenceAnswerArray = widget.sentenceAnswerArray;
-    _sentenceAnswerIPAArray = widget.sentenceAnswerIPAArray;
+    _summaryReportData = widget.summaryReportData;
+    print(_summaryReportData);
     super.initState();
   }
 
@@ -50,170 +51,285 @@ class _LearningAutoGenericSummaryReportPage extends State<LearningAutoGenericSum
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: PageTheme.app_theme_black,
-        title: Column(
-          children: <Widget>[
-            AutoSizeText(
-              '',
-              maxLines: 1,
-            ),
-            AutoSizeText(
-              '',
-              maxLines: 1,
-            ),
-          ],
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: PageTheme.app_theme_black,
+          title: Column(
+            children: <Widget>[
+              AutoSizeText(
+                'Summary Report',
+                maxLines: 1,
+              ),
+              AutoSizeText(
+                '總結報告',
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
-          child:Column(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: _sentenceQuestionArray.length,
-                    itemBuilder: (context, index) {
-                      var questionTextArray = _sentenceQuestionArray[index].split(' ');
-                      List<TextSpan> questionTextWidget = [];
-                      var questionIPATextArray = _sentenceQuestionIPAArray[index].split(' ');
-                      List<TextSpan> questionIPATextWidget = [];
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.all(8.0),
+            child:RepaintBoundary(
+                key: boundaryKey,
+                child: Column(
+                    children: <Widget>[
+                      Text('Shadow Speaking Quiz Error List'),
+                      Text('英語口語跟讀測驗錯誤列表'),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          itemCount: _summaryReportData['sentenceQuestionArray'].length,
+                          itemBuilder: (context, index) {
 
-                      for (var i = 0; i < questionTextArray.length; i++) {
-                        if (_sentenceQuestionErrorArray[index].contains(questionTextArray[i])) {
-                          if (i < questionTextArray.length -1) {
-                            questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' ', style: TextStyle(color: Colors.red)));
-                          }
+                            var questionTextArray = _summaryReportData['sentenceQuestionArray'][index].split(' ');
+                            List<TextSpan> questionTextWidget = [];
+                            for (var i = 0; i < questionTextArray.length; i++) {
+                              if (_summaryReportData['sentenceQuestionErrorArray'][index].contains(questionTextArray[i])) {
+                                questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' ', style: TextStyle(color: Colors.red)));
+                              } else {
+                                questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' ', style: TextStyle(color: Colors.black)));
+                              }
+                            }
 
-                          if (i < questionIPATextArray.length -1) {
-                            questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i] + ' ', style: TextStyle(color: Colors.red)));
-
-                          }
-                        } else {
-                          if (i < questionTextArray.length - 1) {
-                            questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' ', style: TextStyle(color: Colors.black)));
-                          }
-                          if (i < questionIPATextArray.length - 1) {
-                            questionIPATextWidget.add(TextSpan(text: questionIPATextArray[i] + ' ', style: TextStyle(color: Colors.black)));
-                          }
-                        }
-                      }
-
-
-
-                      var answerTextArray = _sentenceAnswerArray[index].split(' ');
-                      List<TextSpan> answerTextWidget = [];
-                      var answerIPATextArray = _sentenceAnswerIPAArray[index].split(' ');
-                      List<TextSpan> answerIPATextWidget = [];
-
-
-                      for (var i = 0; i < answerTextArray.length; i++) {
-                        print(i);
-                        print(answerTextWidget);
-                        if (_sentenceQuestionErrorArray[index].contains(answerTextArray[i])) {
-
-                          if (i < answerTextArray.length - 1) {
-                            answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' ', style: TextStyle(color: Colors.red)));
-                          }
-
-                          if (i < answerIPATextArray.length - 1) {
-                            answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i] + ' ', style: TextStyle(color: Colors.red)));
-                          }
-                        } else {
-
-                          if (i < answerTextArray.length - 1) {
-                            answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' ', style: TextStyle(color: Colors.black)));
-                          }
-
-                          if (i < answerIPATextArray.length - 1) {
-                            answerIPATextWidget.add(TextSpan(text: answerIPATextArray[i] + ' ', style: TextStyle(color: Colors.black)));
-                          }
-                        }
-                      }
+                            var answerTextArray = _summaryReportData['sentenceAnswerArray'][index].split(' ');
+                            List<TextSpan> answerTextWidget = [];
+                            for (var i = 0; i < answerTextArray.length; i++) {
+                              if (_summaryReportData['sentenceAnswerErrorArray'][index].contains(answerTextArray[i])) {
+                                answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' ', style: TextStyle(color: Colors.red)));
+                              } else {
+                                answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' ', style: TextStyle(color: Colors.black)));
+                              }
+                            }
 
 
 
-                      return Container(
+                            return Container(
+                                padding: EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: PageTheme.app_theme_blue,
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('題目${index+1}'),
+                                    const Divider(
+                                      thickness: 1,
+                                      color: PageTheme.app_theme_blue,
+                                    ),
+                                    Flex(
+                                      direction: Axis.horizontal,
+                                      children: [
+                                        Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                                'Bot',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                )
+                                            )
+                                        ),
+                                        Text(' | '),
+                                        Expanded(
+                                          flex: 9,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black,
+                                              ),
+                                              children: questionTextWidget,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(
+                                      thickness: 0.5,
+                                      color: PageTheme.app_theme_blue,
+                                      indent: 50,
+                                      endIndent: 50,
+                                    ),
+                                    Flex(
+                                      direction: Axis.horizontal,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                              'You',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              )
+                                          ),
+                                        ),
+                                        Text(' | '),
+                                        Expanded(
+                                          flex: 9,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black,
+                                              ),
+                                              children: answerTextWidget,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const Divider(
+                                      thickness: 1,
+                                      color: PageTheme.app_theme_blue,
+                                    ),
+                                    Center(
+                                        child:Column(
+                                          children: [
+                                            AutoSizeText(
+                                              _summaryReportData['sentenceQuestionArray'][index],
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            AutoSizeText(
+                                              _summaryReportData['sentenceQuestionIPAArray'][index],
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                            AutoSizeText(
+                                              _summaryReportData['sentenceQuestionChineseArray'][index],
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    )
+
+
+
+                                  ],
+                                )
+                            );
+                          },
+                          separatorBuilder: (context, index){
+                            return const Padding(padding: const EdgeInsets.all(8.0));
+                          },
+                        ),
+                      ),
+                      Container(
                           padding: EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: PageTheme.app_theme_blue,
-                              width: 2,
+                              width: 1,
                             ),
                             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: '',
-                                  style: const TextStyle(
-                                    fontSize: 24 ,
-                                    color: Colors.black,
-                                  ),
-                                  children: questionTextWidget,
-                                ),
-                              ),
-                              Text(
-                                _sentenceQuestionChineseArray[index],
-                                style: const TextStyle(
-                                  fontSize: 18 ,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: '',
-                                  style: const TextStyle(
-                                    fontSize: 18 ,
-                                    color: Colors.black,
-                                  ),
-                                  children: questionIPATextWidget,
-                                ),
-                              ),
+                              Text('統整'),
                               const Divider(
                                 thickness: 1,
                                 color: PageTheme.app_theme_blue,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: '',
-                                  style: const TextStyle(
-                                    fontSize: 24 ,
-                                    color: Colors.black,
-                                  ),
-                                  children: answerTextWidget,
+                              AutoSizeText(
+                                '答對數/總題數：${ _summaryReportData['scoreArray'].where((score) => score == 100).toList().length } / ${ _summaryReportData['scoreArray'].length } ( ${(_summaryReportData['scoreArray'].where((score) => score == 100).toList().length/_summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
+                                style: const TextStyle(
+                                  fontSize: 16,
                                 ),
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: '',
-                                  style: const TextStyle(
-                                    fontSize: 18 ,
-                                    color: Colors.black,
-                                  ),
-                                  children: answerIPATextWidget,
+                              AutoSizeText(
+                                '答錯數/總題數：${ _summaryReportData['scoreArray'].where((score) => score != 100).toList().length } / ${ _summaryReportData['scoreArray'].length } ( ${(_summaryReportData['scoreArray'].where((score) => score != 100).toList().length/_summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(''),
+                              AutoSizeText(
+                                '設定語速：${_summaryReportData['ttsRateString']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '您的平均語速：${(_summaryReportData['userAnswerRate'].fold(0, (p, c) => p + c) / _summaryReportData['scoreArray'].length).toStringAsFixed(2)} wps',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(''),
+                              AutoSizeText(
+                                '測驗開始時間：${_summaryReportData['startTime']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '測驗結束時間：${_summaryReportData['endTime']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '總測驗時間：${formatDuration(Duration(seconds: DateTime.parse(_summaryReportData['endTime']).difference(DateTime.parse(_summaryReportData['startTime'])).inSeconds))}',
+                                style: const TextStyle(
+                                  fontSize: 16,
                                 ),
                               ),
                             ],
                           )
-                      );
-                    },
-                    separatorBuilder: (context, index){
-                      return const Padding(padding: const EdgeInsets.all(8.0));
-                    },
-                  ),
-                ),
-              ]
-          )
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: PageTheme.app_theme_blue,
+                      ),
+                      /*
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                            flex: 2,
+                            child: CircleAvatar(
+                              backgroundColor: PageTheme.app_theme_blue,
+                              radius: 40.0,
+                              child: IconButton(
+                                icon: Icon(Icons.download , size: 30),
+                                color: Colors.white,
+                                onPressed: () {
 
-      ),
-
-
-
+                                },
+                              ),
+                            ),
+                          ),
+                          ],
+                        ),
+                      ),
+                      */
+                    ]
+                )
+            )
+        )
     );
   }
+
+
+  // Define the function
+  String formatDuration(Duration duration) {
+    String hours = duration.inHours.toString().padLeft(0, '2');
+    String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$hours:$minutes:$seconds";
+  }
+
 }
+

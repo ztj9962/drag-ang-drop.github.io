@@ -216,13 +216,7 @@ class AppRouter extends _i25.RootStackRouter {
         routeData: routeData,
         child: _i17.LearningAutoGenericSummaryReportPage(
           key: args.key,
-          sentenceQuestionIDArray: args.sentenceQuestionIDArray,
-          sentenceQuestionArray: args.sentenceQuestionArray,
-          sentenceQuestionIPAArray: args.sentenceQuestionIPAArray,
-          sentenceQuestionErrorArray: args.sentenceQuestionErrorArray,
-          sentenceQuestionChineseArray: args.sentenceQuestionChineseArray,
-          sentenceAnswerArray: args.sentenceAnswerArray,
-          sentenceAnswerIPAArray: args.sentenceAnswerIPAArray,
+          summaryReportData: args.summaryReportData,
         ),
       );
     },
@@ -850,25 +844,13 @@ class LearningAutoGenericSummaryReportRoute
     extends _i25.PageRouteInfo<LearningAutoGenericSummaryReportRouteArgs> {
   LearningAutoGenericSummaryReportRoute({
     _i27.Key? key,
-    required List<String> sentenceQuestionIDArray,
-    required List<String> sentenceQuestionArray,
-    required List<String> sentenceQuestionIPAArray,
-    required List<List<String>> sentenceQuestionErrorArray,
-    required List<String> sentenceQuestionChineseArray,
-    required List<String> sentenceAnswerArray,
-    required List<String> sentenceAnswerIPAArray,
+    required Map<dynamic, dynamic> summaryReportData,
   }) : super(
           LearningAutoGenericSummaryReportRoute.name,
           path: '/learnig_auto_generic_summary_report',
           args: LearningAutoGenericSummaryReportRouteArgs(
             key: key,
-            sentenceQuestionIDArray: sentenceQuestionIDArray,
-            sentenceQuestionArray: sentenceQuestionArray,
-            sentenceQuestionIPAArray: sentenceQuestionIPAArray,
-            sentenceQuestionErrorArray: sentenceQuestionErrorArray,
-            sentenceQuestionChineseArray: sentenceQuestionChineseArray,
-            sentenceAnswerArray: sentenceAnswerArray,
-            sentenceAnswerIPAArray: sentenceAnswerIPAArray,
+            summaryReportData: summaryReportData,
           ),
         );
 
@@ -878,34 +860,16 @@ class LearningAutoGenericSummaryReportRoute
 class LearningAutoGenericSummaryReportRouteArgs {
   const LearningAutoGenericSummaryReportRouteArgs({
     this.key,
-    required this.sentenceQuestionIDArray,
-    required this.sentenceQuestionArray,
-    required this.sentenceQuestionIPAArray,
-    required this.sentenceQuestionErrorArray,
-    required this.sentenceQuestionChineseArray,
-    required this.sentenceAnswerArray,
-    required this.sentenceAnswerIPAArray,
+    required this.summaryReportData,
   });
 
   final _i27.Key? key;
 
-  final List<String> sentenceQuestionIDArray;
-
-  final List<String> sentenceQuestionArray;
-
-  final List<String> sentenceQuestionIPAArray;
-
-  final List<List<String>> sentenceQuestionErrorArray;
-
-  final List<String> sentenceQuestionChineseArray;
-
-  final List<String> sentenceAnswerArray;
-
-  final List<String> sentenceAnswerIPAArray;
+  final Map<dynamic, dynamic> summaryReportData;
 
   @override
   String toString() {
-    return 'LearningAutoGenericSummaryReportRouteArgs{key: $key, sentenceQuestionIDArray: $sentenceQuestionIDArray, sentenceQuestionArray: $sentenceQuestionArray, sentenceQuestionIPAArray: $sentenceQuestionIPAArray, sentenceQuestionErrorArray: $sentenceQuestionErrorArray, sentenceQuestionChineseArray: $sentenceQuestionChineseArray, sentenceAnswerArray: $sentenceAnswerArray, sentenceAnswerIPAArray: $sentenceAnswerIPAArray}';
+    return 'LearningAutoGenericSummaryReportRouteArgs{key: $key, summaryReportData: $summaryReportData}';
   }
 }
 
