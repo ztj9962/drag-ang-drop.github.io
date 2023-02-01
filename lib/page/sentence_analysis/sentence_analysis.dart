@@ -184,7 +184,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     setState(() {
       String article = _controller.text.replaceAll("\n", " ");
       int count = 0;
-      String past_text = "";
+      String pastText = "";
       for (var i = 0; i < article.split(" ").length; i++) {
         if (_regex.hasMatch(article.split(' ')[i])) {
           count += 1;
@@ -197,9 +197,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         _text = article;
       } else {
         for (var i = 0; i < 500; i++) {
-          past_text += article.split(' ')[i] + " ";
+          pastText += article.split(' ')[i] + " ";
         }
-        _controller.text = past_text;
+        _controller.text = pastText;
         setState(() {
           _inputWordCount = 500;
         });
@@ -339,7 +339,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                         onChanged: (String newVal) {
                           String article = newVal.replaceAll("\n", " ");
                           int count = 0;
-                          String past_text = "";
+                          String pastText = "";
                           for (var i = 0; i < article.split(" ").length; i++) {
                             if (_regex.hasMatch(article.split(' ')[i])) {
                               count += 1;
@@ -352,9 +352,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                             _text = article;
                           } else {
                             for (var i = 0; i < 500; i++) {
-                              past_text += article.split(' ')[i] + " ";
+                              pastText += article.split(' ')[i] + " ";
                             }
-                            _controller.text = past_text;
+                            _controller.text = pastText;
                             setState(() {
                               _inputWordCount = 500;
                             });
