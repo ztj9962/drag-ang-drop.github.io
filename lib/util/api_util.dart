@@ -679,7 +679,7 @@ class APIUtil {
   }
   static Future getSpacyTreeByString(String sent) async {
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/analysis/getSpacyTreeByString'),
+      Uri.https('api.alicsnet.com', 'app/analysis/getSpacyTreeByString'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -693,7 +693,7 @@ class APIUtil {
   }
   static Future getClauseTableByString(String sent) async {
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/analysis/getClauseTableByString'),
+      Uri.https('api.alicsnet.com', 'app/analysis/getClauseTableByString'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
