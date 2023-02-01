@@ -54,13 +54,6 @@ class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
                 ),
                 child: const Text('  開始測驗  '),
                 onPressed: () async {
-                  await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-                    setState(() => _isSignin = value);
-                  });
-                  if (_isSignin != true) {
-                    AutoRouter.of(context).push(SignInRoute());
-                    return;
-                  }
                   AutoRouter.of(context).pushNamed("/vocabulary_test_index");
                 },
               ),

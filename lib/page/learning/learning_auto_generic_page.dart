@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:io' show Platform;
 import 'dart:math';
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -40,7 +42,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   late List<String> _translateList;
 
   int _part = 0;
-  final List<Widget> _messages = <Widget>[];
+  List<Widget> _messages = <Widget>[];
 
   String _answerText = '';
   var _startTime;
@@ -58,9 +60,14 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   };
   int _correctCombo = 0;
   Map _finishQuizData = {
+    'sentenceQuestionIDArray' : <String>[],
+    'sentenceQuestionArray' : <String>[],
+    'sentenceQuestionIPAArray' : <String>[],
+    'sentenceQuestionErrorArray' : <List<String>>[],
+    'sentenceQuestionChineseArray' : <String>[],
     'sentenceAnswerArray' : <String>[],
+    'sentenceAnswerIPAArray' : <String>[],
     'scoreArray' : <int>[],
-    'secondsArrayQ' : <int>[],
     'secondsArray' : <int>[],
     'userAnswerRate' : <double>[],
   };
@@ -224,10 +231,27 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
                       child: Container(
                         child: Row(
                           children: <Widget>[
-                            Expanded(
-                              flex: 2,
-                              child: SvgPicture.asset('assets/icon/audio.svg'),
-                            ),
+                            if( _part <= _contentList.length)...[
+                              Expanded(
+                                flex: 2,
+                                child: SvgPicture.asset('assets/icon/audio.svg'),
+                              ),
+                            ]else...[
+                              Expanded(
+                                flex: 2,
+                                child: CircleAvatar(
+                                  backgroundColor: PageTheme.app_theme_blue,
+                                  radius: 40.0,
+                                  child: IconButton(
+                                    icon: Icon(Icons.restart_alt , size: 30),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      initChatBot();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                             Expanded(
                               flex: 1,
                               child: CircleAvatar(
@@ -248,10 +272,35 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: SvgPicture.asset('assets/icon/audio.svg'),
-                            ),
+                            if( _part <= _contentList.length)...[
+                              Expanded(
+                                flex: 2,
+                                child: SvgPicture.asset('assets/icon/audio.svg'),
+                              ),
+                            ]else...[
+                              Expanded(
+                                flex: 2,
+                                child: CircleAvatar(
+                                  backgroundColor: PageTheme.app_theme_blue,
+                                  radius: 40.0,
+                                  child: IconButton(
+                                    icon: Icon(Icons.summarize , size: 30),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      AutoRouter.of(context).push(LearningAutoGenericSummaryReportRoute(
+                                          sentenceQuestionIDArray: _finishQuizData['sentenceQuestionIDArray'],
+                                          sentenceQuestionArray: _finishQuizData['sentenceQuestionArray'],
+                                          sentenceQuestionIPAArray: _finishQuizData['sentenceQuestionIPAArray'],
+                                          sentenceQuestionErrorArray: _finishQuizData['sentenceQuestionErrorArray'],
+                                          sentenceQuestionChineseArray: _finishQuizData['sentenceQuestionChineseArray'],
+                                          sentenceAnswerArray: _finishQuizData['sentenceAnswerArray'],
+                                          sentenceAnswerIPAArray: _finishQuizData['sentenceAnswerIPAArray']
+                                      ));
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                           ],
                         ),
                       ),
@@ -403,6 +452,23 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
 
 
   Future<void> initChatBot() async {
+    // 清空紀錄
+    _messages = [];
+    _part = 0;
+    _finishQuizData = {
+      'sentenceQuestionIDArray' : <String>[],
+      'sentenceQuestionArray' : <String>[],
+      'sentenceQuestionIPAArray' : <String>[],
+      'sentenceQuestionErrorArray' : <List<String>>[],
+      'sentenceQuestionChineseArray' : <String>[],
+      'sentenceAnswerArray' : <String>[],
+      'sentenceAnswerIPAArray' : <String>[],
+      'scoreArray' : <int>[],
+      'secondsArray' : <int>[],
+      'userAnswerRate' : <double>[],
+    };
+
+    // 設定聊天機器人
     _startTime = new DateTime.now();
     await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')], needSpeak:true, speakMessage:'Quiz is about to start. Please repeat after me', speakLanguage:'en-US');
     await sendNextQuestion();
@@ -688,7 +754,13 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
         _messages[0] = message;
         _answerText = '';
       });
+      _finishQuizData['sentenceQuestionIDArray']!.add('');
+      _finishQuizData['sentenceQuestionArray']!.add(checkSentences['data']['questionText']);
+      _finishQuizData['sentenceQuestionIPAArray']!.add(checkSentences['data']['questionIPAText']);
+      _finishQuizData['sentenceQuestionErrorArray']!.add(checkSentences['data']['questionError'].keys.toList());
+      _finishQuizData['sentenceQuestionChineseArray']!.add(_translateList[_part - 1]);
       _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
+      _finishQuizData['sentenceAnswerIPAArray']!.add(checkSentences['data']['answerIPAText']);
       _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
       _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
       //print(_finishQuizData);
@@ -706,6 +778,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
     if( _part > _contentList.length){
+      print(_finishQuizData);
       var _endTime = DateTime.now();
       await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
       var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);

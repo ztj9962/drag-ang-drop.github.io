@@ -64,13 +64,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
         },
       ),
@@ -78,37 +71,25 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/vocabulary_practice_topics.svg',
         titleText: 'Sentences based on chat topics',
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/voabulary_practice_sentence_index");
         },
       ),
     );
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/customArticle_02.svg',
         titleText: 'User document input',
         descripText: '學習者提供教材',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
         },
       ),
@@ -116,19 +97,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
         titleText: 'Pronunciation - Minimal pairs',
         descripText: '相似字音練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
         },
       ),
@@ -136,19 +111,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag : true,
         imagePath: 'assets/icon/recommend_translate.svg',
         titleText: 'Recommend translations',
         descripText: '推薦翻譯系統',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
-            setState(() => _isSignin = value);
-          });
-          if (_isSignin != true) {
-            AutoRouter.of(context).push(SignInRoute());
-            return;
-          }
           AutoRouter.of(context).pushNamed("/preference_translation_search");
         },
       ),
