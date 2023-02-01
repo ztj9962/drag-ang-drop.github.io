@@ -1,17 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 import 'dart:typed_data';
-import 'package:alicsnet_app/page/customArticle_practice_sentence/pie_chart_widget.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/model/sentence_example_data.dart';
 import 'package:alicsnet_app/page/login/fade_animation.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
@@ -27,25 +21,19 @@ class SentenceAnalysisIndexPage extends StatefulWidget {
 
 class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
   late String _analysisor;
+  final _regex = RegExp(r'[a-zA-Z]+');
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   TextEditingController _controller = new TextEditingController();
-  final r = RegExp(r'[a-zA-Z]+');
   String? _dropdownValue1;
-  String text = "";
-  int maxLength = 500;
-  List sentencelist = [];
-  List sentenceIPAlist = [];
-  List<String>? exampleList = ['I know her.','She likes being alone.','I hates to clean dishes.','I hope that you will come.',"She didn't know what to do",'I am a teacher.','I handed Bob a key.','We appointed her CEO.','Having a party is a bad idea because the neighbors will complain.','Molly, who loves cats, plans to get a kitten, but she needs to find a house.','Mary loves cats, plans to get a kitten, but she needs to find a house.','Jennifer sat in her chair, which was a dark red recliner, and she read all evening.','The government had compensated the people whose houses were demolished.'];
-  bool isloading = false;
-  bool practice_auto = true;
-  int inputWordCount = 0;
-  List<TextSpan> outOfRangeWord = [];
-  List<Widget> topicList = [];
-  List pieChartData = [];
-  Uint8List spacyTree = Uint8List.fromList([]);
-  Uint8List displacy = Uint8List.fromList([]);
-  List<TableRow> tableArray = <TableRow>[];
+  String _text = "";
+  int _maxLength = 500;
+  List<String>? _exampleList = ['I know her.','She likes being alone.','I hates to clean dishes.','I hope that you will come.',"She didn't know what to do",'I am a teacher.','I handed Bob a key.','We appointed her CEO.','Having a party is a bad idea because the neighbors will complain.','Molly, who loves cats, plans to get a kitten, but she needs to find a house.','Mary loves cats, plans to get a kitten, but she needs to find a house.','Jennifer sat in her chair, which was a dark red recliner, and she read all evening.','The government had compensated the people whose houses were demolished.'];
+  bool _isloading = false;
+  int _inputWordCount = 0;
+  Uint8List _spacyTree = Uint8List.fromList([]);
+  //Uint8List displacy = Uint8List.fromList([]);
+  List<TableRow> _tableArray = <TableRow>[];
 
   @override
   void initState() {
@@ -59,7 +47,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
 
   @override
   void dispose() {
-    //SystemChannels.textInput.invokeMethod('TextInput.hide');
+    //SystemChannels._textInput.invokeMethod('_textInput.hide');
     super.dispose();
   }
 
@@ -67,31 +55,27 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
 
   //將輸入文章做作文法校正、分句、文章分析
   void addGraphics() async {
-    tableArray = [];
+    _tableArray = [];
     print(_controller.text);
     setState(() {
-      pieChartData = [];
-      sentenceIPAlist = [];
-      isloading = true;
-      sentencelist = [];
-      outOfRangeWord = [];
+      _isloading = true;
     });
     try {
-      if (_controller.text != "" && inputWordCount > 0) {
-        //SpacyTree
+      if (_controller.text != "" && _inputWordCount > 0) {
+        //_spacyTree
         var spacyTreeResponse = await APIUtil.getSpacyTreeByString(_controller.text.replaceAll("\n", " "));
         if (spacyTreeResponse['apiStatus'] == 'success') {
-          spacyTree = base64.decode(spacyTreeResponse['data']);
+          _spacyTree = base64.decode(spacyTreeResponse['data']);
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
         } else {
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
-          final text = "文章內容包含除英文之外的字元";
+          final _text = "文章內容包含除英文之外的字元";
           final snackbar = SnackBar(
-            content: Text(text),
+            content: Text(_text),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
@@ -104,15 +88,15 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         if (DisplacyResponse['apiStatus'] == 'success') {
           displacy = base64.decode(DisplacyResponse['data']);
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
         } else {
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
-          final text = "文章內容包含除英文之外的字元";
+          final _text = "文章內容包含除英文之外的字元";
           final snackbar = SnackBar(
-            content: Text(text),
+            content: Text(_text),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }*/
@@ -125,7 +109,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         print(clauseTableApi);
         if (clauseTableApi['apiStatus'] == 'success') {
           List tableData = clauseTableApi['data'] as List;
-          tableArray.add(TableRow(
+          _tableArray.add(TableRow(
             decoration: BoxDecoration(
                 color: PageTheme.cutom_article_practice_background
                     .withOpacity(0.5)),
@@ -153,7 +137,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               //Center(child: AutoSizeText(tableData[i]['twnDEP'])),
               Center(child: AutoSizeText(tableData[i]['Word/Phrase/Clause'])),
             ];
-            tableArray.add(TableRow(
+            _tableArray.add(TableRow(
               decoration: i % 2 == 0
                   ? BoxDecoration(color: Colors.white)
                   : BoxDecoration(color: Colors.black12),
@@ -161,36 +145,36 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
             ));
           }
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
         } else {
           setState(() {
-            isloading = false;
+            _isloading = false;
           });
-          final text = "文章內容包含除英文之外的字元";
+          final _text = "文章內容包含除英文之外的字元";
           final snackbar = SnackBar(
-            content: Text(text),
+            content: Text(_text),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       } else {
         setState(() {
-          isloading = false;
+          _isloading = false;
         });
-        final text = "請輸入文章";
+        final _text = "請輸入文章";
         final snackbar = SnackBar(
-          content: Text(text),
+          content: Text(_text),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
     } catch (error) {
       setState(() {
-        isloading = false;
+        _isloading = false;
       });
       print(error);
-      final text = "發生異常";
+      final _text = "發生異常";
       final snackbar = SnackBar(
-        content: Text(text),
+        content: Text(_text),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
@@ -200,35 +184,35 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     setState(() {
       String article = _controller.text.replaceAll("\n", " ");
       int count = 0;
-      String pastText = "";
+      String past_text = "";
       for (var i = 0; i < article.split(" ").length; i++) {
-        if (r.hasMatch(article.split(' ')[i])) {
+        if (_regex.hasMatch(article.split(' ')[i])) {
           count += 1;
         }
       }
-      if (count <= maxLength) {
+      if (count <= _maxLength) {
         setState(() {
-          inputWordCount = count;
+          _inputWordCount = count;
         });
-        text = article;
+        _text = article;
       } else {
         for (var i = 0; i < 500; i++) {
-          pastText += article.split(' ')[i] + " ";
+          past_text += article.split(' ')[i] + " ";
         }
-        _controller.text = pastText;
+        _controller.text = past_text;
         setState(() {
-          inputWordCount = 500;
+          _inputWordCount = 500;
         });
         _controller.value = new TextEditingValue(
-            text: text,
+            text: _text,
             selection: new TextSelection(
-                baseOffset: maxLength,
-                extentOffset: maxLength,
+                baseOffset: _maxLength,
+                extentOffset: _maxLength,
                 affinity: TextAffinity.downstream,
                 isDirectional: false),
             composing:
-            new TextRange(start: 0, end: maxLength));
-        _controller.text = text;
+            new TextRange(start: 0, end: _maxLength));
+        _controller.text = _text;
       }
       addGraphics();
       //_IPA2List = _IPAMap[_dropdownValue1];
@@ -307,7 +291,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                   style: TextStyle(color: PageTheme.cutom_article_practice_background.withOpacity(0.5)),
                   maxLines: 1,
                 ),
-                items: exampleList?.map<DropdownMenuItem<String>>((String value) {
+                items: _exampleList?.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: AutoSizeText(
@@ -355,35 +339,35 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                         onChanged: (String newVal) {
                           String article = newVal.replaceAll("\n", " ");
                           int count = 0;
-                          String pastText = "";
+                          String past_text = "";
                           for (var i = 0; i < article.split(" ").length; i++) {
-                            if (r.hasMatch(article.split(' ')[i])) {
+                            if (_regex.hasMatch(article.split(' ')[i])) {
                               count += 1;
                             }
                           }
-                          if (count <= maxLength) {
+                          if (count <= _maxLength) {
                             setState(() {
-                              inputWordCount = count;
+                              _inputWordCount = count;
                             });
-                            text = article;
+                            _text = article;
                           } else {
                             for (var i = 0; i < 500; i++) {
-                              pastText += article.split(' ')[i] + " ";
+                              past_text += article.split(' ')[i] + " ";
                             }
-                            _controller.text = pastText;
+                            _controller.text = past_text;
                             setState(() {
-                              inputWordCount = 500;
+                              _inputWordCount = 500;
                             });
                             _controller.value = new TextEditingValue(
-                                text: text,
+                                text: _text,
                                 selection: new TextSelection(
-                                    baseOffset: maxLength,
-                                    extentOffset: maxLength,
+                                    baseOffset: _maxLength,
+                                    extentOffset: _maxLength,
                                     affinity: TextAffinity.downstream,
                                     isDirectional: false),
                                 composing:
-                                    new TextRange(start: 0, end: maxLength));
-                            _controller.text = text;
+                                    new TextRange(start: 0, end: _maxLength));
+                            _controller.text = _text;
                           }
                         })
                   ],
@@ -394,7 +378,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: Text(
-                    '${inputWordCount}/500',
+                    '${_inputWordCount}/500',
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
@@ -405,7 +389,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               child: Row(
                 children: [
                   Expanded(child: Container()),
-                  isloading
+                  _isloading
                       ? Container(
                           padding: EdgeInsets.all(3),
                           height: 40,
@@ -419,7 +403,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                           onTap: () {
                             addGraphics();
                             SystemChannels.textInput
-                                .invokeMethod('TextInput.hide');
+                                .invokeMethod('_textInput.hide');
                           },
                           child: Container(
                             padding: EdgeInsets.all(3),
@@ -445,104 +429,11 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 ],
               ),
             ),
-            if (sentencelist.length >= 1 && !isloading)
-              FadeAnimation(
-                1,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Row(
-                          children: [
-                            Text("Word Grade Level Distribution",
-                                style: TextStyle(
-                                    color: PageTheme
-                                        .cutom_article_practice_background,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              width: 2,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => CustomAlertDialog());
-                              },
-                              icon: Icon(
-                                Icons.help_outline_outlined,
-                                color:
-                                    PageTheme.cutom_article_practice_background,
-                              ),
-                            )
-                          ],
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Text("單字級別分佈",
-                          style: TextStyle(
-                              color: PageTheme.cutom_article_practice_background
-                                  .withOpacity(0.8),
-                              fontSize: 14,
-                              height: 1.0,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    Container(
-                      height: 3,
-                      margin: EdgeInsets.only(
-                          right: 10, left: 10, top: 3, bottom: 10),
-                      decoration: BoxDecoration(
-                          color: PageTheme.cutom_article_practice_background,
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                    PieChartWidget(
-                      data: pieChartData,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'Out of 10K range：',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          children: outOfRangeWord,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Container(
-                      height: 3,
-                      margin: EdgeInsets.only(right: 10, left: 10, top: 3),
-                      decoration: BoxDecoration(
-                          color: PageTheme.cutom_article_practice_background,
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(child: Container()),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+            //if (sentencelist.length >= 1 && !_isloading)
+
             //for (var i = 0; i < sentencelist.length; i++)
             //顯示圖片片片
-            if (spacyTree.isNotEmpty)
+            if (_spacyTree.isNotEmpty)
               FadeAnimation(
                 1.0,
                 Column(
@@ -569,7 +460,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                                 .withOpacity(0.5),
                           ),
                         ),
-                        child: Image.memory(spacyTree)),
+                        child: Image.memory(_spacyTree)),
                     Divider(
                       height: 16,
                       color: PageTheme.grey.withAlpha(50),
@@ -578,7 +469,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 ),
               ),
             /*
-            if (spacyTree.isNotEmpty)
+            if (_spacyTree.isNotEmpty)
               FadeAnimation(
                 1.0,
                 Column(
@@ -615,7 +506,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               ),
             */
 
-            if (spacyTree.isNotEmpty)
+            if (_spacyTree.isNotEmpty)
               FadeAnimation(
                 1.0,
                 Column(
@@ -665,7 +556,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                                   width: 1,
                                   color: PageTheme.lightText,
                                   style: BorderStyle.solid)),
-                          children: tableArray,
+                          children: _tableArray,
                         )),
                   ],
                 ),
