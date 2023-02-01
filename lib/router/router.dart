@@ -13,7 +13,7 @@ import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_auto_page.dart
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_manual_page.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
-import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis.dart';
+import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_manual_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
