@@ -122,25 +122,17 @@ class _VocabularyPracticeWordListPageState
                                 List<int> idList = [];
 
                                 //print(_vocabularyList);
-                                for (final vocabularyData
-                                    in _vocabularySentenceList) {
-                                  //print(vocabularyData);
-                                  //return;
-                                  for (final sentence
-                                      in vocabularyData!['sentenceList']!) {
-                                    contentList
-                                        .add(sentence['sentenceContent']);
+                                for (final vocabularyData in _vocabularySentenceList) {
+                                  for (final sentence in vocabularyData!['sentenceList']!) {
+                                    contentList.add(sentence['sentenceContent']);
                                     ipaList.add(sentence['sentenceIPA']);
-                                    translateList
-                                        .add(sentence['sentenceChinese']);
+                                    translateList.add(sentence['sentenceChinese']);
                                     idList.add(sentence['sentenceId']);
                                   }
                                 }
 
-                                List<String> contentNoDupe =
-                                    contentList.toSet().toList();
-                                List<String> TransNoDupe =
-                                    translateList.toSet().toList();
+                                List<String> contentNoDupe = contentList.toSet().toList();
+                                List<String> TransNoDupe = translateList.toSet().toList();
 
                                 List<String> filtedContentList = [];
                                 List<String> filtedIPA = [];
@@ -148,20 +140,17 @@ class _VocabularyPracticeWordListPageState
                                 List<String> oriList = [];
 
                                 await _getCompleteSentenceList(contentNoDupe);
-                                print('CL: ${_CompleteSentenceList}');
+                                //print('CL: ${_CompleteSentenceList}');
 
-                                for (final filtedContent
-                                    in _CompleteSentenceList) {
+                                for (final filtedContent in _CompleteSentenceList) {
                                   mainCheckList.add(filtedContent['mainCheck']);
-                                  filtedContentList
-                                      .add(filtedContent['content']);
+                                  filtedContentList.add(filtedContent['content']);
                                   filtedIPA.add(filtedContent['IPA']);
                                   oriList.add(filtedContent['originSentence']);
                                 }
-                                print('HERE: ${filtedContentList}');
+                                //print('HERE: ${filtedContentList}');
 
-                                AutoRouter.of(context)
-                                    .push(LearningAutoVocabularyPracticeWordLiteRoute(
+                                AutoRouter.of(context).push(LearningAutoVocabularyPracticeWordLiteRoute(
                                   contentList: filtedContentList,
                                   ipaList: filtedIPA,
                                   translateList: TransNoDupe,
