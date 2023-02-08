@@ -106,13 +106,12 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
 
         //var clauseTableResponse = jsonDecode(clauseTableApi);
 
-        print(clauseTableApi);
+        print(_controller.text.replaceAll("\n", " "));
         if (clauseTableApi['apiStatus'] == 'success') {
           List tableData = clauseTableApi['data'] as List;
           _tableArray.add(TableRow(
             decoration: BoxDecoration(
-                color: PageTheme.cutom_article_practice_background
-                    .withOpacity(0.5)),
+                color: PageTheme.cutom_article_practice_background.withOpacity(0.5)),
             children: [
               Center(child: AutoSizeText('單字', maxLines: 1)),
               Center(child: AutoSizeText('原型', maxLines: 1)),

@@ -132,10 +132,10 @@ class _VocabularyPracticeWordListPageState
                                 }
 
                                 List<String> contentNoDupe = contentList.toSet().toList();
-                                List<String> TransNoDupe = translateList.toSet().toList();
 
                                 List<String> filtedContentList = [];
                                 List<String> filtedIPA = [];
+                                List<String> filtedTranslation = [];
                                 List<bool> mainCheckList = [];
                                 List<String> oriList = [];
 
@@ -148,12 +148,21 @@ class _VocabularyPracticeWordListPageState
                                   filtedIPA.add(filtedContent['IPA']);
                                   oriList.add(filtedContent['originSentence']);
                                 }
+                                int checkIdx = 0;
+                                for(bool check in mainCheckList){
+                                  if(check){
+                                    filtedTranslation.add(translateList[checkIdx]);
+                                    checkIdx++;
+                                  }else{
+                                    filtedTranslation.add('');
+                                  }
+                                }
                                 //print('HERE: ${filtedContentList}');
 
                                 AutoRouter.of(context).push(LearningAutoVocabularyPracticeWordLiteRoute(
                                   contentList: filtedContentList,
                                   ipaList: filtedIPA,
-                                  translateList: TransNoDupe,
+                                  translateList: filtedTranslation,
                                   mainCheckList: mainCheckList,
                                   oriList: oriList,
                                   idList: idList,

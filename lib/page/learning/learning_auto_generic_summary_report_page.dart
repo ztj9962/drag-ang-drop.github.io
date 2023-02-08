@@ -1,4 +1,6 @@
 
+import 'package:alicsnet_app/router/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -190,24 +192,48 @@ class _LearningAutoGenericSummaryReportPage extends State<LearningAutoGenericSum
                                       color: PageTheme.app_theme_blue,
                                     ),
                                     Center(
-                                        child:Column(
+                                        child:Row(
                                           children: [
-                                            AutoSizeText(
-                                              _summaryReportData['sentenceQuestionArray'][index],
-                                              style: const TextStyle(
-                                                fontSize: 18,
+                                            Expanded(
+                                              flex: 8,
+                                              child: Column(
+                                                children: [
+                                                  AutoSizeText(
+                                                    _summaryReportData['sentenceQuestionArray'][index],
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  AutoSizeText(
+                                                    _summaryReportData['sentenceQuestionIPAArray'][index],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                  AutoSizeText(
+                                                    _summaryReportData['sentenceQuestionChineseArray'][index],
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            AutoSizeText(
-                                              _summaryReportData['sentenceQuestionIPAArray'][index],
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            AutoSizeText(
-                                              _summaryReportData['sentenceQuestionChineseArray'][index],
-                                              style: const TextStyle(
-                                                fontSize: 18,
+                                            _summaryReportData['sentenceQuestionChineseArray'][index].toString().contains('原句:') ?
+                                            Container() :
+                                            Expanded(
+                                              child: CircleAvatar(
+                                                backgroundColor: PageTheme.app_theme_blue,
+                                                radius: 30.0,
+                                                child: IconButton(
+                                                  icon: Icon(Icons.analytics_outlined , size: 30),
+                                                  color: Colors.white,
+                                                  onPressed: () {
+                                                    AutoRouter.of(context).push(
+                                                        SentenceAnalysisIndexRoute(
+                                                            analysisor: _summaryReportData['sentenceQuestionArray'][index]));
+                                                  },
+                                                ),
                                               ),
                                             ),
                                           ],

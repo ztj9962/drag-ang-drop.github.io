@@ -684,7 +684,7 @@ class APIUtil {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'sentence': jsonEncode(sent),
+        'sentence': sent,
       },
     );
 
@@ -698,9 +698,10 @@ class APIUtil {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'sentence': jsonEncode(sent),
+        'sentence': sent,
       },
     );
+
     var noNaN = response.body.toString().replaceAll("NaN", '""');
     var json = jsonDecode(noNaN);
     print('processed');
