@@ -136,7 +136,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       }
                                     }
                                     List<String> contentNoDupe = contentList.toSet().toList();
-                                    List<String> TransNoDupe = translateList.toSet().toList();
+                                    List<String> translateNoDupe = translateList.toSet().toList();
 
                                     List<String> filtedContentList = [];
                                     List<String> filtedTranslation = [];
@@ -157,13 +157,14 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                     int checkIdx = 0;
                                     for(int check = 0;check < mainCheckList.length;check++){
                                       if(mainCheckList[check]){
-                                        filtedTranslation.add(translateList[checkIdx]);
+                                        filtedTranslation.add(translateNoDupe[checkIdx]);
                                         checkIdx++;
                                       }else{
                                         filtedTranslation.add('原句: ${oriList[check]}');
                                       }
                                     }
-                                    print('HERE: ${filtedTranslation}');
+                                    print('HERE: ${translateNoDupe}');
+                                    print('THERE: ${filtedTranslation}');
 
                                     AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: filtedContentList, ipaList: filtedIPA, translateList: filtedTranslation));
                                   }
