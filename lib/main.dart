@@ -19,7 +19,6 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 bool get isIOS => !kIsWeb && Platform.isIOS;
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
 bool get isWeb => kIsWeb;
-bool isLite = false;
 
 void main() async {
 
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         builder: EasyLoading.init(),
-        routerDelegate: _appRouter.delegate(initialRoutes: [isLite == true ? VocabularyPracticeWordLiteIndexRoute() : IndexRoute()]),
+        routerDelegate: _appRouter.delegate(initialRoutes: [IndexRoute()]),
         routeInformationParser:_appRouter.defaultRouteParser(),
       ),);
     /*
