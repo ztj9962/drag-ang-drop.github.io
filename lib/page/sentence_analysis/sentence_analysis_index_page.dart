@@ -124,7 +124,13 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           ));
           for (int i = 0; i < tableData.length; i++) {
             List<Widget> tableList = [
-              Center(child: AutoSizeText(tableData[i]['Word'] + '\n' + tableData[i]['twnWord'])),
+              Center(child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(flex: 1,child: AutoSizeText(' ['+i.toString()+']')),
+                  Expanded(flex: 5,child: AutoSizeText(tableData[i]['Word'] + '\n' + tableData[i]['twnWord'])),
+                ],
+              )),
               Center(child: AutoSizeText(tableData[i]['lemma'])),
               Center(
                   child: AutoSizeText(
