@@ -57,7 +57,7 @@ dependencies:
 
   #
   wakelock: ^0.6.1
-  flutter_emoji: ^2.0.0
+  flutter_emoji: ^2.4.0
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1

@@ -103,6 +103,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
 
         var parser = EmojiParser();
 
+
         listViews.add(
             Wrap(
                 alignment: WrapAlignment.center,
@@ -291,17 +292,20 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                         ),
                       ),
                       Positioned(
-                        top: 12,
+                        top: 24,
                         left: 12,
                         child: SizedBox(
                           width: 64,
                           height: 64,
                           //child: Image.asset(value['imagePath'][index]),
                           //child: Image.asset('assets/sels_app/' + value['appIcon'][index] + '.png'),
-                          child: Text(
+                          child: AutoSizeText(
                             parser.get(value['appEmojiName'][index]).code,
-                            style: TextStyle(fontSize: 56),
                             textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 40,
+                            ),
+                            maxLines: 1,
                           ),
                         ),
                       )
@@ -311,7 +315,6 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                 )
             )
         );
-
       });
 
       setState(() {
