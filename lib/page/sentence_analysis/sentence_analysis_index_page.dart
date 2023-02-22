@@ -127,7 +127,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               Center(child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(flex: 1,child: AutoSizeText(' ['+i.toString()+']')),
+                  Expanded(flex: 3,child: AutoSizeText(' ['+i.toString()+']')),
                   Expanded(flex: 5,child: AutoSizeText(tableData[i]['Word'] + '\n' + tableData[i]['twnWord'])),
                 ],
               )),

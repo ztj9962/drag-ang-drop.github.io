@@ -665,7 +665,7 @@ class APIUtil {
 
   static Future getCompleteSentenceList(List sent) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'app/sentence/getCompleteSentenceList'),
+      Uri.https('api-develop.alicsnet.com', 'app/sentence/getCompleteSentenceList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -693,7 +693,7 @@ class APIUtil {
   }
   static Future getClauseTableByString(String sent) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'app/analysis/getClauseTableByString'),
+      Uri.https('api-develop.alicsnet.com', 'app/analysis/getClauseTableByString'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
