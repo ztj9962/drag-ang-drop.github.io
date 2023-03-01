@@ -427,6 +427,7 @@ class _CustomArticlePracticeSentenceIndexPage
                     SizedBox(
                       height: 5,
                     ),
+                    /*
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 10),
                       child: Text.rich(
@@ -439,7 +440,7 @@ class _CustomArticlePracticeSentenceIndexPage
                           children: outOfRangeWord,
                         ),
                       ),
-                    ),
+                    ),*/
                     SizedBox(
                       height: 50,
                     ),
