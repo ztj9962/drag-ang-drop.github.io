@@ -25,6 +25,7 @@ class _PieChartWidget extends State<PieChartWidget> {
     Color(0xff00E3E3),
     Color(0xff2626FF),
     Color(0xffFF7575),
+    Color(0xff908c8c),
   ];
   @override
   void initState() {
@@ -56,6 +57,9 @@ class _PieChartWidget extends State<PieChartWidget> {
             break;
           case "托福":
             indicatorName = element['level']+"Toefl";
+            break;
+          default:
+            indicatorName = "Out Of 10K";
             break;
         }
         indicatorList.add(
