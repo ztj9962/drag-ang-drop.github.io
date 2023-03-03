@@ -137,4 +137,4 @@ flutter:
         - asset: fonts/NotoSerif-Italic.ttf
         - asset: fonts/NotoSerif-Regular.ttf
         # Emoji
-        - asset: fonts/NotoColorEmoji-Regular.ttf
+        #- asset: fonts/NotoColorEmoji-Regular.ttf
