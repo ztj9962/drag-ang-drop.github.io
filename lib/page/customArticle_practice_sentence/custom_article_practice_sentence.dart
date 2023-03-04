@@ -14,6 +14,7 @@ import 'package:alicsnet_app/model/sentence_example_data.dart';
 import 'package:alicsnet_app/page/login/fade_animation.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CustomArticlePracticeSentenceIndexPage extends StatefulWidget {
   const CustomArticlePracticeSentenceIndexPage({Key? key}) : super(key: key);
@@ -38,6 +39,8 @@ class _CustomArticlePracticeSentenceIndexPage
   List<TextSpan> outOfRangeWord = [];
   List<Widget> topicList = [];
   List pieChartData = [];
+
+  List _CompleteSentenceList = [];
   @override
   void initState() {
     super.initState();
@@ -484,15 +487,38 @@ class _CustomArticlePracticeSentenceIndexPage
                           child: ElevatedButton(
                               onPressed: () async {
                                 if (!practice_auto) {
-                                  AutoRouter.of(context).push(
-                                      CustomArticlePracticeSentenceLearnManualRoute(
-                                        questionList: sentencelist,
-                                        questionIPAList: sentenceIPAlist,
-                                      ));
+
                                 } else {
+                                  List contentNoDupe = sentencelist.toSet().toList();
+                                  List<String> filtedTranslation = [];
+                                  List<String> filtedContentList = [];
+                                  List<String> filtedIPA = [];
+                                  List<bool> mainCheckList = [];
+                                  List<String> oriList = [];
+
+                                  await _getCompleteSentenceList(contentNoDupe);
+                                  //print('CL: ${_CompleteSentenceList}');
+
+                                  for (final filtedContent in _CompleteSentenceList) {
+                                    mainCheckList.add(filtedContent['mainCheck']);
+                                    filtedContentList.add(filtedContent['content']);
+                                    filtedIPA.add(filtedContent['IPA']);
+                                    oriList.add(filtedContent['originSentence']);
+                                  }
+
+                                  for(int check = 0;check < mainCheckList.length;check++){
+                                    if(mainCheckList[check]){
+                                      filtedTranslation.add('');
+                                    }else{
+                                      filtedTranslation.add('原句: ${oriList[check]}');
+                                    }
+                                  }
+
                                   AutoRouter.of(context).push(
-                                      CustomArticlePracticeSentenceLearnAutoRoute(
-                                        questionList: sentencelist,
+                                      LearningAutoGenericRoute(
+                                        contentList: filtedContentList,
+                                        ipaList: filtedIPA,
+                                        translateList: filtedTranslation,
                                       ));
                                 }
                               },
@@ -548,7 +574,42 @@ class _CustomArticlePracticeSentenceIndexPage
           ],
         ));
   }
+  Future<bool> _getCompleteSentenceList(List content) async {
+    //if (_vocabularySentenceList.length == _vocabularyList.length) return;
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSON;
+    try {
+      int doLimit = 1;
+      var vocabularySentenceList;
+      //print(_vocabularyList);
+      do {
+        responseJSON = await APIUtil.getCompleteSentenceList(content);
+        //responseJSONDecode = jsonDecode(responseJSON.toString());
+        //print(responseJSONDecode);
+        if (responseJSON['apiStatus'] != 'success') {
+          doLimit += 1;
+          if (doLimit > 3)
+            throw Exception('API: ' + responseJSON['apiMessage']); // 只測 3 次
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (responseJSON['apiStatus'] != 'success');
+      //print(responseJSONDecode);
+      vocabularySentenceList = responseJSON['data'];
+
+      setState(() {
+        _CompleteSentenceList = vocabularySentenceList;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: $e'),
+      ));
+    }
+    EasyLoading.dismiss();
+    return responseJSON['apiStatus'] == 'success';
+  }
 }
+
+
 //文章分析說明dialog
 class CustomAlertDialog extends StatelessWidget {
   @override

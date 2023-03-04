@@ -215,7 +215,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                                           List<bool> mainCheckList = [];
                                           List<String> oriList = [];
 
-                                          var completeSentenceList = await _getCompleteSentenceList(contentNoDupe);
+                                          await _getCompleteSentenceList(contentNoDupe);
                                           //print('CL: ${_CompleteSentenceList}');
 
                                           for (final filtedContent in _CompleteSentenceList) {
