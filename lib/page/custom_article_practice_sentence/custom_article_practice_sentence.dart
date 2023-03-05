@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:alicsnet_app/page/customArticle_practice_sentence/pie_chart_widget.dart';
+import 'package:alicsnet_app/page/custom_article_practice_sentence/pie_chart_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';

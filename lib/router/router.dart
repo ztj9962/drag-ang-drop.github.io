@@ -1,7 +1,7 @@
 
-import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article_practice_sentence.dart';
-import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article_practice_sentence_learn_auto_page.dart';
-import 'package:alicsnet_app/page/customArticle_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
+import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
+import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence_learn_auto_page.dart';
+import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_summary_report_page.dart';
