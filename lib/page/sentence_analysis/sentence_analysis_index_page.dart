@@ -28,7 +28,31 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
   String? _dropdownValue1;
   String _text = "";
   int _maxLength = 500;
-  List<String>? _exampleList = ['I know her.','She likes being alone.','I hates to clean dishes.','I hope that you will come.',"She didn't know what to do",'I am a teacher.','I handed Bob a key.','We appointed her CEO.','Having a party is a bad idea because the neighbors will complain.','Molly, who loves cats, plans to get a kitten, but she needs to find a house.','Mary loves cats, plans to get a kitten, but she needs to find a house.','Jennifer sat in her chair, which was a dark red recliner, and she read all evening.','The government had compensated the people whose houses were demolished.'];
+  List<String>? _exampleList = ['My friends are at the library.','Marc was in the bathroom.','She has been sad since you left.','John is tall.',
+  "The monster was ready.",'This book is rather terrible.','Mr. James has been a teacher for forty years.','My mother appeared sad.','The Swiss cheese has gone bad.','Dawn seems happy.','Miles went mad.','Mary looks like her mother.',
+  'Joan becomes a professional foot ball player.','Rooney played superbly.','John sat up.','The small child cried very loudly.','My charming son was hovering rather sheepishly.','She would behave so bravely.',
+  'My friend left that evening.','The boy ran two miles.','Your fourth cousin sang this afternoon.','Ravi shouted that morning.','The monster lives under the bed.','Sarah lives in America.','Helen’s brother played after his dinner.',
+  'Robert ran to the door.','The ball was bouncing on the pitch.','Sarah and Micheal disappeared.','My mother is drilling.','Anila kicked.','John laugh.','The researcher participated.','The monster roared.',
+  'She changed her dress.','The boy hugged the dog.','My mother is drilling a hole.','Sara is throwing a ball.','Anila kicked the ball.',
+  'John kissed Jane.','The teacher taught the student.','The monster threw the table.','Your friend was opening the door.','My dad washed his car.',
+  'I bought Fred a ticket.','Most people consider Jacobson a loyal friend they crowned him king.','John gave Jane a present.',
+  'The monster gave me a fright.','She gave her the wrong package.','I gave them our address.',
+  'Mr. Smith gave student a raise.','The teacher taught the student English.',
+  'They elected Adams president.','They crowned him king.','The jury found the defendant guilty.','John made Jane angry.',
+  'The monster made the wall crumble.','The ride made me dizzy.',
+  'I bought a ticket for Fred.','I gave our address to them.',
+  'The boy hugged the dog gently.','I put the book on the table.','John put the bag down.','The monster threw my friend out of the window.',
+  'I will lay your coats on the bed upstairs.','The boy ate an apple in the kitchen.','She put her hand in the pocket.',
+  ];
+  List<String>? _sentenceTypeList = [
+    '[SVA]','[SVA]',
+    '[SVC]','[SVC]',"[SVC]",'[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]',
+    '[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]',
+    '[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]',
+    '[SVOO]','[SVOC]','[SVOO]','[SVOO]','[SVOO]','[SVOO]','[SVOO]','[SVOO]',
+    '[SVOC]','[SVOC]','[SVOC]','[SVOC]','[SVOC]','[SVOC]',
+    '[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]',
+  ];
   bool _isloading = false;
   int _inputWordCount = 0;
   Uint8List _spacyTree = Uint8List.fromList([]);
@@ -37,6 +61,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
 
   @override
   void initState() {
+    print(_exampleList?.length);
+    print(_sentenceTypeList?.length);
     _analysisor = widget.analysisor;
     if(_analysisor.isNotEmpty){
       _controller.text = _analysisor;
@@ -299,10 +325,28 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 items: _exampleList?.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: AutoSizeText(
-                      '   ${value}',
-                      style: TextStyle(color: PageTheme.cutom_article_practice_background),
-                      maxLines: 1,
+                    child: Container(
+                      height: 30,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: AutoSizeText(
+                              '   ${_sentenceTypeList![_exampleList!.indexOf(value)]}',
+                              style: TextStyle(color: PageTheme.cutom_article_practice_background),
+                              maxLines: 1,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 6,
+                            child: AutoSizeText(
+                              '   ${value}',
+                              style: TextStyle(color: PageTheme.cutom_article_practice_background),
+                              maxLines: 1,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }).toList(),

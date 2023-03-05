@@ -23,6 +23,8 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
 
   List<Widget> _listViews = <Widget>[];
 
+  List _CompleteSentenceList = [];
+
   @override
   void initState() {
     super.initState();
@@ -204,9 +206,36 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                                             ipaList.add(sentence['sentenceIPA']);
                                             translateList.add(sentence['sentenceChinese']);
                                           }
+                                          List<String> contentNoDupe = contentList.toSet().toList();
+                                          List<String> translateNoDupe = translateList.toSet().toList();
 
+                                          List<String> filtedContentList = [];
+                                          List<String> filtedTranslation = [];
+                                          List<String> filtedIPA = [];
+                                          List<bool> mainCheckList = [];
+                                          List<String> oriList = [];
 
-                                          AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: contentList, ipaList: ipaList, translateList: translateList));
+                                          await _getCompleteSentenceList(contentNoDupe);
+                                          //print('CL: ${_CompleteSentenceList}');
+
+                                          for (final filtedContent in _CompleteSentenceList) {
+                                            mainCheckList.add(filtedContent['mainCheck']);
+                                            filtedContentList.add(filtedContent['content']);
+                                            filtedIPA.add(filtedContent['IPA']);
+                                            oriList.add(filtedContent['originSentence']);
+                                          }
+
+                                          int checkIdx = 0;
+                                          for(int check = 0;check < mainCheckList.length;check++){
+                                            if(mainCheckList[check]){
+                                              filtedTranslation.add(translateNoDupe[checkIdx]);
+                                              checkIdx++;
+                                            }else{
+                                              filtedTranslation.add('原句: ${oriList[check]}');
+                                            }
+                                          }
+
+                                          AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: filtedContentList, ipaList: filtedIPA, translateList: filtedTranslation));
 
                                         },
                                         //onTap: sentenceTypeListData!.onTapFunction,
@@ -331,4 +360,39 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
     return responseJSONDecode['apiStatus'] == 'success';
   }
 
+  Future<bool> _getCompleteSentenceList(List content) async {
+    //if (_vocabularySentenceList.length == _vocabularyList.length) return;
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var responseJSONDecode;
+    var responseJSON;
+    try {
+      int doLimit = 1;
+      var vocabularySentenceList;
+      //print(_vocabularyList);
+      do {
+        responseJSON = await APIUtil.getCompleteSentenceList(content);
+        print(responseJSON);
+        //responseJSONDecode = jsonDecode(responseJSON.toString());
+        //print(responseJSONDecode);
+        if (responseJSON['apiStatus'] != 'success') {
+          doLimit += 1;
+          if (doLimit > 3)
+            throw Exception('API: ' + responseJSON['apiMessage']); // 只測 3 次
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (responseJSON['apiStatus'] != 'success');
+      //print(responseJSONDecode);
+      vocabularySentenceList = responseJSON['data'];
+
+      setState(() {
+        _CompleteSentenceList = vocabularySentenceList;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: $e'),
+      ));
+    }
+    EasyLoading.dismiss();
+    return responseJSON['apiStatus'] == 'success';
+  }
 }
