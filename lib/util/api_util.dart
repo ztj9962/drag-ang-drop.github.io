@@ -440,7 +440,7 @@ class APIUtil {
   static Future getStatitics(String article) async {
 
     final response = await http.post(
-      Uri.https('api-develop.alicsnet.com', 'app/article/getStatitics'),
+      Uri.https('api.alicsnet.com', 'app/article/getStatitics'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
