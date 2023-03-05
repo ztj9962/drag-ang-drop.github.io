@@ -17,20 +17,20 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class MinimalPairLearnManualPage extends StatefulWidget {
+class LearningManualMinimalPairPage extends StatefulWidget {
 
   final String IPA1;
   final String IPA2;
   final String word;
-  const MinimalPairLearnManualPage ({ Key? key, this.IPA1 = '', this.IPA2 = '', this.word = '' }): super(key: key);
+  const LearningManualMinimalPairPage ({ Key? key, this.IPA1 = '', this.IPA2 = '', this.word = '' }): super(key: key);
 
   @override
-  _MinimalPairLearnManualPageState createState() => _MinimalPairLearnManualPageState();
+  _LearningManualMinimalPairPageState createState() => _LearningManualMinimalPairPageState();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage> {
+class _LearningManualMinimalPairPageState extends State<LearningManualMinimalPairPage> {
   String _IPA1 = '';
   String _IPA2 = '';
   String _word = '';
@@ -95,7 +95,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     _IPA2 = widget.IPA2;
     _word = widget.word;
     super.initState();
-    initMinimalPairLearnManualPage();
+    initLearningManualMinimalPairPage();
   }
 
   @override
@@ -106,7 +106,7 @@ class _MinimalPairLearnManualPageState extends State<MinimalPairLearnManualPage>
     speechToText.stop();
   }
 
-  initMinimalPairLearnManualPage() async {
+  initLearningManualMinimalPairPage() async {
     await initTts();
     await initSpeechState();
     getTestQuestions();

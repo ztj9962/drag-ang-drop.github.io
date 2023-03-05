@@ -16,19 +16,19 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class VocabularyPracticeSentenceLearnManualPage extends StatefulWidget {
+class LearningManualVocabularyPracticeSentencePage extends StatefulWidget {
 
   final String topicClass;
   final String topicName;
-  const VocabularyPracticeSentenceLearnManualPage ({ Key? key, this.topicClass = '', this.topicName = '' }): super(key: key);
+  const LearningManualVocabularyPracticeSentencePage ({ Key? key, this.topicClass = '', this.topicName = '' }): super(key: key);
 
   @override
-  _VocabularyPracticeSentenceLearnManualPageState createState() => _VocabularyPracticeSentenceLearnManualPageState();
+  _LearningManualVocabularyPracticeSentencePageState createState() => _LearningManualVocabularyPracticeSentencePageState();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _VocabularyPracticeSentenceLearnManualPageState extends State<VocabularyPracticeSentenceLearnManualPage> {
+class _LearningManualVocabularyPracticeSentencePageState extends State<LearningManualVocabularyPracticeSentencePage> {
   late String _topicClass;
   late String _topicName;
 

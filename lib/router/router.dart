@@ -1,20 +1,19 @@
 
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
-import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence_learn_auto_page.dart';
-import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence_learn_manual_page.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_summary_report_page.dart';
+import 'package:alicsnet_app/page/learning/learning_auto_minimal_pair_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_custom_article_practice_sentence_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_minimal_pair_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_sentence_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_word_page.dart';
 import 'package:alicsnet_app/page/login/sign_in_page.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
-import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_auto_page.dart';
-import 'package:alicsnet_app/page/minimal_pair/minimal_pair_learn_manual_page.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
 import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
-import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_learn_manual_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
@@ -32,18 +31,13 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(path: '/index', page: IndexPage),
 
     AutoRoute(path: '/voabulary_practice_sentence_index', page: VocabularyPracticeSentenceIndexPage),
-    AutoRoute(path: '/voabulary_practice_sentence_manual', page: VocabularyPracticeSentenceLearnManualPage),
 
     AutoRoute(path: '/voabulary_practice_word_index', page: VocabularyPracticeWordIndexPage),
     AutoRoute(path: '/voabulary_practice_word_list', page: VocabularyPracticeWordListPage),
 
     AutoRoute(path: '/minimal_pair_index', page: MinimalPairIndexPage),
-    AutoRoute(path: '/minimal_pair_auto', page: MinimalPairLearnAutoPage),
-    AutoRoute(path: '/minimal_pair_manual', page: MinimalPairLearnManualPage),
-    
+
     AutoRoute(path: '/customArticle_practice_sentence_index',page: CustomArticlePracticeSentenceIndexPage),
-    AutoRoute(path: '/customArticle_practice_sentence_auto',page: CustomArticlePracticeSentenceLearnAutoPage),
-    AutoRoute(path: '/customArticle_practice_sentence_manual',page: CustomArticlePracticeSentenceLearnManualPage),
 
     AutoRoute(path: '/vocabulary_test_index', page: VocabularyTestIndexPage),
     AutoRoute(path: '/vocabulary_test_questing', page: VocabularyTestQuestingPage),
@@ -51,6 +45,10 @@ import 'package:auto_route/auto_route.dart';
 
     AutoRoute(path: '/learnig_auto_generic',page: LearningAutoGenericPage),
     AutoRoute(path: '/learnig_auto_generic_summary_report',page: LearningAutoGenericSummaryReportPage),
+    AutoRoute(path: '/learnig_auto_minimal_pair', page: LearningAutoMinimalPairPage),
+    AutoRoute(path: '/learning_manual_custom_article_practice_sentence', page: LearningManualCustomArticlePracticeSentencePage),
+    AutoRoute(path: '/learning_manual_minimal_pair', page: LearningManualMinimalPairPage),
+    AutoRoute(path: '/learning_manual_vocabulary_practice_sentence_page',page: LearningManualVocabularyPracticeSentencePage),
     AutoRoute(path: '/learning_manual_vocabulary_practice_word',page: LearningManualVocabularyPraticeWordPage),
 
     AutoRoute(path: '/preference_translation_search',page: PreferenceTranslationSearchPage),

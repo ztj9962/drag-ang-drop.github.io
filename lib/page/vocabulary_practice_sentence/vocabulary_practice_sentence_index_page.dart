@@ -270,7 +270,7 @@ class _VocabularyPracticeSentenceIndexPageState extends State<VocabularyPractice
                                       flex: 1,
                                       child: GestureDetector(
                                         onTap: (){
-                                          AutoRouter.of(context).push(VocabularyPracticeSentenceLearnManualRoute(topicName:value['title'][index]));
+                                          AutoRouter.of(context).push(LearningManualVocabularyPracticeSentenceRoute(topicName:value['title'][index]));
                                         },
                                         //onTap: sentenceTypeListData!.onTapFunction,
                                         child: Container(

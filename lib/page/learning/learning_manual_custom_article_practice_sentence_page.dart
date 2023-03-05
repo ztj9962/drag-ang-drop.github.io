@@ -16,19 +16,19 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-class CustomArticlePracticeSentenceLearnManualPage extends StatefulWidget {
+class LearningManualCustomArticlePracticeSentencePage extends StatefulWidget {
 
   final List questionList;
   final List questionIPAList;
-  const CustomArticlePracticeSentenceLearnManualPage ({ Key? key,  required this.questionList, required this.questionIPAList }): super(key: key);
+  const LearningManualCustomArticlePracticeSentencePage ({ Key? key,  required this.questionList, required this.questionIPAList }): super(key: key);
 
   @override
-  _CustomArticlePracticeSentenceLearnManualPage createState() => _CustomArticlePracticeSentenceLearnManualPage();
+  _LearningManualCustomArticlePracticeSentencePage createState() => _LearningManualCustomArticlePracticeSentencePage();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _CustomArticlePracticeSentenceLearnManualPage extends State<CustomArticlePracticeSentenceLearnManualPage> {
+class _LearningManualCustomArticlePracticeSentencePage extends State<LearningManualCustomArticlePracticeSentencePage> {
   late List _questionList;
   List _questionIPAList=[];
   final _allowTouchButtons = {

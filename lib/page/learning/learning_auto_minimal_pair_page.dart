@@ -22,20 +22,20 @@ import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
 
-class MinimalPairLearnAutoPage extends StatefulWidget {
+class LearningAutoMinimalPairPage extends StatefulWidget {
 
   final String IPA1;
   final String IPA2;
   final String word;
-  const MinimalPairLearnAutoPage ({ Key? key, this.IPA1 = '', this.IPA2 = '', this.word = '' }): super(key: key);
+  const LearningAutoMinimalPairPage ({ Key? key, this.IPA1 = '', this.IPA2 = '', this.word = '' }): super(key: key);
 
   @override
-  _MinimalPairLearnAutoPage createState() => _MinimalPairLearnAutoPage();
+  _LearningAutoMinimalPairPage createState() => _LearningAutoMinimalPairPage();
 }
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
+class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
 
   /* 測驗時長計時器 */
   late Timer _timer;
@@ -130,7 +130,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
     _IPA2 = widget.IPA2;
     _word = widget.word;
     super.initState();
-    initMinimalPairLearnAutoPage();
+    initLearningAutoMinimalPairPage();
   }
 
   @override
@@ -148,7 +148,7 @@ class _MinimalPairLearnAutoPage extends State<MinimalPairLearnAutoPage> {
   initState() 初始化相關
    */
 
-  initMinimalPairLearnAutoPage() async {
+  initLearningAutoMinimalPairPage() async {
     Wakelock.enable();
     await initApplicationSettingsData();
     await initAnswerTimer();
