@@ -217,4 +217,19 @@ class SharedPreferencesUtil {
 
     return rateString;
   }
+
+  // APIURL
+  static Future<bool> setAPIURL(String value) async {
+    saveData<String>('applicationSettingsDataAPIURL', value);
+    return true;
+  }
+
+  static Future<String> getAPIURL() async {
+    String? res = await getData<String>('applicationSettingsDataAPIURL');
+    if (res == null) {
+      res = 'api.alicsnet.com';
+      setAPIURL(res);
+    }
+    return res;
+  }
 }
