@@ -8,7 +8,8 @@ class TitleView extends StatelessWidget {
   final Function()? subFunction;
   final bool subVisivle;
 
-  const TitleView({Key? key,
+  const TitleView({
+    Key? key,
     required this.titleTxt,
     this.titleColor = const Color(0xFF000000),
     this.subTxt = "",
@@ -36,7 +37,7 @@ class TitleView extends StatelessWidget {
           ),
           Visibility(
               visible: subVisivle,
-              child:  InkWell(
+              child: InkWell(
                 highlightColor: Colors.transparent,
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 onTap: subFunction,
@@ -66,8 +67,7 @@ class TitleView extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
-          ),
+              )),
         ],
       ),
     );

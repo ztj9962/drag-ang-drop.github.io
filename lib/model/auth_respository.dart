@@ -10,6 +10,7 @@ import 'dart:async';
 class authRespository {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   /*
   static final FacebookAuth _facebookSignIn = FacebookAuth.instance;
   static final TwitterLogin _twitterLogin = new TwitterLogin(
@@ -31,18 +32,17 @@ class authRespository {
 
     await _firebaseAuth
         .sendSignInLinkToEmail(
-          email: email,
-          actionCodeSettings: acs,
-        )
+      email: email,
+      actionCodeSettings: acs,
+    )
         .catchError((onError) {
-              //print('Error sending email verification $onError');
-        })
-        .then((value) {
-          //print('Successfully sent email verification');
-        });
+      //print('Error sending email verification $onError');
+    }).then((value) {
+      //print('Successfully sent email verification');
+    });
   }
 
-  static Future<void> siginLink(Uri link, String email) async{
+  static Future<void> siginLink(Uri link, String email) async {
     if (link != null) {
       await _firebaseAuth
           .signInWithEmailLink(email: email, emailLink: link.toString())
@@ -55,16 +55,16 @@ class authRespository {
     }
   }
 
-  static Future<void> signInWithApple()async{
-
+  static Future<void> signInWithApple() async {
     // 生成一個加密安全的隨機隨機數
     String generateNonce([int length = 32]) {
       final charset =
           '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
       final random = Random.secure();
-      return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-          .join();
+      return List.generate(
+          length, (_) => charset[random.nextInt(charset.length)]).join();
     }
+
     // 生成一個Sha256
     String sha256ofString(String input) {
       final bytes = utf8.encode(input);
@@ -87,8 +87,7 @@ class authRespository {
       rawNonce: rawNonce,
     );
 
-    await  _firebaseAuth.signInWithCredential(oauthCredential);
-
+    await _firebaseAuth.signInWithCredential(oauthCredential);
   }
 
   /*
@@ -158,8 +157,11 @@ class authRespository {
     try {
       final User? currentUser = _firebaseAuth.currentUser;
       if (currentUser != null) {
-        if (currentUser.providerData[0].displayName != null) currentUser.updateDisplayName(currentUser.providerData[0].displayName);
-        if (currentUser.providerData[0].photoURL != null) currentUser.updatePhotoURL(currentUser.providerData[0].photoURL);
+        if (currentUser.providerData[0].displayName != null)
+          currentUser
+              .updateDisplayName(currentUser.providerData[0].displayName);
+        if (currentUser.providerData[0].photoURL != null)
+          currentUser.updatePhotoURL(currentUser.providerData[0].photoURL);
         return true;
       } else {
         return false;
@@ -169,7 +171,7 @@ class authRespository {
     }
   }
 
-  static String getUid()  {
+  static String getUid() {
     String id = _firebaseAuth.currentUser!.uid.toString();
     return id;
   }

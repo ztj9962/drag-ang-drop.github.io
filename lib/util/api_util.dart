@@ -8,12 +8,22 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 bool get isIOS => !kIsWeb && Platform.isIOS;
+
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
 bool get isWeb => kIsWeb;
 
 class APIUtil {
-
-  static Future<String> getSentences({String sentenceLevel :'', String sentenceTopic :'', String sentenceClass:'', String aboutWord:'', String sentenceMinLength:'', String sentenceMaxLength:'', String sentenceRanking:'', String sentenceRankingLocking:'', String dataLimit:''}) async {
+  static Future<String> getSentences(
+      {String sentenceLevel: '',
+      String sentenceTopic: '',
+      String sentenceClass: '',
+      String aboutWord: '',
+      String sentenceMinLength: '',
+      String sentenceMaxLength: '',
+      String sentenceRanking: '',
+      String sentenceRankingLocking: '',
+      String dataLimit: ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentences'),
       headers: <String, String>{
@@ -35,7 +45,8 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> checkSentences(String questionText, String answerText, {int correctCombo:0}) async {
+  static Future<String> checkSentences(String questionText, String answerText,
+      {int correctCombo: 0}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/checkSentences'),
       headers: <String, String>{
@@ -51,23 +62,27 @@ class APIUtil {
     return json;
   }
 
-
   static Future<String> checkGrammar(String sentenceText) async {
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/grammar/checkGrammar'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'sentenceText': sentenceText,      },
+        'sentenceText': sentenceText,
+      },
     );
     String json = response.body.toString();
     return json;
   }
-  
-  static Future<String> saveQuizData(String uuid, String quizTitle, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
 
+  static Future<String> saveQuizData(
+      String uuid,
+      String quizTitle,
+      List<int> sentenceIDArray,
+      List<String> sentenceAnswerArray,
+      List<int> scoreArray,
+      List<int> secondsArray) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/saveQuizData'),
       headers: <String, String>{
@@ -86,8 +101,13 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> updateQuizData(String uuid, int quizID, List<int> sentenceIDArray, List<String> sentenceAnswerArray, List<int> scoreArray, List<int> secondsArray) async {
-
+  static Future<String> updateQuizData(
+      String uuid,
+      int quizID,
+      List<int> sentenceIDArray,
+      List<String> sentenceAnswerArray,
+      List<int> scoreArray,
+      List<int> secondsArray) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/quiz/updateQuizData'),
       headers: <String, String>{
@@ -106,8 +126,8 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> minimalPairTwoFinder(ipa1, ipa2, {String dataLimit = ''}) async {
-
+  static Future<String> minimalPairTwoFinder(ipa1, ipa2,
+      {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/twoFinder'),
       headers: <String, String>{
@@ -123,8 +143,8 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> minimalPairWordFinder(word1, {String dataLimit = ''}) async {
-
+  static Future<String> minimalPairWordFinder(word1,
+      {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/minimalPair/wordFinder'),
       headers: <String, String>{
@@ -138,18 +158,16 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
-  
-  static Future<String> getSentenceTopicData() async {
 
+  static Future<String> getSentenceTopicData() async {
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentenceTopicData'),
     );
     String json = response.body.toString();
     return json;
   }
-  
-  static Future<String> getIPAAvailable() async {
 
+  static Future<String> getIPAAvailable() async {
     final response = await http.get(
       Uri.https('api.alicsnet.com', 'app/minimalPair/getIPAAvailable'),
     );
@@ -157,31 +175,27 @@ class APIUtil {
     return json;
   }
 
-  static Future getSentenceSegmentation(String article) async{
-
+  static Future getSentenceSegmentation(String article) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-      body: {
-        'article':article,
-      }
-    );
+        Uri.https('api.alicsnet.com', 'app/sentence/sentSegmentation'),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: {
+          'article': article,
+        });
     var json = jsonDecode(response.body.toString());
     return json;
-
   }
 
   static Future getSentenceIPA(List sentenceList) async {
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/sentence/getSentenceIPA'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'sentenceList':jsonEncode(sentenceList),
+        'sentenceList': jsonEncode(sentenceList),
       },
     );
 
@@ -190,14 +204,13 @@ class APIUtil {
   }
 
   static Future getStatitics(String article) async {
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/article/getStatitics'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       body: {
-        'articleContent':article,
+        'articleContent': article,
       },
     );
 
@@ -205,8 +218,8 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> vocabularyTestGetQuestion({String indexMin :'', String indexMax :'', String dataLimit :''}) async {
-
+  static Future<String> vocabularyTestGetQuestion(
+      {String indexMin: '', String indexMax: '', String dataLimit: ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabularyTest/getQuestion'),
       headers: <String, String>{
@@ -222,9 +235,8 @@ class APIUtil {
     return json;
   }
 
-
-  static Future<String> vocabularyGetList(String index, {String dataLimit = ''}) async {
-
+  static Future<String> vocabularyGetList(String index,
+      {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getList'),
       headers: <String, String>{
@@ -240,7 +252,6 @@ class APIUtil {
   }
 
   static Future<String> vocabularyGetRowIndex(String word) async {
-
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getRowIndex'),
       headers: <String, String>{
@@ -254,8 +265,8 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> vocabularyGetSentenceList(String index, {String dataLimit = ''}) async {
-
+  static Future<String> vocabularyGetSentenceList(String index,
+      {String dataLimit = ''}) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/vocabulary/getSentenceList'),
       headers: <String, String>{
@@ -272,7 +283,8 @@ class APIUtil {
 
   static Future<String> getPreferenceSentenceByRank(String rank) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/sentence/get30RankedSentenceListByWord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/sentence/get30RankedSentenceListByWord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -286,7 +298,8 @@ class APIUtil {
 
   static Future<String> getPreferenceDataByID(String id) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/sentence/getPreferDataBySentenceID'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/sentence/getPreferDataBySentenceID'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -298,9 +311,10 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> sentRecommandAddQuery(String id,String chinese) async {
+  static Future<String> sentRecommandAddQuery(String id, String chinese) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentRecommandAddQuery'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/sentRecommandAddQuery'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -313,9 +327,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> sentRecommandEditQuery(String id,String chinese) async {
+  static Future<String> sentRecommandEditQuery(
+      String id, String chinese) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentRecommandEditQuery'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/sentRecommandEditQuery'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -330,7 +346,8 @@ class APIUtil {
 
   static Future<String> getUserSentenceLikeRecord(String uid) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/getUserSentenceLikeRecord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/getUserSentenceLikeRecord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -344,7 +361,8 @@ class APIUtil {
 
   static Future<String> getUserRecommendLikeRecord(String uid) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/getUserRecommendLikeRecord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/getUserRecommendLikeRecord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -356,9 +374,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> sentUserSentenceLikeRecord(String sentenceId, String uid) async {
+  static Future<String> sentUserSentenceLikeRecord(
+      String sentenceId, String uid) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentUserSentenceLikeRecord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/sentUserSentenceLikeRecord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -371,9 +391,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> sentUserRecommendLikeRecord(String recommendId, String uid) async {
+  static Future<String> sentUserRecommendLikeRecord(
+      String recommendId, String uid) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentUserRecommendLikeRecord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/sentUserRecommendLikeRecord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -386,9 +408,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> sentSentenceClosedRecord(String sentenceId, String chinese) async {
+  static Future<String> sentSentenceClosedRecord(
+      String sentenceId, String chinese) async {
     final response = await http.post(
-      Uri.https('api.alicsnet.com', 'preferenceFeedback/feedback/sentSentenceClosedRecord'),
+      Uri.https('api.alicsnet.com',
+          'preferenceFeedback/feedback/sentSentenceClosedRecord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -429,6 +453,7 @@ class APIUtil {
     var json = jsonDecode(response.body.toString());
     return json;
   }
+
   static Future getSpacyTreeByString(String sent) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/analysis/getSpacyTreeByString'),
@@ -443,6 +468,7 @@ class APIUtil {
     var json = jsonDecode(response.body.toString());
     return json;
   }
+
   static Future getClauseTableByString(String sent) async {
     final response = await http.post(
       Uri.https('api.alicsnet.com', 'app/analysis/getClauseTableByString'),
@@ -460,5 +486,3 @@ class APIUtil {
     return json;
   }
 }
-
-

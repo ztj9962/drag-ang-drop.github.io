@@ -11,13 +11,17 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class VocabularyPracticeWordListPage extends StatefulWidget {
   final List<dynamic> vocabularyList;
-  const VocabularyPracticeWordListPage ({ Key? key, required this.vocabularyList }): super(key: key);
+
+  const VocabularyPracticeWordListPage({Key? key, required this.vocabularyList})
+      : super(key: key);
 
   @override
-  _VocabularyPracticeWordListPageState createState() => _VocabularyPracticeWordListPageState();
+  _VocabularyPracticeWordListPageState createState() =>
+      _VocabularyPracticeWordListPageState();
 }
 
-class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordListPage> {
+class _VocabularyPracticeWordListPageState
+    extends State<VocabularyPracticeWordListPage> {
   late List<dynamic> _vocabularyList;
   List<dynamic> _vocabularySentenceList = [];
   var _wordTextSizeGroup = AutoSizeGroup();
@@ -97,106 +101,123 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                       ),
                       maxLines: 1,
                     ),
-                    Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                  child: const AutoSizeText(
-                                    '自動練習',
-                                    maxLines: 1,
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: PageTheme.app_theme_blue,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      shadowColor: Colors.black,
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50))),
-                                  onPressed: () async {
-                                    if (!await _getVocabularySentenceList()) {
-                                      return;
-                                    }
-
-                                    List<String> contentList = [];
-                                    List<String> ipaList = [];
-                                    List<String> translateList = [];
-                                    //print(_vocabularyList);
-                                    for (final vocabularyData in _vocabularySentenceList) {
-                                      print(vocabularyData);
-                                      //return;
-                                      for (final sentence in vocabularyData!['sentenceList']!) {
-                                        contentList.add(sentence['sentenceContent']);
-                                        ipaList.add(sentence['sentenceIPA']);
-                                        translateList.add(sentence['sentenceChinese']);
-                                      }
-                                    }
-                                    List<String> contentNoDupe = contentList.toSet().toList();
-                                    List<String> translateNoDupe = translateList.toSet().toList();
-
-                                    List<String> filtedContentList = [];
-                                    List<String> filtedTranslation = [];
-                                    List<String> filtedIPA = [];
-                                    List<bool> mainCheckList = [];
-                                    List<String> oriList = [];
-
-                                    await _getCompleteSentenceList(contentNoDupe);
-                                    //print('CL: ${_CompleteSentenceList}');
-
-                                    for (final filtedContent in _CompleteSentenceList) {
-                                      mainCheckList.add(filtedContent['mainCheck']);
-                                      filtedContentList.add(filtedContent['content']);
-                                      filtedIPA.add(filtedContent['IPA']);
-                                      oriList.add(filtedContent['originSentence']);
-                                    }
-
-                                    int checkIdx = 0;
-                                    for(int check = 0;check < mainCheckList.length;check++){
-                                      if(mainCheckList[check]){
-                                        filtedTranslation.add(translateNoDupe[checkIdx]);
-                                        checkIdx++;
-                                      }else{
-                                        filtedTranslation.add('原句: ${oriList[check]}');
-                                      }
-                                    }
-                                    print('HERE: ${translateNoDupe}');
-                                    print('THERE: ${filtedTranslation}');
-
-                                    AutoRouter.of(context).push(LearningAutoGenericRoute(contentList: filtedContentList, ipaList: filtedIPA, translateList: filtedTranslation));
-                                  }
+                    Row(children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                              child: const AutoSizeText(
+                                '自動練習',
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 20),
                               ),
-                            ),
-                          ),Expanded(
-                            flex: 1,
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                  child: const AutoSizeText(
-                                    '手動練習',
-                                    maxLines: 1,
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: PageTheme.app_theme_blue,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      shadowColor: Colors.black,
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50))),
-                                  onPressed: () async {
-                                    await _getVocabularySentenceList();
-                                    AutoRouter.of(context).push(LearningManualVocabularyPraticeWordRoute(vocabularyList: _vocabularyList, vocabularySentenceList: _vocabularySentenceList));
+                              style: ElevatedButton.styleFrom(
+                                  primary: PageTheme.app_theme_blue,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  shadowColor: Colors.black,
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50))),
+                              onPressed: () async {
+                                if (!await _getVocabularySentenceList()) {
+                                  return;
+                                }
+
+                                List<String> contentList = [];
+                                List<String> ipaList = [];
+                                List<String> translateList = [];
+                                //print(_vocabularyList);
+                                for (final vocabularyData
+                                    in _vocabularySentenceList) {
+                                  print(vocabularyData);
+                                  //return;
+                                  for (final sentence
+                                      in vocabularyData!['sentenceList']!) {
+                                    contentList
+                                        .add(sentence['sentenceContent']);
+                                    ipaList.add(sentence['sentenceIPA']);
+                                    translateList
+                                        .add(sentence['sentenceChinese']);
                                   }
+                                }
+                                List<String> contentNoDupe =
+                                    contentList.toSet().toList();
+                                List<String> translateNoDupe =
+                                    translateList.toSet().toList();
+
+                                List<String> filtedContentList = [];
+                                List<String> filtedTranslation = [];
+                                List<String> filtedIPA = [];
+                                List<bool> mainCheckList = [];
+                                List<String> oriList = [];
+
+                                await _getCompleteSentenceList(contentNoDupe);
+                                //print('CL: ${_CompleteSentenceList}');
+
+                                for (final filtedContent
+                                    in _CompleteSentenceList) {
+                                  mainCheckList.add(filtedContent['mainCheck']);
+                                  filtedContentList
+                                      .add(filtedContent['content']);
+                                  filtedIPA.add(filtedContent['IPA']);
+                                  oriList.add(filtedContent['originSentence']);
+                                }
+
+                                int checkIdx = 0;
+                                for (int check = 0;
+                                    check < mainCheckList.length;
+                                    check++) {
+                                  if (mainCheckList[check]) {
+                                    filtedTranslation
+                                        .add(translateNoDupe[checkIdx]);
+                                    checkIdx++;
+                                  } else {
+                                    filtedTranslation
+                                        .add('原句: ${oriList[check]}');
+                                  }
+                                }
+                                print('HERE: ${translateNoDupe}');
+                                print('THERE: ${filtedTranslation}');
+
+                                AutoRouter.of(context).push(
+                                    LearningAutoGenericRoute(
+                                        contentList: filtedContentList,
+                                        ipaList: filtedIPA,
+                                        translateList: filtedTranslation));
+                              }),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                              child: const AutoSizeText(
+                                '手動練習',
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 20),
                               ),
-                            ),
-                          ),
-                        ]
-                    ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: PageTheme.app_theme_blue,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  shadowColor: Colors.black,
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50))),
+                              onPressed: () async {
+                                await _getVocabularySentenceList();
+                                AutoRouter.of(context).push(
+                                    LearningManualVocabularyPraticeWordRoute(
+                                        vocabularyList: _vocabularyList,
+                                        vocabularySentenceList:
+                                            _vocabularySentenceList));
+                              }),
+                        ),
+                      ),
+                    ]),
                   ],
                 ),
               ),
@@ -215,7 +236,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                         color: PageTheme.app_theme_blue,
                         width: 2,
                       ),
-                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
                     ),
                     child: Row(
                       children: <Widget>[
@@ -252,7 +274,9 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: const ScrollPhysics(),
-                              itemCount: _vocabularyList[index]['wordMeaningList'].length,
+                              itemCount: _vocabularyList[index]
+                                      ['wordMeaningList']
+                                  .length,
                               itemBuilder: (context, index2) {
                                 return AutoSizeText(
                                   '[${_vocabularyList[index]['wordMeaningList'][index2]['pos']}] ${_vocabularyList[index]['wordMeaningList'][index2]['meaning']}',
@@ -263,22 +287,17 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                   group: _wordMeaningTextSizeGroup,
                                   maxLines: 2,
                                 );
-                              }
-                          ),
+                              }),
                         ),
                       ],
                     ),
                   );
                 },
-                separatorBuilder: (context, index){
+                separatorBuilder: (context, index) {
                   return const Padding(padding: const EdgeInsets.all(8.0));
                 },
               ),
             ),
-
-
-
-
           ],
         ),
       ),
@@ -293,16 +312,20 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
     if (_vocabularySentenceList.length == _vocabularyList.length) return true;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
-    try{
+    try {
       int doLimit = 1;
       List<dynamic> vocabularySentenceList;
       do {
-        String responseJSON = await APIUtil.vocabularyGetSentenceList(_vocabularyList[0]['rowIndex'].toString(), dataLimit: _vocabularyList.length.toString());
+        String responseJSON = await APIUtil.vocabularyGetSentenceList(
+            _vocabularyList[0]['rowIndex'].toString(),
+            dataLimit: _vocabularyList.length.toString());
         responseJSONDecode = jsonDecode(responseJSON.toString());
-        if(responseJSONDecode['apiStatus'] != 'success') {
+        if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
-          if (doLimit > 3) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
-          await Future.delayed(Duration(seconds:1));
+          if (doLimit > 3)
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
       print(responseJSONDecode);
@@ -311,8 +334,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       setState(() {
         _vocabularySentenceList = vocabularySentenceList;
       });
-
-    } catch(e) {
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
       ));

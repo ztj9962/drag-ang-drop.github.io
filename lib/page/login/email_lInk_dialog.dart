@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/model/auth_respository.dart';
@@ -9,7 +8,6 @@ class emailDialog extends StatefulWidget {
 }
 
 class _emailDialogState extends State<emailDialog> {
-
   TextEditingController Emailcontroller = TextEditingController();
 
   @override
@@ -18,6 +16,7 @@ class _emailDialogState extends State<emailDialog> {
     //initDynamicLinks();
     super.initState();
   }
+
   /*void initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
@@ -76,7 +75,7 @@ class _emailDialogState extends State<emailDialog> {
                 ),
                 child: Center(
                   child: TextField(
-                    controller: Emailcontroller ,
+                    controller: Emailcontroller,
                     decoration: InputDecoration(
                       icon: Icon(
                         Icons.email,
@@ -89,20 +88,23 @@ class _emailDialogState extends State<emailDialog> {
                   ),
                 )),
             ElevatedButton(
-                onPressed: () {
-                  if(Emailcontroller.text.length>0){
-                    authRespository.SendSignInWithEmailLink(Emailcontroller.text);
-                  }
-                },
-                style:ElevatedButton.styleFrom(
-                  maximumSize: Size(150,50),
-                  minimumSize: Size(150,50),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  primary: Colors.indigoAccent,
-                ) ,
-                child: Text("Submit"),),
-            SizedBox(height: 20,)
+              onPressed: () {
+                if (Emailcontroller.text.length > 0) {
+                  authRespository.SendSignInWithEmailLink(Emailcontroller.text);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                maximumSize: Size(150, 50),
+                minimumSize: Size(150, 50),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                primary: Colors.indigoAccent,
+              ),
+              child: Text("Submit"),
+            ),
+            SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),

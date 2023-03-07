@@ -12,9 +12,10 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SigninButton extends StatelessWidget {
-  
   bool get isIOS => !kIsWeb && Platform.isIOS;
+
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
   bool get isWeb => kIsWeb;
 
   @override
@@ -27,7 +28,7 @@ class SigninButton extends StatelessWidget {
             onPressed: () async {
               await authRespository.signInWithGoogle();
               bool signIn = await authRespository.isSignedIn();
-              if(signIn == true){
+              if (signIn == true) {
                 //print(authRespository.getUid());
                 await SharedPreferencesUtil.saveData<bool>('isSignin', true);
                 //AutoRouter.of(context).replaceNamed("/index");
@@ -59,14 +60,16 @@ class SigninButton extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.bold)),
               ],
             )),
-        SizedBox(height: 30,),
-        if(isIOS)
+        SizedBox(
+          height: 30,
+        ),
+        if (isIOS)
           TextButton(
               onPressed: () async {
                 await authRespository.signInWithApple();
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 bool signIn = await authRespository.isSignedIn();
-                if(signIn == true){
+                if (signIn == true) {
                   //print(authRespository.getUid());
                   await SharedPreferencesUtil.saveData<bool>('isSignin', true);
                   //AutoRouter.of(context).replaceNamed("/index");
@@ -97,8 +100,7 @@ class SigninButton extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
                 ],
-              )
-          ),
+              )),
         SizedBox(height: 30),
         TextButton(
             onPressed: () {
@@ -129,7 +131,9 @@ class SigninButton extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.bold)),
               ],
             )),
-        SizedBox(height: 30,),
+        SizedBox(
+          height: 30,
+        ),
         /*
         TextButton(
             onPressed: () async {

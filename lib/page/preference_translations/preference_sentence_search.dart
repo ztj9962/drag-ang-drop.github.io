@@ -383,9 +383,8 @@ class _PreferenceTranslationSearchPageState
         if (mode == 1) {
           _splitedString = _sentenceInfoList['data'][i]['sentenceContent'];
           _splitedContent = _splitedString
-              .replaceAll(RegExp(sentenceSearched,caseSensitive: false), ';')
+              .replaceAll(RegExp(sentenceSearched, caseSensitive: false), ';')
               .split(';');
-
         }
         listViews.add(
           Container(
@@ -408,23 +407,22 @@ class _PreferenceTranslationSearchPageState
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                             color: PageTheme.app_theme_blue),
+                        style: TextStyle(color: PageTheme.app_theme_blue),
                       ))),
                       Expanded(
-                        flex: 3,
+                          flex: 3,
                           child: Container(
                               child: AutoSizeText(
-                        mode == 0
-                            ? _sentenceInfoList['data'][i]['wordRank'].toString()
-                            : _sentenceInfoList['data'][i]['sentenceID']
-                                .toString(),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: PageTheme.app_theme_blue),
-                      ))),
+                            mode == 0
+                                ? _sentenceInfoList['data'][i]['wordRank']
+                                    .toString()
+                                : _sentenceInfoList['data'][i]['sentenceID']
+                                    .toString(),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: PageTheme.app_theme_blue),
+                          ))),
                       Padding(padding: EdgeInsets.all(8)),
                       Expanded(
                         flex: 7,
@@ -438,7 +436,8 @@ class _PreferenceTranslationSearchPageState
                                         TextSpan(
                                             text: _splitedContent[0],
                                             style: TextStyle(
-                                                color: PageTheme.app_theme_blue)),
+                                                color:
+                                                    PageTheme.app_theme_blue)),
                                         TextSpan(
                                             text: sentenceSearched,
                                             style: TextStyle(
@@ -447,7 +446,8 @@ class _PreferenceTranslationSearchPageState
                                         TextSpan(
                                             text: _splitedContent[1],
                                             style: TextStyle(
-                                                color: PageTheme.app_theme_blue))
+                                                color:
+                                                    PageTheme.app_theme_blue))
                                       ]),
                                     )
                                   : AutoSizeText(
@@ -457,7 +457,6 @@ class _PreferenceTranslationSearchPageState
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-
                                           color: PageTheme.app_theme_blue),
                                     ),
                               AutoSizeText(

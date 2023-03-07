@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -23,11 +22,13 @@ import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
 
 class LearningAutoMinimalPairPage extends StatefulWidget {
-
   final String IPA1;
   final String IPA2;
   final String word;
-  const LearningAutoMinimalPairPage ({ Key? key, this.IPA1 = '', this.IPA2 = '', this.word = '' }): super(key: key);
+
+  const LearningAutoMinimalPairPage(
+      {Key? key, this.IPA1 = '', this.IPA2 = '', this.word = ''})
+      : super(key: key);
 
   @override
   _LearningAutoMinimalPairPage createState() => _LearningAutoMinimalPairPage();
@@ -36,7 +37,6 @@ class LearningAutoMinimalPairPage extends StatefulWidget {
 enum TtsState { playing, stopped, paused, continued }
 
 class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
-
   /* 測驗時長計時器 */
   late Timer _timer;
   late int _answerSeconds;
@@ -49,14 +49,16 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   String _IPA2 = '';
   String _word = '';
 
-
   late double _progress;
   List<int> _sentencesIDData = [];
   List _questionsData = [];
   int _totalTestQuestions = 25;
   int _quizID = 0;
   String _answerText = '';
-  Map<String, dynamic> _wordSet = {'learningClassification': '' , 'learningPhase': '' };
+  Map<String, dynamic> _wordSet = {
+    'learningClassification': '',
+    'learningPhase': ''
+  };
   String _applicationSettingsDataUUID = '';
   String _applicationSettingsDataListenAndSpeakLevel = '';
   double _applicationSettingsDataListenAndSpeakRanking = 0;
@@ -66,25 +68,21 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   String _questionText = '';
 
   var _allowTouchButtons = {
-    'reListenButton' : false,
-    'speakButton' : false,
-    'pauseButton' : true,
+    'reListenButton': false,
+    'speakButton': false,
+    'pauseButton': true,
   };
   int _correctCombo = 0;
   Map _finishQuizData = {
-    'sentenceIDArray' : <int>[],
-    'sentenceAnswerArray' : <String>[],
-    'scoreArray' : <int>[],
-    'secondsArrayQ' : <int>[],
-    'secondsArray' : <int>[],
-    'userAnswerRate' : <double>[],
+    'sentenceIDArray': <int>[],
+    'sentenceAnswerArray': <String>[],
+    'scoreArray': <int>[],
+    'secondsArrayQ': <int>[],
+    'secondsArray': <int>[],
+    'userAnswerRate': <double>[],
   };
 
-
   final List<Widget> _messages = <Widget>[];
-
-
-
 
   // Speech_to_text
   bool _sttHasSpeech = false;
@@ -115,14 +113,18 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   TtsState ttsState = TtsState.stopped;
 
   get isPlaying => ttsState == TtsState.playing;
+
   get isStopped => ttsState == TtsState.stopped;
+
   get isPaused => ttsState == TtsState.paused;
+
   get isContinued => ttsState == TtsState.continued;
 
   bool get isIOS => !kIsWeb && Platform.isIOS;
-  bool get isAndroid => !kIsWeb && Platform.isAndroid;
-  bool get isWeb => kIsWeb;
 
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+  bool get isWeb => kIsWeb;
 
   @override
   void initState() {
@@ -168,14 +170,19 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     SharedPreferencesUtil.getTTSRate().then((value) {
       setState(() => ttsRate = value);
     });
-    
-    SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID').then((value) {
+
+    SharedPreferencesUtil.getData<String>('applicationSettingsDataUUID')
+        .then((value) {
       setState(() => _applicationSettingsDataUUID = value!);
     });
-    SharedPreferencesUtil.getData<String>('applicationSettingsDataListenAndSpeakLevel').then((value) {
+    SharedPreferencesUtil.getData<String>(
+            'applicationSettingsDataListenAndSpeakLevel')
+        .then((value) {
       setState(() => _applicationSettingsDataListenAndSpeakLevel = value!);
     });
-    SharedPreferencesUtil.getData<double>('applicationSettingsDataListenAndSpeakRanking').then((value) {
+    SharedPreferencesUtil.getData<double>(
+            'applicationSettingsDataListenAndSpeakRanking')
+        .then((value) {
       setState(() => _applicationSettingsDataListenAndSpeakRanking = value!);
     });
   }
@@ -275,15 +282,16 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     });
   }
 
-
   Future<void> initChatBot() async {
     _startTime = new DateTime.now();
-    await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')], needSpeak:true, speakMessage:'Quiz is about to start. Please repeat after me', speakLanguage:'en-US');
+    await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗即將開始\n請跟著我重複一次')],
+        needSpeak: true,
+        speakMessage: 'Quiz is about to start. Please repeat after me',
+        speakLanguage: 'en-US');
     await sendNextQuestion();
   }
 
   Future<void> initTestQuestions() async {
-
     List questionsData = [];
     _progress = 0;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -292,10 +300,11 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     if (_IPA1 != '' && _IPA2 != '') {
       var minimalPairTwoFinder;
       do {
-        String minimalPairTwoFinderJSON = await APIUtil.minimalPairTwoFinder(_IPA1, _IPA2, dataLimit: '10');
+        String minimalPairTwoFinderJSON =
+            await APIUtil.minimalPairTwoFinder(_IPA1, _IPA2, dataLimit: '10');
         minimalPairTwoFinder = jsonDecode(minimalPairTwoFinderJSON.toString());
         //print('minimalPairTwoFinder 1 apiStatus:' + minimalPairTwoFinder['apiStatus'] + ' apiMessage:' + minimalPairTwoFinder['apiMessage']);
-        if(minimalPairTwoFinder['apiStatus'] != 'success') {
+        if (minimalPairTwoFinder['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
       } while (minimalPairTwoFinder['apiStatus'] != 'success');
@@ -303,7 +312,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
 
       minimalPairTwoFinder['data'].forEach((value) {
         questionsData.add({
-          "sentenceId":0,
+          "sentenceId": 0,
           "sentenceContent": value['leftWord'] + ', ' + value['rightWord'],
           "sentenceChinese": '',
         });
@@ -315,16 +324,17 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
-
     }
     // 來源為 word
     if (_word != '') {
       var minimalPairWordFinder;
       do {
-        String minimalPairWordFinderJSON = await APIUtil.minimalPairWordFinder(_word, dataLimit: '10');
-        minimalPairWordFinder = jsonDecode(minimalPairWordFinderJSON.toString());
+        String minimalPairWordFinderJSON =
+            await APIUtil.minimalPairWordFinder(_word, dataLimit: '10');
+        minimalPairWordFinder =
+            jsonDecode(minimalPairWordFinderJSON.toString());
         //print('minimalPairTwoFinder 1 apiStatus:' + minimalPairWordFinder['apiStatus'] + ' apiMessage:' + minimalPairWordFinder['apiMessage']);
-        if(minimalPairWordFinder['apiStatus'] != 'success') {
+        if (minimalPairWordFinder['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
         }
       } while (minimalPairWordFinder['apiStatus'] != 'success');
@@ -339,7 +349,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
 
       minimalPairWordFinder['data'].forEach((value) {
         questionsData.add({
-          "sentenceId":0,
+          "sentenceId": 0,
           "sentenceContent": value['leftWord'] + ', ' + value['rightWord'],
           "sentenceChinese": '',
         });
@@ -351,12 +361,12 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       _questionsData = questionsData;
       _totalTestQuestions = questionsData.length;
       return;
-
     }
 
     EasyLoading.dismiss();
     return;
   }
+
 /*
   Future<String> createTestQuestions() async {
     final response = await http.post(
@@ -388,10 +398,6 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     }
   }
 
-
-
-
-
   /*
   UI 介面
    */
@@ -411,64 +417,72 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
             maxLines: 1,
           ),
         ),
-        body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 5,
-                child: Container(
-                  child: ListView.builder(
-                    padding: new EdgeInsets.all(8.0),
-                    reverse: true,
-                    itemBuilder: (_, int index) => _messages[index],
-                    itemCount: _messages.length,
+        body: Column(children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: Container(
+              child: ListView.builder(
+                padding: new EdgeInsets.all(8.0),
+                reverse: true,
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+              ),
+            ),
+          ),
+          const Divider(
+            thickness: 1,
+            color: PageTheme.app_theme_blue,
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: SvgPicture.asset('assets/icon/audio.svg'),
                   ),
-                ),
-              ),
-              const Divider(
-                thickness: 1,
-                color: PageTheme.app_theme_blue,
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
+                  Expanded(
+                    flex: 1,
+                    child: CircleAvatar(
+                      backgroundColor: PageTheme.app_theme_blue,
+                      radius: 40.0,
+                      child: IconButton(
+                        icon: Icon(
+                            (_allowTouchButtons['speakButton']! && !isPlaying)
+                                ? (speechToText.isListening
+                                    ? Icons.stop
+                                    : Icons.mic_none)
+                                : Icons.mic_off_outlined,
+                            size: 30),
+                        color:
+                            (_allowTouchButtons['speakButton']! && !isPlaying)
+                                ? Colors.white
+                                : Colors.grey,
+                        onPressed: () {
+                          if (_allowTouchButtons['speakButton']! &&
+                              !isPlaying) {
+                            if (!_sttHasSpeech || speechToText.isListening) {
+                              sttStopListening();
+                            } else {
+                              sttStartListening();
+                            }
+                          }
+                        },
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: CircleAvatar(
-                          backgroundColor: PageTheme.app_theme_blue,
-                          radius: 40.0,
-                          child: IconButton(
-                            icon: Icon( (_allowTouchButtons['speakButton']! && !isPlaying ) ? (speechToText.isListening ? Icons.stop : Icons.mic_none) : Icons.mic_off_outlined , size: 30),
-                            color: (_allowTouchButtons['speakButton']! && !isPlaying ) ? Colors.white : Colors.grey ,
-                            onPressed: () {
-                              if(_allowTouchButtons['speakButton']! && !isPlaying ){
-                                if( !_sttHasSpeech || speechToText.isListening ){
-                                  sttStopListening();
-                                } else {
-                                  sttStartListening();
-                                }
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: SvgPicture.asset('assets/icon/audio.svg'),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    flex: 2,
+                    child: SvgPicture.asset('assets/icon/audio.svg'),
+                  ),
+                ],
               ),
-            ]
-        )
+            ),
+          ),
+        ])
 
-      /*
+        /*
         Stack(
             children: <Widget>[
               Padding(
@@ -614,8 +628,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
         )
         */
 
-
-    );
+        );
   }
 
   /*
@@ -660,7 +673,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
     //print(sttLastWords);
-    _handleSubmitted(result.recognizedWords, isFinalResult:result.finalResult);
+    _handleSubmitted(result.recognizedWords, isFinalResult: result.finalResult);
   }
 
   void sttSoundLevelListener(double level) {
@@ -694,8 +707,6 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     //print(selectedVal);
   }
 
-
-
   /* tts 相關 */
   Future<dynamic> _getLanguages() => flutterTts.getLanguages;
 
@@ -707,12 +718,12 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       //print(engine);
     }
   }
-  Future _ttsSpeak(String speakMessage, String speakLanguage) async {
 
+  Future _ttsSpeak(String speakMessage, String speakLanguage) async {
     await sttStopListening();
 
     await flutterTts.setLanguage(speakLanguage);
-    if(ttsRateSlow){
+    if (ttsRateSlow) {
       await flutterTts.setSpeechRate(ttsRate * 0.22);
     } else {
       await flutterTts.setSpeechRate(ttsRate);
@@ -740,42 +751,51 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   other
    */
 
-  Future sendChatMessage(bool senderIsMe, String senderName, List<TextSpan> messageTextWidget, {bool needSpeak : false, bool canSpeak : false, String speakMessage : '', String speakLanguage : 'en-US'}) async {
+  Future sendChatMessage(
+      bool senderIsMe, String senderName, List<TextSpan> messageTextWidget,
+      {bool needSpeak: false,
+      bool canSpeak: false,
+      String speakMessage: '',
+      String speakLanguage: 'en-US'}) async {
     ChatMessageUtil message = ChatMessageUtil(
       senderIsMe: senderIsMe,
       senderName: senderName,
       messageTextWidget: messageTextWidget,
-      actionButton:
-      (canSpeak)
+      actionButton: (canSpeak)
           ? IconButton(
-            icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined),
-            color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.black : Colors.grey ,
-            onPressed: () async {
-              if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
-                ttsRateSlow = !ttsRateSlow;
-                await _ttsSpeak(speakMessage, speakLanguage);
-              }
-            },
-          )
-          : null
-
-      ,
+              icon: Icon((_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening)
+                  ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                  : Icons.volume_off_outlined),
+              color: (_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening)
+                  ? Colors.black
+                  : Colors.grey,
+              onPressed: () async {
+                if (_allowTouchButtons['reListenButton']! &&
+                    !speechToText.isListening) {
+                  ttsRateSlow = !ttsRateSlow;
+                  await _ttsSpeak(speakMessage, speakLanguage);
+                }
+              },
+            )
+          : null,
     );
     setState(() {
       _messages.insert(0, message);
     });
 
-    if(needSpeak) {
+    if (needSpeak) {
       await _ttsSpeak(speakMessage, speakLanguage);
     }
   }
 
-  void _handleSubmitted(String text, {bool isFinalResult:false}) {
+  void _handleSubmitted(String text, {bool isFinalResult: false}) {
     setState(() {
       _answerText = text;
     });
 
-    if(_answerText != '' && isFinalResult){
+    if (_answerText != '' && isFinalResult) {
       sendChatMessage(true, 'Me', [TextSpan(text: text)]);
       _finishQuizData['secondsArray']!.add(_answerSeconds);
 
@@ -791,16 +811,16 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     }
   }
 
-
   void _responseChatBot(text) async {
     //print('_responseChatBot('+text);
-    String checkSentencesJSON = await APIUtil.checkSentences(_questionText, text, correctCombo:_correctCombo);
+    String checkSentencesJSON = await APIUtil.checkSentences(
+        _questionText, text,
+        correctCombo: _correctCombo);
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
     //print(checkSentencesJSON.toString());
 
-    if(checkSentences['apiStatus'] == 'success'){
-
-      if(checkSentences['data']['ipaTextSimilarity'] == 100){
+    if (checkSentences['apiStatus'] == 'success') {
+      if (checkSentences['data']['ipaTextSimilarity'] == 100) {
         _correctCombo++;
       } else {
         _correctCombo = 0;
@@ -811,38 +831,45 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       var questionTextArray = checkSentences['data']['questionText'].split(' ');
       List<TextSpan> questionTextWidget = [];
       for (var i = 0; i < questionTextArray.length; i++) {
-        if(checkSentences['data']['questionError'].containsKey(questionTextArray[i])){
-          questionTextWidget.add(
-              TextSpan(
-                text: questionTextArray[i] + ' ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              )
-          );
+        if (checkSentences['data']['questionError']
+            .containsKey(questionTextArray[i])) {
+          questionTextWidget.add(TextSpan(
+            text: questionTextArray[i] + ' ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ));
         } else {
-          if (i < questionTextArray.length) questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
+          if (i < questionTextArray.length)
+            questionTextWidget.add(TextSpan(text: questionTextArray[i] + ' '));
         }
       }
-      questionTextWidget.add(TextSpan(text: '\n第 $_part/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}'));
-
+      questionTextWidget.add(TextSpan(
+          text:
+              '\n第 $_part/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}'));
 
       message = ChatMessageUtil(
         senderIsMe: false,
         senderName: 'Bot',
         messageTextWidget: questionTextWidget,
         actionButton: IconButton(
-          icon: Icon( (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined) : Icons.volume_off_outlined),
-          color: (_allowTouchButtons['reListenButton']! && !speechToText.isListening ) ? Colors.black : Colors.grey ,
+          icon: Icon((_allowTouchButtons['reListenButton']! &&
+                  !speechToText.isListening)
+              ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+              : Icons.volume_off_outlined),
+          color: (_allowTouchButtons['reListenButton']! &&
+                  !speechToText.isListening)
+              ? Colors.black
+              : Colors.grey,
           onPressed: () async {
-            if(_allowTouchButtons['reListenButton']! && !speechToText.isListening ){
+            if (_allowTouchButtons['reListenButton']! &&
+                !speechToText.isListening) {
               ttsRateSlow = !ttsRateSlow;
               await _ttsSpeak(checkSentences['data']['questionText'], "en-US");
             }
           },
-        )
-        ,
+        ),
       );
       setState(() {
         _messages[1] = message;
@@ -852,16 +879,15 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       List<TextSpan> answerTextWidget = [];
 
       for (var i = 0; i < answerTextArray.length; i++) {
-        if(checkSentences['data']['answerError'].containsKey(answerTextArray[i])){
-          answerTextWidget.add(
-              TextSpan(
-                text: answerTextArray[i] + ' ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              )
-          );
+        if (checkSentences['data']['answerError']
+            .containsKey(answerTextArray[i])) {
+          answerTextWidget.add(TextSpan(
+            text: answerTextArray[i] + ' ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ));
         } else {
           answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
         }
@@ -876,15 +902,29 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
         _messages[0] = message;
         _answerText = '';
       });
-      _finishQuizData['sentenceIDArray']!.add(_questionsData[_part - 1]['sentenceId']);
-      _finishQuizData['sentenceAnswerArray']!.add(checkSentences['data']['answerText']);
-      _finishQuizData['scoreArray']!.add(checkSentences['data']['scoreComment']['score']);
-      _finishQuizData['userAnswerRate']!.add(checkSentences['data']['answerText'].split(' ').length / _finishQuizData['secondsArray']![_part - 1]);
+      _finishQuizData['sentenceIDArray']!
+          .add(_questionsData[_part - 1]['sentenceId']);
+      _finishQuizData['sentenceAnswerArray']!
+          .add(checkSentences['data']['answerText']);
+      _finishQuizData['scoreArray']!
+          .add(checkSentences['data']['scoreComment']['score']);
+      _finishQuizData['userAnswerRate']!.add(
+          checkSentences['data']['answerText'].split(' ').length /
+              _finishQuizData['secondsArray']![_part - 1]);
       //print(_finishQuizData);
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')], needSpeak:true, speakMessage:checkSentences['data']['scoreComment']['text'].toLowerCase(), speakLanguage:'en-US');
+      await sendChatMessage(
+          false,
+          'Bot',
+          [
+            TextSpan(
+                text:
+                    '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']}\n您花 ${_finishQuizData['secondsArray']![_part - 1].toString()} 秒（${_finishQuizData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答')
+          ],
+          needSpeak: true,
+          speakMessage:
+              checkSentences['data']['scoreComment']['text'].toLowerCase(),
+          speakLanguage: 'en-US');
       await sendNextQuestion();
-
-
     } else {
       //print('_responseChatBot Error apiStatus:' + checkSentences['apiStatus'] + ' apiMessage:' + checkSentences['apiMessage']);
       await Future.delayed(Duration(seconds: 1));
@@ -892,30 +932,40 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     }
   }
 
-
   Future<void> sendNextQuestion() async {
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
-    if( _part > _totalTestQuestions){
+    if (_part > _totalTestQuestions) {
       var _endTime = DateTime.now();
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')], needSpeak:true, speakMessage:'Quiz is over', speakLanguage:'en-US');
+      await sendChatMessage(false, 'Bot', [TextSpan(text: '測驗結束')],
+          needSpeak: true,
+          speakMessage: 'Quiz is over',
+          speakLanguage: 'en-US');
 
       //var secondsArraySum = _finishQuizData['secondsArray'].reduce((sum, element) => int.parse(sum) + int.parse(element));
-      var secondsArraySum = _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
-      var userAnswerRate = _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
+      var secondsArraySum =
+          _finishQuizData['secondsArray'].fold(0, (p, c) => p + c);
+      var userAnswerRate =
+          _finishQuizData['userAnswerRate'].fold(0, (p, c) => p + c);
 
-
-
-      await sendChatMessage(false, 'Bot', [
-        TextSpan(text: '=== 紀錄 ===\n'),
-        TextSpan(text: '答對題數/總題數：${ _finishQuizData['scoreArray'].where((score) => score == 100).toList().length } / ${ _finishQuizData['scoreArray'].length }\n'),
-        TextSpan(text: '設定AI語速：${ttsRate.toStringAsFixed(2)} 倍速\n'),
-        TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
-        TextSpan(text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
-        //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
-        //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
-
-      ], needSpeak:false, speakMessage:'', speakLanguage:'en-US');
+      await sendChatMessage(
+          false,
+          'Bot',
+          [
+            TextSpan(text: '=== 紀錄 ===\n'),
+            TextSpan(
+                text:
+                    '答對題數/總題數：${_finishQuizData['scoreArray'].where((score) => score == 100).toList().length} / ${_finishQuizData['scoreArray'].length}\n'),
+            TextSpan(text: '設定AI語速：${ttsRate.toStringAsFixed(2)} 倍速\n'),
+            TextSpan(text: '您的平均語速：${userAnswerRate.toStringAsFixed(2)} wps\n'),
+            TextSpan(
+                text: '總測驗時間：${_endTime.difference(_startTime).inSeconds}秒'),
+            //TextSpan(text: '總回答秒數：${ secondsArraySum }秒\n'),
+            //TextSpan(text: '平均回答秒數：${ secondsArraySum / _finishQuizData['secondsArray'].length }秒\n'),
+          ],
+          needSpeak: false,
+          speakMessage: '',
+          speakLanguage: 'en-US');
 
       /*
       if(_quizID != 0){
@@ -943,12 +993,24 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
     } else {
       _questionText = _questionsData[_part - 1]['sentenceContent'];
       //_questionStart = DateTime.now();
-      await sendChatMessage(false, 'Bot', [TextSpan(text: '${_questionText}\n第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}')], needSpeak:true, canSpeak:true, speakMessage:_questionText, speakLanguage:'en-US');
+      await sendChatMessage(
+          false,
+          'Bot',
+          [
+            TextSpan(
+                text:
+                    '${_questionText}\n第 ${_part}/$_totalTestQuestions 題：${_questionsData[_part - 1]['sentenceChinese']}')
+          ],
+          needSpeak: true,
+          canSpeak: true,
+          speakMessage: _questionText,
+          speakLanguage: 'en-US');
       //_questionEnd = DateTime.now();
       //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
       //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
       //await sendChatMessage(false, 'Bot', [TextSpan(text: 'The number of seconds in the sentence is: ${ttsRate}')], needSpeak:false, speakMessage:'', speakLanguage: 'en-US');
-      await Future.delayed(Duration(milliseconds: (_part / _totalTestQuestions * 2340).round()));
+      await Future.delayed(
+          Duration(milliseconds: (_part / _totalTestQuestions * 2340).round()));
       setState(() {
         _isActive = true;
       });
@@ -1029,5 +1091,4 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
       });
     }
   }
-
 }

@@ -17,7 +17,6 @@ class IndexAccountPage extends StatefulWidget {
 }
 
 class _IndexAccountPageState extends State<IndexAccountPage> {
-
   @override
   void initState() {
     super.initState();
@@ -27,6 +26,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +58,10 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black),
-                  textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 24)),
-                  shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide(style: BorderStyle.solid))),//圆角弧度
+                  textStyle:
+                      MaterialStateProperty.all(const TextStyle(fontSize: 24)),
+                  shape: MaterialStateProperty.all(const StadiumBorder(
+                      side: BorderSide(style: BorderStyle.solid))), //圆角弧度
                 ),
                 child: const Text('   登出   '),
                 onPressed: () async {
@@ -70,14 +72,9 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 },
               ),
             ),
-
           ],
         ),
       ),
-
-
-
-
     );
   }
 
@@ -96,7 +93,9 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                       width: 64,
                       height: 64,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL ?? 'https://picsum.photos/100/100'),
+                        backgroundImage: NetworkImage(
+                            FirebaseAuth.instance.currentUser?.photoURL ??
+                                'https://picsum.photos/100/100'),
                       ),
                     ),
                   ),
@@ -109,29 +108,22 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                           AutoSizeText(
                             '${FirebaseAuth.instance.currentUser?.displayName}',
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                             maxLines: 1,
                           ),
                           AutoSizeText(
                             '${FirebaseAuth.instance.currentUser?.email}',
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                             maxLines: 1,
                           ),
                           AutoSizeText(
                             '${FirebaseAuth.instance.currentUser?.uid}',
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 14, fontWeight: FontWeight.bold),
                             maxLines: 1,
                           )
-                        ]
-                    ),
+                        ]),
                   ),
                   Expanded(
                     flex: 2,
@@ -177,8 +169,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
 
                    */
                 ],
-              )
-          ),
+              )),
           /*
           Expanded(
             flex: 1,
@@ -267,7 +258,9 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 flex: 9,
                 child: Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('英語測驗', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  child: const Text('英語測驗',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 ),
               ),
               Expanded(
@@ -278,10 +271,11 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     height: 16,
                     child: Transform.rotate(
                       angle: 0.5,
-                      child: SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
+                      child:
+                          SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     //print('aa');
                   },
                 ),
@@ -301,7 +295,9 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 flex: 9,
                 child: Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('個人資訊', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  child: const Text('個人資訊',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 ),
               ),
               Expanded(
@@ -312,10 +308,11 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     height: 16,
                     child: Transform.rotate(
                       angle: 0.5,
-                      child: SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
+                      child:
+                          SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     //print('aa');
                   },
                 ),
@@ -335,7 +332,9 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 flex: 9,
                 child: Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('學習提醒', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  child: const Text('學習提醒',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 ),
               ),
               Expanded(
@@ -346,10 +345,11 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                     height: 16,
                     child: Transform.rotate(
                       angle: 0.5,
-                      child: SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
+                      child:
+                          SvgPicture.asset('assets/icon/drop_down_arrow.svg'),
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     //print('aa');
                   },
                 ),
@@ -360,7 +360,4 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
       ],
     );
   }
-
-
-
 }

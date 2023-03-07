@@ -60,8 +60,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '821836479428',
     projectId: 'english-study-project',
     storageBucket: 'english-study-project.appspot.com',
-    androidClientId: '821836479428-3h7e8ee5rq67h70hcn4dl43srj5be28u.apps.googleusercontent.com',
-    iosClientId: '821836479428-1ugoboj6qmka8bf0vjt7juthub5tiasa.apps.googleusercontent.com',
+    androidClientId:
+        '821836479428-3h7e8ee5rq67h70hcn4dl43srj5be28u.apps.googleusercontent.com',
+    iosClientId:
+        '821836479428-1ugoboj6qmka8bf0vjt7juthub5tiasa.apps.googleusercontent.com',
     iosBundleId: 'com.alicsnet.alicsnetApp',
   );
 }

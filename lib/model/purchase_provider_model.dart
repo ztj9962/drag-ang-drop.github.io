@@ -9,33 +9,42 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-class PurchaseProviderModel with ChangeNotifier{
-  
+class PurchaseProviderModel with ChangeNotifier {
   bool get isIOS => !kIsWeb && Platform.isIOS;
+
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
   bool get isWeb => kIsWeb;
 
-  InAppPurchase _iap  = InAppPurchase.instance;
+  InAppPurchase _iap = InAppPurchase.instance;
   bool available = true;
   late StreamSubscription subscription;
-  final List<String> myProductID = <String>['one_month_premiere','three_month_premiere','six_month_premiere','one_year_premiere'];
+  final List<String> myProductID = <String>[
+    'one_month_premiere',
+    'three_month_premiere',
+    'six_month_premiere',
+    'one_year_premiere'
+  ];
 
   List _purchases = [];
+
   List get purchases => _purchases;
+
   set purchases(List value) {
     _purchases = value;
     notifyListeners();
   }
+
   Map products = new Map();
   Map IOS_products = new Map();
+
   /*List<ProductDetails> get products => _products;
   set products(List<ProductDetails> value) {
     _products = value;
     notifyListeners();
   }*/
 
-
-  PurchaseProviderModel(){
+  PurchaseProviderModel() {
     subscription = _iap.purchaseStream.listen((purchaseDetailsList) {
       // Handle the purchased subscriptions
       _listenToPurchaseUpdated(purchaseDetailsList);
@@ -47,9 +56,9 @@ class PurchaseProviderModel with ChangeNotifier{
     initialize();
   }
 
-  void initialize() async{
+  void initialize() async {
     available = await _iap.isAvailable();
-    if(available){
+    if (available) {
       await _getProducts();
     }
   }
@@ -60,23 +69,28 @@ class PurchaseProviderModel with ChangeNotifier{
       switch (purchaseDetails.status) {
         case PurchaseStatus.pending:
           //print("pending");
-        //  _showPendingUI();
+          //  _showPendingUI();
           break;
         case PurchaseStatus.purchased:
         case PurchaseStatus.restored:
-        // bool valid = await _verifyPurchase(purchaseDetails);
-        // if (!valid) {
-        //   _handleInvalidPurchase(purchaseDetails);
-        // }
+          // bool valid = await _verifyPurchase(purchaseDetails);
+          // if (!valid) {
+          //   _handleInvalidPurchase(purchaseDetails);
+          // }
           //print(purchaseDetails.verificationData.localVerificationData);
-          Map purchaseData = json.decode(purchaseDetails.verificationData.localVerificationData);
+          Map purchaseData = json
+              .decode(purchaseDetails.verificationData.localVerificationData);
           //print(purchaseData['productId']);
           String platformTag = 'unknown';
           if (isIOS) platformTag = 'ios';
           if (isAndroid) platformTag = 'android';
           if (isWeb) platformTag = 'web';
 
-          verifyPurchase(purchaseData['productId'], purchaseData['purchaseToken'],FirebaseAuth.instance.currentUser!.uid, platformTag);
+          verifyPurchase(
+              purchaseData['productId'],
+              purchaseData['purchaseToken'],
+              FirebaseAuth.instance.currentUser!.uid,
+              platformTag);
           break;
         case PurchaseStatus.error:
           //print(purchaseDetails.error!);
@@ -93,15 +107,16 @@ class PurchaseProviderModel with ChangeNotifier{
     });
   }
 
-  Future<void>verifyPurchase(String productId,String token,String userId,String platform)async{
+  Future<void> verifyPurchase(
+      String productId, String token, String userId, String platform) async {
     final queryParameters = {
-      'packagename' : 'tw.nfs.selsapp.sels_app',
+      'packagename': 'tw.nfs.selsapp.sels_app',
       'productId': productId,
-      'token':token,
-      'userId':userId,
+      'token': token,
+      'userId': userId,
     };
     final response = await http.get(
-      Uri.http('10.0.2.2:8000', 'api/verify/${platform}',queryParameters));
+        Uri.http('10.0.2.2:8000', 'api/verify/${platform}', queryParameters));
     String json = response.body.toString();
     //print(json);
   }
@@ -121,5 +136,4 @@ class PurchaseProviderModel with ChangeNotifier{
       purchaseParam: purchaseParam,
     );
   }
-
 }

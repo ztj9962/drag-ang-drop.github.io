@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class PageTheme {
   PageTheme._();
+
   static const Color app_theme_blue = Color(0xFF08579B);
   static const Color app_theme_black = Color(0xFF130620);
   static const Color index_bar_background = Color(0xFF130620);
@@ -27,7 +28,8 @@ class PageTheme {
   static const Color percent_indicator_background = Color(0xFF003F24);
   static const Color percent_indicator_progress = Color(0xFFFEF8F2);
 
-  static const TextStyle index_vocabulary_test_index_text = TextStyle(fontWeight: FontWeight.w600,fontSize: 18);
+  static const TextStyle index_vocabulary_test_index_text =
+      TextStyle(fontWeight: FontWeight.w600, fontSize: 18);
 
   static const Color nearlyWhite = Color(0xFFFAFAFA);
   static const Color nearlyBlack = Color(0xFF213333);

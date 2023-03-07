@@ -41,6 +41,7 @@ class _CustomArticlePracticeSentenceIndexPage
   List pieChartData = [];
 
   List _CompleteSentenceList = [];
+
   @override
   void initState() {
     super.initState();
@@ -65,8 +66,8 @@ class _CustomArticlePracticeSentenceIndexPage
               onPressed: () {
                 int count = 0;
                 for (var i = 0;
-                i < sentenceExampleData.sentence[key].split(" ").length;
-                i++) {
+                    i < sentenceExampleData.sentence[key].split(" ").length;
+                    i++) {
                   if (r.hasMatch(
                       sentenceExampleData.sentence[key].split(" ")[i])) {
                     count += 1;
@@ -78,7 +79,8 @@ class _CustomArticlePracticeSentenceIndexPage
                 _controller.text = sentenceExampleData.sentence[key];
               },
               child: Text('${key}'),
-              style: ElevatedButton.styleFrom(primary: PageTheme.app_theme_blue),
+              style:
+                  ElevatedButton.styleFrom(primary: PageTheme.app_theme_blue),
             ),
           ),
         ),
@@ -99,9 +101,10 @@ class _CustomArticlePracticeSentenceIndexPage
     var sentenceSegmentation;
     var ipa;
     var getStatitics;
-    try{
-      if (_controller.text != "" && inputWordCount>0) {
-        String grammar_response = await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
+    try {
+      if (_controller.text != "" && inputWordCount > 0) {
+        String grammar_response =
+            await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
         var checkedGrammar = jsonDecode(grammar_response);
         if (checkedGrammar['apiStatus'] == 'success') {
           sentenceSegmentation = await APIUtil.getSentenceSegmentation(
@@ -158,7 +161,7 @@ class _CustomArticlePracticeSentenceIndexPage
               isloading = false;
             });
           }
-        }else{
+        } else {
           final text = "發生異常";
           final snackbar = SnackBar(
             content: Text(text),
@@ -178,7 +181,7 @@ class _CustomArticlePracticeSentenceIndexPage
         );
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
-    }catch(error){
+    } catch (error) {
       setState(() {
         isloading = false;
       });
@@ -189,7 +192,6 @@ class _CustomArticlePracticeSentenceIndexPage
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
     }
-
   }
 
   @override
@@ -231,7 +233,8 @@ class _CustomArticlePracticeSentenceIndexPage
                   padding: const EdgeInsets.only(left: 12),
                   child: Text("範例文章",
                       style: TextStyle(
-                          color: PageTheme.cutom_article_practice_background.withOpacity(0.8),
+                          color: PageTheme.cutom_article_practice_background
+                              .withOpacity(0.8),
                           fontSize: 14,
                           height: 1.0,
                           fontWeight: FontWeight.bold)),
@@ -253,8 +256,11 @@ class _CustomArticlePracticeSentenceIndexPage
                   children: topicList,
                 )),*/
             Padding(
-              padding: const EdgeInsets.only(top: 10,right: 10,left: 10),
-              child: Wrap(runSpacing:5.0,children: topicList,),
+              padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+              child: Wrap(
+                runSpacing: 5.0,
+                children: topicList,
+              ),
             ),
             Container(
                 margin: const EdgeInsets.only(
@@ -266,8 +272,8 @@ class _CustomArticlePracticeSentenceIndexPage
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     width: 2,
-                    color:
-                    PageTheme.cutom_article_practice_background.withOpacity(0.5),
+                    color: PageTheme.cutom_article_practice_background
+                        .withOpacity(0.5),
                   ),
                 ),
                 child: ListView(
@@ -311,7 +317,7 @@ class _CustomArticlePracticeSentenceIndexPage
                                     affinity: TextAffinity.downstream,
                                     isDirectional: false),
                                 composing:
-                                new TextRange(start: 0, end: maxLength));
+                                    new TextRange(start: 0, end: maxLength));
                             _controller.text = text;
                           }
                         })
@@ -336,11 +342,11 @@ class _CustomArticlePracticeSentenceIndexPage
                   Expanded(child: Container()),
                   isloading
                       ? Container(
-                      padding: EdgeInsets.all(3),
-                      height: 40,
-                      width: 100,
-                      child: Center(
-                          child: CircularProgressIndicator(
+                          padding: EdgeInsets.all(3),
+                          height: 40,
+                          width: 100,
+                          child: Center(
+                              child: CircularProgressIndicator(
                             color: PageTheme.cutom_article_practice_background,
                             strokeWidth: 4.0,
                           )))
@@ -411,7 +417,8 @@ class _CustomArticlePracticeSentenceIndexPage
                       padding: const EdgeInsets.only(left: 12),
                       child: Text("單字級別分佈",
                           style: TextStyle(
-                              color: PageTheme.cutom_article_practice_background.withOpacity(0.8),
+                              color: PageTheme.cutom_article_practice_background
+                                  .withOpacity(0.8),
                               fontSize: 14,
                               height: 1.0,
                               fontWeight: FontWeight.bold)),
@@ -451,7 +458,8 @@ class _CustomArticlePracticeSentenceIndexPage
                       padding: const EdgeInsets.only(left: 12),
                       child: Text("Sentence Shadow Speaking",
                           style: TextStyle(
-                              color: PageTheme.cutom_article_practice_background,
+                              color:
+                                  PageTheme.cutom_article_practice_background,
                               fontSize: 18,
                               height: 1.0,
                               fontWeight: FontWeight.bold)),
@@ -463,7 +471,8 @@ class _CustomArticlePracticeSentenceIndexPage
                           Text("句子跟讀",
                               style: TextStyle(
                                   color: PageTheme
-                                      .cutom_article_practice_background.withOpacity(0.8),
+                                      .cutom_article_practice_background
+                                      .withOpacity(0.8),
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold)),
                           Expanded(child: Container()),
@@ -477,7 +486,9 @@ class _CustomArticlePracticeSentenceIndexPage
                           color: PageTheme.cutom_article_practice_background,
                           borderRadius: BorderRadius.circular(15)),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
                         Expanded(child: Container()),
@@ -487,9 +498,9 @@ class _CustomArticlePracticeSentenceIndexPage
                           child: ElevatedButton(
                               onPressed: () async {
                                 if (!practice_auto) {
-
                                 } else {
-                                  List contentNoDupe = sentencelist.toSet().toList();
+                                  List contentNoDupe =
+                                      sentencelist.toSet().toList();
                                   List<String> filtedTranslation = [];
                                   List<String> filtedContentList = [];
                                   List<String> filtedIPA = [];
@@ -499,27 +510,34 @@ class _CustomArticlePracticeSentenceIndexPage
                                   await _getCompleteSentenceList(contentNoDupe);
                                   //print('CL: ${_CompleteSentenceList}');
 
-                                  for (final filtedContent in _CompleteSentenceList) {
-                                    mainCheckList.add(filtedContent['mainCheck']);
-                                    filtedContentList.add(filtedContent['content']);
+                                  for (final filtedContent
+                                      in _CompleteSentenceList) {
+                                    mainCheckList
+                                        .add(filtedContent['mainCheck']);
+                                    filtedContentList
+                                        .add(filtedContent['content']);
                                     filtedIPA.add(filtedContent['IPA']);
-                                    oriList.add(filtedContent['originSentence']);
+                                    oriList
+                                        .add(filtedContent['originSentence']);
                                   }
 
-                                  for(int check = 0;check < mainCheckList.length;check++){
-                                    if(mainCheckList[check]){
+                                  for (int check = 0;
+                                      check < mainCheckList.length;
+                                      check++) {
+                                    if (mainCheckList[check]) {
                                       filtedTranslation.add('');
-                                    }else{
-                                      filtedTranslation.add('原句: ${oriList[check]}');
+                                    } else {
+                                      filtedTranslation
+                                          .add('原句: ${oriList[check]}');
                                     }
                                   }
 
-                                  AutoRouter.of(context).push(
-                                      LearningAutoGenericRoute(
-                                        contentList: filtedContentList,
-                                        ipaList: filtedIPA,
-                                        translateList: filtedTranslation,
-                                      ));
+                                  AutoRouter.of(context)
+                                      .push(LearningAutoGenericRoute(
+                                    contentList: filtedContentList,
+                                    ipaList: filtedIPA,
+                                    translateList: filtedTranslation,
+                                  ));
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -527,24 +545,26 @@ class _CustomArticlePracticeSentenceIndexPage
                                       .cutom_article_practice_background),
                               child: Text('口語練習')),
                         ),
-                        SizedBox(width: 8,),
-                            Text("Auto：",
-                                style: TextStyle(
-                                    color: PageTheme
-                                        .cutom_article_practice_background,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold)),
-                            Switch(
-                              value: practice_auto,
-                              onChanged: (value) {
-                                setState(() {
-                                  practice_auto = !practice_auto;
-                                });
-                              },
-                              activeColor:
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text("Auto：",
+                            style: TextStyle(
+                                color:
+                                    PageTheme.cutom_article_practice_background,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold)),
+                        Switch(
+                          value: practice_auto,
+                          onChanged: (value) {
+                            setState(() {
+                              practice_auto = !practice_auto;
+                            });
+                          },
+                          activeColor:
                               PageTheme.cutom_article_practice_background,
-                              activeTrackColor: Color(0xffcbdaff),
-                            ),
+                          activeTrackColor: Color(0xffcbdaff),
+                        ),
                         Expanded(child: Container()),
                       ],
                     )
@@ -574,6 +594,7 @@ class _CustomArticlePracticeSentenceIndexPage
           ],
         ));
   }
+
   Future<bool> _getCompleteSentenceList(List content) async {
     //if (_vocabularySentenceList.length == _vocabularyList.length) return;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -609,7 +630,6 @@ class _CustomArticlePracticeSentenceIndexPage
   }
 }
 
-
 //文章分析說明dialog
 class CustomAlertDialog extends StatelessWidget {
   @override
@@ -639,26 +659,50 @@ class CustomAlertDialog extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),
-                    Divider(color: Colors.black54,thickness: 1,),
+                    Divider(
+                      color: Colors.black54,
+                      thickness: 1,
+                    ),
                     SizedBox(
                       height: 5,
                     ),
                     Text.rich(
                       TextSpan(
-                          text: 'Alics各等級單字分配如下\n',
-                          style: TextStyle(color: Colors.black54,height: 1.5),
+                        text: 'Alics各等級單字分配如下\n',
+                        style: TextStyle(color: Colors.black54, height: 1.5),
                         children: [
-                          TextSpan(text: '◎ 國小：11.74%，共1087個\n',style: TextStyle(height: 2)),
-                          TextSpan(text: '◎ 國中：13.55%，共1255個\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 高中(1)：22.76%，共2117個\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 高中(2)：23.28%，共2156個\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 全民英檢：4.78%，共443個\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 多益：11.56%，共1071個\n',style: TextStyle(height: 1.5)),
-                          TextSpan(text: '◎ 托福：12.22%，共1132個\n',style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 國小：11.74%，共1087個\n',
+                              style: TextStyle(height: 2)),
+                          TextSpan(
+                              text: '◎ 國中：13.55%，共1255個\n',
+                              style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 高中(1)：22.76%，共2117個\n',
+                              style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 高中(2)：23.28%，共2156個\n',
+                              style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 全民英檢：4.78%，共443個\n',
+                              style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 多益：11.56%，共1071個\n',
+                              style: TextStyle(height: 1.5)),
+                          TextSpan(
+                              text: '◎ 托福：12.22%，共1132個\n',
+                              style: TextStyle(height: 1.5)),
                         ],
                       ),
                     ),
-                    ElevatedButton(onPressed: (){Navigator.of(context).pop();}, child:Text('OK'),style: ElevatedButton.styleFrom(primary: PageTheme.cutom_article_practice_background),)
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'),
+                      style: ElevatedButton.styleFrom(
+                          primary: PageTheme.cutom_article_practice_background),
+                    )
                   ],
                 ),
               ),

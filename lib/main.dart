@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -11,29 +10,25 @@ import 'package:alicsnet_app/page/page_theme.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-
-
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
-
 bool get isIOS => !kIsWeb && Platform.isIOS;
+
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
 bool get isWeb => kIsWeb;
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await SystemChrome.setPreferredOrientations(
-      <DeviceOrientation>[
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown
-      ]
-  ).then((_) {
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]).then((_) {
     runApp(MyApp());
   });
 }
@@ -55,10 +50,10 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<PurchaseProviderModel>(create: (context) => PurchaseProviderModel()),
+        ChangeNotifierProvider<PurchaseProviderModel>(
+            create: (context) => PurchaseProviderModel()),
       ],
-      child:
-      MaterialApp.router(
+      child: MaterialApp.router(
         title: 'Alicsnet APP',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -67,8 +62,9 @@ class MyApp extends StatelessWidget {
         ),
         builder: EasyLoading.init(),
         routerDelegate: _appRouter.delegate(initialRoutes: [IndexRoute()]),
-        routeInformationParser:_appRouter.defaultRouteParser(),
-      ),);
+        routeInformationParser: _appRouter.defaultRouteParser(),
+      ),
+    );
     /*
     //強制限制 Web 版尺寸
     return FlutterWebFrame(

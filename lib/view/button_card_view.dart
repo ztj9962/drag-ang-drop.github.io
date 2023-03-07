@@ -9,13 +9,14 @@ class ButtonCardView extends StatelessWidget {
   final String descripTxt;
   final Function()? onTapFunction;
 
-  const ButtonCardView({Key? key,
-    required this.imagePath,
-    required this.backgroundColor,
-    required this.titleTxt,
-    required this.descripTxt,
-    this.onTapFunction
-  }) : super(key: key);
+  const ButtonCardView(
+      {Key? key,
+      required this.imagePath,
+      required this.backgroundColor,
+      required this.titleTxt,
+      required this.descripTxt,
+      this.onTapFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +44,7 @@ class ButtonCardView extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 8,
-                  child:
-                  Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,16 +71,13 @@ class ButtonCardView extends StatelessWidget {
                           ),
                           maxLines: 2,
                         )
-
                       ],
-
                     ),
                   ),
                 ),
               ],
             ),
           ),
-
         ),
       ),
     );

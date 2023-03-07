@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
@@ -14,11 +13,12 @@ class VocabularyPracticeWordIndexPage extends StatefulWidget {
   const VocabularyPracticeWordIndexPage({Key? key}) : super(key: key);
 
   @override
-  _VocabularyPracticeWordIndexPageState createState() => _VocabularyPracticeWordIndexPageState();
+  _VocabularyPracticeWordIndexPageState createState() =>
+      _VocabularyPracticeWordIndexPageState();
 }
 
-class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWordIndexPage> {
-
+class _VocabularyPracticeWordIndexPageState
+    extends State<VocabularyPracticeWordIndexPage> {
   TextEditingController _editingController = TextEditingController();
   int _rowIndexSliderMin = 1;
   int _rowIndexSliderMax = 10000;
@@ -96,14 +96,19 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                         _adjustSliderEducationLevel();
                       },
                       min: _rowIndexSliderMin.toDouble(),
-                      max: _rowIndexSliderMax.toDouble() - _dataLimit.toDouble() + 1,
+                      max: _rowIndexSliderMax.toDouble() -
+                          _dataLimit.toDouble() +
+                          1,
                       activeColor: PageTheme.app_theme_blue,
                       inactiveColor: Colors.lightBlue,
-                      divisions: (_rowIndexSliderMax - _dataLimit - _rowIndexSliderMin),
+                      divisions: (_rowIndexSliderMax -
+                          _dataLimit -
+                          _rowIndexSliderMin),
                       //value: _applicationSettingsDataTtsRate,
                       value: _rowIndexSliderIndex.toDouble(),
                       //label: 'Ranking ${_rowIndexSliderIndex * 10 - 9} ~ ${_rowIndexSliderIndex * 10}',
-                      label: '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
+                      label:
+                          '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
@@ -120,8 +125,7 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                   color: PageTheme.app_theme_blue,
                                 ),
                                 maxLines: 2,
-                              )
-                          ),
+                              )),
                           Expanded(
                               flex: 3,
                               child: Row(
@@ -130,7 +134,8 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     padding: EdgeInsets.all(4),
                                     child: Center(
                                       child: CircleAvatar(
-                                        backgroundColor: PageTheme.app_theme_blue,
+                                        backgroundColor:
+                                            PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.remove),
@@ -146,7 +151,8 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     padding: EdgeInsets.all(4),
                                     child: Center(
                                       child: CircleAvatar(
-                                        backgroundColor: PageTheme.app_theme_blue,
+                                        backgroundColor:
+                                            PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.add),
@@ -159,24 +165,25 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                                     ),
                                   ),
                                 ],
-                              )
-                          ),
+                              )),
                           Expanded(
                             flex: 2,
                             child: TextField(
-                              controller: TextEditingController(text: _rowIndexSliderIndex.toString()),
+                              controller: TextEditingController(
+                                  text: _rowIndexSliderIndex.toString()),
                               onSubmitted: (value) {
                                 if (int.tryParse(value) != null) {
-                                  _adjustRowIndexSliderIndex(int.tryParse(value)! - _rowIndexSliderIndex);
+                                  _adjustRowIndexSliderIndex(
+                                      int.tryParse(value)! -
+                                          _rowIndexSliderIndex);
                                 }
                               },
                               decoration: const InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(25.0))
-                                  )
-                              ),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(25.0)))),
                             ),
                           ),
                         ],
@@ -186,7 +193,6 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
@@ -199,12 +205,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                     hintText: "搜尋單詞",
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0))
-                    )
-                ),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(8),
               child: TitleView(
@@ -280,9 +283,9 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
                           borderRadius: BorderRadius.circular(50))),
                   onPressed: () async {
                     await _getVocabularyList();
-                    AutoRouter.of(context).push(VocabularyPracticeWordListRoute(vocabularyList:_vocabularyList));
-                  }
-              ),
+                    AutoRouter.of(context).push(VocabularyPracticeWordListRoute(
+                        vocabularyList: _vocabularyList));
+                  }),
             ),
           ],
         ),
@@ -296,23 +299,27 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   Future<bool> _getVocabularyList() async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
-    try{
+    try {
       int doLimit = 1;
       List<dynamic> vocabularyList;
       do {
-        String responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(), dataLimit: _dataLimit.toString());
+        String responseJSON = await APIUtil.vocabularyGetList(
+            _rowIndexSliderIndex.toString(),
+            dataLimit: _dataLimit.toString());
         responseJSONDecode = jsonDecode(responseJSON.toString());
-        if(responseJSONDecode['apiStatus'] != 'success') {
+        if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
-          if (doLimit > 3) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
-          await Future.delayed(Duration(seconds:1));
+          if (doLimit > 3)
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
       vocabularyList = responseJSONDecode['data'];
       setState(() {
         _vocabularyList = vocabularyList;
       });
-    } catch(e) {
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
       ));
@@ -324,22 +331,27 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
   Future<bool> _searchVocabularyRowIndex(String word) async {
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
-    try{
+    try {
       int doLimit = 1;
       do {
         String responseJSON = await APIUtil.vocabularyGetRowIndex(word);
         responseJSONDecode = jsonDecode(responseJSON.toString());
-        if(responseJSONDecode['apiStatus'] != 'success') {
+        if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
-          if (doLimit > 1) throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
-          await Future.delayed(Duration(seconds:1));
+          if (doLimit > 1)
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
+          await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
 
-      if (int.tryParse(responseJSONDecode['data']['index'].toString()) != null) {
-        _adjustRowIndexSliderIndex(int.tryParse(responseJSONDecode['data']['index'].toString())! - _rowIndexSliderIndex);
+      if (int.tryParse(responseJSONDecode['data']['index'].toString()) !=
+          null) {
+        _adjustRowIndexSliderIndex(
+            int.tryParse(responseJSONDecode['data']['index'].toString())! -
+                _rowIndexSliderIndex);
       }
-    } catch(e) {
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
       ));
@@ -348,17 +360,18 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
     return responseJSONDecode['apiStatus'] == 'success';
   }
 
-
   void _adjustRowIndexSliderIndex(int value) {
     int sliderIndex = _rowIndexSliderIndex + value;
-    if( (sliderIndex >= _rowIndexSliderMin) && (sliderIndex <= (_rowIndexSliderMax - _dataLimit + 1)) ){
+    if ((sliderIndex >= _rowIndexSliderMin) &&
+        (sliderIndex <= (_rowIndexSliderMax - _dataLimit + 1))) {
       setState(() => _rowIndexSliderIndex = sliderIndex);
     } else {
       if (sliderIndex < _rowIndexSliderMin) {
         setState(() => _rowIndexSliderIndex = _rowIndexSliderMin);
       }
       if (sliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
-        setState(() => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
+        setState(
+            () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Opps: 目標 ${sliderIndex} 已超出範圍'),
@@ -384,8 +397,8 @@ class _VocabularyPracticeWordIndexPageState extends State<VocabularyPracticeWord
       _dataLimit = value;
     });
     if (_rowIndexSliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
-      setState(() => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
+      setState(
+          () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
     }
   }
-
 }

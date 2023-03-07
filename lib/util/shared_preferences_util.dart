@@ -1,8 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SharedPreferencesUtil {
-
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   /// 儲存資料
@@ -27,6 +25,7 @@ class SharedPreferencesUtil {
         break;
     }
   }
+
   /// 讀取資料
   static dynamic getData<type>(String key) async {
     final prefs = await SharedPreferences.getInstance();
@@ -51,7 +50,6 @@ class SharedPreferencesUtil {
 
     return null;
   }
-
 
   // TTSVolume
   static Future<bool> setTTSVolume(double value) async {
@@ -184,7 +182,6 @@ class SharedPreferencesUtil {
     return res;
 
      */
-
 
     double rate = await getTTSRate();
     String rateString = '';

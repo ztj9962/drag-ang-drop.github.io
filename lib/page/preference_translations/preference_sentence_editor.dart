@@ -151,7 +151,7 @@ class _PreferenceTranslationEditPageState
                                             .toString(),
                                     maxLines: 1,
                                     style: TextStyle(
-                                      fontSize: 12,
+                                        fontSize: 12,
                                         color: PageTheme.app_theme_blue)),
                               ),
                             ),
@@ -159,8 +159,7 @@ class _PreferenceTranslationEditPageState
                               child: Padding(
                                 padding: const EdgeInsets.all(0),
                                 child: AutoSizeText(
-                                    '子句:' +
-                                        _ClauseCount.toString(),
+                                    '子句:' + _ClauseCount.toString(),
                                     maxLines: 1,
                                     style: TextStyle(
                                         color: PageTheme.app_theme_blue)),
@@ -670,9 +669,10 @@ class _PreferenceTranslationEditPageState
   }
 
   void pageRefresher() async {
-    try{
+    try {
       await _sentenceClauseCount(_sentenceDataList['sentenceContent']);
-    }catch(e){};
+    } catch (e) {}
+    ;
     List ll = _preferenceMap['likeDislike'] as List;
     if (ll.isNotEmpty) if (_preferenceMap['likeDislike'][0][0] >= 3) {
       await _sentSentenceClosedRecord(

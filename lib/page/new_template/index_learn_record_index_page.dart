@@ -25,7 +25,6 @@ class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage>
     Container(
       color: PageTheme.index_body_background,
       //child: const IndexLearnRecordIndexPage(),
-
     ),
   ];
   final List<Tab> titleTabs = <Tab>[
@@ -50,8 +49,6 @@ class _IndexLearnRecordIndexPageState extends State<IndexLearnRecordIndexPage>
       ),
     ),
   ];
-
-
 
   @override
   void initState() {

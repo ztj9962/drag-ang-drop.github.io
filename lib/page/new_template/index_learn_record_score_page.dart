@@ -39,9 +39,7 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
             decoration: BoxDecoration(
               color: PageTheme.learn_record_score_green,
               border: Border.all(
-                  width: 1,
-                  color:
-                  PageTheme.learn_record_score_dark_green),
+                  width: 1, color: PageTheme.learn_record_score_dark_green),
             ),
             child: Center(
               child: Column(
@@ -84,7 +82,9 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                   '平均測驗分數',
                                   maxLines: 1,
                                   style: TextStyle(
-                                      fontSize: 25, color: PageTheme.learn_record_score_white),
+                                      fontSize: 25,
+                                      color:
+                                          PageTheme.learn_record_score_white),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.all(5),
@@ -106,13 +106,15 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                           maxLines: 1,
                                           style: TextStyle(
                                               fontSize: 50,
-                                              color: PageTheme.learn_record_score_white),
+                                              color: PageTheme
+                                                  .learn_record_score_white),
                                         ),
                                         circularStrokeCap:
                                             CircularStrokeCap.butt,
-                                        backgroundColor: PageTheme.percent_indicator_background,
-                                        progressColor:
-                                        PageTheme.percent_indicator_progress,
+                                        backgroundColor: PageTheme
+                                            .percent_indicator_background,
+                                        progressColor: PageTheme
+                                            .percent_indicator_progress,
                                       ),
                                       Container(
                                         padding: EdgeInsets.only(top: 100),
@@ -120,7 +122,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                           '分',
                                           style: TextStyle(
                                               fontSize: 20,
-                                              color: PageTheme.learn_record_score_white),
+                                              color: PageTheme
+                                                  .learn_record_score_white),
                                         ),
                                       )
                                     ],
@@ -138,7 +141,9 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                   '學習進度',
                                   maxLines: 1,
                                   style: TextStyle(
-                                      fontSize: 25, color: PageTheme.learn_record_score_white),
+                                      fontSize: 25,
+                                      color:
+                                          PageTheme.learn_record_score_white),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.all(5),
@@ -165,7 +170,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                                 style: TextStyle(
                                                     height: 1,
                                                     fontSize: 40,
-                                                    color: PageTheme.learn_record_score_white),
+                                                    color: PageTheme
+                                                        .learn_record_score_white),
                                               ),
                                             ),
                                             Container(
@@ -174,23 +180,26 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                                 style: TextStyle(
                                                     height: 1,
                                                     fontSize: 30,
-                                                    color: PageTheme.learn_record_score_white),
+                                                    color: PageTheme
+                                                        .learn_record_score_white),
                                               ),
                                             ),
                                           ],
                                         ),
                                         circularStrokeCap:
                                             CircularStrokeCap.butt,
-                                        backgroundColor: PageTheme.percent_indicator_background,
-                                        progressColor:
-                                        PageTheme.percent_indicator_progress,
+                                        backgroundColor: PageTheme
+                                            .percent_indicator_background,
+                                        progressColor: PageTheme
+                                            .percent_indicator_progress,
                                       ),
                                       Container(
                                           padding: EdgeInsets.only(top: 100),
                                           child: AutoSizeText('份',
                                               style: TextStyle(
                                                   fontSize: 20,
-                                                  color: PageTheme.learn_record_score_white)))
+                                                  color: PageTheme
+                                                      .learn_record_score_white)))
                                     ],
                                   ),
                                 ),
@@ -238,18 +247,23 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                 '75',
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 50, color: PageTheme.learn_record_score_dark_green),
+                                    fontSize: 50,
+                                    color: PageTheme
+                                        .learn_record_score_dark_green),
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('%',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
@@ -276,7 +290,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 35,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                   Container(
@@ -285,21 +300,25 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 25,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                 ],
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('個',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
@@ -326,7 +345,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 35,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                   Container(
@@ -335,36 +355,39 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 25,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                 ],
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('句',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
                     )
                   ],
                 ),
-
                 Row(
                   children: [
                     Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AutoSizeText('完成程度',
-                              maxLines: 1, style: TextStyle(fontSize: 20)),
-                        ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText('完成程度',
+                            maxLines: 1, style: TextStyle(fontSize: 20)),
+                      ),
                     ),
                     Expanded(
                       child: Align(
@@ -385,11 +408,14 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
               ],
             ),
           ),
-          Divider(thickness: 1,color: PageTheme.learn_record_score_dark_green,),
+          Divider(
+            thickness: 1,
+            color: PageTheme.learn_record_score_dark_green,
+          ),
           Container(
             height: 250,
             //color: Colors.yellow,
-            child:Column(
+            child: Column(
               children: [
                 Row(
                   children: [
@@ -420,18 +446,23 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                 '75',
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 50, color: PageTheme.learn_record_score_dark_green),
+                                    fontSize: 50,
+                                    color: PageTheme
+                                        .learn_record_score_dark_green),
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('%',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
@@ -458,7 +489,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 35,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                   Container(
@@ -467,21 +499,25 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 25,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                 ],
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('個',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
@@ -508,7 +544,8 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 35,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                   Container(
@@ -517,28 +554,31 @@ class _IndexLearnRecordScorePageState extends State<IndexLearnRecordScorePage> {
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 25,
-                                          color: PageTheme.learn_record_score_dark_green),
+                                          color: PageTheme
+                                              .learn_record_score_dark_green),
                                     ),
                                   ),
                                 ],
                               ),
                               circularStrokeCap: CircularStrokeCap.butt,
-                              backgroundColor: PageTheme.percent_indicator_background,
+                              backgroundColor:
+                                  PageTheme.percent_indicator_background,
                               progressColor:
-                              PageTheme.percent_indicator_progress,
+                                  PageTheme.percent_indicator_progress,
                             ),
                             Container(
                                 padding: EdgeInsets.only(top: 100),
                                 child: AutoSizeText('句',
                                     style: TextStyle(
-                                        fontSize: 20, color: PageTheme.learn_record_score_dark_green)))
+                                        fontSize: 20,
+                                        color: PageTheme
+                                            .learn_record_score_dark_green)))
                           ],
                         ),
                       ),
                     )
                   ],
                 ),
-
                 Row(
                   children: [
                     Expanded(

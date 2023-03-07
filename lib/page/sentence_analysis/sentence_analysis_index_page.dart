@@ -13,7 +13,8 @@ import 'package:alicsnet_app/page/page_theme.dart';
 class SentenceAnalysisIndexPage extends StatefulWidget {
   final String analysisor;
 
-  const SentenceAnalysisIndexPage({Key? key, required this.analysisor}) : super(key: key);
+  const SentenceAnalysisIndexPage({Key? key, required this.analysisor})
+      : super(key: key);
 
   @override
   _SentenceAnalysisIndexPage createState() => _SentenceAnalysisIndexPage();
@@ -28,34 +29,146 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
   String? _dropdownValue1;
   String _text = "";
   int _maxLength = 500;
-  List<String>? _exampleList = ['My friends are at the library.','Marc was in the bathroom.','She has been sad since you left.','John is tall.',
-  "The monster was ready.",'This book is rather terrible.','Mr. James has been a teacher for forty years.','My mother appeared sad.','The Swiss cheese has gone bad.','Dawn seems happy.','Miles went mad.','Mary looks like her mother.',
-  'Joan becomes a professional foot ball player.','Rooney played superbly.','John sat up.','The small child cried very loudly.','My charming son was hovering rather sheepishly.','She would behave so bravely.',
-  'My friend left that evening.','The boy ran two miles.','Your fourth cousin sang this afternoon.','Ravi shouted that morning.','The monster lives under the bed.','Sarah lives in America.','Helen’s brother played after his dinner.',
-  'Robert ran to the door.','The ball was bouncing on the pitch.','Sarah and Micheal disappeared.','My mother is drilling.','Anila kicked.','John laugh.','The researcher participated.','The monster roared.',
-  'She changed her dress.','The boy hugged the dog.','My mother is drilling a hole.','Sara is throwing a ball.','Anila kicked the ball.',
-  'John kissed Jane.','The teacher taught the student.','The monster threw the table.','Your friend was opening the door.','My dad washed his car.',
-  'I bought Fred a ticket.','Most people consider Jacobson a loyal friend they crowned him king.','John gave Jane a present.',
-  'The monster gave me a fright.','She gave her the wrong package.','I gave them our address.',
-  'Mr. Smith gave student a raise.','The teacher taught the student English.',
-  'They elected Adams president.','They crowned him king.','The jury found the defendant guilty.','John made Jane angry.',
-  'The monster made the wall crumble.','The ride made me dizzy.',
-  'I bought a ticket for Fred.','I gave our address to them.',
-  'The boy hugged the dog gently.','I put the book on the table.','John put the bag down.','The monster threw my friend out of the window.',
-  'I will lay your coats on the bed upstairs.','The boy ate an apple in the kitchen.','She put her hand in the pocket.',
+  List<String>? _exampleList = [
+    'My friends are at the library.',
+    'Marc was in the bathroom.',
+    'She has been sad since you left.',
+    'John is tall.',
+    "The monster was ready.",
+    'This book is rather terrible.',
+    'Mr. James has been a teacher for forty years.',
+    'My mother appeared sad.',
+    'The Swiss cheese has gone bad.',
+    'Dawn seems happy.',
+    'Miles went mad.',
+    'Mary looks like her mother.',
+    'Joan becomes a professional foot ball player.',
+    'Rooney played superbly.',
+    'John sat up.',
+    'The small child cried very loudly.',
+    'My charming son was hovering rather sheepishly.',
+    'She would behave so bravely.',
+    'My friend left that evening.',
+    'The boy ran two miles.',
+    'Your fourth cousin sang this afternoon.',
+    'Ravi shouted that morning.',
+    'The monster lives under the bed.',
+    'Sarah lives in America.',
+    'Helen’s brother played after his dinner.',
+    'Robert ran to the door.',
+    'The ball was bouncing on the pitch.',
+    'Sarah and Micheal disappeared.',
+    'My mother is drilling.',
+    'Anila kicked.',
+    'John laugh.',
+    'The researcher participated.',
+    'The monster roared.',
+    'She changed her dress.',
+    'The boy hugged the dog.',
+    'My mother is drilling a hole.',
+    'Sara is throwing a ball.',
+    'Anila kicked the ball.',
+    'John kissed Jane.',
+    'The teacher taught the student.',
+    'The monster threw the table.',
+    'Your friend was opening the door.',
+    'My dad washed his car.',
+    'I bought Fred a ticket.',
+    'Most people consider Jacobson a loyal friend they crowned him king.',
+    'John gave Jane a present.',
+    'The monster gave me a fright.',
+    'She gave her the wrong package.',
+    'I gave them our address.',
+    'Mr. Smith gave student a raise.',
+    'The teacher taught the student English.',
+    'They elected Adams president.',
+    'They crowned him king.',
+    'The jury found the defendant guilty.',
+    'John made Jane angry.',
+    'The monster made the wall crumble.',
+    'The ride made me dizzy.',
+    'I bought a ticket for Fred.',
+    'I gave our address to them.',
+    'The boy hugged the dog gently.',
+    'I put the book on the table.',
+    'John put the bag down.',
+    'The monster threw my friend out of the window.',
+    'I will lay your coats on the bed upstairs.',
+    'The boy ate an apple in the kitchen.',
+    'She put her hand in the pocket.',
   ];
   List<String>? _sentenceTypeList = [
-    '[SVA]','[SVA]',
-    '[SVC]','[SVC]',"[SVC]",'[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]','[SVC]',
-    '[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]','[SV]',
-    '[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]','[SVO]',
-    '[SVOO]','[SVOC]','[SVOO]','[SVOO]','[SVOO]','[SVOO]','[SVOO]','[SVOO]',
-    '[SVOC]','[SVOC]','[SVOC]','[SVOC]','[SVOC]','[SVOC]',
-    '[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]','[SVOA]',
+    '[SVA]',
+    '[SVA]',
+    '[SVC]',
+    '[SVC]',
+    "[SVC]",
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SVC]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SV]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVO]',
+    '[SVOO]',
+    '[SVOC]',
+    '[SVOO]',
+    '[SVOO]',
+    '[SVOO]',
+    '[SVOO]',
+    '[SVOO]',
+    '[SVOO]',
+    '[SVOC]',
+    '[SVOC]',
+    '[SVOC]',
+    '[SVOC]',
+    '[SVOC]',
+    '[SVOC]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
+    '[SVOA]',
   ];
   bool _isloading = false;
   int _inputWordCount = 0;
   Uint8List _spacyTree = Uint8List.fromList([]);
+
   //Uint8List displacy = Uint8List.fromList([]);
   List<TableRow> _tableArray = <TableRow>[];
 
@@ -64,7 +177,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     print(_exampleList?.length);
     print(_sentenceTypeList?.length);
     _analysisor = widget.analysisor;
-    if(_analysisor.isNotEmpty){
+    if (_analysisor.isNotEmpty) {
       _controller.text = _analysisor;
       refreshResult();
     }
@@ -89,7 +202,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     try {
       if (_controller.text != "" && _inputWordCount > 0) {
         //_spacyTree
-        var spacyTreeResponse = await APIUtil.getSpacyTreeByString(_controller.text.replaceAll("\n", " "));
+        var spacyTreeResponse = await APIUtil.getSpacyTreeByString(
+            _controller.text.replaceAll("\n", " "));
         if (spacyTreeResponse['apiStatus'] == 'success') {
           _spacyTree = base64.decode(spacyTreeResponse['data']);
           setState(() {
@@ -128,7 +242,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         }*/
 
         //句型分析表
-        var clauseTableApi = await APIUtil.getClauseTableByString(_controller.text.replaceAll("\n", " "));
+        var clauseTableApi = await APIUtil.getClauseTableByString(
+            _controller.text.replaceAll("\n", " "));
 
         //var clauseTableResponse = jsonDecode(clauseTableApi);
 
@@ -137,7 +252,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           List tableData = clauseTableApi['data'] as List;
           _tableArray.add(TableRow(
             decoration: BoxDecoration(
-                color: PageTheme.cutom_article_practice_background.withOpacity(0.5)),
+                color: PageTheme.cutom_article_practice_background
+                    .withOpacity(0.5)),
             children: [
               Center(child: AutoSizeText('單字', maxLines: 1)),
               Center(child: AutoSizeText('原型', maxLines: 1)),
@@ -145,16 +261,26 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               //Center(child: AutoSizeText('POS中文',maxLines: 1)),
               Center(child: AutoSizeText('Dependency', maxLines: 1)),
               //Center(child: AutoSizeText('Dependency中文',maxLines: 1)),
-              Center(child: AutoSizeText('片語/子句',maxLines: 1,)),
+              Center(
+                  child: AutoSizeText(
+                '片語/子句',
+                maxLines: 1,
+              )),
             ],
           ));
           for (int i = 0; i < tableData.length; i++) {
             List<Widget> tableList = [
-              Center(child: Row(
+              Center(
+                  child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(flex: 3,child: AutoSizeText(' ['+i.toString()+']')),
-                  Expanded(flex: 5,child: AutoSizeText(tableData[i]['Word'] + '\n' + tableData[i]['twnWord'])),
+                  Expanded(
+                      flex: 3, child: AutoSizeText(' [' + i.toString() + ']')),
+                  Expanded(
+                      flex: 5,
+                      child: AutoSizeText(tableData[i]['Word'] +
+                          '\n' +
+                          tableData[i]['twnWord'])),
                 ],
               )),
               Center(child: AutoSizeText(tableData[i]['lemma'])),
@@ -211,7 +337,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
       return;
     }
   }
-  void refreshResult(){
+
+  void refreshResult() {
     setState(() {
       String article = _controller.text.replaceAll("\n", " ");
       int count = 0;
@@ -241,8 +368,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 extentOffset: _maxLength,
                 affinity: TextAffinity.downstream,
                 isDirectional: false),
-            composing:
-            new TextRange(start: 0, end: _maxLength));
+            composing: new TextRange(start: 0, end: _maxLength));
         _controller.text = _text;
       }
       addGraphics();
@@ -306,10 +432,13 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
             ),
             Padding(padding: EdgeInsets.all(10)),
             Container(
-              margin: const EdgeInsets.only(
-                  top: 5, left: 20, right: 20, bottom: 5),
+              margin:
+                  const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: PageTheme.cutom_article_practice_background.withOpacity(0.5),width: 2),
+                border: Border.all(
+                    color: PageTheme.cutom_article_practice_background
+                        .withOpacity(0.5),
+                    width: 2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: DropdownButton(
@@ -319,10 +448,13 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 iconSize: 40,
                 hint: AutoSizeText(
                   '   請選擇一個例句',
-                  style: TextStyle(color: PageTheme.cutom_article_practice_background.withOpacity(0.5)),
+                  style: TextStyle(
+                      color: PageTheme.cutom_article_practice_background
+                          .withOpacity(0.5)),
                   maxLines: 1,
                 ),
-                items: _exampleList?.map<DropdownMenuItem<String>>((String value) {
+                items:
+                    _exampleList?.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Container(
@@ -333,7 +465,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                             flex: 1,
                             child: AutoSizeText(
                               '   ${_sentenceTypeList![_exampleList!.indexOf(value)]}',
-                              style: TextStyle(color: PageTheme.cutom_article_practice_background),
+                              style: TextStyle(
+                                  color: PageTheme
+                                      .cutom_article_practice_background),
                               maxLines: 1,
                             ),
                           ),
@@ -341,7 +475,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                             flex: 6,
                             child: AutoSizeText(
                               '   ${value}',
-                              style: TextStyle(color: PageTheme.cutom_article_practice_background),
+                              style: TextStyle(
+                                  color: PageTheme
+                                      .cutom_article_practice_background),
                               maxLines: 1,
                             ),
                           ),

@@ -19,7 +19,6 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-
   int selectedIndex = 0;
   String selectedTitle = '';
   Widget tabBody = Container();
@@ -85,7 +84,7 @@ class _IndexPageState extends State<IndexPage> {
               width: 40,
               //color: const Color(0xFFFEFEFE),
             ),
-            onTap: (){
+            onTap: () {
               //print('Tap logo');
             },
           ),
@@ -118,11 +117,11 @@ class _IndexPageState extends State<IndexPage> {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-                'assets/icon/home.svg',
+            icon: SvgPicture.asset('assets/icon/home.svg',
                 width: 40,
-                color: selectedIndex == 0 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
-            ),
+                color: selectedIndex == 0
+                    ? PageTheme.index_bottom_bar_icon_select
+                    : PageTheme.index_bottom_bar_icon_no_select),
             label: '—',
           ),
           /*
@@ -136,27 +135,27 @@ class _IndexPageState extends State<IndexPage> {
           ),
            */
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-                'assets/icon/test.svg',
+            icon: SvgPicture.asset('assets/icon/test.svg',
                 width: 40,
-                color: selectedIndex == 1 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
-            ),
+                color: selectedIndex == 1
+                    ? PageTheme.index_bottom_bar_icon_select
+                    : PageTheme.index_bottom_bar_icon_no_select),
             label: '—',
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-                'assets/icon/account.svg',
+            icon: SvgPicture.asset('assets/icon/account.svg',
                 width: 40,
-                color: selectedIndex == 2 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
-            ),
+                color: selectedIndex == 2
+                    ? PageTheme.index_bottom_bar_icon_select
+                    : PageTheme.index_bottom_bar_icon_no_select),
             label: '—',
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-                'assets/icon/setting.svg',
+            icon: SvgPicture.asset('assets/icon/setting.svg',
                 width: 40,
-                color: selectedIndex == 3 ? PageTheme.index_bottom_bar_icon_select : PageTheme.index_bottom_bar_icon_no_select
-            ),
+                color: selectedIndex == 3
+                    ? PageTheme.index_bottom_bar_icon_select
+                    : PageTheme.index_bottom_bar_icon_no_select),
             label: '—',
           ),
         ],
@@ -172,9 +171,8 @@ class _IndexPageState extends State<IndexPage> {
     int newIndex = index;
     String newTitle = "";
 
-
     switch (index) {
-    /*
+      /*
       case 1:
         newTitle = "學習記錄";
         break;
@@ -203,6 +201,5 @@ class _IndexPageState extends State<IndexPage> {
       selectedTitle = newTitle;
       tabBody = containerList[newIndex];
     });
-
   }
 }

@@ -17,15 +17,14 @@ class MinimalPairIndexPage extends StatefulWidget {
 }
 
 class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
-
-  List<String> list=[];
+  List<String> list = [];
   bool _switchSearch = true;
   TextEditingController _searchWordController = TextEditingController();
 
-
-  Map<String, List<String>> _IPAMap = {'':[]};
+  Map<String, List<String>> _IPAMap = {'': []};
   List<String>? _IPA1List = [];
   List<String>? _IPA2List = [];
+
   //List<List<dynamic>> _IPA2List = [];
 
   String? _dropdownValue1;
@@ -65,7 +64,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
             child: Column(
               children: <Widget>[
                 Padding(padding: EdgeInsets.all(15)),
-                if (_switchSearch)...[
+                if (_switchSearch) ...[
                   Container(
                     width: 350,
                     child: ElevatedButton(
@@ -93,8 +92,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                   Container(
                     width: 350,
                     decoration: BoxDecoration(
-                      border:
-                      Border.all(color: PageTheme.app_theme_blue),
+                      border: Border.all(color: PageTheme.app_theme_blue),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: DropdownButton(
@@ -104,28 +102,26 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       iconSize: 40,
                       hint: AutoSizeText(
                         '   請選擇第一個字元',
-                        style:
-                        TextStyle(color: PageTheme.app_theme_blue),
+                        style: TextStyle(color: PageTheme.app_theme_blue),
                         maxLines: 1,
                       ),
-                      items: _IPA1List?.map<DropdownMenuItem<String>>((String value) {
+                      items: _IPA1List?.map<DropdownMenuItem<String>>(
+                          (String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: AutoSizeText(
                             '   ${value}',
-                            style:
-                            TextStyle(color: PageTheme.app_theme_blue),
+                            style: TextStyle(color: PageTheme.app_theme_blue),
                             maxLines: 1,
                           ),
                         );
                       }).toList(),
 
-                      onChanged: (String? value){
+                      onChanged: (String? value) {
                         setState(() {
                           _dropdownValue1 = value!;
                           _dropdownValue2 = null;
                           _IPA2List = _IPAMap[_dropdownValue1];
-
                         });
                       },
                       underline: Container(
@@ -137,8 +133,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                   Container(
                     width: 350,
                     decoration: BoxDecoration(
-                      border:
-                      Border.all(color: PageTheme.app_theme_blue),
+                      border: Border.all(color: PageTheme.app_theme_blue),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: DropdownButton(
@@ -148,23 +143,22 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       iconSize: 40,
                       hint: AutoSizeText(
                         '   請選擇第二個字元',
-                        style:
-                        TextStyle(color: PageTheme.app_theme_blue),
+                        style: TextStyle(color: PageTheme.app_theme_blue),
                         maxLines: 1,
                       ),
-                      items: _IPA2List?.map<DropdownMenuItem<String>>((String value) {
+                      items: _IPA2List?.map<DropdownMenuItem<String>>(
+                          (String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: AutoSizeText(
                             '   ${value}',
-                            style:
-                            TextStyle(color: PageTheme.app_theme_blue),
+                            style: TextStyle(color: PageTheme.app_theme_blue),
                             maxLines: 1,
                           ),
                         );
                       }).toList(),
 
-                      onChanged: (String? value){
+                      onChanged: (String? value) {
                         setState(() {
                           _dropdownValue2 = value!;
                         });
@@ -174,8 +168,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                       ),
                     ),
                   ),
-                ] else...[
-
+                ] else ...[
                   Container(
                     width: 350,
                     child: ElevatedButton(
@@ -203,17 +196,15 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      onSubmitted: (value) async {
-                      },
+                      onSubmitted: (value) async {},
                       controller: _searchWordController,
                       decoration: const InputDecoration(
                           labelText: "搜尋單詞",
                           hintText: "搜尋單詞",
                           prefixIcon: Icon(Icons.search),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0))
-                          )
-                      ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)))),
                     ),
                   ),
                 ],
@@ -241,14 +232,18 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                               borderRadius: BorderRadius.circular(50))),
                       onPressed: () {
                         if (_switchSearch) {
-                          if (_dropdownValue1 == null || _dropdownValue2 == null) {
+                          if (_dropdownValue1 == null ||
+                              _dropdownValue2 == null) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('請記得要輸入喔'),
                             ));
                           } else {
                             //print(_dropdownValue1);
                             //print(_dropdownValue2);
-                            AutoRouter.of(context).push(LearningManualMinimalPairRoute(IPA1:_dropdownValue1!, IPA2:_dropdownValue2!));
+                            AutoRouter.of(context).push(
+                                LearningManualMinimalPairRoute(
+                                    IPA1: _dropdownValue1!,
+                                    IPA2: _dropdownValue2!));
                           }
                         } else {
                           if (_searchWordController.text == '') {
@@ -257,7 +252,9 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                             ));
                           } else {
                             //print(_searchWordController.text);
-                            AutoRouter.of(context).push(LearningManualMinimalPairRoute(word:_searchWordController.text));
+                            AutoRouter.of(context).push(
+                                LearningManualMinimalPairRoute(
+                                    word: _searchWordController.text));
                           }
                         }
                       }),
@@ -281,14 +278,18 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                             borderRadius: BorderRadius.circular(50))),
                     onPressed: () {
                       if (_switchSearch) {
-                        if (_dropdownValue1 == null || _dropdownValue2 == null) {
+                        if (_dropdownValue1 == null ||
+                            _dropdownValue2 == null) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('請記得要輸入喔'),
                           ));
                         } else {
                           //print(_dropdownValue1);
                           //print(_dropdownValue2);
-                          AutoRouter.of(context).push(LearningAutoMinimalPairRoute(IPA1:_dropdownValue1!, IPA2:_dropdownValue2!));
+                          AutoRouter.of(context).push(
+                              LearningAutoMinimalPairRoute(
+                                  IPA1: _dropdownValue1!,
+                                  IPA2: _dropdownValue2!));
                         }
                       } else {
                         if (_searchWordController.text == '') {
@@ -297,7 +298,9 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                           ));
                         } else {
                           //print(_searchWordController.text);
-                          AutoRouter.of(context).push(LearningAutoMinimalPairRoute(word:_searchWordController.text));
+                          AutoRouter.of(context).push(
+                              LearningAutoMinimalPairRoute(
+                                  word: _searchWordController.text));
                         }
                       }
                     },
@@ -306,11 +309,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
               ],
             ),
           ),
-        )
-
-
-
-    );
+        ));
   }
 
   initMinimalPairIndexPage() async {
@@ -318,7 +317,6 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
   }
 
   Future<void> initIPAList() async {
-
     Map<String, List<String>> IPAMap = {};
     List<String> IPA1List = [];
 
@@ -343,5 +341,4 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
       _IPA2List = _IPAMap[_dropdownValue1];
     });
   }
-
 }
