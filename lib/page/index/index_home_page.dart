@@ -81,20 +81,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/customArticle_02.svg',
-        titleText: 'User document input',
-        descripText: '學習者提供教材',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context)
-              .pushNamed("/customArticle_practice_sentence_index");
-        },
-      ),
-    );
 
     listViews.add(
       OutlinedButtonCardView(
@@ -106,20 +92,6 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
           AutoRouter.of(context).pushNamed("/minimal_pair_index");
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/recommend_translate.svg',
-        titleText: 'Recommend translations',
-        descripText: '推薦翻譯系統',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/preference_translation_search");
         },
       ),
     );
