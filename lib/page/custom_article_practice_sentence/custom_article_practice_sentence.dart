@@ -152,7 +152,7 @@ class _CustomArticlePracticeSentenceIndexPage
               });
             }
           } else {
-            final text = "發生異常";
+            final text = "IPA獲取失敗";
             final snackbar = SnackBar(
               content: Text(text),
             );
@@ -162,7 +162,7 @@ class _CustomArticlePracticeSentenceIndexPage
             });
           }
         } else {
-          final text = "發生異常";
+          final text = "取得統計數據時發生異常";
           final snackbar = SnackBar(
             content: Text(text),
           );
@@ -185,9 +185,8 @@ class _CustomArticlePracticeSentenceIndexPage
       setState(() {
         isloading = false;
       });
-      final text = "發生異常";
       final snackbar = SnackBar(
-        content: Text(text),
+        content: Text(error.toString()),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
