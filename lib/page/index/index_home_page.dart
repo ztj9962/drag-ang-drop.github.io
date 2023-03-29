@@ -84,6 +84,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        showDevelopTag: true,
         imagePath: 'assets/icon/customArticle_02.svg',
         titleText: 'User document input',
         descripText: '學習者提供教材',
