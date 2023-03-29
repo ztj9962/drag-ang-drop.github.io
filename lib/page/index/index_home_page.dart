@@ -84,6 +84,20 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        imagePath: 'assets/icon/customArticle_02.svg',
+        titleText: 'User document input',
+        descripText: '學習者提供教材',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context)
+              .pushNamed("/customArticle_practice_sentence_index");
+        },
+      ),
+    );
+
+    listViews.add(
+      OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
         titleText: 'Pronunciation - Minimal pairs',

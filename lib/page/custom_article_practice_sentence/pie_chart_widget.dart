@@ -26,6 +26,9 @@ class _PieChartWidget extends State<PieChartWidget> {
     Color(0xffFF8040),
     Color(0xff00E3E3),
     Color(0xff2626FF),
+    Color(0xfff126ff),
+    Color(0xffff1359),
+    Color(0xffff0000),
     Color(0xffaba6a6),
   ];
 
@@ -60,8 +63,17 @@ class _PieChartWidget extends State<PieChartWidget> {
           case "托福":
             indicatorName = element['level'] + "Toefl";
             break;
-          case "Out of 10K":
+          case "美國高中":
+            indicatorName = element['level'] + "America High School";
+            break;
+          case "SAT":
             indicatorName = element['level'];
+            break;
+          case "Native Speaker":
+            indicatorName = element['level'];
+            break;
+          case "無排名":
+            indicatorName = element['level'] + "No Rank";
             break;
         }
         indicatorList.add(
