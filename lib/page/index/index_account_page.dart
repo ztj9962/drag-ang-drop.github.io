@@ -65,10 +65,11 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 ),
                 child: const Text('   登出   '),
                 onPressed: () async {
-                  AutoRouter.of(context).push(IndexRoute());
-                  AutoRouter.of(context).replaceAll([IndexRoute()]);
                   authRespository.SignOut();
                   await SharedPreferencesUtil.saveData<bool>('isSignin', false);
+                  AutoRouter.of(context).push(IndexRoute());
+                  AutoRouter.of(context).replaceAll([IndexRoute()]);
+                  context.router.popUntilRoot();
                 },
               ),
             ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alicsnet_app/page/login/email_password_dialog.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,9 +30,7 @@ class SigninButton extends StatelessWidget {
               await authRespository.signInWithGoogle();
               bool signIn = await authRespository.isSignedIn();
               if (signIn == true) {
-                //print(authRespository.getUid());
                 await SharedPreferencesUtil.saveData<bool>('isSignin', true);
-                //AutoRouter.of(context).replaceNamed("/index");
                 AutoRouter.of(context).pop();
               }
             },
@@ -59,7 +58,8 @@ class SigninButton extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
               ],
-            )),
+            )
+        ),
         SizedBox(
           height: 30,
         ),
@@ -100,7 +100,47 @@ class SigninButton extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
                 ],
-              )),
+              )
+          ),
+        if (isIOS)
+          SizedBox(height: 30),
+        TextButton(
+            onPressed: () async {
+              showDialog(
+                  context: context,
+                  builder: (_){
+                    return emailPasswordDialog();
+                    //return emailDialog();
+                  },
+                  barrierDismissible: false
+              );
+            },
+            style: TextButton.styleFrom(
+              maximumSize: Size(250, 50),
+              minimumSize: Size(250, 50),
+              backgroundColor: Colors.indigo,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              primary: Colors.grey,
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.email,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Text("使用 Email 與密碼",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
+            )
+        ),
         SizedBox(height: 30),
         TextButton(
             onPressed: () {
@@ -230,7 +270,8 @@ class SigninButton extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
               ],
-            ))*/
+            ))
+            */
       ],
     );
   }

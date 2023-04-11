@@ -486,4 +486,32 @@ class APIUtil {
     print('processed');
     return json;
   }
+
+  static Future<String> sendPasswordResetLink(String email) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/account/sendPasswordResetLink'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'email': email,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> sendEmailVerificationLink(String email) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/account/sendEmailVerificationLink'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'email': email,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

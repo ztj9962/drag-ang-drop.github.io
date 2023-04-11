@@ -55,6 +55,47 @@ class authRespository {
     }
   }
 
+  static Future<String> signInWithEmailPassword(String emailAddress, String password) async {
+    dynamic credential;
+
+    if (emailAddress.length <= 0 || password.length <= 0) {
+      return "empty";
+    }
+
+    try {
+      // 先嘗試登入
+      credential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: emailAddress,
+          password: password
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code != 'user-not-found') {
+        return e.code.toString();
+      }
+      // 如果登入失敗，就註冊一個新帳號
+      try {
+        credential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: emailAddress,
+          password: password,
+        );
+      } on FirebaseAuthException catch (e) {
+        return e.code.toString();
+      } catch (e) {
+        return e.toString();
+      }
+    } catch (e) {
+      return e.toString();
+    }
+
+    // 如果成功，但是沒有驗證信箱，就登出
+    if (credential.user?.emailVerified == false) {
+      authRespository.SignOut();
+      return "notverified";
+    }
+
+    return "success";
+  }
+
   static Future<void> signInWithApple() async {
     // 生成一個加密安全的隨機隨機數
     String generateNonce([int length = 32]) {
