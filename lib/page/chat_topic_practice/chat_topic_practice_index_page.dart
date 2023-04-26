@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/hexcolor_util.dart';
@@ -12,16 +11,16 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 
-class VocabularyPracticeSentenceIndexPage extends StatefulWidget {
-  const VocabularyPracticeSentenceIndexPage({Key? key}) : super(key: key);
+class ChatTopicPracticeIndexPage extends StatefulWidget {
+  const ChatTopicPracticeIndexPage({Key? key}) : super(key: key);
 
   @override
-  _VocabularyPracticeSentenceIndexPageState createState() =>
-      _VocabularyPracticeSentenceIndexPageState();
+  _ChatTopicPracticeIndexPageState createState() =>
+      _ChatTopicPracticeIndexPageState();
 }
 
-class _VocabularyPracticeSentenceIndexPageState
-    extends State<VocabularyPracticeSentenceIndexPage> {
+class _ChatTopicPracticeIndexPageState
+    extends State<ChatTopicPracticeIndexPage> {
   List<Widget> _listViews = <Widget>[];
 
   List _CompleteSentenceList = [];
@@ -29,7 +28,7 @@ class _VocabularyPracticeSentenceIndexPageState
   @override
   void initState() {
     super.initState();
-    initVocabularyPracticeSentenceIndexPage();
+    initChatTopicPracticeIndexPage();
   }
 
   @override
@@ -68,17 +67,17 @@ class _VocabularyPracticeSentenceIndexPageState
         ));
   }
 
-  initVocabularyPracticeSentenceIndexPage() async {
-    await initIPAList();
+  initChatTopicPracticeIndexPage() async {
+    await initChatTopicList();
   }
 
-  Future<bool> initIPAList() async {
+  Future<bool> initChatTopicList() async {
     var responseJSONDecode;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     try {
       int doLimit = 1;
       do {
-        String responseJSON = await APIUtil.getSentenceTopicData();
+        String responseJSON = await APIUtil.getChatTopicData();
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
@@ -91,7 +90,6 @@ class _VocabularyPracticeSentenceIndexPageState
 
       List<Widget> listViews = <Widget>[];
 
-      //print(topicListData['data']);
       responseJSONDecode['data'].forEach((key, value) {
         //print(key);
         //print(value);
@@ -164,108 +162,10 @@ class _VocabularyPracticeSentenceIndexPageState
                                     onTap: () async {
                                       //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
 
-                                      EasyLoading.show(
-                                          status: '正在讀取資料，請稍候......');
-                                      List<dynamic> sentenceList;
-                                      EasyLoading.show(
-                                          status: '正在讀取資料，請稍候......');
-                                      var responseJSONDecode;
-                                      try {
-                                        int doLimit = 1;
-                                        do {
-                                          String responseJSON =
-                                              await APIUtil.getSentences(
-                                                  sentenceTopic: value['title']
-                                                      [index],
-                                                  dataLimit: '25');
-                                          responseJSONDecode = jsonDecode(
-                                              responseJSON.toString());
-                                          if (responseJSONDecode['apiStatus'] !=
-                                              'success') {
-                                            doLimit += 1;
-                                            if (doLimit > 3)
-                                              throw Exception('API: ' +
-                                                  responseJSONDecode[
-                                                      'apiMessage']); // 只測 3 次
-                                            await Future.delayed(
-                                                Duration(seconds: 1));
-                                          }
-                                        } while (
-                                            responseJSONDecode['apiStatus'] !=
-                                                'success');
-                                        print(responseJSONDecode);
-                                        sentenceList =
-                                            responseJSONDecode['data'];
-                                      } catch (e) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text('Error: $e'),
-                                        ));
-                                      }
-                                      EasyLoading.dismiss();
-                                      if (responseJSONDecode['apiStatus'] !=
-                                          'success') {
-                                        return;
-                                      }
-
-                                      List<String> contentList = [];
-                                      List<String> ipaList = [];
-                                      List<String> translateList = [];
-                                      //print(_vocabularyList);
-                                      for (final sentence
-                                          in responseJSONDecode['data']) {
-                                        contentList
-                                            .add(sentence['sentenceContent']);
-                                        ipaList.add(sentence['sentenceIPA']);
-                                        translateList
-                                            .add(sentence['sentenceChinese']);
-                                      }
-                                      List<String> contentNoDupe =
-                                          contentList.toSet().toList();
-                                      List<String> translateNoDupe =
-                                          translateList.toSet().toList();
-
-                                      List<String> filtedContentList = [];
-                                      List<String> filtedTranslation = [];
-                                      List<String> filtedIPA = [];
-                                      List<bool> mainCheckList = [];
-                                      List<String> oriList = [];
-
-                                      await _getCompleteSentenceList(
-                                          contentNoDupe);
-                                      //print('CL: ${_CompleteSentenceList}');
-
-                                      for (final filtedContent
-                                          in _CompleteSentenceList) {
-                                        mainCheckList
-                                            .add(filtedContent['mainCheck']);
-                                        filtedContentList
-                                            .add(filtedContent['content']);
-                                        filtedIPA.add(filtedContent['IPA']);
-                                        oriList.add(
-                                            filtedContent['originSentence']);
-                                      }
-
-                                      int checkIdx = 0;
-                                      for (int check = 0;
-                                          check < mainCheckList.length;
-                                          check++) {
-                                        if (mainCheckList[check]) {
-                                          filtedTranslation
-                                              .add(translateNoDupe[checkIdx]);
-                                          checkIdx++;
-                                        } else {
-                                          filtedTranslation
-                                              .add('原句: ${oriList[check]}');
-                                        }
-                                      }
-
                                       AutoRouter.of(context).push(
-                                          LearningAutoGenericRoute(
-                                              contentList: filtedContentList,
-                                              ipaList: filtedIPA,
-                                              translateList:
-                                                  filtedTranslation));
+                                          ChatTopicPracticeConversationListRoute(
+                                              topicName: value['title'][index]
+                                              ));
                                     },
                                     //onTap: sentenceTypeListData!.onTapFunction,
                                     child: Container(
@@ -286,7 +186,7 @@ class _VocabularyPracticeSentenceIndexPageState
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
-                                          '自動',
+                                          '對話練習',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: HexColor(
@@ -298,14 +198,14 @@ class _VocabularyPracticeSentenceIndexPageState
                                     ),
                                   ),
                                 ),
-                                Flexible(
+                                /*Flexible(
                                   flex: 1,
                                   child: GestureDetector(
                                     onTap: () {
                                       AutoRouter.of(context).push(
                                           LearningManualVocabularyPracticeSentenceRoute(
                                               topicName: value['title']
-                                                  [index]));
+                                              [index]));
                                     },
                                     //onTap: sentenceTypeListData!.onTapFunction,
                                     child: Container(
@@ -337,7 +237,7 @@ class _VocabularyPracticeSentenceIndexPageState
                                       ),
                                     ),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ],
@@ -390,41 +290,5 @@ class _VocabularyPracticeSentenceIndexPageState
     }
     EasyLoading.dismiss();
     return responseJSONDecode['apiStatus'] == 'success';
-  }
-
-  Future<bool> _getCompleteSentenceList(List content) async {
-    //if (_vocabularySentenceList.length == _vocabularyList.length) return;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var responseJSONDecode;
-    var responseJSON;
-    try {
-      int doLimit = 1;
-      var vocabularySentenceList;
-      //print(_vocabularyList);
-      do {
-        responseJSON = await APIUtil.getCompleteSentenceList(content);
-        print(responseJSON);
-        //responseJSONDecode = jsonDecode(responseJSON.toString());
-        //print(responseJSONDecode);
-        if (responseJSON['apiStatus'] != 'success') {
-          doLimit += 1;
-          if (doLimit > 3)
-            throw Exception('API: ' + responseJSON['apiMessage']); // 只測 3 次
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (responseJSON['apiStatus'] != 'success');
-      //print(responseJSONDecode);
-      vocabularySentenceList = responseJSON['data'];
-
-      setState(() {
-        _CompleteSentenceList = vocabularySentenceList;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-    return responseJSON['apiStatus'] == 'success';
   }
 }

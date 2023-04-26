@@ -160,9 +160,9 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> getSentenceTopicData() async {
+  static Future<String> getChatTopicData() async {
     final response = await http.get(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getSentenceTopicData'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getChatTopicData'),
     );
     String json = response.body.toString();
     return json;
@@ -440,7 +440,7 @@ class APIUtil {
     return json;
   }
 
-  static Future getCompleteSentenceList(List sent) async {
+  static Future<String> getCompleteSentenceList(List sent) async {
     final response = await http.post(
       Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getCompleteSentenceList'),
       headers: <String, String>{
@@ -451,7 +451,7 @@ class APIUtil {
       },
     );
 
-    var json = jsonDecode(response.body.toString());
+    var json = response.body.toString();
     return json;
   }
 
@@ -510,6 +510,36 @@ class APIUtil {
       },
     );
     String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getConversationData(String chatTopicGroupId) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getConversationData'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'chatTopicGroupId': chatTopicGroupId,
+      },
+    );
+
+    var json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getConversationGroupData(String topicName) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getConversationGroupData'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'chatTopicName': topicName,
+      },
+    );
+
+    var json = response.body.toString();
     return json;
   }
 }

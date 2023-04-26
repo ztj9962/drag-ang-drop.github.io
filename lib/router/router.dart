@@ -1,5 +1,8 @@
+import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart.dart';
+import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
+import 'package:alicsnet_app/page/learning/learning_auto_chat_topic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_summary_report_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_minimal_pair_page.dart';
@@ -12,7 +15,6 @@ import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
 import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page.dart';
-import 'package:alicsnet_app/page/vocabulary_practice_sentence/vocabulary_practice_sentence_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
@@ -29,8 +31,16 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(path: '/index', page: IndexPage),
 
     AutoRoute(
-        path: '/voabulary_practice_sentence_index',
-        page: VocabularyPracticeSentenceIndexPage),
+        path: '/chat_topic_practice_conversation_list_page',
+        page: ChatTopicPracticeConversationListPage),
+
+    AutoRoute(
+        path: '/chat_topic_practice_index_page',
+        page: ChatTopicPracticeIndexPage),
+
+    AutoRoute(
+        path: '/learning_auto_chat_topic_page',
+        page: LearningAutoChatTopicPage),
 
     AutoRoute(
         path: '/voabulary_practice_word_index',
