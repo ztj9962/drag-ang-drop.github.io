@@ -171,6 +171,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
 
   //Uint8List displacy = Uint8List.fromList([]);
   List<TableRow> _tableArray = <TableRow>[];
+  List _clauseList = [];
+  List<Widget> _clauseListView = <Widget>[];
 
   @override
   void initState() {
@@ -201,24 +203,163 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
     });
     try {
       if (_controller.text != "" && _inputWordCount > 0) {
-        //_spacyTree
-        var spacyTreeResponse = await APIUtil.getSpacyTreeByString(
-            _controller.text.replaceAll("\n", " "));
-        if (spacyTreeResponse['apiStatus'] == 'success') {
-          _spacyTree = base64.decode(spacyTreeResponse['data']);
-          setState(() {
-            _isloading = false;
-          });
+        //文法檢查
+        String grammar_response =
+        await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
+        var checkedGrammar = jsonDecode(grammar_response);
+        if (checkedGrammar['apiStatus'] == 'success') {
+          ///取得樹狀圖API
+          String spacyTreeResponse = await APIUtil.getSpacyTreeByString(checkedGrammar['data']['sentenceTextChecked']);
+          var spacyTreeDecode = jsonDecode(spacyTreeResponse);
+          if (spacyTreeDecode['apiStatus'] == 'success') {
+            _spacyTree = base64.decode(spacyTreeDecode['data']);
+            setState(() {
+              _isloading = false;
+            });
+          } else {
+            setState(() {
+              _isloading = false;
+            });
+            final _text = "取得樹狀圖失敗!";
+            final snackbar = SnackBar(
+              content: Text(_text),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
+
+          ///句型分析表
+          String clauseTableApi = await APIUtil.getClauseTableByString(_controller.text.replaceAll("\n", " "));
+
+          var clauseTableDecode = jsonDecode(clauseTableApi);
+
+          //var clauseTableResponse = jsonDecode(clauseTableApi);
+          if (clauseTableDecode['apiStatus'] == 'success') {
+            _clauseListView = [];
+            _clauseList = clauseTableDecode['data']['ClauseList'];
+            if(_clauseList.isNotEmpty){
+              for(var clauseData in _clauseList){
+                _clauseListView.add(
+                  Container(child:
+                  Row(
+                    children: [
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AutoSizeText('${clauseData['ClauseType']}'),
+                        ),
+                        decoration: BoxDecoration(
+                          /*border: Border.all(
+                          color: PageTheme.app_theme_blue,
+                          width: 2,
+                        ),*/
+                          color: (clauseData['ClauseType']=='名詞子句') ? PageTheme.app_theme_blue.withOpacity(0.3) : (clauseData['ClauseType']=='副詞子句') ? Colors.red.withOpacity(0.3) : (clauseData['ClauseType']=='形容詞、關係子句') ? Colors.green.withOpacity(0.3) : Colors.white,
+                          borderRadius: const BorderRadius.all(Radius.circular(32.0)),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AutoSizeText('${clauseData['ClauseContent']}\n依賴的動詞:${clauseData['DependencyVerb']}'),
+                        ),
+                      ),
+                    ],
+                  )),
+                );
+              }
+            }
+            List tableData = clauseTableDecode['data']['ClauseTable'] as List;
+            _tableArray.add(TableRow(
+              decoration: BoxDecoration(
+                  color: PageTheme.cutom_article_practice_background
+                      .withOpacity(0.5)),
+              children: [
+                Center(child: AutoSizeText('單字', maxLines: 1)),
+                Center(child: AutoSizeText('原型', maxLines: 1)),
+                Center(child: AutoSizeText('POS', maxLines: 1)),
+                //Center(child: AutoSizeText('POS中文',maxLines: 1)),
+                Center(child: AutoSizeText('Dependency', maxLines: 1)),
+                //Center(child: AutoSizeText('Dependency中文',maxLines: 1)),
+                Center(
+                    child: AutoSizeText(
+                      '片語/子句',
+                      maxLines: 1,
+                    )),
+              ],
+            ));
+            for (int i = 0; i < tableData.length; i++) {
+              List<Widget> tableList = [
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 3, child: AutoSizeText(' [' + i.toString() + ']')),
+                        Expanded(
+                            flex: 5,
+                            child: AutoSizeText(tableData[i]['Word'] +
+                                '\n' +
+                                tableData[i]['twnWord'])),
+                      ],
+                    )),
+                TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(tableData[i]['lemma'])
+                    )
+                ),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                          tableData[i]['POS'] + '\n' + tableData[i]['twnPOS']),
+                    )),
+                //Center(child: AutoSizeText(tableData[i]['twnPOS'])),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                          tableData[i]['DEP'] + '\n' + tableData[i]['twnDEP']),
+                    )),
+                //Center(child: AutoSizeText(tableData[i]['twnDEP'])),
+                TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(tableData[i]['Word/Phrase/Clause'])
+                    )
+                ),
+              ];
+              _tableArray.add(TableRow(
+                decoration: i % 2 == 0
+                    ? BoxDecoration(color: Colors.white)
+                    : BoxDecoration(color: Colors.black12),
+                children: tableList,
+              ));
+            }
+            setState(() {
+              _isloading = false;
+            });
+          } else {
+            setState(() {
+              _isloading = false;
+            });
+            final _text = "取得子句資訊失敗!";
+            final snackbar = SnackBar(
+              content: Text(_text),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
         } else {
-          setState(() {
-            _isloading = false;
-          });
-          final _text = "文章內容包含除英文之外的字元";
+          final text = "輸入內容文法有誤!";
           final snackbar = SnackBar(
-            content: Text(_text),
+            content: Text(text),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
+        //_spacyTree
+
 
         //Displacy
         /*
@@ -240,80 +381,6 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }*/
-
-        //句型分析表
-        var clauseTableApi = await APIUtil.getClauseTableByString(
-            _controller.text.replaceAll("\n", " "));
-
-        //var clauseTableResponse = jsonDecode(clauseTableApi);
-
-        print(_controller.text.replaceAll("\n", " "));
-        if (clauseTableApi['apiStatus'] == 'success') {
-          List tableData = clauseTableApi['data'] as List;
-          _tableArray.add(TableRow(
-            decoration: BoxDecoration(
-                color: PageTheme.cutom_article_practice_background
-                    .withOpacity(0.5)),
-            children: [
-              Center(child: AutoSizeText('單字', maxLines: 1)),
-              Center(child: AutoSizeText('原型', maxLines: 1)),
-              Center(child: AutoSizeText('POS', maxLines: 1)),
-              //Center(child: AutoSizeText('POS中文',maxLines: 1)),
-              Center(child: AutoSizeText('Dependency', maxLines: 1)),
-              //Center(child: AutoSizeText('Dependency中文',maxLines: 1)),
-              Center(
-                  child: AutoSizeText(
-                '片語/子句',
-                maxLines: 1,
-              )),
-            ],
-          ));
-          for (int i = 0; i < tableData.length; i++) {
-            List<Widget> tableList = [
-              Center(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      flex: 3, child: AutoSizeText(' [' + i.toString() + ']')),
-                  Expanded(
-                      flex: 5,
-                      child: AutoSizeText(tableData[i]['Word'] +
-                          '\n' +
-                          tableData[i]['twnWord'])),
-                ],
-              )),
-              Center(child: AutoSizeText(tableData[i]['lemma'])),
-              Center(
-                  child: AutoSizeText(
-                      tableData[i]['POS'] + '\n' + tableData[i]['twnPOS'])),
-              //Center(child: AutoSizeText(tableData[i]['twnPOS'])),
-              Center(
-                  child: AutoSizeText(
-                      tableData[i]['DEP'] + '\n' + tableData[i]['twnDEP'])),
-              //Center(child: AutoSizeText(tableData[i]['twnDEP'])),
-              Center(child: AutoSizeText(tableData[i]['Word/Phrase/Clause'])),
-            ];
-            _tableArray.add(TableRow(
-              decoration: i % 2 == 0
-                  ? BoxDecoration(color: Colors.white)
-                  : BoxDecoration(color: Colors.black12),
-              children: tableList,
-            ));
-          }
-          setState(() {
-            _isloading = false;
-          });
-        } else {
-          setState(() {
-            _isloading = false;
-          });
-          final _text = "文章內容包含除英文之外的字元";
-          final snackbar = SnackBar(
-            content: Text(_text),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
-        }
       } else {
         setState(() {
           _isloading = false;
@@ -329,9 +396,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
         _isloading = false;
       });
       print(error);
-      final _text = "發生異常";
       final snackbar = SnackBar(
-        content: Text(_text),
+        content: Text(error.toString()),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
@@ -653,6 +719,60 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                   ],
                 ),
               ),
+            if (_spacyTree.isNotEmpty)
+            FadeAnimation(
+              1.0,
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.zero,
+                    child: Text("子句列表",
+                        style: TextStyle(
+                            color: PageTheme.cutom_article_practice_background
+                                .withOpacity(0.8),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(
+                          top: 10, left: 20, right: 20, bottom: 5),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          width: 2,
+                          color: PageTheme.cutom_article_practice_background
+                              .withOpacity(0.5),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: (_clauseList.isNotEmpty) ? ListView.separated(
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: _clauseListView.length,
+                          //itemExtent: 100.0, //强制高度为50.0
+
+                          itemBuilder: (BuildContext context, int index) {
+                            return _clauseListView[index];
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              thickness: 1,
+                              color: PageTheme.grey,
+                            );
+                          }
+                        ) : AutoSizeText('未找到任何子句',style: TextStyle(fontSize: 20),),
+                      ),),
+                  Divider(
+                    height: 16,
+                    color: PageTheme.grey.withAlpha(50),
+                  ),
+                ],
+              ),
+            ),
             /*
             if (_spacyTree.isNotEmpty)
               FadeAnimation(
@@ -691,7 +811,7 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
               ),
             */
 
-            if (_spacyTree.isNotEmpty)
+            if (_tableArray.isNotEmpty)
               FadeAnimation(
                 1.0,
                 Column(

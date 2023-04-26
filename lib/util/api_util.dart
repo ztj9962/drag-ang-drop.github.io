@@ -455,7 +455,7 @@ class APIUtil {
     return json;
   }
 
-  static Future getSpacyTreeByString(String sent) async {
+  static Future<String> getSpacyTreeByString(String sent) async {
     final response = await http.post(
       Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/analysis/getSpacyTreeByString'),
       headers: <String, String>{
@@ -466,11 +466,11 @@ class APIUtil {
       },
     );
 
-    var json = jsonDecode(response.body.toString());
+    var json = response.body.toString();
     return json;
   }
 
-  static Future getClauseTableByString(String sent) async {
+  static Future<String> getClauseTableByString(String sent) async {
     final response = await http.post(
       Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/analysis/getClauseTableByString'),
       headers: <String, String>{
@@ -481,9 +481,7 @@ class APIUtil {
       },
     );
 
-    var noNaN = response.body.toString().replaceAll("NaN", '""');
-    var json = jsonDecode(noNaN);
-    print('processed');
+    var json = response.body.toString().replaceAll("NaN", '""');
     return json;
   }
 
