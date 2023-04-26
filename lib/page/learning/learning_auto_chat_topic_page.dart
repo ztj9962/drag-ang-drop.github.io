@@ -684,10 +684,10 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
             }
           },
         )
-            : Padding(
+            : (!senderIsMe) ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(Icons.volume_off_outlined),
-            ),
+            ) : null,
       );
       setState(() {
         _messages.insert(insertIndex, message);
