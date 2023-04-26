@@ -13,7 +13,7 @@
 import 'package:auto_route/auto_route.dart' as _i23;
 import 'package:flutter/material.dart' as _i24;
 
-import '../page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart.dart'
+import '../page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart'
     as _i3;
 import '../page/chat_topic_practice/chat_topic_practice_index_page.dart' as _i4;
 import '../page/custom_article_practice_sentence/custom_article_practice_sentence.dart'

@@ -1,4 +1,4 @@
-import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart.dart';
+import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart';
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
