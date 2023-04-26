@@ -613,7 +613,7 @@ class _CustomArticlePracticeSentenceIndexPage
           await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
-      
+
       setState(() {
         _CompleteSentenceList = responseJSONDecode['data'];
       });

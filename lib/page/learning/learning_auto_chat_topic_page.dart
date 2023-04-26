@@ -5,7 +5,7 @@ import 'dart:io' show Platform;
 import 'dart:math';
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/chat_message_util.dart';
-import 'package:alicsnet_app/util/chat_topic_util.dart';
+import 'package:alicsnet_app/util/chat_topic_message_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
