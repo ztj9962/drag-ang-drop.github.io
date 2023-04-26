@@ -347,7 +347,7 @@ class _VocabularyPracticeWordListPageState
     //if (_vocabularySentenceList.length == _vocabularyList.length) return;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
-    var responseJSON;
+    String responseJSON;
     try {
       int doLimit = 1;
       var vocabularySentenceList;
@@ -355,17 +355,17 @@ class _VocabularyPracticeWordListPageState
       do {
         responseJSON = await APIUtil.getCompleteSentenceList(content);
         print(responseJSON);
-        //responseJSONDecode = jsonDecode(responseJSON.toString());
+        responseJSONDecode = jsonDecode(responseJSON.toString());
         //print(responseJSONDecode);
-        if (responseJSON['apiStatus'] != 'success') {
+        if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
           if (doLimit > 3)
-            throw Exception('API: ' + responseJSON['apiMessage']); // 只測 3 次
+            throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
           await Future.delayed(Duration(seconds: 1));
         }
-      } while (responseJSON['apiStatus'] != 'success');
+      } while (responseJSONDecode['apiStatus'] != 'success');
       //print(responseJSONDecode);
-      vocabularySentenceList = responseJSON['data'];
+      vocabularySentenceList = responseJSONDecode['data'];
 
       setState(() {
         _CompleteSentenceList = vocabularySentenceList;
@@ -376,6 +376,6 @@ class _VocabularyPracticeWordListPageState
       ));
     }
     EasyLoading.dismiss();
-    return responseJSON['apiStatus'] == 'success';
+    return responseJSONDecode['apiStatus'] == 'success';
   }
 }

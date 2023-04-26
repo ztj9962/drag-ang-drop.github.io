@@ -77,7 +77,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
           AutoRouter.of(context)
-              .pushNamed("/voabulary_practice_sentence_index");
+              .pushNamed("/chat_topic_practice_index_page");
         },
       ),
     );
