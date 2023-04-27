@@ -199,7 +199,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   ),
                                                   onPressed: (){
                                                     AutoRouter.of(context).push(
-                                                        LearningManualMinimalPairIPAGraphemeRoute(getIPASymbol: _ipaSymbolMonophthongs![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
+                                                        LearningManualIPAGraphemePairRoute(getIPASymbol: _ipaSymbolMonophthongs![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
                                                     );
                                                   },
                                                 ),
@@ -360,7 +360,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   ),
                                                   onPressed: (){
                                                     AutoRouter.of(context).push(
-                                                        LearningManualMinimalPairIPAGraphemeRoute(getIPASymbol: _ipaSymbolDiphthongs![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
+                                                        LearningManualIPAGraphemePairRoute(getIPASymbol: _ipaSymbolDiphthongs![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
                                                     );
                                                   },
                                                 ),
@@ -521,7 +521,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   ),
                                                   onPressed: (){
                                                     AutoRouter.of(context).push(
-                                                        LearningManualMinimalPairIPAGraphemeRoute(getIPASymbol: _ipaSymbolConsonants![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
+                                                        LearningManualIPAGraphemePairRoute(getIPASymbol: _ipaSymbolConsonants![index], getGraphemes: _getGraphemes!, getWord: _getWord!, getWordIPA: _getWordIPA!)
                                                     );
                                                   },
                                                 ),
