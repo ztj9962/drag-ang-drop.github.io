@@ -1,5 +1,6 @@
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart';
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_index_page.dart';
+import 'package:alicsnet_app/page/contraction/contraction_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_chat_topic_page.dart';
@@ -37,6 +38,10 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(
         path: '/chat_topic_practice_index_page',
         page: ChatTopicPracticeIndexPage),
+
+    AutoRoute(
+        path: '/contraction_index_page',
+        page: ContractionIndexPage,),
 
     AutoRoute(
         path: '/learning_auto_chat_topic_page',

@@ -542,4 +542,51 @@ class APIUtil {
     var json = response.body.toString();
     return json;
   }
+
+  static Future<String> getContractionPair(String wordCondition) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionPair'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'wordCondition': wordCondition,
+      },
+    );
+
+    var json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getContractionFullForm(String wordCondition, String word) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionFullForm'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'wordCondition': wordCondition,
+        'word': word,
+      },
+    );
+
+    var json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getContractionSentence(String wordCondition, String word) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionSentence'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'wordCondition': wordCondition,
+        'word': word,
+      },
+    );
+
+    var json = response.body.toString();
+    return json;
+  }
 }
