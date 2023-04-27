@@ -2,6 +2,7 @@ import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conver
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
+import 'package:alicsnet_app/page/ipa_grapheme_pair/ipa_grapheme_pair_index_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_chat_topic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_summary_report_page.dart';
@@ -29,6 +30,8 @@ import 'package:auto_route/auto_route.dart';
   routes: <AutoRoute>[
     AutoRoute(path: '/', page: SignInPage, initial: true),
     AutoRoute(path: '/index', page: IndexPage),
+
+    AutoRoute(path: '/ipa_grapheme_pair_index_page', page: IPAGraphemePairIndexPage),
 
     AutoRoute(
         path: '/chat_topic_practice_conversation_list_page',

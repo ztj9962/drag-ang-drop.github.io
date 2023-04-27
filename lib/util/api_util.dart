@@ -542,4 +542,36 @@ class APIUtil {
     var json = response.body.toString();
     return json;
   }
+
+  static Future<String> getIPAGraphemePair(vowelConsonant,
+      {String dataLimit = ''}) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/ipaGraphemePair/getIPAGraphemePair'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'vowelConsonant': vowelConsonant.toString(),
+        'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getIPAGraphemePairWord(ipaSymbol,
+      {String dataLimit = ''}) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/ipaGraphemePair/getIPAGraphemePairWord'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'ipaSymbol': ipaSymbol.toString(),
+        'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

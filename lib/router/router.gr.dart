@@ -19,6 +19,7 @@ import '../page/chat_topic_practice/chat_topic_practice_index_page.dart' as _i4;
 import '../page/custom_article_practice_sentence/custom_article_practice_sentence.dart'
     as _i9;
 import '../page/index/index_page.dart' as _i2;
+import '../page/ipa_grapheme_pair/ipa_grapheme_pair_index_page.dart' as _i25;
 import '../page/learning/learning_auto_chat_topic_page.dart' as _i5;
 import '../page/learning/learning_auto_generic_page.dart' as _i13;
 import '../page/learning/learning_auto_generic_summary_report_page.dart'
@@ -59,6 +60,10 @@ class AppRouter extends _i23.RootStackRouter {
     IndexRoute.name: (routeData) {
       return _i23.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.IndexPage());
+    },
+    IPAGraphemePairIndexRoute.name: (routeData) {
+      return _i23.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i25.IPAGraphemePairIndexPage());
     },
     ChatTopicPracticeConversationListRoute.name: (routeData) {
       final args =
@@ -224,6 +229,8 @@ class AppRouter extends _i23.RootStackRouter {
   List<_i23.RouteConfig> get routes => [
         _i23.RouteConfig(SignInRoute.name, path: '/'),
         _i23.RouteConfig(IndexRoute.name, path: '/index'),
+        _i23.RouteConfig(IPAGraphemePairIndexRoute.name,
+            path: '/ipa_grapheme_pair_index_page'),
         _i23.RouteConfig(ChatTopicPracticeConversationListRoute.name,
             path: '/chat_topic_practice_conversation_list_page'),
         _i23.RouteConfig(ChatTopicPracticeIndexRoute.name,
@@ -281,6 +288,15 @@ class IndexRoute extends _i23.PageRouteInfo<void> {
   const IndexRoute() : super(IndexRoute.name, path: '/index');
 
   static const String name = 'IndexRoute';
+}
+
+/// generated route for
+/// [_i25.IPAGraphemePairIndexPage]
+class IPAGraphemePairIndexRoute extends _i23.PageRouteInfo<void> {
+  const IPAGraphemePairIndexRoute()
+      : super(IPAGraphemePairIndexRoute.name, path: '/ipa_grapheme_pair_index_page');
+
+  static const String name = 'IPAGraphemePairIndexRoute';
 }
 
 /// generated route for
