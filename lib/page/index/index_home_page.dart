@@ -76,8 +76,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context)
-              .pushNamed("/chat_topic_practice_index_page");
+          AutoRouter.of(context).pushNamed("/chat_topic_practice_index_page");
         },
       ),
     );
@@ -124,7 +123,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
-    
+
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,

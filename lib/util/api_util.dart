@@ -25,7 +25,8 @@ class APIUtil {
       String sentenceRankingLocking: '',
       String dataLimit: ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getSentences'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -49,7 +50,8 @@ class APIUtil {
   static Future<String> checkSentences(String questionText, String answerText,
       {int correctCombo: 0}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/checkSentences'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/sentence/checkSentences'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -65,7 +67,8 @@ class APIUtil {
 
   static Future<String> checkGrammar(String sentenceText) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/grammar/checkGrammar'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/grammar/checkGrammar'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -85,7 +88,8 @@ class APIUtil {
       List<int> scoreArray,
       List<int> secondsArray) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/quiz/saveQuizData'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/quiz/saveQuizData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -110,7 +114,8 @@ class APIUtil {
       List<int> scoreArray,
       List<int> secondsArray) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/quiz/updateQuizData'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/quiz/updateQuizData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -130,7 +135,8 @@ class APIUtil {
   static Future<String> minimalPairTwoFinder(ipa1, ipa2,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/minimalPair/twoFinder'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/minimalPair/twoFinder'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -147,7 +153,8 @@ class APIUtil {
   static Future<String> minimalPairWordFinder(word1,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/minimalPair/wordFinder'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/minimalPair/wordFinder'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -162,7 +169,8 @@ class APIUtil {
 
   static Future<String> getChatTopicData() async {
     final response = await http.get(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getChatTopicData'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/chatTopic/getChatTopicData'),
     );
     String json = response.body.toString();
     return json;
@@ -170,7 +178,8 @@ class APIUtil {
 
   static Future<String> getIPAAvailable() async {
     final response = await http.get(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/minimalPair/getIPAAvailable'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/minimalPair/getIPAAvailable'),
     );
     String json = response.body.toString();
     return json;
@@ -178,7 +187,8 @@ class APIUtil {
 
   static Future getSentenceSegmentation(String article) async {
     final response = await http.post(
-        Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/sentSegmentation'),
+        Uri.https(await SharedPreferencesUtil.getAPIURL(),
+            'app/sentence/sentSegmentation'),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         },
@@ -191,7 +201,8 @@ class APIUtil {
 
   static Future getSentenceIPA(List sentenceList) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getSentenceIPA'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/sentence/getSentenceIPA'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -206,7 +217,8 @@ class APIUtil {
 
   static Future getStatitics(String article) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/article/getStatitics'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/article/getStatitics'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -222,7 +234,8 @@ class APIUtil {
   static Future<String> vocabularyTestGetQuestion(
       {String indexMin: '', String indexMax: '', String dataLimit: ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/vocabularyTest/getQuestion'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/vocabularyTest/getQuestion'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -239,7 +252,8 @@ class APIUtil {
   static Future<String> vocabularyGetList(String index,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/vocabulary/getList'),
+      Uri.https(
+          await SharedPreferencesUtil.getAPIURL(), 'app/vocabulary/getList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -254,7 +268,8 @@ class APIUtil {
 
   static Future<String> vocabularyGetRowIndex(String word) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/vocabulary/getRowIndex'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/vocabulary/getRowIndex'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -269,7 +284,8 @@ class APIUtil {
   static Future<String> vocabularyGetSentenceList(String index,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/vocabulary/getSentenceList'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/vocabulary/getSentenceList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -428,7 +444,8 @@ class APIUtil {
 
   static Future<String> sentenceClauseCount(String sent) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/sentenceClauseCount'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/sentence/sentenceClauseCount'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -442,7 +459,8 @@ class APIUtil {
 
   static Future<String> getCompleteSentenceList(List sent) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/sentence/getCompleteSentenceList'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/sentence/getCompleteSentenceList'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -457,7 +475,8 @@ class APIUtil {
 
   static Future<String> getSpacyTreeByString(String sent) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/analysis/getSpacyTreeByString'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/analysis/getSpacyTreeByString'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -472,7 +491,8 @@ class APIUtil {
 
   static Future<String> getClauseTableByString(String sent) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/analysis/getClauseTableByString'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/analysis/getClauseTableByString'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -487,7 +507,8 @@ class APIUtil {
 
   static Future<String> sendPasswordResetLink(String email) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/account/sendPasswordResetLink'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/account/sendPasswordResetLink'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -501,7 +522,8 @@ class APIUtil {
 
   static Future<String> sendEmailVerificationLink(String email) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/account/sendEmailVerificationLink'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/account/sendEmailVerificationLink'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -515,7 +537,8 @@ class APIUtil {
 
   static Future<String> getConversationData(String chatTopicGroupId) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getConversationData'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/chatTopic/getConversationData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -530,7 +553,8 @@ class APIUtil {
 
   static Future<String> getConversationGroupData(String topicName) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/chatTopic/getConversationGroupData'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/chatTopic/getConversationGroupData'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -545,7 +569,8 @@ class APIUtil {
 
   static Future<String> getContractionPair(String wordCondition) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionPair'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/contraction/getContractionPair'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -558,9 +583,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> getContractionFullForm(String wordCondition, String word) async {
+  static Future<String> getContractionFullForm(
+      String wordCondition, String word) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionFullForm'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/contraction/getContractionFullForm'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -574,9 +601,11 @@ class APIUtil {
     return json;
   }
 
-  static Future<String> getContractionSentence(String wordCondition, String word) async {
+  static Future<String> getContractionSentence(
+      String wordCondition, String word) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/contraction/getContractionSentence'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/contraction/getContractionSentence'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -589,11 +618,12 @@ class APIUtil {
     var json = response.body.toString();
     return json;
   }
-  
+
   static Future<String> getIPAGraphemePair(vowelConsonant,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/ipaGraphemePair/getIPAGraphemePair'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/ipaGraphemePair/getIPAGraphemePair'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
@@ -609,7 +639,8 @@ class APIUtil {
   static Future<String> getIPAGraphemePairWord(ipaSymbol,
       {String dataLimit = ''}) async {
     final response = await http.post(
-      Uri.https(await SharedPreferencesUtil.getAPIURL(), 'app/ipaGraphemePair/getIPAGraphemePairWord'),
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/ipaGraphemePair/getIPAGraphemePairWord'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },

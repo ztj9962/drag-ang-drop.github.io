@@ -15,7 +15,9 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 class ChatTopicPracticeConversationListPage extends StatefulWidget {
   final String topicName;
 
-  const ChatTopicPracticeConversationListPage({Key? key, required this.topicName}) : super(key: key);
+  const ChatTopicPracticeConversationListPage(
+      {Key? key, required this.topicName})
+      : super(key: key);
 
   @override
   _ChatTopicPracticeConversationListPageState createState() =>
@@ -26,8 +28,7 @@ class _ChatTopicPracticeConversationListPageState
     extends State<ChatTopicPracticeConversationListPage> {
   List<Widget> _listViews = <Widget>[];
   String _topicName = '';
-  Map _titleDict = {
-  };
+  Map _titleDict = {};
 
   @override
   void initState() {
@@ -61,16 +62,18 @@ class _ChatTopicPracticeConversationListPageState
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
           child: ListView.separated(
-              padding: EdgeInsets.only(
-                top: 24,
-                bottom: 62,
-              ),
-              itemCount: _listViews.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _listViews[index];
-              }, separatorBuilder: (BuildContext context, int index) {
-                return Padding(padding: EdgeInsets.all(10));
-          },),
+            padding: EdgeInsets.only(
+              top: 24,
+              bottom: 62,
+            ),
+            itemCount: _listViews.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _listViews[index];
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Padding(padding: EdgeInsets.all(10));
+            },
+          ),
         ));
   }
 
@@ -84,7 +87,8 @@ class _ChatTopicPracticeConversationListPageState
     try {
       int doLimit = 1;
       do {
-        String responseJSON = await APIUtil.getConversationGroupData(_topicName);
+        String responseJSON =
+            await APIUtil.getConversationGroupData(_topicName);
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
@@ -101,94 +105,109 @@ class _ChatTopicPracticeConversationListPageState
 
       //print(_titleDict);
 
-      for(int i = 1;i < _titleDict.length+1;i++){
+      for (int i = 1; i < _titleDict.length + 1; i++) {
         listViews.add(
           Container(
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: Row(
                 children: [
-                  Expanded(child: AutoSizeText('${_titleDict[i.toString()]['conversationTitle']}\n對話句數:${_titleDict[i.toString()]['conversationSentenceCount']}',style: TextStyle(fontSize: 15),)),
+                  Expanded(
+                      child: AutoSizeText(
+                    '${_titleDict[i.toString()]['conversationTitle']}\n對話句數:${_titleDict[i.toString()]['conversationSentenceCount']}',
+                    style: TextStyle(fontSize: 15),
+                  )),
                   Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: Align(
                       alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () async {
-                            var responseJSONDecode;
-                            try {
-                              int doLimit = 1;
-                              do {
-                                String responseJSON = await APIUtil.getConversationData(_titleDict[i.toString()]['conversationGroupId'].toString());
-                                print(responseJSON);
-                                responseJSONDecode = jsonDecode(responseJSON);
-                                if (responseJSONDecode['apiStatus'] != 'success') {
-                                  doLimit += 1;
-                                  if (doLimit > 3)
-                                    throw Exception('API: ' +
-                                        responseJSONDecode[
-                                        'apiMessage']); // 只測 3 次
-                                  await Future.delayed(
-                                      Duration(seconds: 1));
-                                }
-                              } while (
-                              responseJSONDecode['apiStatus'] != 'success');
-                              print(responseJSONDecode);
-                            } catch (e) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(content: Text('Error: $e'),
-                              ));
-                            }
-                            EasyLoading.dismiss();
-                            if (responseJSONDecode['apiStatus'] !=
-                                'success') {
-                              return;
-                            }
+                      child: GestureDetector(
+                        onTap: () async {
+                          var responseJSONDecode;
+                          try {
+                            int doLimit = 1;
+                            do {
+                              String responseJSON =
+                                  await APIUtil.getConversationData(
+                                      _titleDict[i.toString()]
+                                              ['conversationGroupId']
+                                          .toString());
+                              print(responseJSON);
+                              responseJSONDecode = jsonDecode(responseJSON);
+                              if (responseJSONDecode['apiStatus'] !=
+                                  'success') {
+                                doLimit += 1;
+                                if (doLimit > 3)
+                                  throw Exception('API: ' +
+                                      responseJSONDecode[
+                                          'apiMessage']); // 只測 3 次
+                                await Future.delayed(Duration(seconds: 1));
+                              }
+                            } while (
+                                responseJSONDecode['apiStatus'] != 'success');
+                            print(responseJSONDecode);
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Error: $e'),
+                            ));
+                          }
+                          EasyLoading.dismiss();
+                          if (responseJSONDecode['apiStatus'] != 'success') {
+                            return;
+                          }
 
-                            List<String> contentList = [];
-                            List<String> translateList = [];
-                            List<String> speakerList = [];
-                            List<String> orderList = [];
-                            for(var item in responseJSONDecode['data']['sentence']){
-                              contentList.add(item['topicSentenceContent']);
-                              translateList.add(item['topicSentenceChinese']);
-                              speakerList.add(item['topicSentenceSpeaker']);
-                              orderList.add(item['topicSentenceOrder'].toString());
-                            }
-                            AutoRouter.of(context).push(
-                                LearningAutoChatTopicRoute(contentList: [contentList], translateList: [translateList], title: _topicName, speakerList: [speakerList], subtitle: _titleDict[i.toString()]['conversationTitle'], orderList: [orderList])
-                            );
-                          },
-                          //onTap: sentenceTypeListData!.onTapFunction,
-                          child: Container(
-                            width: 160,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: PageTheme.nearlyWhite,
-                              shape: BoxShape.rectangle, // 矩形
-                              borderRadius: new BorderRadius.circular(
-                                  (20.0)), // 圓角度
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: PageTheme.app_theme_blue
-                                        .withOpacity(0.4),
-                                    offset: Offset(8.0, 8.0),
-                                    blurRadius: 8.0),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                '開始',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor('#FFB295'),
-                                  fontSize: 16,
-                                ),
+                          List<String> contentList = [];
+                          List<String> translateList = [];
+                          List<String> speakerList = [];
+                          List<String> orderList = [];
+                          for (var item in responseJSONDecode['data']
+                              ['sentence']) {
+                            contentList.add(item['topicSentenceContent']);
+                            translateList.add(item['topicSentenceChinese']);
+                            speakerList.add(item['topicSentenceSpeaker']);
+                            orderList
+                                .add(item['topicSentenceOrder'].toString());
+                          }
+                          AutoRouter.of(context).push(
+                              LearningAutoChatTopicRoute(
+                                  contentList: [contentList],
+                                  translateList: [translateList],
+                                  title: _topicName,
+                                  speakerList: [speakerList],
+                                  subtitle: _titleDict[i.toString()]
+                                      ['conversationTitle'],
+                                  orderList: [orderList]));
+                        },
+                        //onTap: sentenceTypeListData!.onTapFunction,
+                        child: Container(
+                          width: 160,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: PageTheme.nearlyWhite,
+                            shape: BoxShape.rectangle, // 矩形
+                            borderRadius:
+                                new BorderRadius.circular((20.0)), // 圓角度
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color:
+                                      PageTheme.app_theme_blue.withOpacity(0.4),
+                                  offset: Offset(8.0, 8.0),
+                                  blurRadius: 8.0),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              '開始',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: HexColor('#FFB295'),
+                                fontSize: 16,
                               ),
                             ),
                           ),
                         ),
+                      ),
                     ),
                   ),
                 ],
@@ -198,8 +217,7 @@ class _ChatTopicPracticeConversationListPageState
               color: PageTheme.app_theme_blue.withOpacity(0.2),
               //border: Border.all(width: 2.0,color: PageTheme.app_theme_blue),
               shape: BoxShape.rectangle, // 矩形
-              borderRadius: new BorderRadius.circular(
-                  (20.0)), // 圓角度
+              borderRadius: new BorderRadius.circular((20.0)), // 圓角度
               gradient: LinearGradient(
                 colors: <HexColor>[
                   HexColor('#FF6268'),

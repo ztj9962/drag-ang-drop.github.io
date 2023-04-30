@@ -6,7 +6,6 @@ import 'package:alicsnet_app/util/api_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -89,17 +88,17 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                   style: TextStyle(color: PageTheme.app_theme_blue),
                   maxLines: 1,
                 ),
-                items: _wordConditionList?.map<DropdownMenuItem<String>>(
-                        (String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: AutoSizeText(
-                          '   ${value}',
-                          style: TextStyle(color: PageTheme.app_theme_blue),
-                          maxLines: 1,
-                        ),
-                      );
-                    }).toList(),
+                items: _wordConditionList
+                    ?.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: AutoSizeText(
+                      '   ${value}',
+                      style: TextStyle(color: PageTheme.app_theme_blue),
+                      maxLines: 1,
+                    ),
+                  );
+                }).toList(),
 
                 onChanged: (String? value) {
                   setState(() {
@@ -123,10 +122,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   key: Key('builder ${_selected.toString()}'),
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      bottom: 20
-                  ),
+                  padding: EdgeInsets.only(top: 20, bottom: 20),
                   itemCount: _getWord?.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
@@ -147,9 +143,14 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   flex: 1,
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Text(_getWord![index], style: TextStyle(fontSize: 20, color: PageTheme.app_theme_blue)),
+                                        Text(_getWord![index],
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color:
+                                                    PageTheme.app_theme_blue)),
                                       ],
                                     ),
                                   ),
@@ -157,10 +158,22 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                 Expanded(
                                   flex: 2,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text('contraction: ', style: TextStyle(fontSize: 10, color: PageTheme.app_theme_blue),),
-                                      Text(_getContraction![index].replaceAll('[', '').replaceAll(']', ''), style: TextStyle(fontSize: 14, color: PageTheme.app_theme_blue))
+                                      Text(
+                                        'contraction: ',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: PageTheme.app_theme_blue),
+                                      ),
+                                      Text(
+                                          _getContraction![index]
+                                              .replaceAll('[', '')
+                                              .replaceAll(']', ''),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: PageTheme.app_theme_blue))
                                     ],
                                   ),
                                 )
@@ -172,7 +185,8 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   children: <Widget>[
                                     Divider(
                                       thickness: 2,
-                                      color: PageTheme.syllable_search_background,
+                                      color:
+                                          PageTheme.syllable_search_background,
                                     ),
                                     Flex(
                                       direction: Axis.horizontal,
@@ -180,13 +194,18 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                         Expanded(
                                           flex: 4,
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               ListView.builder(
-                                                physics: NeverScrollableScrollPhysics(),
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
-                                                itemCount: _getPairContraction?.length,
-                                                itemBuilder: (BuildContext context, int index){
+                                                itemCount:
+                                                    _getPairContraction?.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
                                                   return Flex(
                                                     direction: Axis.horizontal,
                                                     children: [
@@ -194,17 +213,35 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                           flex: 1,
                                                           child: Container(
                                                             child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                              children: <Widget>[
-                                                                Padding(padding: EdgeInsets.all(10)),
-                                                                Text(_getPairContraction![index], style: TextStyle(fontSize: 14),),
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: <
+                                                                  Widget>[
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            10)),
+                                                                Text(
+                                                                  _getPairContraction![
+                                                                      index],
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          14),
+                                                                ),
                                                               ],
                                                             ),
-                                                          )
-                                                      ),
+                                                          )),
                                                       Expanded(
                                                         flex: 1,
-                                                        child: Text(_getPairFullForm![index].replaceAll(',', ', '), style: TextStyle(fontSize: 14),),
+                                                        child: Text(
+                                                          _getPairFullForm![
+                                                                  index]
+                                                              .replaceAll(
+                                                                  ',', ', '),
+                                                          style: TextStyle(
+                                                              fontSize: 14),
+                                                        ),
                                                       ),
                                                     ],
                                                   );
@@ -216,17 +253,27 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                         Expanded(
                                           flex: 1,
                                           child: CircleAvatar(
-                                            backgroundColor: PageTheme.app_theme_blue,
+                                            backgroundColor:
+                                                PageTheme.app_theme_blue,
                                             radius: 25.0,
                                             child: IconButton(
                                               icon: const Icon(
                                                 Icons.navigate_next_outlined,
                                                 color: Colors.white,
                                               ),
-                                              onPressed: (){
+                                              onPressed: () {
                                                 AutoRouter.of(context).push(
-                                                    LearningManualContractionRoute(getContraction: _getPracticeContraction, getContractionIPA: _getPracticeContractionIPA, getFullForm: _getPracticeFullForm, getSentence: _getPracticeSentence, getSentenceIPA: _getPracticeSentenceIPA)
-                                                );
+                                                    LearningManualContractionRoute(
+                                                        getContraction:
+                                                            _getPracticeContraction,
+                                                        getContractionIPA:
+                                                            _getPracticeContractionIPA,
+                                                        getFullForm:
+                                                            _getPracticeFullForm,
+                                                        getSentence:
+                                                            _getPracticeSentence,
+                                                        getSentenceIPA:
+                                                            _getPracticeSentenceIPA));
                                               },
                                             ),
                                           ),
@@ -237,10 +284,11 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                 ),
                               ),
                             ],
-                            onExpansionChanged: (bool expanded){
-                              if (expanded){
+                            onExpansionChanged: (bool expanded) {
+                              if (expanded) {
                                 setState(() {
-                                  initGetContractionFullForm(_dropdownValue1!, _getWord![index]);
+                                  initGetContractionFullForm(
+                                      _dropdownValue1!, _getWord![index]);
                                   _selected = index;
                                 });
                               } else {
@@ -254,8 +302,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                         Padding(padding: EdgeInsets.all(4)),
                       ],
                     );
-                  }
-              ),
+                  }),
             ),
           ],
         ),
@@ -267,16 +314,17 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     List<String> getWord = [];
     List<String> getContraction = [];
 
-    if (wordCondition == 'prefix'){
+    if (wordCondition == 'prefix') {
       wordCondition = 'word1';
-    } else if (wordCondition == 'suffix'){
+    } else if (wordCondition == 'suffix') {
       wordCondition = 'word2';
     }
 
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var getIPAGraphemePair;
     do {
-      String getIPAGraphemePairJSON = await APIUtil.getContractionPair(wordCondition);
+      String getIPAGraphemePairJSON =
+          await APIUtil.getContractionPair(wordCondition);
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -298,7 +346,8 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     });
   }
 
-  Future<void> initGetContractionFullForm(String wordCondition, String word) async {
+  Future<void> initGetContractionFullForm(
+      String wordCondition, String word) async {
     List<String> getPairContraction = [];
     List<String> getPairFullForm = [];
     List<String> getPracticeContraction = [];
@@ -307,16 +356,17 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     List<String> getPracticeSentence = [];
     List<String> getPracticeSentenceIPA = [];
 
-    if (wordCondition == 'prefix'){
+    if (wordCondition == 'prefix') {
       wordCondition = 'word1';
-    } else if (wordCondition == 'suffix'){
+    } else if (wordCondition == 'suffix') {
       wordCondition = 'word2';
     }
 
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var getIPAGraphemePair;
     do {
-      String getIPAGraphemePairJSON = await APIUtil.getContractionFullForm(wordCondition, word);
+      String getIPAGraphemePairJSON =
+          await APIUtil.getContractionFullForm(wordCondition, word);
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -330,7 +380,8 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     });
 
     do {
-      String getIPAGraphemePairJSON = await APIUtil.getContractionSentence(wordCondition, word);
+      String getIPAGraphemePairJSON =
+          await APIUtil.getContractionSentence(wordCondition, word);
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));

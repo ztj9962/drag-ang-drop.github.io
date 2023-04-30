@@ -609,7 +609,8 @@ class _CustomArticlePracticeSentenceIndexPage
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
           if (doLimit > 3)
-            throw Exception('API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
+            throw Exception(
+                'API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
           await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');

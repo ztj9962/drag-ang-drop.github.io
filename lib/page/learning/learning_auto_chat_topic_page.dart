@@ -25,6 +25,7 @@ import 'package:wakelock/wakelock.dart';
 
 class LearningAutoChatTopicPage extends StatefulWidget {
   final List<List<String>> contentList;
+
   //final List<String> ipaList;
   final List<List<String>> translateList;
   final String title;
@@ -40,8 +41,7 @@ class LearningAutoChatTopicPage extends StatefulWidget {
       required this.title,
       required this.speakerList,
       required this.subtitle,
-      required this.orderList
-      })
+      required this.orderList})
       : super(key: key);
 
   @override
@@ -52,6 +52,7 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
   late List<List<String>> _contentList;
+
   //late List<String> _ipaList;
   late List<List<String>> _translateList;
   late List<List<String>> _speakerList;
@@ -185,7 +186,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
                 itemBuilder: (_, int index) => _messages[index],
                 itemCount: _messages.length,
               ),
-
             ),
           ),
           Expanded(
@@ -498,10 +498,13 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
     };
 
     // 設定聊天機器人
-    _summaryReportData['startTime'] = DateTime.now().toString().substring(0, 19);
-    await sendChatMessage(false, 'Bot', [TextSpan(text: '情境對話即將開始\n請跟著我重複一次下列發光對話')],
+    _summaryReportData['startTime'] =
+        DateTime.now().toString().substring(0, 19);
+    await sendChatMessage(
+        false, 'Bot', [TextSpan(text: '情境對話即將開始\n請跟著我重複一次下列發光對話')],
         needSpeak: true,
-        speakMessage: 'Topic conversation is about to start. Please repeat the following highlighted conversation with me',
+        speakMessage:
+            'Topic conversation is about to start. Please repeat the following highlighted conversation with me',
         speakLanguage: 'en-US');
 
     await initConversation();
@@ -655,7 +658,7 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       bool highlighted = false,
       String commentary = '',
       bool useTopicUtil = false}) async {
-    if(useTopicUtil){
+    if (useTopicUtil) {
       ChatTopicMessageUtil message = ChatTopicMessageUtil(
         commentary: commentary,
         senderIsMe: senderIsMe,
@@ -667,27 +670,30 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
         secondaryTheme: secondaryTheme,
         actionButton: (canSpeak)
             ? IconButton(
-          icon: Icon((_allowTouchButtons['reListenButton']! &&
-              !speechToText.isListening)
-              ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
-              : Icons.volume_off_outlined),
-          color: (_allowTouchButtons['reListenButton']! &&
-              !speechToText.isListening)
-              ? Colors.black
-              : Colors.grey,
-          onPressed: () async {
-            print(_allowTouchButtons['reListenButton']! && !speechToText.isListening);
-            if (_allowTouchButtons['reListenButton']! &&
-                !speechToText.isListening) {
-              ttsRateSlow = !ttsRateSlow;
-              await _ttsSpeak(speakMessage, speakLanguage);
-            }
-          },
-        )
-            : (!senderIsMe) ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.volume_off_outlined),
-            ) : null,
+                icon: Icon((_allowTouchButtons['reListenButton']! &&
+                        !speechToText.isListening)
+                    ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                    : Icons.volume_off_outlined),
+                color: (_allowTouchButtons['reListenButton']! &&
+                        !speechToText.isListening)
+                    ? Colors.black
+                    : Colors.grey,
+                onPressed: () async {
+                  print(_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening);
+                  if (_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening) {
+                    ttsRateSlow = !ttsRateSlow;
+                    await _ttsSpeak(speakMessage, speakLanguage);
+                  }
+                },
+              )
+            : (!senderIsMe)
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.volume_off_outlined),
+                  )
+                : null,
       );
       setState(() {
         _messages.insert(insertIndex, message);
@@ -696,29 +702,29 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       if (needSpeak) {
         await _ttsSpeak(speakMessage, speakLanguage);
       }
-    }else{
+    } else {
       ChatMessageUtil message = ChatMessageUtil(
         senderIsMe: senderIsMe,
         senderName: senderName,
         messageTextWidget: messageTextWidget,
         actionButton: (canSpeak)
             ? IconButton(
-          icon: Icon((_allowTouchButtons['reListenButton']! &&
-              !speechToText.isListening)
-              ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
-              : Icons.volume_off_outlined),
-          color: (_allowTouchButtons['reListenButton']! &&
-              !speechToText.isListening)
-              ? Colors.black
-              : Colors.grey,
-          onPressed: () async {
-            if (_allowTouchButtons['reListenButton']! &&
-                !speechToText.isListening) {
-              ttsRateSlow = !ttsRateSlow;
-              await _ttsSpeak(speakMessage, speakLanguage);
-            }
-          },
-        )
+                icon: Icon((_allowTouchButtons['reListenButton']! &&
+                        !speechToText.isListening)
+                    ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                    : Icons.volume_off_outlined),
+                color: (_allowTouchButtons['reListenButton']! &&
+                        !speechToText.isListening)
+                    ? Colors.black
+                    : Colors.grey,
+                onPressed: () async {
+                  if (_allowTouchButtons['reListenButton']! &&
+                      !speechToText.isListening) {
+                    ttsRateSlow = !ttsRateSlow;
+                    await _ttsSpeak(speakMessage, speakLanguage);
+                  }
+                },
+              )
             : null,
       );
       setState(() {
@@ -737,7 +743,10 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
     });
 
     if (_answerText != '' && isFinalResult) {
-      sendChatMessage(true, 'Me', [TextSpan(text: text)],insertIndex: _contentList[_topicPart].length-_part,useTopicUtil: true,canSpeak: false);
+      sendChatMessage(true, 'Me', [TextSpan(text: text)],
+          insertIndex: _contentList[_topicPart].length - _part,
+          useTopicUtil: true,
+          canSpeak: false);
       _summaryReportData['secondsArray']!.add(_answerSeconds);
 
       setState(() {
@@ -760,7 +769,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
 
     var checkSentences = jsonDecode(checkSentencesJSON.toString());
     //print(checkSentencesJSON.toString());
-
 
     if (checkSentences['apiStatus'] == 'success') {
       if (checkSentences['data']['ipaTextSimilarity'] == 100) {
@@ -793,18 +801,19 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
 
       //questionTextWidget.add(TextSpan(text: '\n[${_ipaList[_part - 1]}]'));
 
-      questionTextWidget.add(TextSpan(text: '\n${_translateList[_topicPart][_part - 1]}'));
+      questionTextWidget
+          .add(TextSpan(text: '\n${_translateList[_topicPart][_part - 1]}'));
 
       //questionTextWidget.add(TextSpan(text: '\n${_part}/${_contentList.length}'));
 
       //questionTextWidget.add(TextSpan(text: '\n${checkSentences['data']['answerText']}'));
       message = ChatTopicMessageUtil(
         senderIsMe: false,
-        senderName: _speakerList[_topicPart][_part-1],
+        senderName: _speakerList[_topicPart][_part - 1],
         messageTextWidget: questionTextWidget,
         usePrefix: true,
-        secondaryTheme: (_speakerList[_topicPart][_part-1] != 'P1'),
-        prefix: (int.parse(_orderList[_topicPart][_part-1])).toString(),
+        secondaryTheme: (_speakerList[_topicPart][_part - 1] != 'P1'),
+        prefix: (int.parse(_orderList[_topicPart][_part - 1])).toString(),
         actionButton: IconButton(
           icon: Icon((_allowTouchButtons['reListenButton']! &&
                   !speechToText.isListening)
@@ -824,7 +833,7 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
         ),
       );
       setState(() {
-        _messages[_contentList[_topicPart].length-_part+1] = message;
+        _messages[_contentList[_topicPart].length - _part + 1] = message;
       });
       //print(_contentList.length-_part+1);
       var answerTextArray = checkSentences['data']['answerText'].split(' ');
@@ -844,8 +853,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
           answerTextWidget.add(TextSpan(text: answerTextArray[i] + ' '));
         }
       }
-
-
 
       _summaryReportData['sentenceQuestionArray']!
           .add(checkSentences['data']['questionText']);
@@ -871,14 +878,15 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       ChatTopicMessageUtil messageMe = ChatTopicMessageUtil(
         senderIsMe: true,
         senderName: 'Me',
-        commentary: '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']} 您花 ${_summaryReportData['secondsArray']![_part-1].toString()} 秒（${_summaryReportData['userAnswerRate']![_part-1].toStringAsFixed(2)}wps）回答',
+        commentary:
+            '${checkSentences['data']['scoreComment']['text']} ${checkSentences['data']['scoreComment']['emoji']} 您花 ${_summaryReportData['secondsArray']![_part - 1].toString()} 秒（${_summaryReportData['userAnswerRate']![_part - 1].toStringAsFixed(2)}wps）回答',
         messageTextWidget: answerTextWidget,
       );
 
-      await _ttsSpeak(checkSentences['data']['scoreComment']['text'],'en');
+      await _ttsSpeak(checkSentences['data']['scoreComment']['text'], 'en');
 
       setState(() {
-        _messages[_contentList[_topicPart].length-_part] = messageMe;
+        _messages[_contentList[_topicPart].length - _part] = messageMe;
         _answerText = '';
       });
 
@@ -936,11 +944,11 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
         });*/
   }
 
-
   Future<void> sendNextQuestion() async {
     await Future.delayed(Duration(milliseconds: 780));
     _part++;
-    if (_part > _contentList[_topicPart].length && _topicPart == _contentList.length-1) {
+    if (_part > _contentList[_topicPart].length &&
+        _topicPart == _contentList.length - 1) {
       print('fin');
       // 如果完成所有題目
       _summaryReportData['ttsRateString'] = ttsRateString;
@@ -952,7 +960,7 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
           speakMessage:
               'Quiz is over. If you want to view detailed quiz information, please click the report button at the bottom right.',
           speakLanguage: 'en-US');
-    } else if(_part > _contentList[_topicPart].length){
+    } else if (_part > _contentList[_topicPart].length) {
       ///完成一個conversation
       ///
       _part = 0;
@@ -971,19 +979,19 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       await highlightQuestion();
 
       //await _ttsSpeak(_contentList[_topicPart][_part - 1], 'en-US');
-    }
-    else {
+    } else {
       ///一開始丟題目出來
-      sc.jumpTo((_contentList[_topicPart].length-_part) * 100);
+      sc.jumpTo((_contentList[_topicPart].length - _part) * 100);
       await highlightQuestion();
-      if(_speakerList[_topicPart][_part-1] == 'P1'){
+      if (_speakerList[_topicPart][_part - 1] == 'P1') {
         ttsPitch = 0.5;
-      }else{
+      } else {
         ttsPitch = 1.2;
       }
       await _ttsSpeak(_contentList[_topicPart][_part - 1], 'en-US');
-      await Future.delayed(
-          Duration(milliseconds: (_part / _contentList[_topicPart].length * 2360).round()));
+      await Future.delayed(Duration(
+          milliseconds:
+              (_part / _contentList[_topicPart].length * 2360).round()));
       setState(() {
         _isActive = true;
       });
@@ -1015,8 +1023,9 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
       //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
       //await sendChatMessage(false, 'Bot', [TextSpan(text: 'The number of seconds in the sentence is: ${ttsRate}')], needSpeak:false, speakMessage:'', speakLanguage: 'en-US');
-      await Future.delayed(
-          Duration(milliseconds: (_part / _contentList[_topicPart].length * 2360).round()));
+      await Future.delayed(Duration(
+          milliseconds:
+              (_part / _contentList[_topicPart].length * 2360).round()));
       setState(() {
         _isActive = true;
       });
@@ -1035,21 +1044,30 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
       height: 50,
       child: Column(
         children: [
-          Expanded(flex: 5,child: AutoSizeText('${_title}  ${_subtitle} \nSentence Count:${_contentList[_topicPart].length}',textAlign: TextAlign.center,)),
-
-          Expanded(child: Divider(thickness: 1,)),
+          Expanded(
+              flex: 5,
+              child: AutoSizeText(
+                '${_title}  ${_subtitle} \nSentence Count:${_contentList[_topicPart].length}',
+                textAlign: TextAlign.center,
+              )),
+          Expanded(
+              child: Divider(
+            thickness: 1,
+          )),
         ],
       ),
     );
     _messages.insert(0, startmessage);
-    await _ttsSpeak('${_title}  ,${_subtitle}  ,${_contentList[_topicPart].length}', 'en');
+    await _ttsSpeak(
+        '${_title}  ,${_subtitle}  ,${_contentList[_topicPart].length}', 'en');
     //await Future.delayed(Duration(milliseconds: 780));
-    for(int i = 0;i < _contentList[_topicPart].length;i++){
+    for (int i = 0; i < _contentList[_topicPart].length; i++) {
       List<TextSpan> questionTextWidget = [];
 
       questionTextWidget.add(TextSpan(text: '${_contentList[_topicPart][i]}'));
 
-      questionTextWidget.add(TextSpan(text: '\n${_translateList[_topicPart][i]}'));
+      questionTextWidget
+          .add(TextSpan(text: '\n${_translateList[_topicPart][i]}'));
 
       await sendChatMessage(
           false, _speakerList[_topicPart][i], questionTextWidget,
@@ -1059,9 +1077,8 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
           canSpeak: false,
           secondaryTheme: (_speakerList[_topicPart][i] != 'P1'),
           prefix: _orderList[_topicPart][i],
-          speakMessage:'',
-          speakLanguage: 'en-US'
-      );
+          speakMessage: '',
+          speakLanguage: 'en-US');
       setState(() {
         /*
         _messages.insert(0,
@@ -1107,43 +1124,46 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
 
   Future<void> highlightQuestion() async {
     //await Future.delayed(Duration(milliseconds: 780));
-      List<TextSpan> questionTextWidget = [];
+    List<TextSpan> questionTextWidget = [];
 
-      questionTextWidget.add(TextSpan(text: '${_contentList[_topicPart][_part-1]}'));
+    questionTextWidget
+        .add(TextSpan(text: '${_contentList[_topicPart][_part - 1]}'));
 
-      questionTextWidget.add(TextSpan(text: '\n${_translateList[_topicPart][_part-1]}'));
+    questionTextWidget
+        .add(TextSpan(text: '\n${_translateList[_topicPart][_part - 1]}'));
 
-      ChatTopicMessageUtil message;
+    ChatTopicMessageUtil message;
 
-      message = ChatTopicMessageUtil(
-        senderIsMe: false,
-        senderName: _speakerList[_topicPart][_part-1],
-        messageTextWidget: questionTextWidget,
-        usePrefix: true,
-        highlighted: true,
-        secondaryTheme: (_speakerList[_topicPart][_part-1] != 'P1'),
-        prefix: (int.parse(_orderList[_topicPart][_part-1])).toString(),
-        actionButton: IconButton(
-          icon: Icon((_allowTouchButtons['reListenButton']! && !speechToText.isListening)
-              ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
-              : Icons.volume_up),
-          color: (_allowTouchButtons['reListenButton']! &&
-              !speechToText.isListening)
-              ? Colors.black
-              : Colors.grey,
-          onPressed: () async {
-            if (_allowTouchButtons['reListenButton']! &&
-                !speechToText.isListening) {
-              ttsRateSlow = !ttsRateSlow;
-              await _ttsSpeak(_contentList[_topicPart][_part-1], "en-US");
-            }
-          },
-        ),
-      );
+    message = ChatTopicMessageUtil(
+      senderIsMe: false,
+      senderName: _speakerList[_topicPart][_part - 1],
+      messageTextWidget: questionTextWidget,
+      usePrefix: true,
+      highlighted: true,
+      secondaryTheme: (_speakerList[_topicPart][_part - 1] != 'P1'),
+      prefix: (int.parse(_orderList[_topicPart][_part - 1])).toString(),
+      actionButton: IconButton(
+        icon: Icon(
+            (_allowTouchButtons['reListenButton']! && !speechToText.isListening)
+                ? (isPlaying ? Icons.volume_up : Icons.volume_up_outlined)
+                : Icons.volume_up),
+        color:
+            (_allowTouchButtons['reListenButton']! && !speechToText.isListening)
+                ? Colors.black
+                : Colors.grey,
+        onPressed: () async {
+          if (_allowTouchButtons['reListenButton']! &&
+              !speechToText.isListening) {
+            ttsRateSlow = !ttsRateSlow;
+            await _ttsSpeak(_contentList[_topicPart][_part - 1], "en-US");
+          }
+        },
+      ),
+    );
 
-      setState(() {
-        _messages[_contentList[_topicPart].length-_part] = message;
-      });
+    setState(() {
+      _messages[_contentList[_topicPart].length - _part] = message;
+    });
   }
 
   void handleTick() {

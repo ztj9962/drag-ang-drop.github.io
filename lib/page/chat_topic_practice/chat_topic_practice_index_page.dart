@@ -164,8 +164,8 @@ class _ChatTopicPracticeIndexPageState
 
                                       AutoRouter.of(context).push(
                                           ChatTopicPracticeConversationListRoute(
-                                              topicName: value['title'][index]
-                                              ));
+                                              topicName: value['title']
+                                                  [index]));
                                     },
                                     //onTap: sentenceTypeListData!.onTapFunction,
                                     child: Container(
