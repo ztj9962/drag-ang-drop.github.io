@@ -18,19 +18,23 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class LearningManualContractionPage extends StatefulWidget {
-  final List<String> getContraction;
-  final List<String> getContractionIPA;
-  final List<String> getFullForm;
-  final List<String> getSentence;
-  final List<String> getSentenceIPA;
+  final List<String> getPairContraction;
+  final List<String> getPairFullForm;
+  final List<String> getPracticeContraction;
+  final List<String> getPracticeContractionIPA;
+  final List<String> getPracticeFullForm;
+  final List<String> getPracticeSentence;
+  final List<String> getPracticeSentenceIPA;
 
   const LearningManualContractionPage({
     Key? key,
-    required this.getContraction,
-    required this.getContractionIPA,
-    required this.getFullForm,
-    required this.getSentence,
-    required this.getSentenceIPA,
+    required this.getPairContraction,
+    required this.getPairFullForm,
+    required this.getPracticeContraction,
+    required this.getPracticeContractionIPA,
+    required this.getPracticeFullForm,
+    required this.getPracticeSentence,
+    required this.getPracticeSentenceIPA,
   }) : super(key: key);
 
   @override
@@ -42,11 +46,13 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _LearningManualContractionPage
     extends State<LearningManualContractionPage> {
-  late List<String> _getContraction;
-  late List<String> _getContractionIPA;
-  late List<String> _getFullForm;
-  late List<String> _getSentence;
-  late List<String> _getSentenceIPA;
+  late List<String> _getPairContraction;
+  late List<String> _getPairFullForm;
+  late List<String> _getPracticeContraction;
+  late List<String> _getPracticeContractionIPA;
+  late List<String> _getPracticeFullForm;
+  late List<String> _getPracticeSentence;
+  late List<String> _getPracticeSentenceIPA;
   int _testIndex = 0;
 
   final _allowTouchButtons = {
@@ -124,12 +130,14 @@ class _LearningManualContractionPage
 
   @override
   void initState() {
-    _getContraction = widget.getContraction;
-    _getContractionIPA = widget.getContractionIPA;
-    _getFullForm = widget.getFullForm;
-    _getSentence = widget.getSentence;
-    _getSentenceIPA = widget.getSentenceIPA;
-    print(_getSentence);
+    _getPairContraction = widget.getPairContraction;
+    _getPairFullForm = widget.getPairFullForm;
+    _getPracticeContraction = widget.getPracticeContraction;
+    _getPracticeContractionIPA = widget.getPracticeContractionIPA;
+    _getPracticeFullForm = widget.getPracticeFullForm;
+    _getPracticeSentence = widget.getPracticeSentence;
+    _getPracticeSentenceIPA = widget.getPracticeSentenceIPA;
+    print(_getPracticeSentence);
     super.initState();
     initLearningManualMinimalPairContractionPage();
   }
@@ -179,21 +187,21 @@ class _LearningManualContractionPage
                               onPressed: () async {
                                 ttsRateSlow = !ttsRateSlow;
                                 await _ttsSpeak(
-                                    _getContraction[_testIndex], 'en-US');
+                                    _getPracticeContraction[_testIndex], 'en-US');
                               },
                             ),
                             Column(
                               children: <Widget>[
                                 Text(
-                                  _getContraction[_testIndex],
+                                  _getPracticeContraction[_testIndex],
                                   style: TextStyle(fontSize: 20),
                                 ),
                                 Text(
-                                  '[' + _getContractionIPA[_testIndex] + ']',
+                                  '[' + _getPracticeContractionIPA[_testIndex] + ']',
                                   style: TextStyle(fontSize: 20),
                                 ),
                                 Text(
-                                  _getFullForm[_testIndex],
+                                  _getPracticeFullForm[_testIndex],
                                   style: TextStyle(fontSize: 16),
                                 )
                               ],
@@ -329,7 +337,7 @@ class _LearningManualContractionPage
                                           if (_allowTouchButtons[
                                               'nextButton']!) {
                                             if (_testIndex <
-                                                _getSentence.length - 1) {
+                                                _getPracticeSentence.length - 1) {
                                               //int testIndex = _testIndex+1;
                                               setState(() {
                                                 _testIndex += 1;
@@ -965,7 +973,7 @@ class _LearningManualContractionPage
         TextSpan(text: _replyText),
       ];
 
-      String testSentence = _getSentence[_testIndex].replaceAll(',', ', ');
+      String testSentence = _getPracticeSentence[_testIndex].replaceAll(',', ', ');
 
       _questionText = testSentence;
       _questionTextWidget = [
@@ -973,7 +981,7 @@ class _LearningManualContractionPage
       ];
 
       String testSentenceIPA =
-          _getSentenceIPA[_testIndex].replaceAll(',', ', ');
+          _getPracticeSentenceIPA[_testIndex].replaceAll(',', ', ');
 
       _questionIPAText = testSentenceIPA;
       _questionIPATextWidget = [

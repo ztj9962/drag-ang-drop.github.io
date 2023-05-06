@@ -210,11 +210,13 @@ class AppRouter extends _i27.RootStackRouter {
         routeData: routeData,
         child: _i18.LearningManualContractionPage(
           key: args.key,
-          getContraction: args.getContraction,
-          getContractionIPA: args.getContractionIPA,
-          getFullForm: args.getFullForm,
-          getSentence: args.getSentence,
-          getSentenceIPA: args.getSentenceIPA,
+          getPairContraction: args.getPairContraction,
+          getPairFullForm: args.getPairFullForm,
+          getPracticeContraction: args.getPracticeContraction,
+          getPracticeContractionIPA: args.getPracticeContractionIPA,
+          getPracticeFullForm: args.getPracticeFullForm,
+          getPracticeSentence: args.getPracticeSentence,
+          getPracticeSentenceIPA: args.getPracticeSentenceIPA,
         ),
       );
     },
@@ -863,21 +865,25 @@ class LearningManualContractionRoute
     extends _i27.PageRouteInfo<LearningManualContractionRouteArgs> {
   LearningManualContractionRoute({
     _i28.Key? key,
-    required List<String> getContraction,
-    required List<String> getContractionIPA,
-    required List<String> getFullForm,
-    required List<String> getSentence,
-    required List<String> getSentenceIPA,
+    required List<String> getPairContraction,
+    required List<String> getPairFullForm,
+    required List<String> getPracticeContraction,
+    required List<String> getPracticeContractionIPA,
+    required List<String> getPracticeFullForm,
+    required List<String> getPracticeSentence,
+    required List<String> getPracticeSentenceIPA,
   }) : super(
           LearningManualContractionRoute.name,
           path: '/learning_manual_contraction_page',
           args: LearningManualContractionRouteArgs(
             key: key,
-            getContraction: getContraction,
-            getContractionIPA: getContractionIPA,
-            getFullForm: getFullForm,
-            getSentence: getSentence,
-            getSentenceIPA: getSentenceIPA,
+            getPairContraction: getPairContraction,
+            getPairFullForm: getPairFullForm,
+            getPracticeContraction: getPracticeContraction,
+            getPracticeContractionIPA: getPracticeContractionIPA,
+            getPracticeFullForm: getPracticeFullForm,
+            getPracticeSentence: getPracticeSentence,
+            getPracticeSentenceIPA: getPracticeSentenceIPA,
           ),
         );
 
@@ -887,28 +893,34 @@ class LearningManualContractionRoute
 class LearningManualContractionRouteArgs {
   const LearningManualContractionRouteArgs({
     this.key,
-    required this.getContraction,
-    required this.getContractionIPA,
-    required this.getFullForm,
-    required this.getSentence,
-    required this.getSentenceIPA,
+    required this.getPairContraction,
+    required this.getPairFullForm,
+    required this.getPracticeContraction,
+    required this.getPracticeContractionIPA,
+    required this.getPracticeFullForm,
+    required this.getPracticeSentence,
+    required this.getPracticeSentenceIPA,
   });
 
   final _i28.Key? key;
 
-  final List<String> getContraction;
+  final List<String> getPairContraction;
 
-  final List<String> getContractionIPA;
+  final List<String> getPairFullForm;
 
-  final List<String> getFullForm;
+  final List<String> getPracticeContraction;
 
-  final List<String> getSentence;
+  final List<String> getPracticeContractionIPA;
 
-  final List<String> getSentenceIPA;
+  final List<String> getPracticeFullForm;
+
+  final List<String> getPracticeSentence;
+
+  final List<String> getPracticeSentenceIPA;
 
   @override
   String toString() {
-    return 'LearningManualContractionRouteArgs{key: $key, getContraction: $getContraction, getContractionIPA: $getContractionIPA, getFullForm: $getFullForm, getSentence: $getSentence, getSentenceIPA: $getSentenceIPA}';
+    return 'LearningManualContractionRouteArgs{key: $key, getPairContraction: $getPairContraction, getPairFullForm: $getPairFullForm, getPracticeContraction: $getPracticeContraction, getPracticeContractionIPA: $getPracticeContractionIPA, getPracticeFullForm: $getPracticeFullForm, getPracticeSentence: $getPracticeSentence, getPracticeSentenceIPA: $getPracticeSentenceIPA}';
   }
 }
 
