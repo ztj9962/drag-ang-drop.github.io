@@ -165,287 +165,330 @@ class _LearningManualIPAGraphemePairPage
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                      Container(
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              _getIPASymbol,
-                              style: TextStyle(fontSize: 20),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  _getIPASymbol,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  _getGraphemes[_testIndex],
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
-                            Text(
-                              _getGraphemes[_testIndex],
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: PageTheme.app_theme_blue,
-                      ),
-                      Container(
-                        alignment: Alignment.topLeft,
-                        padding: const EdgeInsets.all(8),
-                        child: Text.rich(
-                          TextSpan(
-                            text: '',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: PageTheme.app_theme_blue,
-                            ),
-                            children: _replyTextWidget,
                           ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(
-                              text: '',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
+                          const Divider(
+                            thickness: 1,
+                            color: PageTheme.app_theme_blue,
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            padding: const EdgeInsets.all(8),
+                            child: Text.rich(
+                              TextSpan(
+                                text: '',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: PageTheme.app_theme_blue,
+                                ),
+                                children: _replyTextWidget,
                               ),
-                              children: _questionTextWidget,
                             ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(
-                              text: '',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
-                              children: _questionIPATextWidget,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 100,
-                        //color: Colors.blue,
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                              flex: 1,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: CircleAvatar(
-                                      backgroundColor: PageTheme.app_theme_blue,
-                                      radius: 25.0,
-                                      child: IconButton(
-                                        icon: Icon((_allowTouchButtons[
-                                                    'reListenButton']! &&
-                                                !speechToText.isListening)
-                                            ? (isPlaying
-                                                ? Icons.volume_up
-                                                : Icons.volume_up_outlined)
-                                            : Icons.volume_off_outlined),
-                                        color: (_allowTouchButtons[
-                                                    'reListenButton']! &&
-                                                !speechToText.isListening)
-                                            ? Colors.white
-                                            : Colors.grey,
-                                        onPressed: () async {
-                                          if (_allowTouchButtons[
-                                                  'reListenButton']! &&
-                                              !speechToText.isListening) {
-                                            ttsRateSlow = !ttsRateSlow;
-                                            await _ttsSpeak(
-                                                _questionText, 'en-US');
-                                          }
-                                        },
-                                      ),
-                                    ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
                                   ),
-                                  const AutoSizeText(
-                                    '再聽一次',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                    ),
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Container(),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Container(),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: CircleAvatar(
-                                      backgroundColor: PageTheme.app_theme_blue,
-                                      radius: 25.0,
-                                      child: IconButton(
-                                        icon: const Icon(
-                                            Icons.navigate_next_outlined),
-                                        color:
-                                            (_allowTouchButtons['nextButton']!)
-                                                ? Colors.white
-                                                : Colors.grey,
-                                        onPressed: () {
-                                          if (_allowTouchButtons[
-                                              'nextButton']!) {
-                                            if (_testIndex <
-                                                _getWord.length - 1) {
-                                              setState(() {
-                                                _testIndex += 1;
-                                              });
-                                            }
-                                            _ttsStop();
-                                            sttStopListening();
-                                            getPracticeWord();
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  const AutoSizeText(
-                                    '下一題',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                    ),
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: PageTheme.app_theme_blue,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(
-                              text: '',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
-                              ),
-                              children: _answerTextWidget,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Center(
-                          child: Text.rich(
-                            TextSpan(
-                              text: '',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
-                              children: _answerIPATextWidget,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _viewIPAAboutList,
-                        child: Column(
-                          children: <Widget>[
-                            const Divider(
-                              thickness: 1,
-                              color: PageTheme.app_theme_blue,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              child: Card(
-                                color: Colors.white,
-                                margin: EdgeInsets.all(0.0),
-                                elevation: 2.0,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 16,
-                                            right: 16,
-                                            top: 8,
-                                            bottom: 8),
-                                        child: AutoSizeText(
-                                          '在這裡聽看看類似的發音吧',
-                                          maxLines: 1,
-                                        )),
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                          left: 16,
-                                          right: 16,
-                                          top: 32,
-                                          bottom: 8),
-                                      child: ListView.separated(
-                                        shrinkWrap: true,
-                                        physics: const ScrollPhysics(),
-                                        itemCount: _ipaAboutList.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            leading: const Icon(
-                                                Icons.hearing_outlined),
-                                            title: Text.rich(
-                                              TextSpan(
-                                                text: _ipaAboutList[index],
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () async {
-                                              ttsRateSlow = true;
-                                              await _ttsSpeak(
-                                                  _ipaAboutList[index],
-                                                  'en-US');
-                                              ttsRateSlow = !ttsRateSlow;
-                                              await _ttsSpeak(
-                                                  _ipaAboutList[index],
-                                                  'en-US');
-                                            },
-                                          );
-                                        },
-                                        separatorBuilder: (context, index) {
-                                          return const Divider(
-                                            height: 1,
-                                            thickness: 1,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                  children: _questionTextWidget,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ]))),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: _questionIPATextWidget,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            height: 100,
+                            //color: Colors.blue,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: CircleAvatar(
+                                          backgroundColor: PageTheme.app_theme_blue,
+                                          radius: 25.0,
+                                          child: IconButton(
+                                            icon: Icon((_allowTouchButtons[
+                                            'reListenButton']! &&
+                                                !speechToText.isListening)
+                                                ? (isPlaying
+                                                ? Icons.volume_up
+                                                : Icons.volume_up_outlined)
+                                                : Icons.volume_off_outlined),
+                                            color: (_allowTouchButtons[
+                                            'reListenButton']! &&
+                                                !speechToText.isListening)
+                                                ? Colors.white
+                                                : Colors.grey,
+                                            onPressed: () async {
+                                              if (_allowTouchButtons[
+                                              'reListenButton']! &&
+                                                  !speechToText.isListening) {
+                                                ttsRateSlow = !ttsRateSlow;
+                                                await _ttsSpeak(
+                                                    _questionText, 'en-US');
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      const AutoSizeText(
+                                        '再聽一次',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(),
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Visibility(
+                                      visible: _testIndex != 0,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CircleAvatar(
+                                              backgroundColor: PageTheme.app_theme_blue,
+                                              radius: 25.0,
+                                              child: IconButton(
+                                                icon: const Icon(
+                                                    Icons.navigate_before_outlined),
+                                                color:
+                                                (_allowTouchButtons['nextButton']!)
+                                                    ? Colors.white
+                                                    : Colors.grey,
+                                                onPressed: () {
+                                                  if (_allowTouchButtons['nextButton']!) {
+                                                    setState(() {
+                                                      _testIndex -= 1;
+                                                    });
+                                                    _ttsStop();
+                                                    sttStopListening();
+                                                    getPracticeWord();
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const AutoSizeText(
+                                            '上一題',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Visibility(
+                                      visible: _testIndex < _getWord.length - 1,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: CircleAvatar(
+                                              backgroundColor: PageTheme.app_theme_blue,
+                                              radius: 25.0,
+                                              child: IconButton(
+                                                icon: const Icon(
+                                                    Icons.navigate_next_outlined),
+                                                color:
+                                                (_allowTouchButtons['nextButton']!)
+                                                    ? Colors.white
+                                                    : Colors.grey,
+                                                onPressed: () {
+                                                  if (_allowTouchButtons['nextButton']!) {
+                                                    setState(() {
+                                                      _testIndex += 1;
+                                                    });
+                                                    _ttsStop();
+                                                    sttStopListening();
+                                                    getPracticeWord();
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const AutoSizeText(
+                                            '下一題',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1,
+                            color: PageTheme.app_theme_blue,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                  children: _answerTextWidget,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: _answerIPATextWidget,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: _viewIPAAboutList,
+                            child: Column(
+                              children: <Widget>[
+                                const Divider(
+                                  thickness: 1,
+                                  color: PageTheme.app_theme_blue,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Card(
+                                    color: Colors.white,
+                                    margin: EdgeInsets.all(0.0),
+                                    elevation: 2.0,
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 16,
+                                                right: 16,
+                                                top: 8,
+                                                bottom: 8),
+                                            child: AutoSizeText(
+                                              '在這裡聽看看類似的發音吧',
+                                              maxLines: 1,
+                                            )),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 16,
+                                              right: 16,
+                                              top: 32,
+                                              bottom: 8),
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            physics: const ScrollPhysics(),
+                                            itemCount: _ipaAboutList.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                leading: const Icon(
+                                                    Icons.hearing_outlined),
+                                                title: Text.rich(
+                                                  TextSpan(
+                                                    text: _ipaAboutList[index],
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                                onTap: () async {
+                                                  ttsRateSlow = true;
+                                                  await _ttsSpeak(
+                                                      _ipaAboutList[index],
+                                                      'en-US');
+                                                  ttsRateSlow = !ttsRateSlow;
+                                                  await _ttsSpeak(
+                                                      _ipaAboutList[index],
+                                                      'en-US');
+                                                },
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return const Divider(
+                                                height: 1,
+                                                thickness: 1,
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]))),
           ),
           const Divider(
             thickness: 1,
@@ -469,14 +512,14 @@ class _LearningManualIPAGraphemePairPage
                         icon: Icon(
                             (_allowTouchButtons['speakButton']! && !isPlaying)
                                 ? (speechToText.isListening
-                                    ? Icons.stop
-                                    : Icons.mic_none)
+                                ? Icons.stop
+                                : Icons.mic_none)
                                 : Icons.mic_off_outlined,
                             size: 30),
                         color:
-                            (_allowTouchButtons['speakButton']! && !isPlaying)
-                                ? Colors.white
-                                : Colors.grey,
+                        (_allowTouchButtons['speakButton']! && !isPlaying)
+                            ? Colors.white
+                            : Colors.grey,
                         onPressed: () {
                           if (_allowTouchButtons['speakButton']! &&
                               !isPlaying) {
@@ -773,7 +816,7 @@ class _LearningManualIPAGraphemePairPage
       List<TextSpan> questionTextWidget = [];
 
       var questionIPATextArray =
-          checkSentences['data']['questionIPAText'].split(' ');
+      checkSentences['data']['questionIPAText'].split(' ');
       List<TextSpan> questionIPATextWidget = [];
 
       questionIPATextWidget.add(TextSpan(text: '['));
@@ -818,7 +861,7 @@ class _LearningManualIPAGraphemePairPage
       List<TextSpan> answerTextWidget = [];
 
       var answerIPATextArray =
-          checkSentences['data']['answerIPAText'].split(' ');
+      checkSentences['data']['answerIPAText'].split(' ');
       List<TextSpan> answerIPATextWidget = [];
 
       answerIPATextWidget.add(const TextSpan(text: '['));
@@ -912,8 +955,8 @@ class _LearningManualIPAGraphemePairPage
 
   Future<void> getPracticeWord(
       {String questionText = '',
-      String questionIPAText = '',
-      String aboutWord = ''}) async {
+        String questionIPAText = '',
+        String aboutWord = ''}) async {
     if (questionText == '') {
       setState(() {
         _replyText = '請稍候......';
@@ -944,7 +987,7 @@ class _LearningManualIPAGraphemePairPage
       ];
 
       String testWord =
-          _getWord[_testIndex].replaceAll('[', '').replaceAll(']', '');
+      _getWord[_testIndex].replaceAll('[', '').replaceAll(']', '');
 
       _questionText = testWord;
       _questionTextWidget = [
@@ -952,7 +995,7 @@ class _LearningManualIPAGraphemePairPage
       ];
 
       String testWordIPA =
-          _getWordIPA[_testIndex].replaceAll('[', '').replaceAll(']', '');
+      _getWordIPA[_testIndex].replaceAll('[', '').replaceAll(']', '');
 
       _questionIPAText = testWordIPA;
       _questionIPATextWidget = [
