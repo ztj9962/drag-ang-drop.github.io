@@ -204,7 +204,7 @@ class _LearningManualContractionPage
                                     )
                                 ),
                                 Expanded(
-                                    flex: 1,
+                                    flex: 2,
                                     child: Container(
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -360,10 +360,6 @@ class _LearningManualContractionPage
                                       ),
                                     ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(),
                                 ),
                                 Expanded(
                                   flex: 1,
