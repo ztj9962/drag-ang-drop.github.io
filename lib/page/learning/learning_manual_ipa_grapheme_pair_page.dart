@@ -284,10 +284,6 @@ class _LearningManualIPAGraphemePairPage
                                   child: Container(),
                                 ),
                                 Expanded(
-                                  flex: 1,
-                                  child: Container(),
-                                ),
-                                Expanded(
                                     flex: 1,
                                     child: Visibility(
                                       visible: _testIndex != 0,
