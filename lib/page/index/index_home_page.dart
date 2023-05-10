@@ -141,6 +141,20 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
+        imagePath: 'assets/icon/minimal_pair_02.svg',
+        titleText: 'TongueTwisters Practice',
+        descripText: '英語繞口令練習',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context).pushNamed("/tongue_twisters_index_page");
+        },
+      ),
+    );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        showDevelopTag: true,
         imagePath: 'assets/icon/sentence_analysis.svg',
         titleText: 'Sentence Analysis',
         descripText: '句型分析',
