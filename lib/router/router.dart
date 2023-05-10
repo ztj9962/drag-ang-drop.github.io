@@ -34,7 +34,7 @@ import 'package:auto_route/auto_route.dart';
   routes: <AutoRoute>[
     AutoRoute(path: '/', page: SignInPage, initial: true),
     AutoRoute(path: '/index', page: IndexPage),
-
+    AutoRoute(path: '/harvard_index_page', page: HarvardIndexPage),
     AutoRoute(path: '/ipa_grapheme_pair_index_page', page: IPAGraphemePairIndexPage),
 
     AutoRoute(
