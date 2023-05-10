@@ -100,6 +100,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                   onChanged: (String? value) {
                     setState(() {
                       _sessionNum = int.parse(value!);
+                      initGetHarvardSentenceList(value, _sessionNum-1);
                     });
                   },
                   underline: Container(
@@ -125,7 +126,10 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                   children: <Widget>[
                     AutoSizeText(
                       'Session' + _sessionNum.toString(),
-                      style: TextStyle(color: PageTheme.app_theme_blue),
+                      style: TextStyle(
+                        color: PageTheme.app_theme_blue,
+                        fontSize: 20,
+                      ),
                       maxLines: 1,
                     ),
                     Container(
@@ -141,12 +145,12 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                   flex: 1,
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Padding(padding: EdgeInsets.all(10)),
+                                        Padding(padding: EdgeInsets.all(16)),
                                         Text(
                                           _sessionSentenceData[_sessionNum-1]['sentence'][index],
-                                          style: TextStyle(fontSize: 14),
+                                          style: TextStyle(fontSize: 16),
                                         ),
                                       ],
                                     ),
@@ -178,7 +182,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                             setState(() {
                                               _sessionNum -= 1;
                                             });
-                                            //getPracticeWord();
+                                            initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
                                           }
                                         },
                                       ),
@@ -210,12 +214,10 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                       icon: const Icon(Icons.play_arrow),
                                       color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
                                       onPressed: () {
-                                        if (_allowTouchButtons['nextButton']!) {
-                                          setState(() {
-                                            
-                                          });
-                                          //getPracticeWord();
-                                        }
+                                        AutoRouter.of(context).push(
+                                            LearningManualHarvardRoute(
+                                              sentence: _sessionSentenceData[_sessionNum-1]['sentence'],
+                                            ));
                                       },
                                     ),
                                   ),
@@ -251,7 +253,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                             setState(() {
                                               _sessionNum += 1;
                                             });
-                                            //getPracticeWord();
+                                            initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
                                           }
                                         },
                                       ),
@@ -295,31 +297,40 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
       _sessionNumList.add(i.toString());
       _sessionSentenceData.add(mapTemplate);
     }
+
+    initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
   }
 
-  Future<void> initGetHarvardSentenceList(String sessionNum) async {
-    List<String> getSessionNum = [];
+  Future<void> initGetHarvardSentenceList(String sessionNum, int index) async {
+    List<int> getSessionNum = [];
     List<String> getSentence = [];
 
-    /*
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var getHarvardSentence;
-    do {
-      String getHarvardSentenceJSON = await APIUtil.getHarvardSentence(sessionNum);
-      getHarvardSentence = jsonDecode(getHarvardSentenceJSON.toString());
-      if (getHarvardSentence['apiStatus'] != 'success') {
-        await Future.delayed(Duration(seconds: 1));
-      }
-    } while (getHarvardSentence['apiStatus'] != 'success');
+    if (_sessionSentenceData[index]['sentence'] == ''){
+      EasyLoading.show(status: '正在讀取資料，請稍候......');
+      var getHarvardSentence;
+      do {
+        String getHarvardSentenceJSON = await APIUtil.getHarvardSentence(sessionNum);
+        getHarvardSentence = jsonDecode(getHarvardSentenceJSON.toString());
+        if (getHarvardSentence['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getHarvardSentence['apiStatus'] != 'success');
 
-    EasyLoading.dismiss();
-    getHarvardSentence['data'].forEach((value) {
-      getSessionNum.add(value["session"]);
-      getSentence.add(value["sentence"].toString());
-    });
-    */
-    setState(() {
+      EasyLoading.dismiss();
+      getHarvardSentence['data'].forEach((value) {
+        getSessionNum.add(value["session"]);
+        getSentence.add(value["sentence"].toString());
+      });
 
-    });
+      setState(() {
+        _sessionSentenceData[index] = {
+          'sessionNum': getSessionNum,
+          'sentence': getSentence,
+        };
+      });
+    } else {
+      setState(() {
+      });
+    }
   }
 }

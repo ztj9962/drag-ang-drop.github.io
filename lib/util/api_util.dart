@@ -652,4 +652,19 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+
+  static Future<String> getHarvardSentence(String sessionNum) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/harvard/getHarvardSentence'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'sessionNum': sessionNum,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

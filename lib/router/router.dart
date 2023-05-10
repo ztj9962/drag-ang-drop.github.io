@@ -11,6 +11,7 @@ import 'package:alicsnet_app/page/learning/learning_auto_generic_summary_report_
 import 'package:alicsnet_app/page/learning/learning_auto_minimal_pair_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_contraction_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_custom_article_practice_sentence_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_harvard_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_ipa_grapheme_pair_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_minimal_pair_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_sentence_page.dart';
@@ -83,6 +84,9 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(
         path: '/learning_manual_custom_article_practice_sentence',
         page: LearningManualCustomArticlePracticeSentencePage),
+    AutoRoute(
+        path: '/learning_manual_harvard_page',
+        page: LearningManualHarvardPage),
     AutoRoute(
         path: '/learning_manual_ipa_grapheme_pair_page',
         page: LearningManualIPAGraphemePairPage),
