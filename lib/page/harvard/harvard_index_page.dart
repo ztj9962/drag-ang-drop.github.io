@@ -290,7 +290,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
   Future<void> initSessionNumList() async {
     Map mapTemplate = {
       'session': '',
-      'sentence': '',
+      'sentence': ['','','','','','','','','',''],
     };
 
     for (var i = 1; i < 73; i++){
@@ -305,7 +305,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
     List<int> getSessionNum = [];
     List<String> getSentence = [];
 
-    if (_sessionSentenceData[index]['sentence'] == ''){
+    if (_sessionSentenceData[index]['session'] == ''){
       EasyLoading.show(status: '正在讀取資料，請稍候......');
       var getHarvardSentence;
       do {
