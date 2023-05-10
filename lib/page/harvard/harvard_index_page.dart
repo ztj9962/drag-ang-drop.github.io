@@ -18,9 +18,20 @@ class HarvardIndexPage extends StatefulWidget {
 }
 
 class _HarvardIndexPage extends State<HarvardIndexPage> {
+  int _sessionNum = 1;
+  List<String> _sessionNumList = [];
+  List<Map> _sessionSentenceData = [];
+
+  final _allowTouchButtons = {
+    'reListenButton': false,
+    'speakButton': false,
+    'nextButton': true,
+  };
+
   @override
   void initState() {
     super.initState();
+    initAddSessionNum();
   }
 
   @override
@@ -46,8 +57,269 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
           ),
         ),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(2),
+                child: Text("Session選擇",
+                    style: TextStyle(
+                        color: PageTheme.app_theme_blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                width: 350,
+                decoration: BoxDecoration(
+                  border: Border.all(color: PageTheme.app_theme_blue),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: DropdownButton(
+                  value: _sessionNum.toString(),
+                  //style: TextStyle(fontSize: 20),
+                  isExpanded: true,
+                  iconSize: 40,
+                  hint: AutoSizeText(
+                    '   選擇要練習的Session',
+                    style: TextStyle(color: PageTheme.app_theme_blue),
+                    maxLines: 1,
+                  ),
+                  items: _sessionNumList
+                      ?.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: AutoSizeText(
+                        '   ${value}',
+                        style: TextStyle(color: PageTheme.app_theme_blue),
+                        maxLines: 1,
+                      ),
+                    );
+                  }).toList(),
 
+                  onChanged: (String? value) {
+                    setState(() {
+                      _sessionNum = int.parse(value!);
+                    });
+                  },
+                  underline: Container(
+                    height: 0,
+                  ),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(4)),
+              Divider(
+                thickness: 1,
+                color: PageTheme.syllable_search_background,
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: PageTheme.app_theme_blue,
+                    width: 2,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    AutoSizeText(
+                      'Session' + _sessionNum.toString(),
+                      style: TextStyle(color: PageTheme.app_theme_blue),
+                      maxLines: 1,
+                    ),
+                    Container(
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(padding: EdgeInsets.all(10)),
+                                        Text(
+                                          _sessionSentenceData[_sessionNum-1]['sentence'][index],
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            flex: 1,
+                            child: Visibility(
+                              visible: _sessionNum != 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: CircleAvatar(
+                                      backgroundColor: PageTheme.app_theme_blue,
+                                      radius: 25.0,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.navigate_before_outlined),
+                                        color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
+                                        onPressed: () {
+                                          if (_allowTouchButtons['nextButton']!) {
+                                            setState(() {
+                                              _sessionNum -= 1;
+                                            });
+                                            //getPracticeWord();
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const AutoSizeText(
+                                    '上一Session',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            )
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: CircleAvatar(
+                                    backgroundColor: PageTheme.app_theme_blue,
+                                    radius: 25.0,
+                                    child: IconButton(
+                                      icon: const Icon(Icons.play_arrow),
+                                      color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
+                                      onPressed: () {
+                                        if (_allowTouchButtons['nextButton']!) {
+                                          setState(() {
+                                            
+                                          });
+                                          //getPracticeWord();
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const AutoSizeText(
+                                  '開始練習',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Visibility(
+                              visible: _sessionNum < _sessionSentenceData.length,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: CircleAvatar(
+                                      backgroundColor: PageTheme.app_theme_blue,
+                                      radius: 25.0,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.navigate_next_outlined),
+                                        color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
+                                        onPressed: () {
+                                          if (_allowTouchButtons['nextButton']!) {
+                                            setState(() {
+                                              _sessionNum += 1;
+                                            });
+                                            //getPracticeWord();
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const AutoSizeText(
+                                    '下一Session',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            )
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         )
     );
+  }
+
+  initAddSessionNum() async {
+    await initSessionNumList();
+  }
+
+  Future<void> initSessionNumList() async {
+    Map mapTemplate = {
+      'session': '',
+      'sentence': '',
+    };
+
+    for (var i = 1; i < 73; i++){
+      _sessionNumList.add(i.toString());
+      _sessionSentenceData.add(mapTemplate);
+    }
+  }
+
+  Future<void> initGetHarvardSentenceList(String sessionNum) async {
+    List<String> getSessionNum = [];
+    List<String> getSentence = [];
+
+    /*
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
+    var getHarvardSentence;
+    do {
+      String getHarvardSentenceJSON = await APIUtil.getHarvardSentence(sessionNum);
+      getHarvardSentence = jsonDecode(getHarvardSentenceJSON.toString());
+      if (getHarvardSentence['apiStatus'] != 'success') {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    } while (getHarvardSentence['apiStatus'] != 'success');
+
+    EasyLoading.dismiss();
+    getHarvardSentence['data'].forEach((value) {
+      getSessionNum.add(value["session"]);
+      getSentence.add(value["sentence"].toString());
+    });
+    */
+    setState(() {
+
+    });
   }
 }
