@@ -18,17 +18,11 @@ class ContractionIndexPage extends StatefulWidget {
 }
 
 class _ContractionIndexPage extends State<ContractionIndexPage> {
-  String? _dropdownValue1 = 'prefix';
-  List<String> _wordConditionList = ['prefix', 'suffix'];
+  String? _dropdownValue1 = '縮寫前字';
+  List<String> _wordConditionList = ['縮寫前字', '縮寫後字'];
   List<String> _getWord = [];
   List<String> _getContraction = [];
-  List<String> _getPairContraction = [];
-  List<String> _getPairFullForm = [];
-  List<String> _getPracticeContraction = [];
-  List<String> _getPracticeContractionIPA = [];
-  List<String> _getPracticeFullForm = [];
-  List<String> _getPracticeSentence = [];
-  List<String> _getPracticeSentenceIPA = [];
+  List<Map> _contractionPractice = [];
   int _selected = -1;
 
   @override
@@ -144,13 +138,13 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   child: Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(_getWord![index],
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 color:
-                                                    PageTheme.app_theme_blue)),
+                                                PageTheme.app_theme_blue)),
                                       ],
                                     ),
                                   ),
@@ -159,7 +153,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   flex: 2,
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         'contraction: ',
@@ -186,7 +180,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                     Divider(
                                       thickness: 2,
                                       color:
-                                          PageTheme.syllable_search_background,
+                                      PageTheme.syllable_search_background,
                                     ),
                                     Flex(
                                       direction: Axis.horizontal,
@@ -195,17 +189,17 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                           flex: 4,
                                           child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: <Widget>[
                                               ListView.builder(
                                                 physics:
-                                                    NeverScrollableScrollPhysics(),
+                                                NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
                                                 itemCount:
-                                                    _getPairContraction?.length,
+                                                _contractionPractice[index]['getPairContraction']?.length,
                                                 itemBuilder:
                                                     (BuildContext context,
-                                                        int index) {
+                                                    int index2) {
                                                   return Flex(
                                                     direction: Axis.horizontal,
                                                     children: [
@@ -214,20 +208,19 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                           child: Container(
                                                             child: Row(
                                                               mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
+                                                              MainAxisAlignment
+                                                                  .start,
                                                               children: <
                                                                   Widget>[
                                                                 Padding(
                                                                     padding:
-                                                                        EdgeInsets.all(
-                                                                            10)),
+                                                                    EdgeInsets.all(
+                                                                        10)),
                                                                 Text(
-                                                                  _getPairContraction![
-                                                                      index],
+                                                                  _contractionPractice[index]['getPairContraction'][index2],
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          14),
+                                                                      14),
                                                                 ),
                                                               ],
                                                             ),
@@ -235,10 +228,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: Text(
-                                                          _getPairFullForm![
-                                                                  index]
-                                                              .replaceAll(
-                                                                  ',', ', '),
+                                                          _contractionPractice[index]['getPairFullForm'][index2].replaceAll(',', ', '),
                                                           style: TextStyle(
                                                               fontSize: 14),
                                                         ),
@@ -254,7 +244,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                           flex: 1,
                                           child: CircleAvatar(
                                             backgroundColor:
-                                                PageTheme.app_theme_blue,
+                                            PageTheme.app_theme_blue,
                                             radius: 25.0,
                                             child: IconButton(
                                               icon: const Icon(
@@ -264,16 +254,15 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                               onPressed: () {
                                                 AutoRouter.of(context).push(
                                                     LearningManualContractionRoute(
-                                                        getContraction:
-                                                            _getPracticeContraction,
-                                                        getContractionIPA:
-                                                            _getPracticeContractionIPA,
-                                                        getFullForm:
-                                                            _getPracticeFullForm,
-                                                        getSentence:
-                                                            _getPracticeSentence,
-                                                        getSentenceIPA:
-                                                            _getPracticeSentenceIPA));
+                                                      getPairContraction: _contractionPractice[index]['getPairContraction'],
+                                                      getPairFullForm: _contractionPractice[index]['getPairFullForm'],
+                                                      getPracticeContraction: _contractionPractice[index]['getPracticeContraction'],
+                                                      getPracticeContractionIPA: _contractionPractice[index]['getPracticeContractionIPA'],
+                                                      getPracticeFullForm: _contractionPractice[index]['getPracticeFullForm'],
+                                                      getPracticeSentence: _contractionPractice[index]['getPracticeSentence'],
+                                                      getPracticeSentenceIPA: _contractionPractice[index]['getPracticeSentenceIPA'],
+                                                    )
+                                                );
                                               },
                                             ),
                                           ),
@@ -288,7 +277,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                               if (expanded) {
                                 setState(() {
                                   initGetContractionFullForm(
-                                      _dropdownValue1!, _getWord![index]);
+                                      _dropdownValue1!, _getWord![index], _contractionPractice, index);
                                   _selected = index;
                                 });
                               } else {
@@ -313,10 +302,19 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
   Future<void> initGetContractionList(String wordCondition) async {
     List<String> getWord = [];
     List<String> getContraction = [];
+    Map mapTemplate = {
+      'getPairContraction': '',
+      'getPairFullForm': '',
+      'getPracticeContraction': '',
+      'getPracticeContractionIPA': '',
+      'getPracticeFullForm': '',
+      'getPracticeSentence': '',
+      'getPracticeSentenceIPA': '',
+    };
 
-    if (wordCondition == 'prefix') {
+    if (wordCondition == '縮寫前字') {
       wordCondition = 'word1';
-    } else if (wordCondition == 'suffix') {
+    } else if (wordCondition == '縮寫後字') {
       wordCondition = 'word2';
     }
 
@@ -324,7 +322,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     var getIPAGraphemePair;
     do {
       String getIPAGraphemePairJSON =
-          await APIUtil.getContractionPair(wordCondition);
+      await APIUtil.getContractionPair(wordCondition);
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -337,17 +335,17 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
       getContraction.add(value["contraction"].toString());
     });
 
-    print(getWord);
-    print(getContraction);
-
     setState(() {
       _getWord = getWord;
       _getContraction = getContraction;
+      _contractionPractice = [];
+      _getWord.forEach((value) {
+        _contractionPractice.add(mapTemplate);
+      });
     });
   }
 
-  Future<void> initGetContractionFullForm(
-      String wordCondition, String word) async {
+  Future<void> initGetContractionFullForm(String wordCondition, String word, List practiceData, int index) async {
     List<String> getPairContraction = [];
     List<String> getPairFullForm = [];
     List<String> getPracticeContraction = [];
@@ -356,55 +354,63 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     List<String> getPracticeSentence = [];
     List<String> getPracticeSentenceIPA = [];
 
-    if (wordCondition == 'prefix') {
-      wordCondition = 'word1';
-    } else if (wordCondition == 'suffix') {
-      wordCondition = 'word2';
+    if (practiceData[index]['getPairContraction'] == ''){
+      if (wordCondition == '縮寫前字') {
+        wordCondition = 'word1';
+      } else if (wordCondition == '縮寫後字') {
+        wordCondition = 'word2';
+      }
+
+      EasyLoading.show(status: '正在讀取資料，請稍候......');
+      var getIPAGraphemePair;
+      do {
+        String getIPAGraphemePairJSON =
+        await APIUtil.getContractionFullForm(wordCondition, word);
+        getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
+        if (getIPAGraphemePair['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getIPAGraphemePair['apiStatus'] != 'success');
+
+      //EasyLoading.dismiss();
+      getIPAGraphemePair['data'].forEach((value) {
+        getPairContraction.add(value["contraction"]);
+        getPairFullForm.add(value["fullForm"]);
+      });
+
+      do {
+        String getIPAGraphemePairJSON =
+        await APIUtil.getContractionSentence(wordCondition, word);
+        getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
+        if (getIPAGraphemePair['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getIPAGraphemePair['apiStatus'] != 'success');
+
+      EasyLoading.dismiss();
+      getIPAGraphemePair['data'].forEach((value) {
+        getPracticeContraction.add(value["contraction"]);
+        getPracticeContractionIPA.add(value["contractionIPA"]);
+        getPracticeFullForm.add(value["fullForm"]);
+        getPracticeSentence.add(value["sentence"]);
+        getPracticeSentenceIPA.add(value["sentenceIPA"]);
+      });
+
+      setState(() {
+        practiceData[index] = {
+          'getPairContraction': getPairContraction,
+          'getPairFullForm': getPairFullForm,
+          'getPracticeContraction': getPracticeContraction,
+          'getPracticeContractionIPA': getPracticeContractionIPA,
+          'getPracticeFullForm': getPracticeFullForm,
+          'getPracticeSentence': getPracticeSentence,
+          'getPracticeSentenceIPA': getPracticeSentenceIPA,
+        };
+
+        print(practiceData);
+      });
+    } else{
+      setState(() {});
     }
-
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var getIPAGraphemePair;
-    do {
-      String getIPAGraphemePairJSON =
-          await APIUtil.getContractionFullForm(wordCondition, word);
-      getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
-      if (getIPAGraphemePair['apiStatus'] != 'success') {
-        await Future.delayed(Duration(seconds: 1));
-      }
-    } while (getIPAGraphemePair['apiStatus'] != 'success');
-
-    //EasyLoading.dismiss();
-    getIPAGraphemePair['data'].forEach((value) {
-      getPairContraction.add(value["contraction"]);
-      getPairFullForm.add(value["fullForm"]);
-    });
-
-    do {
-      String getIPAGraphemePairJSON =
-          await APIUtil.getContractionSentence(wordCondition, word);
-      getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
-      if (getIPAGraphemePair['apiStatus'] != 'success') {
-        await Future.delayed(Duration(seconds: 1));
-      }
-    } while (getIPAGraphemePair['apiStatus'] != 'success');
-
-    EasyLoading.dismiss();
-    getIPAGraphemePair['data'].forEach((value) {
-      getPracticeContraction.add(value["contraction"]);
-      getPracticeContractionIPA.add(value["contractionIPA"]);
-      getPracticeFullForm.add(value["fullForm"]);
-      getPracticeSentence.add(value["sentence"]);
-      getPracticeSentenceIPA.add(value["sentenceIPA"]);
-    });
-
-    setState(() {
-      _getPairContraction = getPairContraction;
-      _getPairFullForm = getPairFullForm;
-      _getPracticeContraction = getPracticeContraction;
-      _getPracticeContractionIPA = getPracticeContractionIPA;
-      _getPracticeFullForm = getPracticeFullForm;
-      _getPracticeSentence = getPracticeSentence;
-      _getPracticeSentenceIPA = getPracticeSentenceIPA;
-    });
   }
 }
