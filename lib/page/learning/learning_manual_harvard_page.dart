@@ -19,10 +19,12 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 class LearningManualHarvardPage extends StatefulWidget {
   final List<String> sentence;
+  final List<String> sentenceIPA;
 
   const LearningManualHarvardPage({
     Key? key,
     required this.sentence,
+    required this.sentenceIPA,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
   late List<String> _sentence;
+  late List<String> _sentenceIPA;
   int _testIndex = 0;
 
   final _allowTouchButtons = {
@@ -112,6 +115,7 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
   @override
   void initState() {
     _sentence = widget.sentence;
+    _sentenceIPA = widget.sentenceIPA;
     print(_sentence);
     super.initState();
     initLearningManualHarvardPage();
@@ -963,7 +967,10 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
         TextSpan(text: _questionText),
       ];
 
-      _questionIPAText = questionIPAText;
+      String testWordIPA =
+      _sentenceIPA[_testIndex].replaceAll('[', '').replaceAll(']', '');
+
+      _questionIPAText = testWordIPA;
       _questionIPATextWidget = [
         TextSpan(text: '[' + _questionIPAText + ']'),
       ];

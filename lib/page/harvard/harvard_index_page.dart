@@ -217,6 +217,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                         AutoRouter.of(context).push(
                                             LearningManualHarvardRoute(
                                               sentence: _sessionSentenceData[_sessionNum-1]['sentence'],
+                                              sentenceIPA: _sessionSentenceData[_sessionNum-1]['sentenceIPA'],
                                             ));
                                       },
                                     ),
@@ -291,6 +292,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
     Map mapTemplate = {
       'session': '',
       'sentence': ['','','','','','','','','',''],
+      'sentenceIPA': '',
     };
 
     for (var i = 1; i < 73; i++){
@@ -304,6 +306,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
   Future<void> initGetHarvardSentenceList(String sessionNum, int index) async {
     List<int> getSessionNum = [];
     List<String> getSentence = [];
+    List<String> getSentenceIPA = [];
 
     if (_sessionSentenceData[index]['session'] == ''){
       EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -320,17 +323,20 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
       getHarvardSentence['data'].forEach((value) {
         getSessionNum.add(value["session"]);
         getSentence.add(value["sentence"].toString());
+        getSentenceIPA.add(value["sentenceIPA"].toString());
       });
 
       setState(() {
         _sessionSentenceData[index] = {
           'sessionNum': getSessionNum,
           'sentence': getSentence,
+          'sentenceIPA': getSentenceIPA,
         };
       });
     } else {
       setState(() {
       });
     }
+    print(_sessionSentenceData);
   }
 }

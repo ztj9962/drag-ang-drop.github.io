@@ -247,6 +247,7 @@ class AppRouter extends _i29.RootStackRouter {
         child: _i21.LearningManualHarvardPage(
           key: args.key,
           sentence: args.sentence,
+          sentenceIPA: args.sentenceIPA,
         ),
       );
     },
@@ -1009,12 +1010,14 @@ class LearningManualHarvardRoute
   LearningManualHarvardRoute({
     _i30.Key? key,
     required List<String> sentence,
+    required List<String> sentenceIPA,
   }) : super(
           LearningManualHarvardRoute.name,
           path: '/learning_manual_harvard_page',
           args: LearningManualHarvardRouteArgs(
             key: key,
             sentence: sentence,
+            sentenceIPA: sentenceIPA,
           ),
         );
 
@@ -1025,15 +1028,18 @@ class LearningManualHarvardRouteArgs {
   const LearningManualHarvardRouteArgs({
     this.key,
     required this.sentence,
+    required this.sentenceIPA,
   });
 
   final _i30.Key? key;
 
   final List<String> sentence;
 
+  final List<String> sentenceIPA;
+
   @override
   String toString() {
-    return 'LearningManualHarvardRouteArgs{key: $key, sentence: $sentence}';
+    return 'LearningManualHarvardRouteArgs{key: $key, sentence: $sentence, sentenceIPA: $sentenceIPA}';
   }
 }
 
