@@ -102,7 +102,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                       setState(() {
                         _session = value!;
                         _testIndex = _sessionList.indexWhere((note) => note.startsWith(value!));
-                        //initGetHarvardSentenceList(value, _sessionNum-1);
+                        initGetTongueTwistersSentenceList(value, _testIndex);
                       });
                     },
                     underline: Container(
@@ -185,7 +185,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                                 _testIndex -= 1;
                                                 _session = _sessionList[_testIndex];
                                               });
-                                              //initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+                                              initGetTongueTwistersSentenceList(_session, _testIndex);
                                             }
                                           },
                                         ),
@@ -220,7 +220,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                         /*
                                         AutoRouter.of(context).push(
                                             LearningManualHarvardRoute(
-                                              sentence: _sessionSentenceData[_sessionNum-1]['sentence'],
+                                              sentence: _sessionSentenceData[_session]['sentence'],
                                             ));
                                         */
                                       },
@@ -259,7 +259,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                                 _testIndex += 1;
                                                 _session = _sessionList[_testIndex];
                                               });
-                                              //initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+                                              initGetTongueTwistersSentenceList(_session, _testIndex);
                                             }
                                           },
                                         ),
@@ -302,6 +302,42 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
       _sessionSentenceData.add(mapTemplate);
     }
     print(_sessionSentenceData);
-    //initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+    initGetTongueTwistersSentenceList(_session, _testIndex);
+  }
+
+  Future<void> initGetTongueTwistersSentenceList(String session, int index) async {
+    List<String> getSession = [];
+    List<String> getSentence = [];
+    List<String> getSentenceIPA = [];
+
+    if (_sessionSentenceData[index]['sentence'] == ''){
+      EasyLoading.show(status: '正在讀取資料，請稍候......');
+      var getTongueTwistersSentence;
+      do {
+        String getTongueTwistersSentenceJSON = await APIUtil.getTongueTwistersSentence(session);
+        getTongueTwistersSentence = jsonDecode(getTongueTwistersSentenceJSON.toString());
+        if (getTongueTwistersSentence['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (getTongueTwistersSentence['apiStatus'] != 'success');
+
+      EasyLoading.dismiss();
+      getTongueTwistersSentence['data'].forEach((value) {
+        getSession.add(value["session"]);
+        getSentence.add(value["sentence"].toString());
+        getSentenceIPA.add(value["sentenceIPA"].toString());
+      });
+
+      setState(() {
+        _sessionSentenceData[index] = {
+          'session': getSession,
+          'sentence': getSentence,
+          'sentenceIPA': getSentenceIPA,
+        };
+      });
+    } else {
+      setState(() {
+      });
+    }
   }
 }

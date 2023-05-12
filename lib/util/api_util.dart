@@ -652,4 +652,21 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+
+  static Future<String> getTongueTwistersSentence(session,
+      {String dataLimit = ''}) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/tongueTwisters/getTongueTwistersSentence'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'session': session.toString(),
+        'dataLimit': dataLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }
