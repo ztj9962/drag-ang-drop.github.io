@@ -134,6 +134,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                         ),
                         maxLines: 1,
                       ),
+                      /*
                       Container(
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
@@ -156,6 +157,29 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                             ),
                                           ],
                                         ),
+                                      )
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                      ),
+                      */
+                      Container(
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _sessionSentenceData[_testIndex]['sentence']?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(padding: EdgeInsets.all(16)),
+                                  Flexible(
+                                      child: Text(
+                                        _sessionSentenceData[_testIndex]['sentence'][index],
+                                        style: TextStyle(fontSize: 16),
                                       )
                                   ),
                                 ],
@@ -294,13 +318,12 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
   Future<void> initTongueTwisersNumList() async {
     Map mapTemplate = {
       'session': '',
-      'sentence': '',
+      'sentence': ['','','','','',''],
     };
 
     for (var i = 0; i < _sessionList.length; i++){
       _sessionSentenceData.add(mapTemplate);
     }
-    print(_sessionSentenceData);
     initGetTongueTwistersSentenceList(_session, _testIndex);
   }
 
@@ -309,7 +332,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
     List<String> getSentence = [];
     List<String> getSentenceIPA = [];
 
-    if (_sessionSentenceData[index]['sentence'] == ''){
+    if (_sessionSentenceData[index]['session'] == ''){
       EasyLoading.show(status: '正在讀取資料，請稍候......');
       var getTongueTwistersSentence;
       do {
