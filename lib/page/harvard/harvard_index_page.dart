@@ -133,33 +133,25 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                       maxLines: 1,
                     ),
                     Container(
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Flex(
-                            direction: Axis.horizontal,
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Padding(padding: EdgeInsets.all(16)),
-                                        Text(
-                                          _sessionSentenceData[_sessionNum-1]['sentence'][index],
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ],
-                          );
-                        },
-                      )
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(padding: EdgeInsets.all(16)),
+                                Flexible(
+                                  child: Text(
+                                    _sessionSentenceData[_sessionNum-1]['sentence'][index],
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        )
                     ),
                     Row(
                       children: <Widget>[
