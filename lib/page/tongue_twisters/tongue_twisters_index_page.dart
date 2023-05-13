@@ -217,12 +217,11 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                       icon: const Icon(Icons.play_arrow),
                                       color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
                                       onPressed: () {
-                                        /*
                                         AutoRouter.of(context).push(
-                                            LearningManualHarvardRoute(
-                                              sentence: _sessionSentenceData[_session]['sentence'],
+                                            LearningManualTongueTwistersRoute(
+                                              sentence: _sessionSentenceData[_testIndex]['sentence'],
+                                              sentenceIPA: _sessionSentenceData[_testIndex]['sentenceIPA'],
                                             ));
-                                        */
                                       },
                                     ),
                                   ),

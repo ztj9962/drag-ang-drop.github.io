@@ -12,6 +12,7 @@ import 'package:alicsnet_app/page/learning/learning_manual_contraction_page.dart
 import 'package:alicsnet_app/page/learning/learning_manual_custom_article_practice_sentence_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_ipa_grapheme_pair_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_minimal_pair_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_tongue_twisters_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_sentence_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_word_page.dart';
 import 'package:alicsnet_app/page/login/sign_in_page.dart';
@@ -89,6 +90,9 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(
         path: '/learning_manual_minimal_pair',
         page: LearningManualMinimalPairPage),
+    AutoRoute(
+        path: '/learning_manual_tongue_twisters_page',
+        page: LearningManualTongueTwistersPage),
     AutoRoute(
         path: '/learning_manual_vocabulary_practice_sentence_page',
         page: LearningManualVocabularyPracticeSentencePage),
