@@ -139,9 +139,10 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                           itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Padding(padding: EdgeInsets.all(16)),
+                                Text((index+1).toString()+ '. ', style: TextStyle(fontSize: 16)),
                                 Flexible(
                                   child: Text(
                                     _sessionSentenceData[_sessionNum-1]['sentence'][index],
