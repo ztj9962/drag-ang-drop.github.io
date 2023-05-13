@@ -64,7 +64,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Text("Session選擇",
+                  child: Text("Tongue Twisters Session 選擇",
                       style: TextStyle(
                           color: PageTheme.app_theme_blue,
                           fontSize: 20,
@@ -141,10 +141,10 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                             itemCount: _sessionSentenceData[_testIndex]['sentence']?.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Padding(padding: EdgeInsets.all(16)),
+                                  Text((index+1).toString()+ '. ', style: TextStyle(fontSize: 16)),
                                   Flexible(
                                       child: Text(
                                         _sessionSentenceData[_testIndex]['sentence'][index],
