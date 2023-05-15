@@ -954,7 +954,7 @@ class _LearningManualTongueTwistersPage extends State<LearningManualTongueTwiste
     }
 
     setState(() {
-      _replyText = 'Repeat after me: ';
+      _replyText = 'Repeat after me: (${_testIndex+1}/${_sentence.length})';
       _replyTextWidget = [
         TextSpan(text: _replyText),
       ];
