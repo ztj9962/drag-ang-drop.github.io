@@ -145,7 +145,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
-                                      Padding(padding: EdgeInsets.all(16)),
+                                      Padding(padding: EdgeInsets.all(10)),
                                       Text((index+1).toString()+ '.', style: TextStyle(fontSize: 16)),
                                       Padding(padding: EdgeInsets.only(left: 10)),
                                       Flexible(
