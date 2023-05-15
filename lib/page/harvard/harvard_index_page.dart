@@ -63,7 +63,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(2),
-                child: Text("Session選擇",
+                child: Text("Session 選擇",
                     style: TextStyle(
                         color: PageTheme.app_theme_blue,
                         fontSize: 20,
@@ -138,16 +138,25 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                           shrinkWrap: true,
                           itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            return Column(
                               children: <Widget>[
-                                Padding(padding: EdgeInsets.all(16)),
-                                Text((index+1).toString()+ '. ', style: TextStyle(fontSize: 16)),
-                                Flexible(
-                                  child: Text(
-                                    _sessionSentenceData[_sessionNum-1]['sentence'][index],
-                                    style: TextStyle(fontSize: 16),
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(padding: EdgeInsets.all(16)),
+                                    Text((index+1).toString()+ '.', style: TextStyle(fontSize: 16)),
+                                    Padding(padding: EdgeInsets.only(left: 10)),
+                                    Flexible(
+                                      child: Text(
+                                        _sessionSentenceData[_sessionNum-1]['sentence'][index],
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 1,
+                                  color: PageTheme.syllable_search_background,
                                 ),
                               ],
                             );
