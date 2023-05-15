@@ -140,16 +140,25 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                             shrinkWrap: true,
                             itemCount: _sessionSentenceData[_testIndex]['sentence']?.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              return Column(
                                 children: <Widget>[
-                                  Padding(padding: EdgeInsets.all(16)),
-                                  Text((index+1).toString()+ '. ', style: TextStyle(fontSize: 16)),
-                                  Flexible(
-                                      child: Text(
-                                        _sessionSentenceData[_testIndex]['sentence'][index],
-                                        style: TextStyle(fontSize: 16),
-                                      )
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(padding: EdgeInsets.all(16)),
+                                      Text((index+1).toString()+ '.', style: TextStyle(fontSize: 16)),
+                                      Padding(padding: EdgeInsets.only(left: 10)),
+                                      Flexible(
+                                          child: Text(
+                                            _sessionSentenceData[_testIndex]['sentence'][index],
+                                            style: TextStyle(fontSize: 16),
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    thickness: 1,
+                                    color: PageTheme.syllable_search_background,
                                   ),
                                 ],
                               );
