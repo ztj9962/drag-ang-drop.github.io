@@ -954,7 +954,7 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
     }
 
     setState(() {
-      _replyText = 'Repeat after me: ';
+      _replyText = 'Repeat after me: (${_testIndex+1}/${_sentence.length})';
       _replyTextWidget = [
         TextSpan(text: _replyText),
       ];
