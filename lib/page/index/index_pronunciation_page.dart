@@ -124,7 +124,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'TongueTwisters Practice',
+        titleText: 'Tongue Twisters Practice',
         descripText: '英語繞口令練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
