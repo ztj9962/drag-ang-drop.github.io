@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _LearningManualVocabularyPracticeSentencePageState
   String? ttsEngine;
   double ttsVolume = 1;
   double ttsPitch = 1.0;
-  double ttsRate = 0.5;
+  late double ttsRate;
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
   String? _newVoiceText;
@@ -113,10 +114,27 @@ class _LearningManualVocabularyPracticeSentencePageState
   void initState() {
     _topicClass = widget.topicClass;
     _topicName = widget.topicName;
-    initTts();
-    initSpeechState();
-    getTestQuestions();
+    initLearningManualCustomArticlePracticeSentencePage();
     super.initState();
+  }
+
+  Future<void> initLearningManualCustomArticlePracticeSentencePage() async {
+    await initApplicationSettingsData();
+    await initTts();
+    await initSpeechState();
+    await getTestQuestions();
+  }
+
+  initApplicationSettingsData() {
+    SharedPreferencesUtil.getTTSVolume().then((value) {
+      setState(() => ttsVolume = value);
+    });
+    SharedPreferencesUtil.getTTSPitch().then((value) {
+      setState(() => ttsPitch = value);
+    });
+    SharedPreferencesUtil.getTTSRate().then((value) {
+      setState(() => ttsRate = value);
+    });
   }
 
   @override

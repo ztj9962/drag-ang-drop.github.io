@@ -340,7 +340,6 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     });
     SharedPreferencesUtil.getTTSRate().then((value) {
       setState(() => ttsRate = value);
-      print('update iiiiiii' + value.toString());
     });
     SharedPreferencesUtil.getTTSRateString().then((value) {
       setState(() => ttsRateString = value);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,7 @@ class _LearningManualVocabularyPraticeWordPageState
   String? ttsEngine;
   double ttsVolume = 1;
   double ttsPitch = 1.0;
-  double ttsRate = 0.5;
+  late double ttsRate;
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
   String? _newVoiceText;
@@ -119,8 +120,6 @@ class _LearningManualVocabularyPraticeWordPageState
   void initState() {
     _vocabularyList = widget.vocabularyList;
     _vocabularySentenceList = widget.vocabularySentenceList;
-    print(_vocabularyList);
-    print(_vocabularySentenceList);
     super.initState();
     initLearningManualVocabularyPraticeWordPage();
   }
@@ -580,9 +579,22 @@ class _LearningManualVocabularyPraticeWordPageState
   }
 
   Future<void> initLearningManualVocabularyPraticeWordPage() async {
-    initTts();
-    initSpeechState();
-    _adjustWordIndex(0);
+    await initApplicationSettingsData();
+    await initTts();
+    await initSpeechState();
+    await _adjustWordIndex(0);
+  }
+
+  initApplicationSettingsData() {
+    SharedPreferencesUtil.getTTSVolume().then((value) {
+      setState(() => ttsVolume = value);
+    });
+    SharedPreferencesUtil.getTTSPitch().then((value) {
+      setState(() => ttsPitch = value);
+    });
+    SharedPreferencesUtil.getTTSRate().then((value) {
+      setState(() => ttsRate = value);
+    });
   }
 
   /// This initializes SpeechToText. That only has to be done

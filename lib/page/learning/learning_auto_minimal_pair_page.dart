@@ -103,7 +103,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   String? ttsEngine;
   double ttsVolume = 1;
   double ttsPitch = 1.0;
-  double ttsRate = 0.5;
+  late double ttsRate;
   bool ttsRateSlow = false;
   bool ttsIsCurrentLanguageInstalled = false;
 

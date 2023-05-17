@@ -362,7 +362,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
     });
     SharedPreferencesUtil.getTTSRate().then((value) {
       setState(() => ttsRate = value);
-      print('update iiiiiii' + value.toString());
     });
     SharedPreferencesUtil.getTTSRateString().then((value) {
       setState(() => ttsRateString = value);
