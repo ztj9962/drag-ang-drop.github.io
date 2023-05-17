@@ -14,6 +14,7 @@ import 'package:alicsnet_app/page/learning/learning_manual_custom_article_practi
 import 'package:alicsnet_app/page/learning/learning_manual_harvard_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_ipa_grapheme_pair_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_minimal_pair_page.dart';
+import 'package:alicsnet_app/page/learning/learning_manual_tongue_twisters_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_sentence_page.dart';
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_word_page.dart';
 import 'package:alicsnet_app/page/login/sign_in_page.dart';
@@ -21,6 +22,7 @@ import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
 import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page.dart';
+import 'package:alicsnet_app/page/tongue_twisters/tongue_twisters_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
@@ -94,6 +96,9 @@ import 'package:auto_route/auto_route.dart';
         path: '/learning_manual_minimal_pair',
         page: LearningManualMinimalPairPage),
     AutoRoute(
+        path: '/learning_manual_tongue_twisters_page',
+        page: LearningManualTongueTwistersPage),
+    AutoRoute(
         path: '/learning_manual_vocabulary_practice_sentence_page',
         page: LearningManualVocabularyPracticeSentencePage),
     AutoRoute(
@@ -109,6 +114,8 @@ import 'package:auto_route/auto_route.dart';
 
     AutoRoute(
         path: '/sentence_analysis_index', page: SentenceAnalysisIndexPage),
+    AutoRoute(
+        path: '/tongue_twisters_index_page', page: TongueTwistersIndexPage),
     //New Pages Below ↓↓↓
     /*
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),
