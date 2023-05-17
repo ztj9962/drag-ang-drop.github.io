@@ -68,12 +68,12 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'Minimal pairs',
-        descripText: '相似字音練習',
+        titleText: 'IPA Grapheme Practice',
+        descripText: 'IPA字素練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/minimal_pair_index");
+          AutoRouter.of(context).pushNamed("/ipa_grapheme_pair_index_page");
         },
       ),
     );
@@ -96,16 +96,16 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'IPA Grapheme Practice',
-        descripText: 'IPA字素練習',
+        titleText: 'Minimal pairs',
+        descripText: '相似字音練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/ipa_grapheme_pair_index_page");
+          AutoRouter.of(context).pushNamed("/minimal_pair_index");
         },
       ),
     );
-
+    
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
