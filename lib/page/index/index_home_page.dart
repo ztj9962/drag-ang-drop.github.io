@@ -100,86 +100,16 @@ class _IndexHomePageState extends State<IndexHomePage> {
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'Pronunciation - Minimal pairs',
-        descripText: '相似字音練習',
+        titleText: 'Pronunciation Practice',
+        descripText: '發音練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/minimal_pair_index");
+          AutoRouter.of(context).pushNamed("/index_pronunciation_page");
         },
       ),
     );
 
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'Contraction Practice',
-        descripText: '縮寫練習',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/contraction_index_page");
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'IPA Grapheme Practice',
-        descripText: 'IPA字素練習',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/ipa_grapheme_pair_index_page");
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'Harvard Sentence Practice',
-        descripText: 'Harvard句子練習',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/harvard_index_page");
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'TongueTwisters Practice',
-        descripText: '英語繞口令練習',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/tongue_twisters_index_page");
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/sentence_analysis.svg',
-        titleText: 'Sentence Analysis',
-        descripText: '句型分析',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context)
-              .push(SentenceAnalysisIndexRoute(analysisor: ''));
-        },
-      ),
-    );
     /*
     listViews.add(
       ButtonCardView(

@@ -4,6 +4,7 @@ import 'package:alicsnet_app/page/contraction/contraction_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/harvard/harvard_index_page.dart';
 import 'package:alicsnet_app/page/index/index_page.dart';
+import 'package:alicsnet_app/page/index/index_pronunciation_page.dart';
 import 'package:alicsnet_app/page/ipa_grapheme_pair/ipa_grapheme_pair_index_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_chat_topic_page.dart';
 import 'package:alicsnet_app/page/learning/learning_auto_generic_page.dart';
@@ -37,6 +38,7 @@ import 'package:auto_route/auto_route.dart';
   routes: <AutoRoute>[
     AutoRoute(path: '/', page: SignInPage, initial: true),
     AutoRoute(path: '/index', page: IndexPage),
+    AutoRoute(path: '/index_pronunciation_page', page: IndexPronunciationPage),
     AutoRoute(path: '/harvard_index_page', page: HarvardIndexPage),
     AutoRoute(path: '/ipa_grapheme_pair_index_page', page: IPAGraphemePairIndexPage),
 

@@ -11,108 +11,115 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i31;
-import 'package:flutter/material.dart' as _i32;
+import 'package:auto_route/auto_route.dart' as _i32;
+import 'package:flutter/material.dart' as _i33;
 
 import '../page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart'
-    as _i5;
-import '../page/chat_topic_practice/chat_topic_practice_index_page.dart' as _i6;
-import '../page/contraction/contraction_index_page.dart' as _i7;
+    as _i6;
+import '../page/chat_topic_practice/chat_topic_practice_index_page.dart' as _i7;
+import '../page/contraction/contraction_index_page.dart' as _i8;
 import '../page/custom_article_practice_sentence/custom_article_practice_sentence.dart'
-    as _i12;
-import '../page/harvard/harvard_index_page.dart' as _i3;
+    as _i13;
+import '../page/harvard/harvard_index_page.dart' as _i4;
 import '../page/index/index_page.dart' as _i2;
-import '../page/ipa_grapheme_pair/ipa_grapheme_pair_index_page.dart' as _i4;
-import '../page/learning/learning_auto_chat_topic_page.dart' as _i8;
-import '../page/learning/learning_auto_generic_page.dart' as _i16;
+import '../page/index/index_pronunciation_page.dart' as _i3;
+import '../page/ipa_grapheme_pair/ipa_grapheme_pair_index_page.dart' as _i5;
+import '../page/learning/learning_auto_chat_topic_page.dart' as _i9;
+import '../page/learning/learning_auto_generic_page.dart' as _i17;
 import '../page/learning/learning_auto_generic_summary_report_page.dart'
-    as _i17;
-import '../page/learning/learning_auto_minimal_pair_page.dart' as _i18;
-import '../page/learning/learning_manual_contraction_page.dart' as _i19;
+    as _i18;
+import '../page/learning/learning_auto_minimal_pair_page.dart' as _i19;
+import '../page/learning/learning_manual_contraction_page.dart' as _i20;
 import '../page/learning/learning_manual_custom_article_practice_sentence_page.dart'
-    as _i20;
-import '../page/learning/learning_manual_harvard_page.dart' as _i21;
-import '../page/learning/learning_manual_ipa_grapheme_pair_page.dart' as _i22;
-import '../page/learning/learning_manual_minimal_pair_page.dart' as _i23;
-import '../page/learning/learning_manual_tongue_twisters_page.dart' as _i24;
+    as _i21;
+import '../page/learning/learning_manual_harvard_page.dart' as _i22;
+import '../page/learning/learning_manual_ipa_grapheme_pair_page.dart' as _i23;
+import '../page/learning/learning_manual_minimal_pair_page.dart' as _i24;
+import '../page/learning/learning_manual_tongue_twisters_page.dart' as _i25;
 import '../page/learning/learning_manual_vocabulary_practice_sentence_page.dart'
-    as _i25;
-import '../page/learning/learning_manual_vocabulary_practice_word_page.dart'
     as _i26;
-import '../page/login/sign_in_page.dart' as _i1;
-import '../page/minimal_pair/minimal_pair_index_page.dart' as _i11;
-import '../page/preference_translations/preference_sentence_editor.dart'
-    as _i28;
-import '../page/preference_translations/preference_sentence_search.dart'
+import '../page/learning/learning_manual_vocabulary_practice_word_page.dart'
     as _i27;
-import '../page/sentence_analysis/sentence_analysis_index_page.dart' as _i29;
-import '../page/tongue_twisters/tongue_twisters_index_page.dart' as _i30;
+import '../page/login/sign_in_page.dart' as _i1;
+import '../page/minimal_pair/minimal_pair_index_page.dart' as _i12;
+import '../page/preference_translations/preference_sentence_editor.dart'
+    as _i29;
+import '../page/preference_translations/preference_sentence_search.dart'
+    as _i28;
+import '../page/sentence_analysis/sentence_analysis_index_page.dart' as _i30;
+import '../page/tongue_twisters/tongue_twisters_index_page.dart' as _i31;
 import '../page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart'
-    as _i9;
-import '../page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart'
     as _i10;
-import '../page/vocabulary_test/vocabulary_test_index_page.dart' as _i13;
-import '../page/vocabulary_test/vocabulary_test_questing_page.dart' as _i14;
-import '../page/vocabulary_test/vocabulary_test_report_page.dart' as _i15;
+import '../page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart'
+    as _i11;
+import '../page/vocabulary_test/vocabulary_test_index_page.dart' as _i14;
+import '../page/vocabulary_test/vocabulary_test_questing_page.dart' as _i15;
+import '../page/vocabulary_test/vocabulary_test_report_page.dart' as _i16;
 
-class AppRouter extends _i31.RootStackRouter {
-  AppRouter([_i32.GlobalKey<_i32.NavigatorState>? navigatorKey])
+class AppRouter extends _i32.RootStackRouter {
+  AppRouter([_i33.GlobalKey<_i33.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i31.PageFactory> pagesMap = {
+  final Map<String, _i32.PageFactory> pagesMap = {
     SignInRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.SignInPage(),
       );
     },
     IndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.IndexPage(),
       );
     },
-    HarvardIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+    IndexPronunciationRoute.name: (routeData) {
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.HarvardIndexPage(),
+        child: const _i3.IndexPronunciationPage(),
+      );
+    },
+    HarvardIndexRoute.name: (routeData) {
+      return _i32.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i4.HarvardIndexPage(),
       );
     },
     IPAGraphemePairIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.IPAGraphemePairIndexPage(),
+        child: const _i5.IPAGraphemePairIndexPage(),
       );
     },
     ChatTopicPracticeConversationListRoute.name: (routeData) {
       final args =
           routeData.argsAs<ChatTopicPracticeConversationListRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i5.ChatTopicPracticeConversationListPage(
+        child: _i6.ChatTopicPracticeConversationListPage(
           key: args.key,
           topicName: args.topicName,
         ),
       );
     },
     ChatTopicPracticeIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.ChatTopicPracticeIndexPage(),
+        child: const _i7.ChatTopicPracticeIndexPage(),
       );
     },
     ContractionIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.ContractionIndexPage(),
+        child: const _i8.ContractionIndexPage(),
       );
     },
     LearningAutoChatTopicRoute.name: (routeData) {
       final args = routeData.argsAs<LearningAutoChatTopicRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i8.LearningAutoChatTopicPage(
+        child: _i9.LearningAutoChatTopicPage(
           key: args.key,
           contentList: args.contentList,
           translateList: args.translateList,
@@ -124,44 +131,44 @@ class AppRouter extends _i31.RootStackRouter {
       );
     },
     VocabularyPracticeWordIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.VocabularyPracticeWordIndexPage(),
+        child: const _i10.VocabularyPracticeWordIndexPage(),
       );
     },
     VocabularyPracticeWordListRoute.name: (routeData) {
       final args = routeData.argsAs<VocabularyPracticeWordListRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i10.VocabularyPracticeWordListPage(
+        child: _i11.VocabularyPracticeWordListPage(
           key: args.key,
           vocabularyList: args.vocabularyList,
         ),
       );
     },
     MinimalPairIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.MinimalPairIndexPage(),
+        child: const _i12.MinimalPairIndexPage(),
       );
     },
     CustomArticlePracticeSentenceIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.CustomArticlePracticeSentenceIndexPage(),
+        child: const _i13.CustomArticlePracticeSentenceIndexPage(),
       );
     },
     VocabularyTestIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i13.VocabularyTestIndexPage(),
+        child: const _i14.VocabularyTestIndexPage(),
       );
     },
     VocabularyTestQuestingRoute.name: (routeData) {
       final args = routeData.argsAs<VocabularyTestQuestingRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i14.VocabularyTestQuestingPage(
+        child: _i15.VocabularyTestQuestingPage(
           key: args.key,
           vocabularyTestQuestionList: args.vocabularyTestQuestionList,
         ),
@@ -169,9 +176,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     VocabularyTestReportRoute.name: (routeData) {
       final args = routeData.argsAs<VocabularyTestReportRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i15.VocabularyTestReportPage(
+        child: _i16.VocabularyTestReportPage(
           key: args.key,
           vocabularyTestQuestionList: args.vocabularyTestQuestionList,
           chooseAnswerList: args.chooseAnswerList,
@@ -180,9 +187,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     LearningAutoGenericRoute.name: (routeData) {
       final args = routeData.argsAs<LearningAutoGenericRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i16.LearningAutoGenericPage(
+        child: _i17.LearningAutoGenericPage(
           key: args.key,
           contentList: args.contentList,
           ipaList: args.ipaList,
@@ -193,9 +200,9 @@ class AppRouter extends _i31.RootStackRouter {
     LearningAutoGenericSummaryReportRoute.name: (routeData) {
       final args =
           routeData.argsAs<LearningAutoGenericSummaryReportRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i17.LearningAutoGenericSummaryReportPage(
+        child: _i18.LearningAutoGenericSummaryReportPage(
           key: args.key,
           summaryReportData: args.summaryReportData,
         ),
@@ -204,9 +211,9 @@ class AppRouter extends _i31.RootStackRouter {
     LearningAutoMinimalPairRoute.name: (routeData) {
       final args = routeData.argsAs<LearningAutoMinimalPairRouteArgs>(
           orElse: () => const LearningAutoMinimalPairRouteArgs());
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i18.LearningAutoMinimalPairPage(
+        child: _i19.LearningAutoMinimalPairPage(
           key: args.key,
           IPA1: args.IPA1,
           IPA2: args.IPA2,
@@ -216,9 +223,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     LearningManualContractionRoute.name: (routeData) {
       final args = routeData.argsAs<LearningManualContractionRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i19.LearningManualContractionPage(
+        child: _i20.LearningManualContractionPage(
           key: args.key,
           getPairContraction: args.getPairContraction,
           getPairFullForm: args.getPairFullForm,
@@ -233,9 +240,9 @@ class AppRouter extends _i31.RootStackRouter {
     LearningManualCustomArticlePracticeSentenceRoute.name: (routeData) {
       final args = routeData
           .argsAs<LearningManualCustomArticlePracticeSentenceRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i20.LearningManualCustomArticlePracticeSentencePage(
+        child: _i21.LearningManualCustomArticlePracticeSentencePage(
           key: args.key,
           questionList: args.questionList,
           questionIPAList: args.questionIPAList,
@@ -244,9 +251,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     LearningManualHarvardRoute.name: (routeData) {
       final args = routeData.argsAs<LearningManualHarvardRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i21.LearningManualHarvardPage(
+        child: _i22.LearningManualHarvardPage(
           key: args.key,
           sentence: args.sentence,
           sentenceIPA: args.sentenceIPA,
@@ -255,9 +262,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     LearningManualIPAGraphemePairRoute.name: (routeData) {
       final args = routeData.argsAs<LearningManualIPAGraphemePairRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i22.LearningManualIPAGraphemePairPage(
+        child: _i23.LearningManualIPAGraphemePairPage(
           key: args.key,
           getIPASymbol: args.getIPASymbol,
           getGraphemes: args.getGraphemes,
@@ -269,9 +276,9 @@ class AppRouter extends _i31.RootStackRouter {
     LearningManualMinimalPairRoute.name: (routeData) {
       final args = routeData.argsAs<LearningManualMinimalPairRouteArgs>(
           orElse: () => const LearningManualMinimalPairRouteArgs());
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i23.LearningManualMinimalPairPage(
+        child: _i24.LearningManualMinimalPairPage(
           key: args.key,
           IPA1: args.IPA1,
           IPA2: args.IPA2,
@@ -281,9 +288,9 @@ class AppRouter extends _i31.RootStackRouter {
     },
     LearningManualTongueTwistersRoute.name: (routeData) {
       final args = routeData.argsAs<LearningManualTongueTwistersRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i24.LearningManualTongueTwistersPage(
+        child: _i25.LearningManualTongueTwistersPage(
           key: args.key,
           sentence: args.sentence,
           sentenceIPA: args.sentenceIPA,
@@ -295,9 +302,9 @@ class AppRouter extends _i31.RootStackRouter {
           routeData.argsAs<LearningManualVocabularyPracticeSentenceRouteArgs>(
               orElse: () =>
                   const LearningManualVocabularyPracticeSentenceRouteArgs());
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i25.LearningManualVocabularyPracticeSentencePage(
+        child: _i26.LearningManualVocabularyPracticeSentencePage(
           key: args.key,
           topicClass: args.topicClass,
           topicName: args.topicName,
@@ -307,9 +314,9 @@ class AppRouter extends _i31.RootStackRouter {
     LearningManualVocabularyPraticeWordRoute.name: (routeData) {
       final args =
           routeData.argsAs<LearningManualVocabularyPraticeWordRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i26.LearningManualVocabularyPraticeWordPage(
+        child: _i27.LearningManualVocabularyPraticeWordPage(
           key: args.key,
           vocabularyList: args.vocabularyList,
           vocabularySentenceList: args.vocabularySentenceList,
@@ -317,16 +324,16 @@ class AppRouter extends _i31.RootStackRouter {
       );
     },
     PreferenceTranslationSearchRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i27.PreferenceTranslationSearchPage(),
+        child: const _i28.PreferenceTranslationSearchPage(),
       );
     },
     PreferenceTranslationEditRoute.name: (routeData) {
       final args = routeData.argsAs<PreferenceTranslationEditRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i28.PreferenceTranslationEditPage(
+        child: _i29.PreferenceTranslationEditPage(
           key: args.key,
           sentenceDataList: args.sentenceDataList,
         ),
@@ -334,141 +341,145 @@ class AppRouter extends _i31.RootStackRouter {
     },
     SentenceAnalysisIndexRoute.name: (routeData) {
       final args = routeData.argsAs<SentenceAnalysisIndexRouteArgs>();
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i29.SentenceAnalysisIndexPage(
+        child: _i30.SentenceAnalysisIndexPage(
           key: args.key,
           analysisor: args.analysisor,
         ),
       );
     },
     TongueTwistersIndexRoute.name: (routeData) {
-      return _i31.MaterialPageX<dynamic>(
+      return _i32.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i30.TongueTwistersIndexPage(),
+        child: const _i31.TongueTwistersIndexPage(),
       );
     },
   };
 
   @override
-  List<_i31.RouteConfig> get routes => [
-        _i31.RouteConfig(
+  List<_i32.RouteConfig> get routes => [
+        _i32.RouteConfig(
           SignInRoute.name,
           path: '/',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           IndexRoute.name,
           path: '/index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
+          IndexPronunciationRoute.name,
+          path: '/index_pronunciation_page',
+        ),
+        _i32.RouteConfig(
           HarvardIndexRoute.name,
           path: '/harvard_index_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           IPAGraphemePairIndexRoute.name,
           path: '/ipa_grapheme_pair_index_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           ChatTopicPracticeConversationListRoute.name,
           path: '/chat_topic_practice_conversation_list_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           ChatTopicPracticeIndexRoute.name,
           path: '/chat_topic_practice_index_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           ContractionIndexRoute.name,
           path: '/contraction_index_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningAutoChatTopicRoute.name,
           path: '/learning_auto_chat_topic_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           VocabularyPracticeWordIndexRoute.name,
           path: '/voabulary_practice_word_index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           VocabularyPracticeWordListRoute.name,
           path: '/voabulary_practice_word_list',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           MinimalPairIndexRoute.name,
           path: '/minimal_pair_index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           CustomArticlePracticeSentenceIndexRoute.name,
           path: '/customArticle_practice_sentence_index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           VocabularyTestIndexRoute.name,
           path: '/vocabulary_test_index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           VocabularyTestQuestingRoute.name,
           path: '/vocabulary_test_questing',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           VocabularyTestReportRoute.name,
           path: '/vocabulary_test_report',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningAutoGenericRoute.name,
           path: '/learnig_auto_generic',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningAutoGenericSummaryReportRoute.name,
           path: '/learnig_auto_generic_summary_report',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningAutoMinimalPairRoute.name,
           path: '/learnig_auto_minimal_pair',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualContractionRoute.name,
           path: '/learning_manual_contraction_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualCustomArticlePracticeSentenceRoute.name,
           path: '/learning_manual_custom_article_practice_sentence',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualHarvardRoute.name,
           path: '/learning_manual_harvard_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualIPAGraphemePairRoute.name,
           path: '/learning_manual_ipa_grapheme_pair_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualMinimalPairRoute.name,
           path: '/learning_manual_minimal_pair',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualTongueTwistersRoute.name,
           path: '/learning_manual_tongue_twisters_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualVocabularyPracticeSentenceRoute.name,
           path: '/learning_manual_vocabulary_practice_sentence_page',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           LearningManualVocabularyPraticeWordRoute.name,
           path: '/learning_manual_vocabulary_practice_word',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           PreferenceTranslationSearchRoute.name,
           path: '/preference_translation_search',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           PreferenceTranslationEditRoute.name,
           path: '/preference_translation_edit',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           SentenceAnalysisIndexRoute.name,
           path: '/sentence_analysis_index',
         ),
-        _i31.RouteConfig(
+        _i32.RouteConfig(
           TongueTwistersIndexRoute.name,
           path: '/tongue_twisters_index_page',
         ),
@@ -477,7 +488,7 @@ class AppRouter extends _i31.RootStackRouter {
 
 /// generated route for
 /// [_i1.SignInPage]
-class SignInRoute extends _i31.PageRouteInfo<void> {
+class SignInRoute extends _i32.PageRouteInfo<void> {
   const SignInRoute()
       : super(
           SignInRoute.name,
@@ -489,7 +500,7 @@ class SignInRoute extends _i31.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.IndexPage]
-class IndexRoute extends _i31.PageRouteInfo<void> {
+class IndexRoute extends _i32.PageRouteInfo<void> {
   const IndexRoute()
       : super(
           IndexRoute.name,
@@ -500,8 +511,20 @@ class IndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.HarvardIndexPage]
-class HarvardIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i3.IndexPronunciationPage]
+class IndexPronunciationRoute extends _i32.PageRouteInfo<void> {
+  const IndexPronunciationRoute()
+      : super(
+          IndexPronunciationRoute.name,
+          path: '/index_pronunciation_page',
+        );
+
+  static const String name = 'IndexPronunciationRoute';
+}
+
+/// generated route for
+/// [_i4.HarvardIndexPage]
+class HarvardIndexRoute extends _i32.PageRouteInfo<void> {
   const HarvardIndexRoute()
       : super(
           HarvardIndexRoute.name,
@@ -512,8 +535,8 @@ class HarvardIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.IPAGraphemePairIndexPage]
-class IPAGraphemePairIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i5.IPAGraphemePairIndexPage]
+class IPAGraphemePairIndexRoute extends _i32.PageRouteInfo<void> {
   const IPAGraphemePairIndexRoute()
       : super(
           IPAGraphemePairIndexRoute.name,
@@ -524,11 +547,11 @@ class IPAGraphemePairIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.ChatTopicPracticeConversationListPage]
+/// [_i6.ChatTopicPracticeConversationListPage]
 class ChatTopicPracticeConversationListRoute
-    extends _i31.PageRouteInfo<ChatTopicPracticeConversationListRouteArgs> {
+    extends _i32.PageRouteInfo<ChatTopicPracticeConversationListRouteArgs> {
   ChatTopicPracticeConversationListRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required String topicName,
   }) : super(
           ChatTopicPracticeConversationListRoute.name,
@@ -548,7 +571,7 @@ class ChatTopicPracticeConversationListRouteArgs {
     required this.topicName,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String topicName;
 
@@ -559,8 +582,8 @@ class ChatTopicPracticeConversationListRouteArgs {
 }
 
 /// generated route for
-/// [_i6.ChatTopicPracticeIndexPage]
-class ChatTopicPracticeIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i7.ChatTopicPracticeIndexPage]
+class ChatTopicPracticeIndexRoute extends _i32.PageRouteInfo<void> {
   const ChatTopicPracticeIndexRoute()
       : super(
           ChatTopicPracticeIndexRoute.name,
@@ -571,8 +594,8 @@ class ChatTopicPracticeIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ContractionIndexPage]
-class ContractionIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i8.ContractionIndexPage]
+class ContractionIndexRoute extends _i32.PageRouteInfo<void> {
   const ContractionIndexRoute()
       : super(
           ContractionIndexRoute.name,
@@ -583,11 +606,11 @@ class ContractionIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.LearningAutoChatTopicPage]
+/// [_i9.LearningAutoChatTopicPage]
 class LearningAutoChatTopicRoute
-    extends _i31.PageRouteInfo<LearningAutoChatTopicRouteArgs> {
+    extends _i32.PageRouteInfo<LearningAutoChatTopicRouteArgs> {
   LearningAutoChatTopicRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<List<String>> contentList,
     required List<List<String>> translateList,
     required String title,
@@ -622,7 +645,7 @@ class LearningAutoChatTopicRouteArgs {
     required this.orderList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<List<String>> contentList;
 
@@ -643,8 +666,8 @@ class LearningAutoChatTopicRouteArgs {
 }
 
 /// generated route for
-/// [_i9.VocabularyPracticeWordIndexPage]
-class VocabularyPracticeWordIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i10.VocabularyPracticeWordIndexPage]
+class VocabularyPracticeWordIndexRoute extends _i32.PageRouteInfo<void> {
   const VocabularyPracticeWordIndexRoute()
       : super(
           VocabularyPracticeWordIndexRoute.name,
@@ -655,11 +678,11 @@ class VocabularyPracticeWordIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.VocabularyPracticeWordListPage]
+/// [_i11.VocabularyPracticeWordListPage]
 class VocabularyPracticeWordListRoute
-    extends _i31.PageRouteInfo<VocabularyPracticeWordListRouteArgs> {
+    extends _i32.PageRouteInfo<VocabularyPracticeWordListRouteArgs> {
   VocabularyPracticeWordListRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<dynamic> vocabularyList,
   }) : super(
           VocabularyPracticeWordListRoute.name,
@@ -679,7 +702,7 @@ class VocabularyPracticeWordListRouteArgs {
     required this.vocabularyList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<dynamic> vocabularyList;
 
@@ -690,8 +713,8 @@ class VocabularyPracticeWordListRouteArgs {
 }
 
 /// generated route for
-/// [_i11.MinimalPairIndexPage]
-class MinimalPairIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i12.MinimalPairIndexPage]
+class MinimalPairIndexRoute extends _i32.PageRouteInfo<void> {
   const MinimalPairIndexRoute()
       : super(
           MinimalPairIndexRoute.name,
@@ -702,8 +725,8 @@ class MinimalPairIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.CustomArticlePracticeSentenceIndexPage]
-class CustomArticlePracticeSentenceIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i13.CustomArticlePracticeSentenceIndexPage]
+class CustomArticlePracticeSentenceIndexRoute extends _i32.PageRouteInfo<void> {
   const CustomArticlePracticeSentenceIndexRoute()
       : super(
           CustomArticlePracticeSentenceIndexRoute.name,
@@ -714,8 +737,8 @@ class CustomArticlePracticeSentenceIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.VocabularyTestIndexPage]
-class VocabularyTestIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i14.VocabularyTestIndexPage]
+class VocabularyTestIndexRoute extends _i32.PageRouteInfo<void> {
   const VocabularyTestIndexRoute()
       : super(
           VocabularyTestIndexRoute.name,
@@ -726,11 +749,11 @@ class VocabularyTestIndexRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.VocabularyTestQuestingPage]
+/// [_i15.VocabularyTestQuestingPage]
 class VocabularyTestQuestingRoute
-    extends _i31.PageRouteInfo<VocabularyTestQuestingRouteArgs> {
+    extends _i32.PageRouteInfo<VocabularyTestQuestingRouteArgs> {
   VocabularyTestQuestingRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<dynamic> vocabularyTestQuestionList,
   }) : super(
           VocabularyTestQuestingRoute.name,
@@ -750,7 +773,7 @@ class VocabularyTestQuestingRouteArgs {
     required this.vocabularyTestQuestionList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<dynamic> vocabularyTestQuestionList;
 
@@ -761,11 +784,11 @@ class VocabularyTestQuestingRouteArgs {
 }
 
 /// generated route for
-/// [_i15.VocabularyTestReportPage]
+/// [_i16.VocabularyTestReportPage]
 class VocabularyTestReportRoute
-    extends _i31.PageRouteInfo<VocabularyTestReportRouteArgs> {
+    extends _i32.PageRouteInfo<VocabularyTestReportRouteArgs> {
   VocabularyTestReportRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<dynamic> vocabularyTestQuestionList,
     required List<String> chooseAnswerList,
   }) : super(
@@ -788,7 +811,7 @@ class VocabularyTestReportRouteArgs {
     required this.chooseAnswerList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<dynamic> vocabularyTestQuestionList;
 
@@ -801,11 +824,11 @@ class VocabularyTestReportRouteArgs {
 }
 
 /// generated route for
-/// [_i16.LearningAutoGenericPage]
+/// [_i17.LearningAutoGenericPage]
 class LearningAutoGenericRoute
-    extends _i31.PageRouteInfo<LearningAutoGenericRouteArgs> {
+    extends _i32.PageRouteInfo<LearningAutoGenericRouteArgs> {
   LearningAutoGenericRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<String> contentList,
     required List<String> ipaList,
     required List<String> translateList,
@@ -831,7 +854,7 @@ class LearningAutoGenericRouteArgs {
     required this.translateList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<String> contentList;
 
@@ -846,11 +869,11 @@ class LearningAutoGenericRouteArgs {
 }
 
 /// generated route for
-/// [_i17.LearningAutoGenericSummaryReportPage]
+/// [_i18.LearningAutoGenericSummaryReportPage]
 class LearningAutoGenericSummaryReportRoute
-    extends _i31.PageRouteInfo<LearningAutoGenericSummaryReportRouteArgs> {
+    extends _i32.PageRouteInfo<LearningAutoGenericSummaryReportRouteArgs> {
   LearningAutoGenericSummaryReportRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required Map<dynamic, dynamic> summaryReportData,
   }) : super(
           LearningAutoGenericSummaryReportRoute.name,
@@ -870,7 +893,7 @@ class LearningAutoGenericSummaryReportRouteArgs {
     required this.summaryReportData,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final Map<dynamic, dynamic> summaryReportData;
 
@@ -881,11 +904,11 @@ class LearningAutoGenericSummaryReportRouteArgs {
 }
 
 /// generated route for
-/// [_i18.LearningAutoMinimalPairPage]
+/// [_i19.LearningAutoMinimalPairPage]
 class LearningAutoMinimalPairRoute
-    extends _i31.PageRouteInfo<LearningAutoMinimalPairRouteArgs> {
+    extends _i32.PageRouteInfo<LearningAutoMinimalPairRouteArgs> {
   LearningAutoMinimalPairRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     String IPA1 = '',
     String IPA2 = '',
     String word = '',
@@ -911,7 +934,7 @@ class LearningAutoMinimalPairRouteArgs {
     this.word = '',
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String IPA1;
 
@@ -926,11 +949,11 @@ class LearningAutoMinimalPairRouteArgs {
 }
 
 /// generated route for
-/// [_i19.LearningManualContractionPage]
+/// [_i20.LearningManualContractionPage]
 class LearningManualContractionRoute
-    extends _i31.PageRouteInfo<LearningManualContractionRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualContractionRouteArgs> {
   LearningManualContractionRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<String> getPairContraction,
     required List<String> getPairFullForm,
     required List<String> getPracticeContraction,
@@ -968,7 +991,7 @@ class LearningManualContractionRouteArgs {
     required this.getPracticeSentenceIPA,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<String> getPairContraction;
 
@@ -991,11 +1014,11 @@ class LearningManualContractionRouteArgs {
 }
 
 /// generated route for
-/// [_i20.LearningManualCustomArticlePracticeSentencePage]
-class LearningManualCustomArticlePracticeSentenceRoute extends _i31
+/// [_i21.LearningManualCustomArticlePracticeSentencePage]
+class LearningManualCustomArticlePracticeSentenceRoute extends _i32
     .PageRouteInfo<LearningManualCustomArticlePracticeSentenceRouteArgs> {
   LearningManualCustomArticlePracticeSentenceRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<dynamic> questionList,
     required List<dynamic> questionIPAList,
   }) : super(
@@ -1018,7 +1041,7 @@ class LearningManualCustomArticlePracticeSentenceRouteArgs {
     required this.questionIPAList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<dynamic> questionList;
 
@@ -1031,11 +1054,11 @@ class LearningManualCustomArticlePracticeSentenceRouteArgs {
 }
 
 /// generated route for
-/// [_i21.LearningManualHarvardPage]
+/// [_i22.LearningManualHarvardPage]
 class LearningManualHarvardRoute
-    extends _i31.PageRouteInfo<LearningManualHarvardRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualHarvardRouteArgs> {
   LearningManualHarvardRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<String> sentence,
     required List<String> sentenceIPA,
   }) : super(
@@ -1058,7 +1081,7 @@ class LearningManualHarvardRouteArgs {
     required this.sentenceIPA,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<String> sentence;
 
@@ -1071,11 +1094,11 @@ class LearningManualHarvardRouteArgs {
 }
 
 /// generated route for
-/// [_i22.LearningManualIPAGraphemePairPage]
+/// [_i23.LearningManualIPAGraphemePairPage]
 class LearningManualIPAGraphemePairRoute
-    extends _i31.PageRouteInfo<LearningManualIPAGraphemePairRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualIPAGraphemePairRouteArgs> {
   LearningManualIPAGraphemePairRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required String getIPASymbol,
     required List<String> getGraphemes,
     required List<String> getWord,
@@ -1104,7 +1127,7 @@ class LearningManualIPAGraphemePairRouteArgs {
     required this.getWordIPA,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String getIPASymbol;
 
@@ -1121,11 +1144,11 @@ class LearningManualIPAGraphemePairRouteArgs {
 }
 
 /// generated route for
-/// [_i23.LearningManualMinimalPairPage]
+/// [_i24.LearningManualMinimalPairPage]
 class LearningManualMinimalPairRoute
-    extends _i31.PageRouteInfo<LearningManualMinimalPairRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualMinimalPairRouteArgs> {
   LearningManualMinimalPairRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     String IPA1 = '',
     String IPA2 = '',
     String word = '',
@@ -1151,7 +1174,7 @@ class LearningManualMinimalPairRouteArgs {
     this.word = '',
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String IPA1;
 
@@ -1166,11 +1189,11 @@ class LearningManualMinimalPairRouteArgs {
 }
 
 /// generated route for
-/// [_i24.LearningManualTongueTwistersPage]
+/// [_i25.LearningManualTongueTwistersPage]
 class LearningManualTongueTwistersRoute
-    extends _i31.PageRouteInfo<LearningManualTongueTwistersRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualTongueTwistersRouteArgs> {
   LearningManualTongueTwistersRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<String> sentence,
     required List<String> sentenceIPA,
   }) : super(
@@ -1193,7 +1216,7 @@ class LearningManualTongueTwistersRouteArgs {
     required this.sentenceIPA,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<String> sentence;
 
@@ -1206,11 +1229,11 @@ class LearningManualTongueTwistersRouteArgs {
 }
 
 /// generated route for
-/// [_i25.LearningManualVocabularyPracticeSentencePage]
-class LearningManualVocabularyPracticeSentenceRoute extends _i31
+/// [_i26.LearningManualVocabularyPracticeSentencePage]
+class LearningManualVocabularyPracticeSentenceRoute extends _i32
     .PageRouteInfo<LearningManualVocabularyPracticeSentenceRouteArgs> {
   LearningManualVocabularyPracticeSentenceRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     String topicClass = '',
     String topicName = '',
   }) : super(
@@ -1233,7 +1256,7 @@ class LearningManualVocabularyPracticeSentenceRouteArgs {
     this.topicName = '',
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String topicClass;
 
@@ -1246,11 +1269,11 @@ class LearningManualVocabularyPracticeSentenceRouteArgs {
 }
 
 /// generated route for
-/// [_i26.LearningManualVocabularyPraticeWordPage]
+/// [_i27.LearningManualVocabularyPraticeWordPage]
 class LearningManualVocabularyPraticeWordRoute
-    extends _i31.PageRouteInfo<LearningManualVocabularyPraticeWordRouteArgs> {
+    extends _i32.PageRouteInfo<LearningManualVocabularyPraticeWordRouteArgs> {
   LearningManualVocabularyPraticeWordRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required List<dynamic> vocabularyList,
     required List<dynamic> vocabularySentenceList,
   }) : super(
@@ -1273,7 +1296,7 @@ class LearningManualVocabularyPraticeWordRouteArgs {
     required this.vocabularySentenceList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final List<dynamic> vocabularyList;
 
@@ -1286,8 +1309,8 @@ class LearningManualVocabularyPraticeWordRouteArgs {
 }
 
 /// generated route for
-/// [_i27.PreferenceTranslationSearchPage]
-class PreferenceTranslationSearchRoute extends _i31.PageRouteInfo<void> {
+/// [_i28.PreferenceTranslationSearchPage]
+class PreferenceTranslationSearchRoute extends _i32.PageRouteInfo<void> {
   const PreferenceTranslationSearchRoute()
       : super(
           PreferenceTranslationSearchRoute.name,
@@ -1298,11 +1321,11 @@ class PreferenceTranslationSearchRoute extends _i31.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.PreferenceTranslationEditPage]
+/// [_i29.PreferenceTranslationEditPage]
 class PreferenceTranslationEditRoute
-    extends _i31.PageRouteInfo<PreferenceTranslationEditRouteArgs> {
+    extends _i32.PageRouteInfo<PreferenceTranslationEditRouteArgs> {
   PreferenceTranslationEditRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required Map<dynamic, dynamic> sentenceDataList,
   }) : super(
           PreferenceTranslationEditRoute.name,
@@ -1322,7 +1345,7 @@ class PreferenceTranslationEditRouteArgs {
     required this.sentenceDataList,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final Map<dynamic, dynamic> sentenceDataList;
 
@@ -1333,11 +1356,11 @@ class PreferenceTranslationEditRouteArgs {
 }
 
 /// generated route for
-/// [_i29.SentenceAnalysisIndexPage]
+/// [_i30.SentenceAnalysisIndexPage]
 class SentenceAnalysisIndexRoute
-    extends _i31.PageRouteInfo<SentenceAnalysisIndexRouteArgs> {
+    extends _i32.PageRouteInfo<SentenceAnalysisIndexRouteArgs> {
   SentenceAnalysisIndexRoute({
-    _i32.Key? key,
+    _i33.Key? key,
     required String analysisor,
   }) : super(
           SentenceAnalysisIndexRoute.name,
@@ -1357,7 +1380,7 @@ class SentenceAnalysisIndexRouteArgs {
     required this.analysisor,
   });
 
-  final _i32.Key? key;
+  final _i33.Key? key;
 
   final String analysisor;
 
@@ -1368,8 +1391,8 @@ class SentenceAnalysisIndexRouteArgs {
 }
 
 /// generated route for
-/// [_i30.TongueTwistersIndexPage]
-class TongueTwistersIndexRoute extends _i31.PageRouteInfo<void> {
+/// [_i31.TongueTwistersIndexPage]
+class TongueTwistersIndexRoute extends _i32.PageRouteInfo<void> {
   const TongueTwistersIndexRoute()
       : super(
           TongueTwistersIndexRoute.name,
