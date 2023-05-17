@@ -1,4 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+bool get isIOS => !kIsWeb && Platform.isIOS;
+
+bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+bool get isWeb => kIsWeb;
 
 class SharedPreferencesUtil {
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -132,7 +140,7 @@ class SharedPreferencesUtil {
       res = 0.5;
       setTTSRate(res);
     }
-    return res;
+    return (isWeb)? res * 2.0 : res;
   }
 
   // TTSRateString

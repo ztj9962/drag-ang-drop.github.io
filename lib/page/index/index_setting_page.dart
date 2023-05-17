@@ -2,6 +2,14 @@ import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+bool get isIOS => !kIsWeb && Platform.isIOS;
+
+bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+bool get isWeb => kIsWeb;
 
 class IndexSettingPage extends StatefulWidget {
   const IndexSettingPage({Key? key}) : super(key: key);
@@ -212,7 +220,7 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
       setState(() => _applicationSettingsDataTtsPitch = value);
     });
     SharedPreferencesUtil.getTTSRate().then((value) {
-      setState(() => _applicationSettingsDataTtsRate = value);
+      setState(() => _applicationSettingsDataTtsRate = (isWeb)? value / 2.0 : value);
     });
     SharedPreferencesUtil.getAPIURL().then((value) {
       setState(() => _applicationSettingsDataAPIURL = value);
