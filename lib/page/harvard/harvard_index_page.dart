@@ -100,7 +100,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                   onChanged: (String? value) {
                     setState(() {
                       _sessionNum = int.parse(value!);
-                      initGetHarvardSentenceList(value, _sessionNum-1);
+                      initGetHarvardSentenceList(value, _sessionNum - 1);
                     });
                   },
                   underline: Container(
@@ -134,35 +134,38 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                     ),
                     Container(
                         child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: _sessionSentenceData[_sessionNum-1]['sentence']?.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _sessionSentenceData[_sessionNum - 1]
+                              ['sentence']
+                          ?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(10)),
-                                    Text((index+1).toString()+ '.', style: TextStyle(fontSize: 16)),
-                                    Padding(padding: EdgeInsets.only(left: 10)),
-                                    Flexible(
-                                      child: Text(
-                                        _sessionSentenceData[_sessionNum-1]['sentence'][index],
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                  thickness: 1,
-                                  color: PageTheme.syllable_search_background,
+                                Padding(padding: EdgeInsets.all(10)),
+                                Text((index + 1).toString() + '.',
+                                    style: TextStyle(fontSize: 16)),
+                                Padding(padding: EdgeInsets.only(left: 10)),
+                                Flexible(
+                                  child: Text(
+                                    _sessionSentenceData[_sessionNum - 1]
+                                        ['sentence'][index],
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ],
-                            );
-                          },
-                        )
-                    ),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              color: PageTheme.syllable_search_background,
+                            ),
+                          ],
+                        );
+                      },
+                    )),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -177,14 +180,21 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                       backgroundColor: PageTheme.app_theme_blue,
                                       radius: 25.0,
                                       child: IconButton(
-                                        icon: const Icon(Icons.navigate_before_outlined),
-                                        color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
+                                        icon: const Icon(
+                                            Icons.navigate_before_outlined),
+                                        color:
+                                            (_allowTouchButtons['nextButton']!)
+                                                ? Colors.white
+                                                : Colors.grey,
                                         onPressed: () {
-                                          if (_allowTouchButtons['nextButton']!) {
+                                          if (_allowTouchButtons[
+                                              'nextButton']!) {
                                             setState(() {
                                               _sessionNum -= 1;
                                             });
-                                            initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+                                            initGetHarvardSentenceList(
+                                                _sessionNum.toString(),
+                                                _sessionNum - 1);
                                           }
                                         },
                                       ),
@@ -201,46 +211,50 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                   ),
                                 ],
                               ),
-                            )
-                        ),
+                            )),
                         Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: CircleAvatar(
-                                    backgroundColor: PageTheme.app_theme_blue,
-                                    radius: 25.0,
-                                    child: IconButton(
-                                      icon: const Icon(Icons.play_arrow),
-                                      color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
-                                      onPressed: () {
-                                        AutoRouter.of(context).push(
-                                            LearningManualHarvardRoute(
-                                              sentence: _sessionSentenceData[_sessionNum-1]['sentence'],
-                                              sentenceIPA: _sessionSentenceData[_sessionNum-1]['sentenceIPA'],
-                                            ));
-                                      },
-                                    ),
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: CircleAvatar(
+                                  backgroundColor: PageTheme.app_theme_blue,
+                                  radius: 25.0,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.play_arrow),
+                                    color: (_allowTouchButtons['nextButton']!)
+                                        ? Colors.white
+                                        : Colors.grey,
+                                    onPressed: () {
+                                      AutoRouter.of(context)
+                                          .push(LearningManualHarvardRoute(
+                                        sentence: _sessionSentenceData[
+                                            _sessionNum - 1]['sentence'],
+                                        sentenceIPA: _sessionSentenceData[
+                                            _sessionNum - 1]['sentenceIPA'],
+                                      ));
+                                    },
                                   ),
                                 ),
-                                const AutoSizeText(
-                                  '開始練習',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                  maxLines: 1,
+                              ),
+                              const AutoSizeText(
+                                '開始練習',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
                                 ),
-                              ],
-                            ),
+                                maxLines: 1,
+                              ),
+                            ],
+                          ),
                         ),
                         Expanded(
                             flex: 1,
                             child: Visibility(
-                              visible: _sessionNum < _sessionSentenceData.length,
+                              visible:
+                                  _sessionNum < _sessionSentenceData.length,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -249,14 +263,21 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                       backgroundColor: PageTheme.app_theme_blue,
                                       radius: 25.0,
                                       child: IconButton(
-                                        icon: const Icon(Icons.navigate_next_outlined),
-                                        color: (_allowTouchButtons['nextButton']!) ? Colors.white : Colors.grey,
+                                        icon: const Icon(
+                                            Icons.navigate_next_outlined),
+                                        color:
+                                            (_allowTouchButtons['nextButton']!)
+                                                ? Colors.white
+                                                : Colors.grey,
                                         onPressed: () {
-                                          if (_allowTouchButtons['nextButton']!) {
+                                          if (_allowTouchButtons[
+                                              'nextButton']!) {
                                             setState(() {
                                               _sessionNum += 1;
                                             });
-                                            initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+                                            initGetHarvardSentenceList(
+                                                _sessionNum.toString(),
+                                                _sessionNum - 1);
                                           }
                                         },
                                       ),
@@ -273,8 +294,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                   ),
                                 ],
                               ),
-                            )
-                        ),
+                            )),
                       ],
                     )
                   ],
@@ -282,8 +302,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 
   initAddSessionNum() async {
@@ -293,16 +312,16 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
   Future<void> initSessionNumList() async {
     Map mapTemplate = {
       'session': '',
-      'sentence': ['','','','','','','','','',''],
+      'sentence': ['', '', '', '', '', '', '', '', '', ''],
       'sentenceIPA': '',
     };
 
-    for (var i = 1; i < 73; i++){
+    for (var i = 1; i < 73; i++) {
       _sessionNumList.add(i.toString());
       _sessionSentenceData.add(mapTemplate);
     }
 
-    initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum-1);
+    initGetHarvardSentenceList(_sessionNum.toString(), _sessionNum - 1);
   }
 
   Future<void> initGetHarvardSentenceList(String sessionNum, int index) async {
@@ -310,11 +329,12 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
     List<String> getSentence = [];
     List<String> getSentenceIPA = [];
 
-    if (_sessionSentenceData[index]['session'] == ''){
+    if (_sessionSentenceData[index]['session'] == '') {
       EasyLoading.show(status: '正在讀取資料，請稍候......');
       var getHarvardSentence;
       do {
-        String getHarvardSentenceJSON = await APIUtil.getHarvardSentence(sessionNum);
+        String getHarvardSentenceJSON =
+            await APIUtil.getHarvardSentence(sessionNum);
         getHarvardSentence = jsonDecode(getHarvardSentenceJSON.toString());
         if (getHarvardSentence['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -336,8 +356,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
         };
       });
     } else {
-      setState(() {
-      });
+      setState(() {});
     }
     print(_sessionSentenceData);
   }
