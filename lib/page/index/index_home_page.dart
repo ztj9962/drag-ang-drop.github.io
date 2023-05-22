@@ -99,7 +99,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
+        imagePath: 'assets/icon/pronunciation.svg',
         titleText: 'Pronunciation Practice',
         descripText: '發音練習',
         titleTextSizeGroup: titleTextSizeGroup,
