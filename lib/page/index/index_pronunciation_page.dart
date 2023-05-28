@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:alicsnet_app/view/title_view.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class IndexPronunciationPage extends StatefulWidget {
   const IndexPronunciationPage({Key? key}) : super(key: key);
@@ -20,10 +21,22 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
   bool? _isSignin = false;
   int _testIndex = 0;
 
-  List<String> _title = ['發音練習有什麼?', 'IPA字素練習', '縮寫練習', '相似字音練習', 'Harvard句子練習', '英語繞口令練習', '總結'];
   List<String> _routeName = ['ipa_grapheme_pair_index_page', 'contraction_index_page', 'minimal_pair_index', 'harvard_index_page', 'tongue_twisters_index_page'];
   List<String> _svgName = ['practicePronunciation', 'practiceIPA', 'practiceContraction', 'practiceMinimalPair', 'practiceHarvard', 'practiceTongueTwisters', 'practicePronunciation'];
-  List<String> _introduction = [
+
+  List<Widget> _languageContent = <Widget>[Text('中文'), Text('English')];
+  List<bool> _languageSelect = <bool>[true, false];
+
+  String _practice = '';
+  String _practiceChinese = '開始練習';
+  String _practiceEnglish = 'Start Practice';
+
+  List<String> _title = [];
+  List<String> _titleChinese = ['發音練習有什麼?', 'IPA字素練習', '縮寫練習', '相似字音練習', 'Harvard句子練習', '英語繞口令練習', '總結'];
+  List<String> _titleEnglish = ['What about pronunciation practice?', 'IPA Grapheme Practice', 'Contraction Practice', 'Minimal Pair Practice', 'Harvard Sentence Practice', 'Tongue Twisters Practice', 'Summarize'];
+
+  List<String> _introduction = [];
+  List<String> _introductionChinese = [
     '英語是源自拉丁字母的語言，擁有26個字母。\n\n'
         '然而，由於從其他語言如德語、法語和希臘語借用詞彙，英語發展出了44個音素。\n\n'
         '這造成了拼寫和發音之間的不匹配，字母可以代表多個音素，而音素也可以用多個字母表示。\n\n'
@@ -46,11 +59,41 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
         '通過將這些方法融入您的學習計劃中，您可以在說英語時變得更加自信和熟練。\n\n'
         '希望這些方法能幫助您提高英語發音。',
   ];
+  List<String> _introductionEnglish = [
+    'The English language is derived from the Latin alphabet, which has 26 letters.\n\n'
+        'However, due to borrowing words from other languages such as German, French, and Greek, the English language has developed 44 sounds.\n\n'
+        'This has created a mismatch between spelling and pronunciation, where letters can represent multiple sounds, and sounds can be represented by multiple letters.\n\n'
+        'This complexity can make it challenging for English learners to master the language.\n\n'
+        'To help you improve your English pronunciation, our pronunciation program offers several practicing approaches.',
+    'First, you can identify and practice IPA sound-letter mapping.\n\n'
+        'The International Phonetic Alphabet (IPA) uses symbols to represent the various sounds of human language.\n\n'
+        'By mapping each IPA sound to a corresponding letter or group of letters, you can understand the relationship between sounds and letters in English, and improve your ability to pronounce words accurately.',
+    'Second, you can practice saying contractions.\n\n'
+        'Contractions involve merging multiple words into one.\n\n'
+        'Practicing contractions helps you learn to link words together more smoothly and achieve a more fluent speech.\n\n'
+        'Using contractions is a common feature of conversational English.\n\n'
+        'By learning to use contractions correctly, you can sound more natural when speaking English.',
+    'Third, you can practice minimal pairs. Minimal pairs are pairs of words that differ by only one sound.\n\n'
+        'By practicing minimal pairs, you can help you identify and produce subtle differences in English pronunciation.',
+    'Fourth, you can practice saying Harvard sentences.'
+        'The Harvard sentences are a collection of 720 sample phrases, divided into lists of 10, used for standardized testing of Voice over IP, cellular, and other telephone systems.\n\n'
+        'The Harvard sentences are designed to be read aloud quickly and clearly.\n\n'
+        'This can help you to improve your pronunciation speed and clarity.',
+    'Finally, you can practice saying tongue twisters.\n\n'
+        'Tongue twisters are short, repetitive phrases that are designed to be difficult to say quickly and correctly.\n\n'
+        'Practicing tongue twisters can assist in training your mouth and tongue to produce the same sounds repeatedly, which can enhance your pronunciation of challenging sounds and words.',
+    'In summary, each of these practices helps you improve your English pronunciation by focusing on specific aspects of the language.\n\n'
+        'By incorporating these practices into your study routine, you can become more confident and proficient in speaking English.\n\n'
+        'We hope these approaches help you improve your English pronunciation.'
+  ];
 
   @override
   void initState() {
     addAllListData();
     super.initState();
+    _title = _titleChinese;
+    _introduction = _introductionChinese;
+    _practice = _practiceChinese;
   }
 
   @override
@@ -210,19 +253,114 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                       child: Column(
                         children: <Widget>[
-                          Text(_title[_testIndex], style: TextStyle(fontSize: 20, color: PageTheme.app_theme_blue),),
-                          Divider(
-                            thickness: 1,
-                            color: PageTheme.app_theme_blue,
+                          Text(_title[_testIndex], style: TextStyle(fontSize: 16, color: PageTheme.app_theme_blue),),
+                          Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Divider(
+                              thickness: 1,
+                              color: PageTheme.app_theme_blue,
+                            ),
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              ToggleButtons(
+                                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                selectedBorderColor: PageTheme.app_theme_blue,
+                                selectedColor: Colors.white,
+                                fillColor: PageTheme.app_theme_blue,
+                                color: PageTheme.app_theme_blue,
+                                isSelected: _languageSelect,
+                                children: _languageContent,
+                                textStyle: TextStyle(fontSize: 12),
+                                onPressed: (int index) {
+                                  setState(() {
+                                    // The button that is tapped is set to true, and the others to false.
+                                    for (int i = 0; i < _languageSelect.length; i++) {
+                                      _languageSelect[i] = i == index;
+                                    }
+                                    if (index == 1){
+                                      _title = _titleEnglish;
+                                      _introduction = _introductionEnglish;
+                                      _practice = _practiceEnglish;
+                                    } else{
+                                      _title = _titleChinese;
+                                      _introduction = _introductionChinese;
+                                      _practice = _practiceChinese;
+                                    }
+                                    Navigator.pop(context);
+                                    introducePronunciationPractice();
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.content_copy_outlined,),
+                                color: Colors.grey,
+                                alignment: Alignment.center,
+                                onPressed: (){
+                                  Clipboard.setData(ClipboardData(text: _introduction[_testIndex]));
+                                  final snackBar = SnackBar(content: Text('Copied to Clipboard'));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                },
+                              ),
+                              /*
+                              Expanded(
+                                flex: 1,
+                                child: ToggleButtons(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  selectedBorderColor: PageTheme.app_theme_blue,
+                                  selectedColor: Colors.white,
+                                  fillColor: PageTheme.app_theme_blue,
+                                  color: PageTheme.app_theme_blue,
+                                  isSelected: _languageSelect,
+                                  children: _languageContent,
+                                  textStyle: TextStyle(fontSize: 12),
+                                  onPressed: (int index) {
+                                    setState(() {
+                                      // The button that is tapped is set to true, and the others to false.
+                                      for (int i = 0; i < _languageSelect.length; i++) {
+                                        _languageSelect[i] = i == index;
+                                      }
+                                      if (index == 1){
+                                        _title = _titleEnglish;
+                                        _introduction = _introductionEnglish;
+                                        _practice = _practiceEnglish;
+                                      } else{
+                                        _title = _titleChinese;
+                                        _introduction = _introductionChinese;
+                                        _practice = _practiceChinese;
+                                      }
+                                      Navigator.pop(context);
+                                      introducePronunciationPractice();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  icon: Icon(Icons.content_copy_outlined,),
+                                  color: Colors.grey,
+                                  alignment: Alignment.center,
+                                  onPressed: (){
+                                    Clipboard.setData(ClipboardData(text: _introduction[_testIndex]));
+                                    final snackBar = SnackBar(content: Text('Copied to Clipboard'));
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  },
+                                ),
+                              ),
+                              */
+                            ],
+                          )
                         ],
                       )
                   ),
                   Expanded(
-                    flex: 8,
+                    flex: 6,
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
@@ -253,8 +391,10 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
                                       boxShadow: [BoxShadow(color: PageTheme.cutom_article_practice_background)],
                                     ),
                                     child: TextButton(
-                                      child: Text('開始練習',
-                                        style: TextStyle(fontSize: 14, color: Colors.white,),),
+                                      child: Text(_practice,
+                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                        textAlign: TextAlign.center,
+                                      ),
                                       onPressed: (){
                                         AutoRouter.of(context).pushNamed("/${_routeName[_testIndex-1]}");
                                       },
