@@ -1,13 +1,15 @@
 import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/view/title_view.dart';
+import 'package:alicsnet_app/util/hexcolor_util.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/view/title_view.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:alicsnet_app/util/api_util.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 
 class VocabularyPracticeWordIndexPage extends StatefulWidget {
   const VocabularyPracticeWordIndexPage({Key? key}) : super(key: key);
@@ -19,19 +21,34 @@ class VocabularyPracticeWordIndexPage extends StatefulWidget {
 
 class _VocabularyPracticeWordIndexPageState
     extends State<VocabularyPracticeWordIndexPage> {
-  TextEditingController _editingController = TextEditingController();
-  int _rowIndexSliderMin = 1;
-  int _rowIndexSliderMax = 10000;
-  int _rowIndexSliderIndex = 1;
-  int _amountSliderIndex = 5;
-  int _dataLimit = 5;
-  String _sliderEducationLevel = '國小';
+  List<Widget> _listViews = <Widget>[];
 
-  List<dynamic> _vocabularyList = [];
+  List<Color> colorList = [
+    Color(0xff0293ee),
+    Color(0xfff8b250),
+    Color(0xff845bef),
+    Color(0xff13d38e),
+    Color(0xffFF8040),
+    Color(0xff00E3E3),
+    Color(0xff2626FF),
+    Color(0xfff126ff),
+  ];
+
+  List emojis = [
+    'grin',
+    'smile',
+    'grinning',
+    'neutral_face',
+    'sweat',
+    'pensive',
+    'confused',
+    'confounded'
+  ];
 
   @override
   void initState() {
     super.initState();
+    initVocabularyPracticeWordIndexPage();
   }
 
   @override
@@ -43,269 +60,44 @@ class _VocabularyPracticeWordIndexPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: PageTheme.app_theme_black,
-        title: AutoSizeText(
-          '一萬個最常用的單字和例句',
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            letterSpacing: 3.0,
-            color: Color(0xFFFEFEFE),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: PageTheme.app_theme_black,
+          title: AutoSizeText(
+            '選擇難度級別',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              letterSpacing: 3.0,
+              color: Color(0xFFFEFEFE),
+            ),
+            maxLines: 1,
           ),
-          maxLines: 1,
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TitleView(
-                titleTxt: '1. 選擇詞彙級別或直接搜尋單字',
-                titleColor: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 24, right: 24),
+          child: ListView.builder(
+              padding: EdgeInsets.only(
+                top: 24,
+                bottom: 62,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: PageTheme.app_theme_blue,
-                    width: 2,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Slider(
-                      autofocus: false,
-                      onChanged: (value) {
-                        setState(() {
-                          _rowIndexSliderIndex = value.toInt();
-                        });
-                        _adjustSliderEducationLevel();
-                      },
-                      onChangeEnd: (value) {
-                        setState(() {
-                          _rowIndexSliderIndex = value.toInt();
-                        });
-                        //initWordList();
-                        _adjustSliderEducationLevel();
-                      },
-                      min: _rowIndexSliderMin.toDouble(),
-                      max: _rowIndexSliderMax.toDouble() -
-                          _dataLimit.toDouble() +
-                          1,
-                      activeColor: PageTheme.app_theme_blue,
-                      inactiveColor: Colors.lightBlue,
-                      divisions: (_rowIndexSliderMax -
-                          _dataLimit -
-                          _rowIndexSliderMin),
-                      //value: _applicationSettingsDataTtsRate,
-                      value: _rowIndexSliderIndex.toDouble(),
-                      //label: 'Ranking ${_rowIndexSliderIndex * 10 - 9} ~ ${_rowIndexSliderIndex * 10}',
-                      label:
-                          '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 5,
-                              child: AutoSizeText(
-                                '${_sliderEducationLevel}\n(${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1})',
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: PageTheme.app_theme_blue,
-                                ),
-                                maxLines: 2,
-                              )),
-                          Expanded(
-                              flex: 3,
-                              child: Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(4),
-                                    child: Center(
-                                      child: CircleAvatar(
-                                        backgroundColor:
-                                            PageTheme.app_theme_blue,
-                                        radius: 20.0,
-                                        child: IconButton(
-                                          icon: Icon(Icons.remove),
-                                          color: Colors.white,
-                                          onPressed: () async {
-                                            _adjustRowIndexSliderIndex(-1);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(4),
-                                    child: Center(
-                                      child: CircleAvatar(
-                                        backgroundColor:
-                                            PageTheme.app_theme_blue,
-                                        radius: 20.0,
-                                        child: IconButton(
-                                          icon: Icon(Icons.add),
-                                          color: Colors.white,
-                                          onPressed: () async {
-                                            _adjustRowIndexSliderIndex(1);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          Expanded(
-                            flex: 2,
-                            child: TextField(
-                              controller: TextEditingController(
-                                  text: _rowIndexSliderIndex.toString()),
-                              onSubmitted: (value) {
-                                if (int.tryParse(value) != null) {
-                                  _adjustRowIndexSliderIndex(
-                                      int.tryParse(value)! -
-                                          _rowIndexSliderIndex);
-                                }
-                              },
-                              decoration: const InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(25.0)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onSubmitted: (value) async {
-                  await _searchVocabularyRowIndex(value);
-                },
-                controller: _editingController,
-                decoration: const InputDecoration(
-                    labelText: "搜尋單詞",
-                    hintText: "搜尋單詞",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TitleView(
-                titleTxt: '2. 選擇練習字數',
-                titleColor: Colors.black,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: PageTheme.app_theme_blue,
-                    width: 2,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Slider(
-                      autofocus: false,
-                      onChanged: (value) {
-                        setState(() {
-                          _amountSliderIndex = value.toInt();
-                        });
-                      },
-                      onChangeEnd: (value) {
-                        setState(() {
-                          _amountSliderIndex = value.toInt();
-                        });
-                        _adjustDataLimit(_amountSliderIndex);
-                      },
-                      min: 5,
-                      max: 10,
-                      activeColor: PageTheme.app_theme_blue,
-                      inactiveColor: Colors.lightBlue,
-                      divisions: 15,
-                      //value: _applicationSettingsDataTtsRate,
-                      value: _amountSliderIndex.toDouble(),
-                      label: '${_amountSliderIndex}',
-                      //label: '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
-                    ),
-                    AutoSizeText(
-                      '${_amountSliderIndex} 個',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: PageTheme.app_theme_blue,
-                      ),
-                      maxLines: 2,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(15)),
-            Container(
-              width: 350,
-              child: ElevatedButton(
-                  child: const AutoSizeText(
-                    '開啟詞彙列表',
-                    maxLines: 1,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      primary: PageTheme.app_theme_blue,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      shadowColor: Colors.black,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50))),
-                  onPressed: () async {
-                    await _getVocabularyList();
-                    AutoRouter.of(context).push(VocabularyPracticeWordListRoute(
-                        vocabularyList: _vocabularyList));
-                  }),
-            ),
-          ],
-        ),
-      ),
-    );
+              itemCount: _listViews.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _listViews[index];
+              }),
+        ));
   }
 
-  /*
-  other
-   */
-  Future<bool> _getVocabularyList() async {
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
+  initVocabularyPracticeWordIndexPage() async {
+    await initLevelList();
+  }
+
+  Future<bool> initLevelList() async {
     var responseJSONDecode;
+    EasyLoading.show(status: '正在讀取資料，請稍候......');
     try {
       int doLimit = 1;
-      List<dynamic> vocabularyList;
       do {
-        String responseJSON = await APIUtil.vocabularyGetList(
-            _rowIndexSliderIndex.toString(),
-            dataLimit: _dataLimit.toString());
+        String responseJSON = await APIUtil.get10kLevelData();
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
@@ -315,9 +107,229 @@ class _VocabularyPracticeWordIndexPageState
           await Future.delayed(Duration(seconds: 1));
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
-      vocabularyList = responseJSONDecode['data'];
+
+      List<Widget> listViews = <Widget>[];
+
+      List<String> categoryStringList = [
+        'educationLevel',
+        'proficiencyTestLevel'
+      ];
+
+      for(String cateStr in categoryStringList){
+        List dataList = responseJSONDecode['data'][cateStr];
+        //print(key);
+        //print(value);
+
+        listViews.add(TitleView(
+          titleTxt: (cateStr == 'educationLevel') ? 'Education Level\n教育程度檢定' : 'Proficiency Test Level\n英文能力檢定',
+          titleColor: Colors.black,
+        ));
+
+        var parser = EmojiParser();
+
+        listViews.add(Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 4,
+            children: List.generate(dataList!.length, (index) {
+              //if (index == 0) return Container();
+              //return Text(value['title'][index]);
+              //print(value['title'][index]);
+              return Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32),
+                    child: Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: HexColor('ff000000').withOpacity(0.6),
+                              offset: const Offset(1.1, 4.0),
+                              blurRadius: 8.0),
+                        ],
+                        gradient: LinearGradient(
+                          colors: (cateStr == 'educationLevel') ? <HexColor>[
+                            HexColor(colorList[index].value.toRadixString(16)),
+                            HexColor(colorList[index].withOpacity(0.1).value.toRadixString(16)),
+                          ] : <HexColor>[
+                            HexColor(Color(0xffd0c0c0).value.toRadixString(16)),
+                            HexColor(Color(0xff424242).withOpacity(0.1).value.toRadixString(16)),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(8.0),
+                          bottomLeft: Radius.circular(8.0),
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(54.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 54, left: 16, right: 16, bottom: 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: AutoSizeText('${dataList[index]['level']}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                      color: PageTheme.white,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: AutoSizeText((cateStr == 'educationLevel') ? 'Rank ${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}' : '單字量${dataList[index]['wordCount']}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: PageTheme.white,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
+                                      AutoRouter.of(context).push(
+                                          VocabularyPracticeWordListRoute(rangeMin: dataList[index]['minWordRank'], rangeMax: dataList[index]['maxWordRank'], level: dataList[index]['level'], cateType: cateStr));
+                                      /*if (cateStr == 'educationLevel'){
+
+                                      }else{
+                                        AutoRouter.of(context).push(
+                                            VocabularyPracticeWordIndexRoute(rangeMin: dataList[index]['minWordRank'], rangeMax: dataList[index]['maxWordRank'], level: dataList[index]['level'], cateType: 'proficiencyTestLevel'));
+                                      }*/
+
+                                    },
+                                    //onTap: sentenceTypeListData!.onTapFunction,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: PageTheme.nearlyWhite,
+                                        shape: BoxShape.rectangle, // 矩形
+                                        borderRadius: new BorderRadius.circular(
+                                            (20.0)), // 圓角度
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: PageTheme.nearlyBlack
+                                                  .withOpacity(0.4),
+                                              offset: Offset(8.0, 8.0),
+                                              blurRadius: 8.0),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          '選擇',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor(
+                                                'ff0293ee'),
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                /*Flexible(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      AutoRouter.of(context).push(
+                                          LearningManualVocabularyPracticeSentenceRoute(
+                                              topicName: value['title']
+                                              [index]));
+                                    },
+                                    //onTap: sentenceTypeListData!.onTapFunction,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: PageTheme.nearlyWhite,
+                                        shape: BoxShape.rectangle, // 矩形
+                                        borderRadius: new BorderRadius.circular(
+                                            (20.0)), // 圓角度
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: PageTheme.nearlyBlack
+                                                  .withOpacity(0.4),
+                                              offset: Offset(8.0, 8.0),
+                                              blurRadius: 8.0),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          '手動',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor(
+                                                value['appEndColor'][index]),
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),*/
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Container(
+                      width: 84,
+                      height: 84,
+                      decoration: BoxDecoration(
+                        color: PageTheme.nearlyWhite.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 24,
+                    left: 12,
+                    child: SizedBox(
+                      width: 64,
+                      height: 64,
+                      //child: Image.asset(value['imagePath'][index]),
+                      //child: Image.asset('assets/sels_app/' + value['appIcon'][index] + '.png'),
+                      child: AutoSizeText(
+                        (cateStr == 'educationLevel') ? parser.get(emojis[index]).code : parser.get('lower_left_ballpoint_pen').code,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
+                  )
+                ],
+              );
+            })));
+      }
+
       setState(() {
-        _vocabularyList = vocabularyList;
+        _listViews = listViews;
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -326,79 +338,5 @@ class _VocabularyPracticeWordIndexPageState
     }
     EasyLoading.dismiss();
     return responseJSONDecode['apiStatus'] == 'success';
-  }
-
-  Future<bool> _searchVocabularyRowIndex(String word) async {
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var responseJSONDecode;
-    try {
-      int doLimit = 1;
-      do {
-        String responseJSON = await APIUtil.vocabularyGetRowIndex(word);
-        responseJSONDecode = jsonDecode(responseJSON.toString());
-        if (responseJSONDecode['apiStatus'] != 'success') {
-          doLimit += 1;
-          if (doLimit > 1)
-            throw Exception(
-                'API: ' + responseJSONDecode['apiMessage']); // 只測 1 次
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (responseJSONDecode['apiStatus'] != 'success');
-
-      if (int.tryParse(responseJSONDecode['data']['index'].toString()) !=
-          null) {
-        _adjustRowIndexSliderIndex(
-            int.tryParse(responseJSONDecode['data']['index'].toString())! -
-                _rowIndexSliderIndex);
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-    return responseJSONDecode['apiStatus'] == 'success';
-  }
-
-  void _adjustRowIndexSliderIndex(int value) {
-    int sliderIndex = _rowIndexSliderIndex + value;
-    if ((sliderIndex >= _rowIndexSliderMin) &&
-        (sliderIndex <= (_rowIndexSliderMax - _dataLimit + 1))) {
-      setState(() => _rowIndexSliderIndex = sliderIndex);
-    } else {
-      if (sliderIndex < _rowIndexSliderMin) {
-        setState(() => _rowIndexSliderIndex = _rowIndexSliderMin);
-      }
-      if (sliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
-        setState(
-            () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Opps: 目標 ${sliderIndex} 已超出範圍'),
-      ));
-    }
-    _adjustSliderEducationLevel();
-  }
-
-  void _adjustSliderEducationLevel() {
-    String sliderEducationLevel = '國小';
-    if (_rowIndexSliderIndex > 6000) {
-      sliderEducationLevel = '大學';
-    } else if (_rowIndexSliderIndex > 2000) {
-      sliderEducationLevel = '高中';
-    } else if (_rowIndexSliderIndex > 900) {
-      sliderEducationLevel = '國中';
-    }
-    setState(() => _sliderEducationLevel = sliderEducationLevel);
-  }
-
-  void _adjustDataLimit(int value) {
-    setState(() {
-      _dataLimit = value;
-    });
-    if (_rowIndexSliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
-      setState(
-          () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
-    }
   }
 }
