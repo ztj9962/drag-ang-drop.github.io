@@ -51,7 +51,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
         '通過學會正確使用縮略詞，您在講英語時可以聽起來更自然。',
     '第三，您可以練習最小對立詞。最小對立詞是僅在一個音素上有所不同的詞對。\n\n'
         '通過練習最小對立詞，您可以幫助自己識別和產生英語發音中的細微差異。',
-    '第四，您可以練習哈佛句子。哈佛句子是一組720個示例短語，分成10個列表，用於語音網絡電話、蜂窩和其他電話系統的標準測試。\n\n'
+    '第四，您可以練習哈佛句子。哈佛句子是一組720個示例短語，每10個句子分為一個列表，用於語音網絡電話、蜂窩和其他電話系統的標準測試。\n\n'
         '哈佛句子設計成可以快速清晰地朗讀。這可以幫助您提高發音的速度和清晰度。',
     '最後，您可以練習繞口令。繞口令是一種短小而重複的詞語，旨在迅速而正確地說出來會比較困難。\n\n'
         '練習繞口令有助於訓練口腔和舌頭重複發出相同的音素，這可以提高您發音困難的音素和詞語的準確性。',
@@ -76,7 +76,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
     'Third, you can practice minimal pairs. Minimal pairs are pairs of words that differ by only one sound.\n\n'
         'By practicing minimal pairs, you can help you identify and produce subtle differences in English pronunciation.',
     'Fourth, you can practice saying Harvard sentences.'
-        'The Harvard sentences are a collection of 720 sample phrases, divided into lists of 10, used for standardized testing of Voice over IP, cellular, and other telephone systems.\n\n'
+        'The Harvard sentences are a collection of 720 sample phrases, each 10 sentences is divided into a list, used for standardized testing of Voice over IP, cellular, and other telephone systems.\n\n'
         'The Harvard sentences are designed to be read aloud quickly and clearly.\n\n'
         'This can help you to improve your pronunciation speed and clarity.',
     'Finally, you can practice saying tongue twisters.\n\n'
