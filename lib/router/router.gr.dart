@@ -142,7 +142,10 @@ class AppRouter extends _i32.RootStackRouter {
         routeData: routeData,
         child: _i11.VocabularyPracticeWordListPage(
           key: args.key,
-          vocabularyList: args.vocabularyList,
+          rangeMin: args.rangeMin,
+          rangeMax: args.rangeMax,
+          level: args.level,
+          cateType: args.cateType,
         ),
       );
     },
@@ -683,13 +686,19 @@ class VocabularyPracticeWordListRoute
     extends _i32.PageRouteInfo<VocabularyPracticeWordListRouteArgs> {
   VocabularyPracticeWordListRoute({
     _i33.Key? key,
-    required List<dynamic> vocabularyList,
+    required int rangeMin,
+    required int rangeMax,
+    required String level,
+    required String cateType,
   }) : super(
           VocabularyPracticeWordListRoute.name,
           path: '/voabulary_practice_word_list',
           args: VocabularyPracticeWordListRouteArgs(
             key: key,
-            vocabularyList: vocabularyList,
+            rangeMin: rangeMin,
+            rangeMax: rangeMax,
+            level: level,
+            cateType: cateType,
           ),
         );
 
@@ -699,16 +708,25 @@ class VocabularyPracticeWordListRoute
 class VocabularyPracticeWordListRouteArgs {
   const VocabularyPracticeWordListRouteArgs({
     this.key,
-    required this.vocabularyList,
+    required this.rangeMin,
+    required this.rangeMax,
+    required this.level,
+    required this.cateType,
   });
 
   final _i33.Key? key;
 
-  final List<dynamic> vocabularyList;
+  final int rangeMin;
+
+  final int rangeMax;
+
+  final String level;
+
+  final String cateType;
 
   @override
   String toString() {
-    return 'VocabularyPracticeWordListRouteArgs{key: $key, vocabularyList: $vocabularyList}';
+    return 'VocabularyPracticeWordListRouteArgs{key: $key, rangeMin: $rangeMin, rangeMax: $rangeMax, level: $level, cateType: $cateType}';
   }
 }
 
