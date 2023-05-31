@@ -176,6 +176,15 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> get10kLevelData() async {
+    final response = await http.get(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/vocabulary/get10kLevelData'),
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
   static Future<String> getIPAAvailable() async {
     final response = await http.get(
       Uri.https(await SharedPreferencesUtil.getAPIURL(),
