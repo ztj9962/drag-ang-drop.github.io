@@ -181,46 +181,42 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        TextButton(
-                          onPressed: () async {
-                            switch (ttsRateString) {
-                              case '2倍':
-                                ttsRate = 0.125;
-                                break;
-                              case '0.25倍':
-                                ttsRate = 0.25;
-                                break;
-                              case '0.5倍':
-                                ttsRate = 0.5;
-                                break;
-                              case '一般':
-                                ttsRate = 0.625;
-                                break;
-                              case '1.25倍':
-                                ttsRate = 0.75;
-                                break;
-                              case '1.5倍':
-                                ttsRate = 0.875;
-                                break;
-                              case '1.75倍':
-                                ttsRate = 1.0;
-                                break;
-                              default:
-                                ttsRate = 0.5;
-                                break;
-                            }
-                            setState(() {
-                              ttsRate = ttsRate;
-                              ttsRateSlow = false;
-                            });
-                            print(ttsRateSlow.toString());
-                            SharedPreferencesUtil.setTTSRate(ttsRate);
-                            SharedPreferencesUtil.getTTSRateString()
-                                .then((value) {
-                              setState(() => ttsRateString = value);
-                            });
-                          },
-                          child: Text('語速：${ttsRateString}'),
+                        Text('語速：'),
+                        DropdownButton(
+                          value: (isWeb) ? ttsRate / 2.0 : ttsRate,
+                          disabledHint: Text(ttsRateString),
+                          items: [
+                            DropdownMenuItem(
+                                child: Text('0.25倍'), value: 0.125),
+                            DropdownMenuItem(child: Text('0.5倍'), value: 0.25),
+                            DropdownMenuItem(child: Text('一般'), value: 0.5),
+                            DropdownMenuItem(
+                                child: Text('1.25倍'), value: 0.625),
+                            DropdownMenuItem(child: Text('1.5倍'), value: 0.75),
+                            DropdownMenuItem(
+                                child: Text('1.75倍'), value: 0.875),
+                            DropdownMenuItem(child: Text('2倍'), value: 1.0),
+                          ],
+                          onChanged: (_allowTouchButtons['speakButton']! &&
+                                  !isPlaying)
+                              ? (value) {
+                                  setState(() {
+                                    ttsRateSlow = true;
+                                  });
+                                  SharedPreferencesUtil.setTTSRate(
+                                      double.parse(value.toString()));
+                                  SharedPreferencesUtil.getTTSRate()
+                                      .then((newTTSRate) {
+                                    setState(() => ttsRate = newTTSRate);
+                                    print('newTTSRate: $newTTSRate');
+                                  });
+                                  SharedPreferencesUtil.getTTSRateString()
+                                      .then((newTTSRateString) {
+                                    setState(
+                                        () => ttsRateString = newTTSRateString);
+                                  });
+                                }
+                              : null,
                         ),
                       ],
                     ),

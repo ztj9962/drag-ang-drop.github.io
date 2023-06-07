@@ -128,7 +128,6 @@ class SharedPreferencesUtil {
       value = 1.0;
     }
     saveData<double>('applicationSettingsDataTtsRate', value);
-    setTTSRateString();
 
     print('setTTSRate: $value');
     return true;
@@ -144,42 +143,6 @@ class SharedPreferencesUtil {
   }
 
   // TTSRateString
-  static Future<bool> setTTSRateString() async {
-    double rate = await getTTSRate();
-    String rateString = '';
-
-    int rateInt = (rate * 1000).toInt();
-
-    switch (rateInt) {
-      case 125:
-        rateString = '0.25倍';
-        break;
-      case 250:
-        rateString = '0.5倍';
-        break;
-      case 375:
-        rateString = '0.75倍';
-        break;
-      case 500:
-        rateString = '一般';
-        break;
-      case 625:
-        rateString = '1.25倍';
-        break;
-      case 750:
-        rateString = '1.5倍';
-        break;
-      case 875:
-        rateString = '1.75倍';
-        break;
-      case 1000:
-        rateString = '2倍';
-        break;
-    }
-
-    saveData<String>('applicationSettingsDataTtsRateString', rateString);
-    return true;
-  }
 
   static Future<String> getTTSRateString() async {
     /*
@@ -191,7 +154,7 @@ class SharedPreferencesUtil {
 
      */
 
-    double rate = await getTTSRate();
+    double rate = (isWeb)? await getTTSRate() / 2.0 : await getTTSRate();
     String rateString = '';
 
     int rateInt = (rate * 1000).toInt();
