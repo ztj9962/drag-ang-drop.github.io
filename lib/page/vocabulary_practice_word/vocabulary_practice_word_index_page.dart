@@ -175,7 +175,7 @@ class _VocabularyPracticeWordIndexPageState
                             Row(
                               children: [
                                 Expanded(
-                                  child: AutoSizeText('${dataList[index]['level']}',
+                                  child: AutoSizeText('${dataList[index]['displayLevel']}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class _VocabularyPracticeWordIndexPageState
                                   ),
                                 ),
                                 Expanded(
-                                  child: AutoSizeText((cateStr == 'educationLevel') ? 'Rank ${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}' : '單字量${dataList[index]['wordCount']}',
+                                  child: AutoSizeText((dataList[index]['pageMechanismType'] == 'educationLevel') ? 'Rank ${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}' : '單字量${dataList[index]['wordCount']}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class _VocabularyPracticeWordIndexPageState
                                     onTap: () async {
                                       //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
                                       AutoRouter.of(context).push(
-                                          VocabularyPracticeWordListRoute(rangeMin: dataList[index]['minWordRank'], rangeMax: dataList[index]['maxWordRank'], level: dataList[index]['level'], cateType: cateStr));
+                                          VocabularyPracticeWordListRoute(rangeMin: (dataList[index]['pageMechanismType'] == 'proficiencyTestLevel') ? 1 : dataList[index]['minWordRank'], rangeMax: (dataList[index]['pageMechanismType'] == 'proficiencyTestLevel') ? dataList[index]['wordCount'] : dataList[index]['maxWordRank'], displayLevel: dataList[index]['displayLevel'], cateType: dataList[index]['pageMechanismType'], wordLevel: (dataList[index]['pageMechanismType'] == 'proficiencyTestLevel') ? dataList[index]['wordLevel'] : ''));
                                       /*if (cateStr == 'educationLevel'){
 
                                       }else{

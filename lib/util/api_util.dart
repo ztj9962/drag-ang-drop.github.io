@@ -693,4 +693,36 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+
+  static Future<String> getWordListByWherelistLevel(String index,String wherelistLevel) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),'app/vocabulary/getWordListByWherelistLevel'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'index': index,
+        'wherelistLevel': wherelistLevel,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
+  static Future<String> getSentenceListByWherelistLevel(String index,String wherelistLevel,{String dataLimit = '5',String sentenceLimit = '3'}) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),'app/vocabulary/getSentenceListByWherelistLevel'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'index': index,
+        'wherelistLevel': wherelistLevel,
+        'dataLimit' : dataLimit,
+        'sentenceLimit' : sentenceLimit,
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

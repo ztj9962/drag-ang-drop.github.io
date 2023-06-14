@@ -13,9 +13,10 @@ import 'package:alicsnet_app/util/api_util.dart';
 class VocabularyPracticeWordListPage extends StatefulWidget {
   final int rangeMin;
   final int rangeMax;
-  final String level;
+  final String displayLevel;
+  final String wordLevel;
   final String cateType;
-  const VocabularyPracticeWordListPage({Key? key, required this.rangeMin, required this.rangeMax, required this.level, required this.cateType}) : super(key: key);
+  const VocabularyPracticeWordListPage({Key? key, required this.rangeMin, required this.rangeMax, required this.displayLevel, required this.cateType, required this.wordLevel}) : super(key: key);
 
   @override
   _VocabularyPracticeWordListPageState createState() =>
@@ -28,7 +29,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   int _rowIndexSliderMin = 2000;
   int _rowIndexSliderMax = 10000;
   int _rowIndexSliderIndex = 2000;
-  int _amountSliderIndex = 5;
   int _dataLimit = 5;
   String _sliderEducationLevel = '國小';
   var _wordTextSizeGroup = AutoSizeGroup();
@@ -45,13 +45,14 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
     _cateType = widget.cateType;
     if(_cateType == 'proficiencyTestLevel'){
       _rowIndexSliderMin = 1;
-      _rowIndexSliderMax = widget.rangeMax - widget.rangeMin;
+      _rowIndexSliderMax = widget.rangeMax - widget.rangeMin + 1;
     }else{
       _rowIndexSliderMin = widget.rangeMin;
       _rowIndexSliderMax = widget.rangeMax;
     }
     _rowIndexSliderIndex = _rowIndexSliderMin;
-    _sliderEducationLevel = widget.level;
+    _sliderEducationLevel = widget.displayLevel;
+    initVocabularyPracticeWordListPage();
     super.initState();
   }
 
@@ -59,6 +60,10 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   void dispose() {
     super.dispose();
     EasyLoading.dismiss();
+  }
+
+  void initVocabularyPracticeWordListPage() async {
+    await _getVocabularyList();
   }
 
   @override
@@ -217,6 +222,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                 ),
               ),
             ),
+            (_cateType == 'educationLevel') ?
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
@@ -231,7 +237,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
-            ),
+            ) : Container(),
             /*
             Padding(
               padding: const EdgeInsets.all(8),
@@ -550,8 +556,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
         String responseJSON;
         //responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
         if(_cateType == 'proficiencyTestLevel'){
-          responseJSON = await APIUtil.vocabularyGetList((_rowIndexSliderIndex + widget.rangeMin - 1).toString(),dataLimit: _dataLimit.toString());
-          //responseJSON = await APIUtil.getCEFRWordListByIndex(_sliderEducationLevel,_rowIndexSliderIndex.toString());
+          //responseJSON = await APIUtil.vocabularyGetList((_rowIndexSliderIndex + widget.rangeMin - 1).toString(),dataLimit: _dataLimit.toString());
+          responseJSON = await APIUtil.getWordListByWherelistLevel(_rowIndexSliderIndex.toString(),widget.wordLevel);
         }else{
           responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
         }
@@ -623,12 +629,11 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       List<dynamic> vocabularySentenceList;
       do {
         String responseJSON;
-        responseJSON = await APIUtil.vocabularyGetSentenceList(_vocabularyList[0]['rowIndex'].toString(),dataLimit: _vocabularyList.length.toString());
-        /*if(_cateType == 'proficiencyTestLevel'){
-          responseJSON = await APIUtil.getCEFRSentenceList(_sliderEducationLevel,_vocabularyList[0]['rowIndex'].toString(),dataLimit: _vocabularyList.length.toString());
+        if(_cateType == 'proficiencyTestLevel'){
+          responseJSON = await APIUtil.getSentenceListByWherelistLevel(_vocabularyList[0]['rowIndex'].toString(),widget.wordLevel,dataLimit: _vocabularyList.length.toString());
         }else{
-
-        }*/
+          responseJSON = await APIUtil.vocabularyGetSentenceList(_vocabularyList[0]['rowIndex'].toString(),dataLimit: _vocabularyList.length.toString());
+        }
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
