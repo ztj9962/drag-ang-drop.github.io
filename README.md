@@ -6,6 +6,11 @@ A new Flutter project.
 
 Flutter 3.7.12 • channel stable • https://github.com/flutter/flutter.git
 
+## 建構指令
+
+Android: flutter build appbundle
+Web: flutter build web --web-renderer html
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
