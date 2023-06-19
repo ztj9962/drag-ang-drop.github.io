@@ -33,7 +33,6 @@ void main() async {
     runApp(MyApp());
   });
 
-  SharedPreferencesUtil.setAPIURL(null); // 重開 APP 時，強制預設 API URL
 }
 
 class MyApp extends StatelessWidget {

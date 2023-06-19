@@ -52,6 +52,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     changePage(0);
+    SharedPreferencesUtil.setAPIURL(null); // 重開 APP 時，強制預設 API URL
     super.initState();
   }
 
