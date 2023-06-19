@@ -190,7 +190,10 @@ class SharedPreferencesUtil {
   }
 
   // APIURL
-  static Future<bool> setAPIURL(String value) async {
+  static Future<bool> setAPIURL(String? value) async {
+    if (value == null) {
+      value = 'api.alicsnet.com';
+    }
     saveData<String>('applicationSettingsDataAPIURL', value);
     return true;
   }

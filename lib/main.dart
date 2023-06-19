@@ -1,3 +1,4 @@
+import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,8 @@ void main() async {
   ]).then((_) {
     runApp(MyApp());
   });
+
+  SharedPreferencesUtil.setAPIURL(null); // 重開 APP 時，強制預設 API URL
 }
 
 class MyApp extends StatelessWidget {
