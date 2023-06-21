@@ -195,10 +195,17 @@ class _LearningManualContractionPage
                                         setState(() {
                                           _testListIndex -= 1;
                                           _testPracticeListIndex =
-                                              _getPracticeFullForm.indexWhere(
+                                              _getPracticeContraction.indexWhere(
                                                   (note) => note.startsWith(
-                                                      _getPairFullForm[
+                                                      _getPairContraction[
                                                           _testListIndex]));
+                                          if ((_testPracticeListIndex == _testIndex) | ((_testPracticeListIndex - _testIndex).abs() > 3)){
+                                            _testPracticeListIndex =
+                                                _getPracticeFullForm.indexWhere(
+                                                        (note) => note.startsWith(
+                                                        _getPairFullForm[
+                                                        _testListIndex]));
+                                          }
                                           _testIndex = _testPracticeListIndex;
                                         });
                                         _ttsStop();
@@ -255,10 +262,17 @@ class _LearningManualContractionPage
                                         setState(() {
                                           _testListIndex += 1;
                                           _testPracticeListIndex =
-                                              _getPracticeFullForm.indexWhere(
+                                              _getPracticeContraction.indexWhere(
                                                   (note) => note.startsWith(
-                                                      _getPairFullForm[
+                                                      _getPairContraction[
                                                           _testListIndex]));
+                                          if ((_testPracticeListIndex == _testIndex) | ((_testPracticeListIndex - _testIndex).abs() > 3)){
+                                            _testPracticeListIndex =
+                                                _getPracticeFullForm.indexWhere(
+                                                        (note) => note.startsWith(
+                                                        _getPairFullForm[
+                                                        _testListIndex]));
+                                          }
                                           _testIndex = _testPracticeListIndex;
                                         });
                                         _ttsStop();
