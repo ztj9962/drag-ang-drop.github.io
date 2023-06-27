@@ -195,16 +195,22 @@ class _LearningManualContractionPage
                                         setState(() {
                                           _testListIndex -= 1;
                                           _testPracticeListIndex =
-                                              _getPracticeContraction.indexWhere(
-                                                  (note) => note.startsWith(
-                                                      _getPairContraction[
-                                                          _testListIndex]));
-                                          if ((_testPracticeListIndex == _testIndex) | ((_testPracticeListIndex - _testIndex).abs() > 3)){
+                                              _getPracticeContraction
+                                                  .indexWhere((note) =>
+                                                      note.startsWith(
+                                                          _getPairContraction[
+                                                              _testListIndex]));
+                                          if ((_testPracticeListIndex ==
+                                                  _testIndex) |
+                                              ((_testPracticeListIndex -
+                                                          _testIndex)
+                                                      .abs() >
+                                                  3)) {
                                             _testPracticeListIndex =
                                                 _getPracticeFullForm.indexWhere(
-                                                        (note) => note.startsWith(
+                                                    (note) => note.startsWith(
                                                         _getPairFullForm[
-                                                        _testListIndex]));
+                                                            _testListIndex]));
                                           }
                                           _testIndex = _testPracticeListIndex;
                                         });
@@ -262,16 +268,22 @@ class _LearningManualContractionPage
                                         setState(() {
                                           _testListIndex += 1;
                                           _testPracticeListIndex =
-                                              _getPracticeContraction.indexWhere(
-                                                  (note) => note.startsWith(
-                                                      _getPairContraction[
-                                                          _testListIndex]));
-                                          if ((_testPracticeListIndex == _testIndex) | ((_testPracticeListIndex - _testIndex).abs() > 3)){
+                                              _getPracticeContraction
+                                                  .indexWhere((note) =>
+                                                      note.startsWith(
+                                                          _getPairContraction[
+                                                              _testListIndex]));
+                                          if ((_testPracticeListIndex ==
+                                                  _testIndex) |
+                                              ((_testPracticeListIndex -
+                                                          _testIndex)
+                                                      .abs() >
+                                                  3)) {
                                             _testPracticeListIndex =
                                                 _getPracticeFullForm.indexWhere(
-                                                        (note) => note.startsWith(
+                                                    (note) => note.startsWith(
                                                         _getPairFullForm[
-                                                        _testListIndex]));
+                                                            _testListIndex]));
                                           }
                                           _testIndex = _testPracticeListIndex;
                                         });

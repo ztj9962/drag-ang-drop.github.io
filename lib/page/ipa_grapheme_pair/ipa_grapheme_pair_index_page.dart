@@ -103,7 +103,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                             Container(
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(color: PageTheme.app_theme_blue),
+                                    Border.all(color: PageTheme.app_theme_blue),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: ExpansionTile(
@@ -118,7 +118,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       child: Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Text(_ipaSymbolMonophthongs![index],
                                                 style: TextStyle(
@@ -133,14 +133,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       flex: 2,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'grapheme: ',
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color:
-                                                PageTheme.app_theme_blue),
+                                                    PageTheme.app_theme_blue),
                                           ),
                                           Text(
                                               _graphemesMonophthongs![index]
@@ -148,7 +148,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   .replaceAll(']', ''),
                                               style: TextStyle(
                                                   color:
-                                                  PageTheme.app_theme_blue))
+                                                      PageTheme.app_theme_blue))
                                         ],
                                       ),
                                     )
@@ -170,20 +170,22 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 4,
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   ListView.builder(
                                                     physics:
-                                                    NeverScrollableScrollPhysics(),
+                                                        NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     itemCount:
-                                                    _Monophthongs[index]['getIPASymbol']?.length,
+                                                        _Monophthongs[index]
+                                                                ['getIPASymbol']
+                                                            ?.length,
                                                     itemBuilder:
                                                         (BuildContext context,
-                                                        int index2) {
+                                                            int index2) {
                                                       return Flex(
                                                         direction:
-                                                        Axis.horizontal,
+                                                            Axis.horizontal,
                                                         children: [
                                                           Expanded(
                                                               flex: 1,
@@ -193,13 +195,17 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                                       Widget>[
                                                                     Padding(
                                                                         padding:
-                                                                        EdgeInsets.all(10)),
+                                                                            EdgeInsets.all(10)),
                                                                     Text(
-                                                                      _Monophthongs[index]['getGraphemes'][index2],
+                                                                      _Monophthongs[index]
+                                                                              [
+                                                                              'getGraphemes']
+                                                                          [
+                                                                          index2],
                                                                       //_getGraphemes![index2],
                                                                       style: TextStyle(
                                                                           fontSize:
-                                                                          14),
+                                                                              14),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -207,7 +213,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                           Expanded(
                                                             flex: 2,
                                                             child: Text(
-                                                              _Monophthongs[index]['getWord'][index2].replaceAll('[', '').replaceAll(']', ''),
+                                                              _Monophthongs[index]
+                                                                          [
+                                                                          'getWord']
+                                                                      [index2]
+                                                                  .replaceAll(
+                                                                      '[', '')
+                                                                  .replaceAll(
+                                                                      ']', ''),
                                                               style: TextStyle(
                                                                   fontSize: 14),
                                                             ),
@@ -223,7 +236,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 1,
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                PageTheme.app_theme_blue,
+                                                    PageTheme.app_theme_blue,
                                                 radius: 25.0,
                                                 child: IconButton(
                                                   icon: const Icon(
@@ -234,11 +247,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   onPressed: () {
                                                     AutoRouter.of(context).push(
                                                         LearningManualIPAGraphemePairRoute(
-                                                          getIPASymbol: _ipaSymbolMonophthongs![index],
-                                                          getGraphemes: _Monophthongs[index]['getGraphemes'],
-                                                          getWord: _Monophthongs[index]['getWord'],
-                                                          getWordIPA: _Monophthongs[index]['getWordIPA'],
-                                                        ));
+                                                      getIPASymbol:
+                                                          _ipaSymbolMonophthongs![
+                                                              index],
+                                                      getGraphemes:
+                                                          _Monophthongs[index]
+                                                              ['getGraphemes'],
+                                                      getWord:
+                                                          _Monophthongs[index]
+                                                              ['getWord'],
+                                                      getWordIPA:
+                                                          _Monophthongs[index]
+                                                              ['getWordIPA'],
+                                                    ));
                                                   },
                                                 ),
                                               ),
@@ -256,7 +277,9 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       _selected2 = -1;
                                       _selected3 = -1;
                                       initIPAGraphemeWordList(
-                                          _ipaSymbolMonophthongs![index], _Monophthongs, index);
+                                          _ipaSymbolMonophthongs![index],
+                                          _Monophthongs,
+                                          index);
                                       _selected1 = index;
                                     });
                                   } else {
@@ -309,7 +332,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                             Container(
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(color: PageTheme.app_theme_blue),
+                                    Border.all(color: PageTheme.app_theme_blue),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: ExpansionTile(
@@ -324,7 +347,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       child: Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Text(_ipaSymbolDiphthongs![index],
                                                 style: TextStyle(
@@ -339,14 +362,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       flex: 2,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'grapheme: ',
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color:
-                                                PageTheme.app_theme_blue),
+                                                    PageTheme.app_theme_blue),
                                           ),
                                           Text(
                                               _graphemesDiphthongs![index]
@@ -354,7 +377,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   .replaceAll(']', ''),
                                               style: TextStyle(
                                                   color:
-                                                  PageTheme.app_theme_blue))
+                                                      PageTheme.app_theme_blue))
                                         ],
                                       ),
                                     )
@@ -376,20 +399,22 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 4,
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   ListView.builder(
                                                     physics:
-                                                    NeverScrollableScrollPhysics(),
+                                                        NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     itemCount:
-                                                    _Diphthongs[index]['getIPASymbol']?.length,
+                                                        _Diphthongs[index]
+                                                                ['getIPASymbol']
+                                                            ?.length,
                                                     itemBuilder:
                                                         (BuildContext context,
-                                                        int index2) {
+                                                            int index2) {
                                                       return Flex(
                                                         direction:
-                                                        Axis.horizontal,
+                                                            Axis.horizontal,
                                                         children: [
                                                           Expanded(
                                                               flex: 1,
@@ -399,12 +424,16 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                                       Widget>[
                                                                     Padding(
                                                                         padding:
-                                                                        EdgeInsets.all(10)),
+                                                                            EdgeInsets.all(10)),
                                                                     Text(
-                                                                      _Diphthongs[index]['getGraphemes'][index2],
+                                                                      _Diphthongs[index]
+                                                                              [
+                                                                              'getGraphemes']
+                                                                          [
+                                                                          index2],
                                                                       style: TextStyle(
                                                                           fontSize:
-                                                                          14),
+                                                                              14),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -412,7 +441,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                           Expanded(
                                                             flex: 2,
                                                             child: Text(
-                                                              _Diphthongs[index]['getWord'][index2].replaceAll('[', '').replaceAll(']', ''),
+                                                              _Diphthongs[index]
+                                                                          [
+                                                                          'getWord']
+                                                                      [index2]
+                                                                  .replaceAll(
+                                                                      '[', '')
+                                                                  .replaceAll(
+                                                                      ']', ''),
                                                               style: TextStyle(
                                                                   fontSize: 14),
                                                             ),
@@ -428,7 +464,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 1,
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                PageTheme.app_theme_blue,
+                                                    PageTheme.app_theme_blue,
                                                 radius: 25.0,
                                                 child: IconButton(
                                                   icon: const Icon(
@@ -439,11 +475,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   onPressed: () {
                                                     AutoRouter.of(context).push(
                                                         LearningManualIPAGraphemePairRoute(
-                                                          getIPASymbol: _ipaSymbolDiphthongs![index],
-                                                          getGraphemes: _Diphthongs[index]['getGraphemes'],
-                                                          getWord: _Diphthongs[index]['getWord'],
-                                                          getWordIPA: _Diphthongs[index]['getWordIPA'],
-                                                        ));
+                                                      getIPASymbol:
+                                                          _ipaSymbolDiphthongs![
+                                                              index],
+                                                      getGraphemes:
+                                                          _Diphthongs[index]
+                                                              ['getGraphemes'],
+                                                      getWord:
+                                                          _Diphthongs[index]
+                                                              ['getWord'],
+                                                      getWordIPA:
+                                                          _Diphthongs[index]
+                                                              ['getWordIPA'],
+                                                    ));
                                                   },
                                                 ),
                                               ),
@@ -461,7 +505,9 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       _selected2 = -1;
                                       _selected3 = -1;
                                       initIPAGraphemeWordList(
-                                          _ipaSymbolDiphthongs![index], _Diphthongs, index);
+                                          _ipaSymbolDiphthongs![index],
+                                          _Diphthongs,
+                                          index);
                                       _selected2 = index;
                                     });
                                   } else {
@@ -514,7 +560,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                             Container(
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(color: PageTheme.app_theme_blue),
+                                    Border.all(color: PageTheme.app_theme_blue),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: ExpansionTile(
@@ -529,7 +575,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       child: Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Text(_ipaSymbolConsonants![index],
                                                 style: TextStyle(
@@ -544,14 +590,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       flex: 2,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'grapheme: ',
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color:
-                                                PageTheme.app_theme_blue),
+                                                    PageTheme.app_theme_blue),
                                           ),
                                           Text(
                                               _graphemesConsonants![index]
@@ -559,7 +605,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   .replaceAll(']', ''),
                                               style: TextStyle(
                                                   color:
-                                                  PageTheme.app_theme_blue))
+                                                      PageTheme.app_theme_blue))
                                         ],
                                       ),
                                     )
@@ -581,20 +627,22 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 4,
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   ListView.builder(
                                                     physics:
-                                                    NeverScrollableScrollPhysics(),
+                                                        NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     itemCount:
-                                                    _Consonants[index]['getIPASymbol']?.length,
+                                                        _Consonants[index]
+                                                                ['getIPASymbol']
+                                                            ?.length,
                                                     itemBuilder:
                                                         (BuildContext context,
-                                                        int index2) {
+                                                            int index2) {
                                                       return Flex(
                                                         direction:
-                                                        Axis.horizontal,
+                                                            Axis.horizontal,
                                                         children: [
                                                           Expanded(
                                                               flex: 1,
@@ -604,12 +652,16 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                                       Widget>[
                                                                     Padding(
                                                                         padding:
-                                                                        EdgeInsets.all(10)),
+                                                                            EdgeInsets.all(10)),
                                                                     Text(
-                                                                      _Consonants[index]['getGraphemes'][index2],
+                                                                      _Consonants[index]
+                                                                              [
+                                                                              'getGraphemes']
+                                                                          [
+                                                                          index2],
                                                                       style: TextStyle(
                                                                           fontSize:
-                                                                          14),
+                                                                              14),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -617,7 +669,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                           Expanded(
                                                             flex: 2,
                                                             child: Text(
-                                                              _Consonants[index]['getWord'][index2].replaceAll('[', '').replaceAll(']', ''),
+                                                              _Consonants[index]
+                                                                          [
+                                                                          'getWord']
+                                                                      [index2]
+                                                                  .replaceAll(
+                                                                      '[', '')
+                                                                  .replaceAll(
+                                                                      ']', ''),
                                                               style: TextStyle(
                                                                   fontSize: 14),
                                                             ),
@@ -633,7 +692,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               flex: 1,
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                PageTheme.app_theme_blue,
+                                                    PageTheme.app_theme_blue,
                                                 radius: 25.0,
                                                 child: IconButton(
                                                   icon: const Icon(
@@ -644,11 +703,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                   onPressed: () {
                                                     AutoRouter.of(context).push(
                                                         LearningManualIPAGraphemePairRoute(
-                                                          getIPASymbol: _ipaSymbolConsonants![index],
-                                                          getGraphemes: _Consonants[index]['getGraphemes'],
-                                                          getWord: _Consonants[index]['getWord'],
-                                                          getWordIPA: _Consonants[index]['getWordIPA'],
-                                                        ));
+                                                      getIPASymbol:
+                                                          _ipaSymbolConsonants![
+                                                              index],
+                                                      getGraphemes:
+                                                          _Consonants[index]
+                                                              ['getGraphemes'],
+                                                      getWord:
+                                                          _Consonants[index]
+                                                              ['getWord'],
+                                                      getWordIPA:
+                                                          _Consonants[index]
+                                                              ['getWordIPA'],
+                                                    ));
                                                   },
                                                 ),
                                               ),
@@ -666,7 +733,9 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                       _selected2 = -1;
                                       _selected3 = -1;
                                       initIPAGraphemeWordList(
-                                          _ipaSymbolConsonants![index], _Consonants, index);
+                                          _ipaSymbolConsonants![index],
+                                          _Consonants,
+                                          index);
                                       _selected3 = index;
                                     });
                                   } else {
@@ -708,7 +777,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     var getIPAGraphemePair;
     do {
       String getIPAGraphemePairJSON =
-      await APIUtil.getIPAGraphemePair('monophthongs');
+          await APIUtil.getIPAGraphemePair('monophthongs');
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -722,7 +791,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
 
     do {
       String getIPAGraphemePairJSON =
-      await APIUtil.getIPAGraphemePair('diphthongs');
+          await APIUtil.getIPAGraphemePair('diphthongs');
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -736,7 +805,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
 
     do {
       String getIPAGraphemePairJSON =
-      await APIUtil.getIPAGraphemePair('consonants');
+          await APIUtil.getIPAGraphemePair('consonants');
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -769,18 +838,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     });
   }
 
-  Future<void> initIPAGraphemeWordList(String ipaSymbol, List ipaType, int index) async {
+  Future<void> initIPAGraphemeWordList(
+      String ipaSymbol, List ipaType, int index) async {
     List<String> getIPASymbol = [];
     List<String> getGraphemes = [];
     List<String> getWord = [];
     List<String> getWordIPA = [];
 
-    if (ipaType[index]['getIPASymbol'] == ''){
+    if (ipaType[index]['getIPASymbol'] == '') {
       EasyLoading.show(status: '正在讀取資料，請稍候......');
       var getIPAGraphemePairWord;
       do {
         String getIPAGraphemePairWordJSON =
-        await APIUtil.getIPAGraphemePairWord(ipaSymbol);
+            await APIUtil.getIPAGraphemePairWord(ipaSymbol);
         getIPAGraphemePairWord =
             jsonDecode(getIPAGraphemePairWordJSON.toString());
         if (getIPAGraphemePairWord['apiStatus'] != 'success') {

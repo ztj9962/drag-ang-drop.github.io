@@ -1,10 +1,4 @@
-import 'package:alicsnet_app/router/router.gr.dart';
-import 'package:alicsnet_app/util/shared_preferences_util.dart';
-import 'package:alicsnet_app/view/outlined_button_card_view.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:alicsnet_app/view/title_view.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
@@ -115,7 +109,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             children: <Widget>[
                               ToggleButtons(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                                    const BorderRadius.all(Radius.circular(8)),
                                 selectedBorderColor: PageTheme.app_theme_blue,
                                 selectedColor: Colors.white,
                                 fillColor: PageTheme.app_theme_blue,
@@ -127,8 +121,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                   setState(() {
                                     // The button that is tapped is set to true, and the others to false.
                                     for (int i = 0;
-                                    i < _languageSelect.length;
-                                    i++) {
+                                        i < _languageSelect.length;
+                                        i++) {
                                       _languageSelect[i] = i == index;
                                     }
                                     if (index == 1) {
@@ -260,24 +254,23 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                   )),
                             ),
                             Expanded(
-                              flex: 1,
-                              child: Visibility(
-                                visible: _introduction.length > 1,
-                                child: Text(
-                                  '(${_testIndex + 1}/${_introduction.length})',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: PageTheme.app_theme_blue,
-                                    fontSize: 16,
+                                flex: 1,
+                                child: Visibility(
+                                  visible: _introduction.length > 1,
+                                  child: Text(
+                                    '(${_testIndex + 1}/${_introduction.length})',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: PageTheme.app_theme_blue,
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ),
+                                )),
                             Expanded(
                               flex: 1,
                               child: Visibility(
                                   visible:
-                                  _testIndex < _introduction.length - 1,
+                                      _testIndex < _introduction.length - 1,
                                   child: CircleAvatar(
                                     backgroundColor: PageTheme.app_theme_blue,
                                     radius: 24.0,
@@ -298,8 +291,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             ),
                           ],
                         ),
-                      )
-                  ),
+                      )),
                   Expanded(
                     flex: 1,
                     child: Row(
@@ -314,8 +306,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             padding: EdgeInsets.all(6),
                             //margin: EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(16.0)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16.0)),
                               boxShadow: [
                                 BoxShadow(
                                     color: PageTheme
@@ -326,8 +318,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                               child: Text(
                                 '我知道了',
                                 style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white),
+                                    fontSize: 14, color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                               onPressed: () {
