@@ -200,7 +200,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
         showDevelopTag: true,
         imagePath: 'assets/icon/ipa.svg',
         titleText: 'IPA Grapheme Practice',
-        descripText: 'IPA字素練習',
+        descripText: 'IPA發音練習',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {

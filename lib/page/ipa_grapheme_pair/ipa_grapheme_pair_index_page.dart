@@ -55,7 +55,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
           backgroundColor: PageTheme.app_theme_black,
           centerTitle: true,
           title: AutoSizeText(
-            'IPA字素練習',
+            'IPA發音練習',
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               letterSpacing: 3.0,
