@@ -8,6 +8,7 @@ import 'package:alicsnet_app/view/title_view.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:alicsnet_app/util/introduction_util.dart';
 
 class IndexPronunciationPage extends StatefulWidget {
   const IndexPronunciationPage({Key? key}) : super(key: key);
@@ -156,7 +157,14 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
-              child: ElevatedButton(
+              child: IntroductionUtil(
+                  svgName: _svgName,
+                  titleChinese:_titleChinese,
+                  titleEnglish:_titleEnglish,
+                  introductionChinese:_introductionChinese,
+                  introductionEnglish:_introductionEnglish
+              )
+              /*ElevatedButton(
                 child: Icon(Icons.question_mark_outlined),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(10, 10),
@@ -169,9 +177,9 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
                   setState(() {
                     _testIndex = 0;
                   });
-                  introducePronunciationPractice();
                 },
               ),
+              */
             ),
           ),
         ],
@@ -266,6 +274,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
     );
   }
 
+  /*
   void introducePronunciationPractice() async {
     showDialog(
         context: context,
@@ -533,4 +542,5 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
           );
         });
   }
+  */
 }
