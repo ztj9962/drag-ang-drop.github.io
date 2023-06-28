@@ -1035,26 +1035,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
   }
 
   Future<void> initConversation() async {
-    Widget startmessage = Container(
-      height: 50,
-      child: Column(
-        children: [
-          Expanded(
-              flex: 5,
-              child: AutoSizeText(
-                '${_title}  ${_subtitle} \nSentence Count:${_contentList[_topicPart].length}',
-                textAlign: TextAlign.center,
-              )),
-          Expanded(
-              child: Divider(
-            thickness: 1,
-          )),
-        ],
-      ),
-    );
-    _messages.insert(0, startmessage);
-    await _ttsSpeak(
-        '${_title}  ,${_subtitle}  ,${_contentList[_topicPart].length}', 'en');
     //await Future.delayed(Duration(milliseconds: 780));
     for (int i = 0; i < _contentList[_topicPart].length; i++) {
       List<TextSpan> questionTextWidget = [];

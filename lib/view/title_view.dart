@@ -26,7 +26,7 @@ class TitleView extends StatelessWidget {
           Expanded(
             child: Text(
               titleTxt,
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 20,

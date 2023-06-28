@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/hexcolor_util.dart';
+import 'package:alicsnet_app/view/button_square_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _ChatTopicPracticeConversationListPageState
       int doLimit = 1;
       do {
         String responseJSON =
-            await APIUtil.getConversationGroupData(_topicName);
+        await APIUtil.getConversationGroupData(_topicName);
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
@@ -105,131 +106,103 @@ class _ChatTopicPracticeConversationListPageState
 
       //print(_titleDict);
 
-      for (int i = 1; i < _titleDict.length + 1; i++) {
-        listViews.add(
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: AutoSizeText(
-                    '${_titleDict[i.toString()]['conversationTitle']}\n對話句數:${_titleDict[i.toString()]['conversationSentenceCount']}',
-                    style: TextStyle(fontSize: 15),
-                  )),
-                  Padding(padding: EdgeInsets.all(4)),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () async {
-                          var responseJSONDecode;
-                          try {
-                            int doLimit = 1;
-                            do {
-                              String responseJSON =
-                                  await APIUtil.getConversationData(
-                                      _titleDict[i.toString()]
-                                              ['conversationGroupId']
-                                          .toString());
-                              print(responseJSON);
-                              responseJSONDecode = jsonDecode(responseJSON);
-                              if (responseJSONDecode['apiStatus'] !=
-                                  'success') {
-                                doLimit += 1;
-                                if (doLimit > 3)
-                                  throw Exception('API: ' +
-                                      responseJSONDecode[
-                                          'apiMessage']); // 只測 3 次
-                                await Future.delayed(Duration(seconds: 1));
-                              }
-                            } while (
-                                responseJSONDecode['apiStatus'] != 'success');
-                            print(responseJSONDecode);
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Error: $e'),
-                            ));
-                          }
-                          EasyLoading.dismiss();
-                          if (responseJSONDecode['apiStatus'] != 'success') {
-                            return;
-                          }
+      listViews.add(Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 2,
+          children: List.generate(_titleDict!.length, (index) {
+            print(index);
+            //if (index == 0) return Container();
+            //return Text(value['title'][index]);
+            //print(value['title'][index]);
+            return Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 32),
+                  child: Container(
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(8.0),
+                        bottomLeft: Radius.circular(8.0),
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(54.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 20, left: 4, right: 4, bottom: 4),
+                      child: ButtonSquareView(
+                        mainText:
+                        '${_titleDict[(index + 1).toString()]['conversationTitle']}\n',
+                        subTextBottomRight:
+                        '對話句數${_titleDict[(index + 1).toString()]['conversationSentenceCount']}',
+                        subTextBottomLeft: '',
+                        onTapFunction: () async {
+                          {
+                            var responseJSONDecode;
+                            try {
+                              int doLimit = 1;
+                              do {
+                                String responseJSON =
+                                await APIUtil.getConversationData(
+                                    _titleDict[(index + 1).toString()]
+                                    ['conversationGroupId']
+                                        .toString());
+                                print(responseJSON);
+                                responseJSONDecode = jsonDecode(responseJSON);
+                                if (responseJSONDecode['apiStatus'] !=
+                                    'success') {
+                                  doLimit += 1;
+                                  if (doLimit > 3)
+                                    throw Exception('API: ' +
+                                        responseJSONDecode[
+                                        'apiMessage']); // 只測 3 次
+                                  await Future.delayed(Duration(seconds: 1));
+                                }
+                              } while (
+                              responseJSONDecode['apiStatus'] != 'success');
+                              print(responseJSONDecode);
+                            } catch (e) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('Error: $e'),
+                              ));
+                            }
+                            EasyLoading.dismiss();
+                            if (responseJSONDecode['apiStatus'] != 'success') {
+                              return;
+                            }
 
-                          List<String> contentList = [];
-                          List<String> translateList = [];
-                          List<String> speakerList = [];
-                          List<String> orderList = [];
-                          for (var item in responseJSONDecode['data']
-                              ['sentence']) {
-                            contentList.add(item['topicSentenceContent']);
-                            translateList.add(item['topicSentenceChinese']);
-                            speakerList.add(item['topicSentenceSpeaker']);
-                            orderList
-                                .add(item['topicSentenceOrder'].toString());
+                            List<String> contentList = [];
+                            List<String> translateList = [];
+                            List<String> speakerList = [];
+                            List<String> orderList = [];
+                            for (var item in responseJSONDecode['data']
+                            ['sentence']) {
+                              contentList.add(item['topicSentenceContent']);
+                              translateList.add(item['topicSentenceChinese']);
+                              speakerList.add(item['topicSentenceSpeaker']);
+                              orderList
+                                  .add(item['topicSentenceOrder'].toString());
+                            }
+                            AutoRouter.of(context).push(
+                                LearningAutoChatTopicRoute(
+                                    contentList: [contentList],
+                                    translateList: [translateList],
+                                    title: _topicName,
+                                    speakerList: [speakerList],
+                                    subtitle: _titleDict[(index + 1).toString()]
+                                    ['conversationTitle'],
+                                    orderList: [orderList]));
                           }
-                          AutoRouter.of(context).push(
-                              LearningAutoChatTopicRoute(
-                                  contentList: [contentList],
-                                  translateList: [translateList],
-                                  title: _topicName,
-                                  speakerList: [speakerList],
-                                  subtitle: _titleDict[i.toString()]
-                                      ['conversationTitle'],
-                                  orderList: [orderList]));
                         },
-                        //onTap: sentenceTypeListData!.onTapFunction,
-                        child: Container(
-                          width: 160,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: PageTheme.nearlyWhite,
-                            shape: BoxShape.rectangle, // 矩形
-                            borderRadius:
-                                new BorderRadius.circular((20.0)), // 圓角度
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color:
-                                      PageTheme.app_theme_blue.withOpacity(0.4),
-                                  offset: Offset(8.0, 8.0),
-                                  blurRadius: 8.0),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              '開始',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: HexColor('#FFB295'),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: PageTheme.app_theme_blue.withOpacity(0.2),
-              //border: Border.all(width: 2.0,color: PageTheme.app_theme_blue),
-              shape: BoxShape.rectangle, // 矩形
-              borderRadius: new BorderRadius.circular((20.0)), // 圓角度
-              gradient: LinearGradient(
-                colors: <HexColor>[
-                  HexColor('#FF6268'),
-                  HexColor('#FFB295'),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
-        );
-      }
+                ),
+              ],
+            );
+          })));
       setState(() {
         _listViews = listViews;
       });
