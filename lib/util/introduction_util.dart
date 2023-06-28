@@ -30,7 +30,7 @@ class IntroductionUtil extends StatefulWidget {
 }
 
 class _IntroductionUtilState extends State<IntroductionUtil> {
-  int _testIndex = 0;
+  int _contentIndex = 0;
 
   //late List<String> _routeName = widget.routeName;
   late List<String> _svgName = widget.svgName;
@@ -65,7 +65,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
       ),
       onPressed: () {
         setState(() {
-          _testIndex = 0;
+          _contentIndex = 0;
         });
         introducePronunciationPractice();
       },
@@ -74,6 +74,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
 
   void introducePronunciationPractice() async {
     showDialog(
+        barrierDismissible: false, //點擊空白處不關閉
         context: context,
         builder: (BuildContext context) {
           return Dialog(
@@ -88,28 +89,30 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            _title[_testIndex],
+                    flex: 1,
+                    child:Column(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            _title[_contentIndex],
                             style: TextStyle(
                                 fontSize: 16, color: PageTheme.app_theme_blue),
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(2),
-                            child: Divider(
-                              thickness: 1,
-                              color: PageTheme.app_theme_blue,
-                            ),
-                          ),
-                          Row(
+                        ),
+                        Divider(
+                          thickness: 1,
+                          color: PageTheme.app_theme_blue,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               ToggleButtons(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
+                                const BorderRadius.all(Radius.circular(8)),
                                 selectedBorderColor: PageTheme.app_theme_blue,
                                 selectedColor: Colors.white,
                                 fillColor: PageTheme.app_theme_blue,
@@ -121,8 +124,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                   setState(() {
                                     // The button that is tapped is set to true, and the others to false.
                                     for (int i = 0;
-                                        i < _languageSelect.length;
-                                        i++) {
+                                    i < _languageSelect.length;
+                                    i++) {
                                       _languageSelect[i] = i == index;
                                     }
                                     if (index == 1) {
@@ -147,7 +150,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                 alignment: Alignment.center,
                                 onPressed: () {
                                   Clipboard.setData(ClipboardData(
-                                      text: _introduction[_testIndex]));
+                                      text: _introduction[_contentIndex]));
                                   final snackBar = SnackBar(
                                       content: Text('Copied to Clipboard'));
                                   ScaffoldMessenger.of(context)
@@ -155,21 +158,23 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                 },
                               ),
                             ],
-                          )
-                        ],
-                      )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                       flex: 6,
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
                             SvgPicture.asset(
-                              'assets/icon/${_svgName[_testIndex]}.svg',
+                              'assets/icon/${_svgName[_contentIndex]}.svg',
                               height: 150,
                             ),
                             Padding(padding: EdgeInsets.all(6)),
                             Text(
-                              _introduction[_testIndex],
+                              _introduction[_contentIndex],
                               style: TextStyle(fontSize: 14),
                             ),
                             /*
@@ -183,8 +188,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                 Expanded(
                                   flex: 4,
                                   child: Visibility(
-                                    visible: (_testIndex != 0) &
-                                    (_testIndex < _introduction.length - 1),
+                                    visible: (_contentIndex != 0) &
+                                    (_contentIndex < _introduction.length - 1),
                                     child: Container(
                                       padding: EdgeInsets.all(6),
                                       margin: EdgeInsets.all(20),
@@ -207,7 +212,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                         ),
                                         onPressed: () {
                                           AutoRouter.of(context).pushNamed(
-                                              "/${_routeName[_testIndex - 1]}");
+                                              "/${_routeName[_contentIndex - 1]}");
                                         },
                                       ),
                                     ),
@@ -223,117 +228,131 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             */
                           ],
                         ),
-                      )),
-                  Expanded(
+                      )
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: PageTheme.app_theme_blue,
+                  ),
+                  Visibility(
+                    visible: _contentIndex == _introduction.length - 1,
+                    child: Expanded(
                       flex: 1,
-                      child: Container(
-                        //padding: EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Visibility(
-                                  visible: _testIndex != 0,
-                                  child: CircleAvatar(
-                                    backgroundColor: PageTheme.app_theme_blue,
-                                    radius: 24.0,
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.navigate_before,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          _testIndex -= 1;
-                                          Navigator.pop(context);
-                                          introducePronunciationPractice();
-                                        });
-                                      },
-                                    ),
-                                  )),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: Visibility(
-                                  visible: _introduction.length > 1,
-                                  child: Text(
-                                    '(${_testIndex + 1}/${_introduction.length})',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: PageTheme.app_theme_blue,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                )),
-                            Expanded(
-                              flex: 1,
-                              child: Visibility(
-                                  visible:
-                                      _testIndex < _introduction.length - 1,
-                                  child: CircleAvatar(
-                                    backgroundColor: PageTheme.app_theme_blue,
-                                    radius: 24.0,
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.navigate_next,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          _testIndex += 1;
-                                          Navigator.pop(context);
-                                          introducePronunciationPractice();
-                                        });
-                                      },
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                            padding: EdgeInsets.all(6),
-                            //margin: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(16.0)),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: PageTheme
-                                        .cutom_article_practice_background)
-                              ],
-                            ),
-                            child: TextButton(
-                              child: Text(
-                                '我知道了',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.white),
-                                textAlign: TextAlign.center,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                          Expanded(
+                            flex: 4,
+                            child: Container(
+                              padding: EdgeInsets.all(6),
+                              //margin: EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: PageTheme
+                                          .cutom_article_practice_background)
+                                ],
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
+                              child: TextButton(
+                                child: Text(
+                                  '我知道了，關閉說明',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                      ],
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+
+                  Visibility(
+                    visible: _contentIndex != _introduction.length - 1,
+                    child:Expanded(
+                        flex: 1,
+                        child: Container(
+                          //padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Visibility(
+                                    visible: _contentIndex != 0,
+                                    child: CircleAvatar(
+                                      backgroundColor: PageTheme.app_theme_blue,
+                                      radius: 24.0,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.navigate_before,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _contentIndex -= 1;
+                                            Navigator.pop(context);
+                                            introducePronunciationPractice();
+                                          });
+                                        },
+                                      ),
+                                    )),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Visibility(
+                                    visible: _introduction.length > 1,
+                                    child: Text(
+                                      '(${_contentIndex + 1}/${_introduction.length})',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: PageTheme.app_theme_blue,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                child: Visibility(
+                                    visible:
+                                    _contentIndex < _introduction.length - 1,
+                                    child: CircleAvatar(
+                                      backgroundColor: PageTheme.app_theme_blue,
+                                      radius: 24.0,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.navigate_next,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _contentIndex += 1;
+                                            Navigator.pop(context);
+                                            introducePronunciationPractice();
+                                          });
+                                        },
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
+                    ),
+                  ),
+
                 ],
               ),
             ),
