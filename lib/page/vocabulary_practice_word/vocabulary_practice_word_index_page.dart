@@ -109,6 +109,7 @@ class _VocabularyPracticeWordIndexPageState
                       ? 'Education Level\n教育程度檢定'
                       : 'Proficiency Test Level\n英文能力檢定',
                   titleColor: Colors.black,
+                  centerAlign: true,
                 ),
                 Divider(
                   thickness: 1,

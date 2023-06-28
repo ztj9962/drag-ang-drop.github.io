@@ -7,6 +7,7 @@ class TitleView extends StatelessWidget {
   final String subTxt;
   final Function()? subFunction;
   final bool subVisivle;
+  final bool centerAlign;
 
   const TitleView({
     Key? key,
@@ -15,6 +16,7 @@ class TitleView extends StatelessWidget {
     this.subTxt = "",
     this.subFunction,
     this.subVisivle = false,
+    this.centerAlign = false,
   }) : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class TitleView extends StatelessWidget {
           Expanded(
             child: Text(
               titleTxt,
-              textAlign: TextAlign.center,
+              textAlign: (centerAlign) ? TextAlign.center : TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 20,
