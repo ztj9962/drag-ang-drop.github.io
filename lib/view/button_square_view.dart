@@ -112,11 +112,13 @@ class ButtonSquareView extends StatelessWidget {
                           thickness: 2,
                           color: PageTheme.nearlyWhite,
                         ),
-                        Expanded(
+                        Align(
+                            alignment: Alignment.bottomRight,
                             child: Icon(
-                          Icons.arrow_forward_ios,
-                          color: PageTheme.nearlyWhite,
-                        ))
+                              Icons.arrow_forward_ios,
+                              color: PageTheme.nearlyWhite,
+                            )
+                        ),
                       ],
                     ),
                   ),
