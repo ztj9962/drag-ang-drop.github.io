@@ -18,17 +18,23 @@ class MinimalPairIndexPage extends StatefulWidget {
 
 class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
   List<String> list = [];
-  bool _switchSearch = true;
-  TextEditingController _searchWordController = TextEditingController();
 
   Map<String, List<String>> _IPAMap = {'': []};
   List<String>? _IPA1List = [];
   List<String>? _IPA2List = [];
 
-  //List<List<dynamic>> _IPA2List = [];
+  List<Map> _minimalPairPractice = [];
 
-  String? _dropdownValue1;
+  String? _dropdownValue1 = 'aɪ';
   String? _dropdownValue2;
+  int _selected = -1;
+
+  Map _mapTemplate = {
+    'leftWord': '',
+    'leftIPA': '',
+    'rightWord': '',
+    'rightIPA': '',
+  };
 
   @override
   void initState() {
@@ -59,53 +65,35 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Padding(padding: EdgeInsets.all(15)),
-                if (_switchSearch) ...[
-                  Container(
-                    width: 350,
-                    child: ElevatedButton(
-                      child: const AutoSizeText(
-                        '切換為相似字節模式',
-                        style: TextStyle(fontSize: 20),
-                        maxLines: 1,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: PageTheme.app_theme_blue,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          shadowColor: Colors.black,
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
-                      onPressed: () {
-                        setState(() {
-                          _switchSearch = !_switchSearch;
-                        });
-                      },
-                    ),
+            padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(2),
+                child: Text("練習的IPA",
+                    style: TextStyle(
+                        color: PageTheme.app_theme_blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                width: 350,
+                decoration: BoxDecoration(
+                  border: Border.all(color: PageTheme.app_theme_blue),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: DropdownButton(
+                  value: _dropdownValue1,
+                  //style: TextStyle(fontSize: 20),
+                  isExpanded: true,
+                  iconSize: 40,
+                  hint: AutoSizeText(
+                    '   請選擇第一個字元',
+                    style: TextStyle(color: PageTheme.app_theme_blue),
+                    maxLines: 1,
                   ),
-                  Padding(padding: EdgeInsets.all(15)),
-                  Container(
-                    width: 350,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: PageTheme.app_theme_blue),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: DropdownButton(
-                      value: _dropdownValue1,
-                      //style: TextStyle(fontSize: 20),
-                      isExpanded: true,
-                      iconSize: 40,
-                      hint: AutoSizeText(
-                        '   請選擇第一個字元',
-                        style: TextStyle(color: PageTheme.app_theme_blue),
-                        maxLines: 1,
-                      ),
-                      items: _IPA1List?.map<DropdownMenuItem<String>>(
+                  items: _IPA1List?.map<DropdownMenuItem<String>>(
                           (String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -117,197 +105,177 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                         );
                       }).toList(),
 
-                      onChanged: (String? value) {
-                        setState(() {
-                          _dropdownValue1 = value!;
-                          _dropdownValue2 = null;
-                          _IPA2List = _IPAMap[_dropdownValue1];
-                        });
-                      },
-                      underline: Container(
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(10)),
-                  Container(
-                    width: 350,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: PageTheme.app_theme_blue),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: DropdownButton(
-                      value: _dropdownValue2,
-                      //style: TextStyle(fontSize: 20),
-                      isExpanded: true,
-                      iconSize: 40,
-                      hint: AutoSizeText(
-                        '   請選擇第二個字元',
-                        style: TextStyle(color: PageTheme.app_theme_blue),
-                        maxLines: 1,
-                      ),
-                      items: _IPA2List?.map<DropdownMenuItem<String>>(
-                          (String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: AutoSizeText(
-                            '   ${value}',
-                            style: TextStyle(color: PageTheme.app_theme_blue),
-                            maxLines: 1,
-                          ),
-                        );
-                      }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _dropdownValue1 = value!;
+                      _dropdownValue2 = null;
+                      _IPA2List = _IPAMap[_dropdownValue1];
+                      _selected = -1;
 
-                      onChanged: (String? value) {
-                        setState(() {
-                          _dropdownValue2 = value!;
-                        });
-                      },
-                      underline: Container(
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ] else ...[
-                  Container(
-                    width: 350,
-                    child: ElevatedButton(
-                      child: const AutoSizeText(
-                        '切換為相似音標模式',
-                        style: TextStyle(fontSize: 20),
-                        maxLines: 1,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: PageTheme.app_theme_blue,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          shadowColor: Colors.black,
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
-                      onPressed: () {
-                        setState(() {
-                          _switchSearch = !_switchSearch;
-                        });
-                      },
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(15)),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      onSubmitted: (value) async {},
-                      controller: _searchWordController,
-                      decoration: const InputDecoration(
-                          labelText: "搜尋單詞",
-                          hintText: "搜尋單詞",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25.0)))),
-                    ),
-                  ),
-                ],
-                Padding(padding: EdgeInsets.all(20)),
-                Divider(
-                  thickness: 1,
-                  color: PageTheme.syllable_search_background,
-                ),
-                Padding(padding: EdgeInsets.all(15)),
-                Container(
-                  width: 350,
-                  child: ElevatedButton(
-                      child: const AutoSizeText(
-                        '手動模式',
-                        maxLines: 1,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: PageTheme.app_theme_blue,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          shadowColor: Colors.black,
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
-                      onPressed: () {
-                        if (_switchSearch) {
-                          if (_dropdownValue1 == null ||
-                              _dropdownValue2 == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('請記得要輸入喔'),
-                            ));
-                          } else {
-                            //print(_dropdownValue1);
-                            //print(_dropdownValue2);
-                            AutoRouter.of(context).push(
-                                LearningManualMinimalPairRoute(
-                                    IPA1: _dropdownValue1!,
-                                    IPA2: _dropdownValue2!));
-                          }
-                        } else {
-                          if (_searchWordController.text == '') {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('請記得要輸入喔'),
-                            ));
-                          } else {
-                            //print(_searchWordController.text);
-                            AutoRouter.of(context).push(
-                                LearningManualMinimalPairRoute(
-                                    word: _searchWordController.text));
-                          }
-                        }
-                      }),
-                ),
-                Padding(padding: EdgeInsets.all(15)),
-                Container(
-                  width: 350,
-                  child: ElevatedButton(
-                    child: const AutoSizeText(
-                      '自動模式',
-                      style: TextStyle(fontSize: 20),
-                      maxLines: 1,
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        primary: PageTheme.app_theme_blue,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        shadowColor: Colors.black,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50))),
-                    onPressed: () {
-                      if (_switchSearch) {
-                        if (_dropdownValue1 == null ||
-                            _dropdownValue2 == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('請記得要輸入喔'),
-                          ));
-                        } else {
-                          //print(_dropdownValue1);
-                          //print(_dropdownValue2);
-                          AutoRouter.of(context).push(
-                              LearningAutoMinimalPairRoute(
-                                  IPA1: _dropdownValue1!,
-                                  IPA2: _dropdownValue2!));
-                        }
-                      } else {
-                        if (_searchWordController.text == '') {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('請記得要輸入喔'),
-                          ));
-                        } else {
-                          //print(_searchWordController.text);
-                          AutoRouter.of(context).push(
-                              LearningAutoMinimalPairRoute(
-                                  word: _searchWordController.text));
-                        }
-                      }
-                    },
+                      _minimalPairPractice = [];
+                      _IPA2List!.forEach((value) {
+                        _minimalPairPractice.add(_mapTemplate);
+                      });
+                    });
+                  },
+                  underline: Container(
+                    height: 0,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Padding(padding: EdgeInsets.all(4)),
+              Divider(
+                thickness: 1,
+                color: PageTheme.syllable_search_background,
+              ),
+              Container(
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    key: Key('builder ${_selected.toString()}'),
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    itemCount: _IPA2List?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: PageTheme.app_theme_blue),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: ExpansionTile(
+                              key: Key(index.toString()),
+                              initiallyExpanded: index == _selected,
+                              title: Flex(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                direction: Axis.horizontal,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text('${_dropdownValue1}, ${_IPA2List![index]}',
+                                              style: TextStyle(fontSize: 20, color: PageTheme.app_theme_blue)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              children: <Widget>[
+                                ListTile(
+                                  title: Column(
+                                    children: <Widget>[
+                                      Divider(
+                                        thickness: 2,
+                                        color: PageTheme.syllable_search_background,
+                                      ),
+                                      Flex(
+                                        direction: Axis.horizontal,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 4,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                ListView.builder(
+                                                  physics:
+                                                  NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: _minimalPairPractice[index]["leftWord"]?.length,
+                                                  itemBuilder: (BuildContext context, int index2) {
+                                                    return Flex(
+                                                      direction: Axis.horizontal,
+                                                      children: [
+                                                        Expanded(
+                                                            flex: 1,
+                                                            child: Container(
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: <Widget>[
+                                                                  Padding(padding: EdgeInsets.all(10)),
+                                                                  Text('${_minimalPairPractice[index]["leftWord"][index2]}, ${_minimalPairPractice[index]["rightWord"][index2]}',
+                                                                    style: TextStyle(fontSize: 14),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child:
+                                                          Text('[${_minimalPairPractice[index]["leftIPA"][index2]}, ${_minimalPairPractice[index]["rightIPA"][index2]}]',
+                                                            style: TextStyle(fontSize: 14),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Center(
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                    PageTheme.app_theme_blue,
+                                                    radius: 25.0,
+                                                    child: IconButton(
+                                                      icon: const Icon(Icons.play_arrow, color: Colors.white,),
+                                                      onPressed: () {
+                                                        AutoRouter.of(context).push(
+                                                            LearningManualMinimalPairRoute(
+                                                                IPA1: _dropdownValue1!,
+                                                                IPA2: _IPA2List![index]));
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                const AutoSizeText(
+                                                  '開始練習',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black,
+                                                  ),
+                                                  maxLines: 1,
+                                                ),
+                                              ],
+                                            )
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              onExpansionChanged: (bool expanded) {
+                                if (expanded) {
+                                  setState(() {
+                                    getMinimalPairWord(_dropdownValue1!, _IPA2List![index], _minimalPairPractice, index);
+                                    _selected = index;
+                                  });
+                                } else {
+                                  setState(() {
+                                    _selected = -1;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.all(4)),
+                        ],
+                      );
+                    }
+                ),
+              ),
+            ],
           ),
         ));
   }
@@ -339,6 +307,49 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
       _IPAMap = IPAMap;
       _IPA1List = IPA1List;
       _IPA2List = _IPAMap[_dropdownValue1];
+      _IPA2List!.forEach((value) {
+        _minimalPairPractice.add(_mapTemplate);
+      });
     });
+  }
+
+  Future<void> getMinimalPairWord(String IPA1, String IPA2, List practiceData, int index) async {
+    List<String> leftWord = [];
+    List<String> leftIPA = [];
+    List<String> rightWord = [];
+    List<String> rightIPA = [];
+
+    if (practiceData[index]['leftWord'] == ''){
+      EasyLoading.show(status: '正在讀取資料，請稍候......');
+      var minimalPairTwoFinder;
+      do {
+        String minimalPairTwoFinderJSON =
+        await APIUtil.minimalPairTwoFinder(IPA1, IPA2, dataLimit: '10');
+        minimalPairTwoFinder = jsonDecode(minimalPairTwoFinderJSON.toString());
+        if (minimalPairTwoFinder['apiStatus'] != 'success') {
+          await Future.delayed(Duration(seconds: 1));
+        }
+      } while (minimalPairTwoFinder['apiStatus'] != 'success');
+
+      EasyLoading.dismiss();
+      minimalPairTwoFinder['data'].forEach((value) {
+        leftWord.add(value["leftWord"]);
+        leftIPA.add(value["leftIPA"]);
+        rightWord.add(value["rightWord"]);
+        rightIPA.add(value["rightIPA"]);
+      });
+
+      setState(() {
+        _minimalPairPractice[index] = {
+          'leftWord': leftWord,
+          'leftIPA': leftIPA,
+          'rightWord': rightWord,
+          'rightIPA': rightIPA,
+        };
+      });
+    }
+    else{
+      setState(() {});
+    }
   }
 }
