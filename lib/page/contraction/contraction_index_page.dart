@@ -19,7 +19,7 @@ class ContractionIndexPage extends StatefulWidget {
 
 class _ContractionIndexPage extends State<ContractionIndexPage> {
   String? _dropdownValue1 = '縮寫前字';
-  List<String> _wordConditionList = ['縮寫前字', '縮寫後字'];
+  //List<String> _wordConditionList = ['縮寫前字', '縮寫後字'];
   List<String> _getWord = [];
   List<String> _getContraction = [];
   List<Map> _contractionPractice = [];
@@ -58,14 +58,29 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(2),
-              child: Text("練習字首、字尾",
-                  style: TextStyle(
-                      color: PageTheme.app_theme_blue,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Text("Choose the contraction to practice",
+                      style: TextStyle(
+                          color: PageTheme.app_theme_blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Text("選擇要練習的縮寫",
+                      style: TextStyle(
+                          color: PageTheme.app_theme_blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ],
             ),
+            /*
+            // 篩選"縮寫前字"、"縮寫後字"的下拉式選單
             Container(
               width: 350,
               decoration: BoxDecoration(
@@ -111,6 +126,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
               thickness: 1,
               color: PageTheme.syllable_search_background,
             ),
+             */
             Container(
               child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
