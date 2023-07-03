@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/services.dart';
 class IntroductionUtil extends StatefulWidget {
   final List<Widget> listViews = <Widget>[];
 
-  //final List<String> routeName;
+  final List<String> routeName;
   final List<String> svgName;
 
   final List<String> titleChinese;
@@ -17,7 +18,7 @@ class IntroductionUtil extends StatefulWidget {
 
   IntroductionUtil({
     Key? key,
-    //required this.routeName,
+    required this.routeName,
     required this.svgName,
     required this.titleChinese,
     required this.titleEnglish,
@@ -32,17 +33,15 @@ class IntroductionUtil extends StatefulWidget {
 class _IntroductionUtilState extends State<IntroductionUtil> {
   int _contentIndex = 0;
 
-  //late List<String> _routeName = widget.routeName;
+  late List<String> _routeName = widget.routeName;
   late List<String> _svgName = widget.svgName;
 
   List<Widget> _languageContent = <Widget>[Text('中文'), Text('English')];
   List<bool> _languageSelect = <bool>[true, false];
 
-  /*
-  String _practice = '';
+  String _practice = '開始練習';
   String _practiceChinese = '開始練習';
   String _practiceEnglish = 'Start Practice';
-  */
 
   late List<String> _title = widget.titleChinese;
   late List<String> _titleChinese = widget.titleChinese;
@@ -131,11 +130,11 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                     if (index == 1) {
                                       _title = _titleEnglish;
                                       _introduction = _introductionEnglish;
-                                      //_practice = _practiceEnglish;
+                                      _practice = _practiceEnglish;
                                     } else {
                                       _title = _titleChinese;
                                       _introduction = _introductionChinese;
-                                      //_practice = _practiceChinese;
+                                      _practice = _practiceChinese;
                                     }
                                     Navigator.pop(context);
                                     introducePronunciationPractice();
@@ -177,14 +176,13 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                               _introduction[_contentIndex],
                               style: TextStyle(fontSize: 14),
                             ),
-                            /*
                             Row(
                               children: <Widget>[
                                 Expanded(
                                   flex: 1,
                                   child: Container(),
                                 ),
-                                /*  直接導向練習畫面
+                                //直接導向練習畫面
                                 Expanded(
                                   flex: 4,
                                   child: Visibility(
@@ -218,14 +216,12 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                     ),
                                   ),
                                 ),
-                                */
                                 Expanded(
                                   flex: 1,
                                   child: Container(),
                                 ),
                               ],
                             ),
-                            */
                           ],
                         ),
                       )

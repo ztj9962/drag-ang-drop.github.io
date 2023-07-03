@@ -154,6 +154,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
                   color: Colors.white,
                 ),
                 child: IntroductionUtil(
+                    routeName: _routeName,
                     svgName: _svgName,
                     titleChinese: _titleChinese,
                     titleEnglish: _titleEnglish,
