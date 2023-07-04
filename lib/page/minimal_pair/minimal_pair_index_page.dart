@@ -176,7 +176,6 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                         direction: Axis.horizontal,
                                         children: <Widget>[
                                           Expanded(
-                                            flex: 4,
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[
@@ -191,16 +190,8 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                                       children: [
                                                         Expanded(
                                                             flex: 1,
-                                                            child: Container(
-                                                              child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                children: <Widget>[
-                                                                  Padding(padding: EdgeInsets.all(10)),
-                                                                  Text('${_minimalPairPractice[index]["leftWord"][index2]}, ${_minimalPairPractice[index]["rightWord"][index2]}',
-                                                                    style: TextStyle(fontSize: 14),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                            child: Text('${_minimalPairPractice[index]["leftWord"][index2]}, ${_minimalPairPractice[index]["rightWord"][index2]}',
+                                                              style: TextStyle(fontSize: 14),
                                                             )
                                                         ),
                                                         Expanded(
@@ -213,44 +204,44 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                                       ],
                                                     );
                                                   },
-                                                )
+                                                ),
                                               ],
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Center(
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                    PageTheme.app_theme_blue,
-                                                    radius: 25.0,
-                                                    child: IconButton(
-                                                      icon: const Icon(Icons.play_arrow, color: Colors.white,),
-                                                      onPressed: () {
-                                                        AutoRouter.of(context).push(
-                                                            LearningManualMinimalPairRoute(
-                                                                IPA1: _dropdownValue1!,
-                                                                IPA2: _IPA2List![index]));
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const AutoSizeText(
-                                                  '開始練習',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black,
-                                                  ),
-                                                  maxLines: 1,
-                                                ),
-                                              ],
-                                            )
-                                          )
                                         ],
                                       ),
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Center(
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  PageTheme.app_theme_blue,
+                                                  radius: 25.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(Icons.play_arrow, color: Colors.white,),
+                                                    onPressed: () {
+                                                      AutoRouter.of(context).push(
+                                                          LearningManualMinimalPairRoute(
+                                                              IPA1: _dropdownValue1!,
+                                                              IPA2: _IPA2List![index]));
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              const AutoSizeText(
+                                                '開始練習',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          )
+                                      )
                                     ],
                                   ),
                                 ),
