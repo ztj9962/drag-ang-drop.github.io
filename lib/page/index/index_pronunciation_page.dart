@@ -226,7 +226,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
-        imagePath: 'assets/icon/minimal_pair_02.svg',
+        imagePath: 'assets/icon/minimal_pair_word.svg',
         titleText: 'Minimal pairs - Word',
         descripText: '相似單字練習',
         titleTextSizeGroup: titleTextSizeGroup,
