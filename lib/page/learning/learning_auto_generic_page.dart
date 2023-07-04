@@ -26,12 +26,14 @@ class LearningAutoGenericPage extends StatefulWidget {
   final List<String> contentList;
   final List<String> ipaList;
   final List<String> translateList;
+  final List<String> idList;
 
   const LearningAutoGenericPage(
       {Key? key,
       required this.contentList,
       required this.ipaList,
-      required this.translateList})
+      required this.translateList,
+      this.idList = const []})
       : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   late List<String> _contentList;
   late List<String> _ipaList;
   late List<String> _translateList;
+  late List<String> _idList;
 
   int _part = 0;
   List<Widget> _messages = <Widget>[];
@@ -120,6 +123,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     _contentList = widget.contentList;
     _ipaList = widget.ipaList;
     _translateList = widget.translateList;
+    _idList = widget.idList;
     super.initState();
     initLearningAutoGenericPage();
   }
@@ -714,6 +718,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
       questionTextWidget
           .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
+      questionTextWidget.add(TextSpan(text: '\nSentence ID:${_idList[_part - 1]}',style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),);
 
       message = ChatMessageUtil(
         senderIsMe: false,
@@ -834,6 +839,8 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
       questionTextWidget
           .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
+
+      questionTextWidget.add(TextSpan(text: '\nSentence ID:${_idList[_part - 1]}',style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),);
       await sendChatMessage(false, 'Bot', questionTextWidget,
           needSpeak: true,
           canSpeak: true,

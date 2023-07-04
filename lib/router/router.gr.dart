@@ -165,7 +165,8 @@ class AppRouter extends _i32.RootStackRouter {
               key: args.key,
               contentList: args.contentList,
               ipaList: args.ipaList,
-              translateList: args.translateList));
+              translateList: args.translateList,
+              idList: args.idList));
     },
     LearningAutoGenericSummaryReportRoute.name: (routeData) {
       final args =
@@ -670,14 +671,16 @@ class LearningAutoGenericRoute
       {_i33.Key? key,
       required List<String> contentList,
       required List<String> ipaList,
-      required List<String> translateList})
+      required List<String> translateList,
+      List<String> idList = const []})
       : super(LearningAutoGenericRoute.name,
             path: '/learnig_auto_generic',
             args: LearningAutoGenericRouteArgs(
                 key: key,
                 contentList: contentList,
                 ipaList: ipaList,
-                translateList: translateList));
+                translateList: translateList,
+                idList: idList));
 
   static const String name = 'LearningAutoGenericRoute';
 }
@@ -687,7 +690,8 @@ class LearningAutoGenericRouteArgs {
       {this.key,
       required this.contentList,
       required this.ipaList,
-      required this.translateList});
+      required this.translateList,
+      this.idList = const []});
 
   final _i33.Key? key;
 
@@ -697,9 +701,11 @@ class LearningAutoGenericRouteArgs {
 
   final List<String> translateList;
 
+  final List<String> idList;
+
   @override
   String toString() {
-    return 'LearningAutoGenericRouteArgs{key: $key, contentList: $contentList, ipaList: $ipaList, translateList: $translateList}';
+    return 'LearningAutoGenericRouteArgs{key: $key, contentList: $contentList, ipaList: $ipaList, translateList: $translateList, idList: $idList}';
   }
 }
 

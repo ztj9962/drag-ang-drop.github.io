@@ -36,8 +36,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   var _wordMeaningTextSizeGroup = AutoSizeGroup();
 
   List<dynamic> _vocabularyList = [];
-
-  List _CompleteSentenceList = [];
   List<dynamic> _vocabularySentenceList = [];
 
   @override
@@ -238,65 +236,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ) : Container(),
-            /*
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TitleView(
-                titleTxt: '2. 選擇練習字數',
-                titleColor: Colors.black,
-              ),
-            ),*/
-
-            /*
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: PageTheme.app_theme_blue,
-                    width: 2,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Slider(
-                      autofocus: false,
-                      onChanged: (value) {
-                        setState(() {
-                          _amountSliderIndex = value.toInt();
-                        });
-                      },
-                      onChangeEnd: (value) {
-                        setState(() {
-                          _amountSliderIndex = value.toInt();
-                        });
-                        _adjustDataLimit(_amountSliderIndex);
-                      },
-                      min: 5,
-                      max: 10,
-                      activeColor: PageTheme.app_theme_blue,
-                      inactiveColor: Colors.lightBlue,
-                      divisions: 15,
-                      //value: _applicationSettingsDataTtsRate,
-                      value: _amountSliderIndex.toDouble(),
-                      label: '${_amountSliderIndex}',
-                      //label: '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
-                    ),
-                    AutoSizeText(
-                      '${_amountSliderIndex} 個',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: PageTheme.app_theme_blue,
-                      ),
-                      maxLines: 2,
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
             Padding(padding: EdgeInsets.all(15)),
 
             if (_vocabularyList.isNotEmpty)
@@ -449,56 +388,48 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                           return;
                                         }
                                         //await _getVocabularySentenceList();
-                                        //print('HERE: ${_vocabularySentenceList}');
+                                        //print('HERE: ${_vocabularySentenceList}');.
 
                                         List<String> contentList = [];
                                         List<String> ipaList = [];
                                         List<String> translateList = [];
+                                        List<String> idList = [];
+
                                         //print(_vocabularyList);
                                         for (final vocabularyData in _vocabularySentenceList) {
                                           //return;
                                           for (final sentence
                                           in vocabularyData!['sentenceList']!) {
+                                            //句子題目整理
+                                            List disassembleList = sentence['sentenceDisassembleList'];
+                                            for(int i = disassembleList.length-1;i>=0;i--){
+                                              contentList.add(disassembleList[i]);
+                                            }
                                             contentList.add(sentence['sentenceContent']);
+                                            //IPA整理
+                                            List disassembleIPAList = sentence['sentenceDisassembleIPAList'];
+                                            for(int i = disassembleIPAList.length-1;i>=0;i--){
+                                              ipaList.add(disassembleIPAList[i]);
+                                            }
                                             ipaList.add(sentence['sentenceIPA']);
+                                            //翻譯整理
+                                            while(contentList.length - translateList.length != 1 && translateList.length < contentList.length) {
+                                              translateList.add('原句:${sentence['sentenceContent']}');
+                                            };
                                             translateList.add(sentence['sentenceChinese']);
+                                            //ID
+                                            while(contentList.length - idList.length != 0 && idList.length < contentList.length) {
+                                              idList.add(sentence['sentenceId'].toString());
+                                            };
                                           }
                                         }
-                                        List<String> contentNoDupe = contentList.toSet().toList();
-                                        List<String> translateNoDupe = translateList.toSet().toList();
-
-                                        List<String> filtedContentList = [];
-                                        List<String> filtedTranslation = [];
-                                        List<String> filtedIPA = [];
-                                        List<bool> mainCheckList = [];
-                                        List<String> oriList = [];
-
-                                        await _getCompleteSentenceList(contentNoDupe);
-                                        //print('CL: ${_CompleteSentenceList}');
-
-                                        for (final filtedContent in _CompleteSentenceList) {
-                                          mainCheckList.add(filtedContent['mainCheck']);
-                                          filtedContentList.add(filtedContent['content']);
-                                          filtedIPA.add(filtedContent['IPA']);
-                                          oriList.add(filtedContent['originSentence']);
-                                        }
-
-                                        int checkIdx = 0;
-                                        for (int check = 0;check < mainCheckList.length;check++) {
-                                          if (mainCheckList[check]) {
-                                            filtedTranslation.add(translateNoDupe[checkIdx]);
-                                            checkIdx++;
-                                          } else {
-                                            filtedTranslation.add('原句: ${oriList[check]}');
-                                          }
-                                        }
-
 
                                         AutoRouter.of(context).push(
                                             LearningAutoGenericRoute(
-                                                contentList: filtedContentList,
-                                                ipaList: filtedIPA,
-                                                translateList: filtedTranslation));
+                                                contentList: contentList,
+                                                ipaList: ipaList,
+                                                translateList: translateList,
+                                                idList: idList));
                                       }),
                                 ),
                               ),
@@ -658,43 +589,6 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
     return responseJSONDecode['apiStatus'] == 'success';
   }
 
-  Future<bool> _getCompleteSentenceList(List content) async {
-    //if (_vocabularySentenceList.length == _vocabularyList.length) return;
-    EasyLoading.show(status: '正在讀取資料，請稍候......');
-    var responseJSONDecode;
-    String responseJSON;
-    try {
-      int doLimit = 1;
-      var vocabularySentenceList;
-      //print(_vocabularyList);
-      do {
-        responseJSON = await APIUtil.getCompleteSentenceList(content);
-        responseJSONDecode = jsonDecode(responseJSON.toString());
-        //print(responseJSONDecode);
-        if (responseJSONDecode['apiStatus'] != 'success') {
-          doLimit += 1;
-          if (doLimit > 3)
-            throw Exception(
-                'API: ' + responseJSONDecode['apiMessage']); // 只測 3 次
-          await Future.delayed(Duration(seconds: 1));
-        }
-      } while (responseJSONDecode['apiStatus'] != 'success');
-      //print(responseJSONDecode);
-      vocabularySentenceList = responseJSONDecode['data'];
-
-      setState(() {
-        _CompleteSentenceList = vocabularySentenceList;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-    EasyLoading.dismiss();
-    return responseJSONDecode['apiStatus'] == 'success';
-  }
-
-
   void _adjustRowIndexSliderIndex(int value) {
     int sliderIndex = _rowIndexSliderIndex + value;
     if ((sliderIndex >= _rowIndexSliderMin) &&
@@ -713,27 +607,5 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       ));
     }
     //_adjustSliderEducationLevel();
-  }
-
-  /*void _adjustSliderEducationLevel() {
-    String sliderEducationLevel = '國小';
-    if (_rowIndexSliderIndex > 6000) {
-      sliderEducationLevel = '大學';
-    } else if (_rowIndexSliderIndex > 2000) {
-      sliderEducationLevel = '高中';
-    } else if (_rowIndexSliderIndex > 900) {
-      sliderEducationLevel = '國中';
-    }
-    setState(() => _sliderEducationLevel = sliderEducationLevel);
-  }*/
-
-  void _adjustDataLimit(int value) {
-    setState(() {
-      _dataLimit = value;
-    });
-    if (_rowIndexSliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
-      setState(
-              () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
-    }
   }
 }
