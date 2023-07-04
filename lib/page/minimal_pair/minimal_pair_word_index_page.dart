@@ -184,46 +184,41 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
                             );
                           },
                         )),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: CircleAvatar(
-                                  backgroundColor: PageTheme.app_theme_blue,
-                                  radius: 25.0,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.play_arrow),
-                                    color: (_allowTouchButtons['nextButton']!)
-                                        ? Colors.white
-                                        : Colors.grey,
-                                    onPressed: () {
-                                      if (_leftWord.length != 0){
-                                        AutoRouter.of(context)
-                                            .push(LearningManualMinimalPairRoute(
-                                            word: _searchWordController.text
-                                        ));
-                                      }
-                                    },
-                                  ),
-                                ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              backgroundColor: PageTheme.app_theme_blue,
+                              radius: 25.0,
+                              child: IconButton(
+                                icon: const Icon(Icons.play_arrow),
+                                color: (_allowTouchButtons['nextButton']!)
+                                    ? Colors.white
+                                    : Colors.grey,
+                                onPressed: () {
+                                  if (_leftWord.length != 0){
+                                    AutoRouter.of(context)
+                                        .push(LearningManualMinimalPairRoute(
+                                        word: _searchWordController.text
+                                    ));
+                                  }
+                                },
                               ),
-                              const AutoSizeText(
-                                '開始練習',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                                maxLines: 1,
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
+                          const AutoSizeText(
+                            '開始練習',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
