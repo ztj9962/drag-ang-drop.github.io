@@ -718,7 +718,11 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
       questionTextWidget
           .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
-      questionTextWidget.add(TextSpan(text: '\nSentence ID:${_idList[_part - 1]}',style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),);
+      questionTextWidget.add(
+        TextSpan(
+            text: '\nSentence ID:${_idList[_part - 1]}',
+            style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),
+      );
 
       message = ChatMessageUtil(
         senderIsMe: false,
@@ -840,7 +844,11 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget
           .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
 
-      questionTextWidget.add(TextSpan(text: '\nSentence ID:${_idList[_part - 1]}',style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),);
+      questionTextWidget.add(
+        TextSpan(
+            text: '\nSentence ID:${_idList[_part - 1]}',
+            style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),
+      );
       await sendChatMessage(false, 'Bot', questionTextWidget,
           needSpeak: true,
           canSpeak: true,

@@ -16,14 +16,23 @@ class VocabularyPracticeWordListPage extends StatefulWidget {
   final String displayLevel;
   final String wordLevel;
   final String cateType;
-  const VocabularyPracticeWordListPage({Key? key, required this.rangeMin, required this.rangeMax, required this.displayLevel, required this.cateType, required this.wordLevel}) : super(key: key);
+
+  const VocabularyPracticeWordListPage(
+      {Key? key,
+      required this.rangeMin,
+      required this.rangeMax,
+      required this.displayLevel,
+      required this.cateType,
+      required this.wordLevel})
+      : super(key: key);
 
   @override
   _VocabularyPracticeWordListPageState createState() =>
       _VocabularyPracticeWordListPageState();
 }
 
-class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordListPage> {
+class _VocabularyPracticeWordListPageState
+    extends State<VocabularyPracticeWordListPage> {
   late String _cateType;
   TextEditingController _editingController = TextEditingController();
   int _rowIndexSliderMin = 2000;
@@ -41,10 +50,10 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   @override
   void initState() {
     _cateType = widget.cateType;
-    if(_cateType == 'proficiencyTestLevel'){
+    if (_cateType == 'proficiencyTestLevel') {
       _rowIndexSliderMin = 1;
       _rowIndexSliderMax = widget.rangeMax - widget.rangeMin + 1;
-    }else{
+    } else {
       _rowIndexSliderMin = widget.rangeMin;
       _rowIndexSliderMax = widget.rangeMax;
     }
@@ -134,7 +143,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                       value: _rowIndexSliderIndex.toDouble(),
                       //label: 'Ranking ${_rowIndexSliderIndex * 10 - 9} ~ ${_rowIndexSliderIndex * 10}',
                       label:
-                      '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
+                          '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
@@ -161,7 +170,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                     child: Center(
                                       child: CircleAvatar(
                                         backgroundColor:
-                                        PageTheme.app_theme_blue,
+                                            PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.remove),
@@ -179,7 +188,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                     child: Center(
                                       child: CircleAvatar(
                                         backgroundColor:
-                                        PageTheme.app_theme_blue,
+                                            PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.add),
@@ -201,7 +210,9 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                   text: _rowIndexSliderIndex.toString()),
                               onSubmitted: (value) async {
                                 if (int.tryParse(value) != null) {
-                                  _adjustRowIndexSliderIndex(int.tryParse(value)! - _rowIndexSliderIndex);
+                                  _adjustRowIndexSliderIndex(
+                                      int.tryParse(value)! -
+                                          _rowIndexSliderIndex);
                                   await _getVocabularyList();
                                 }
                               },
@@ -220,24 +231,25 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                 ),
               ),
             ),
-            (_cateType == 'educationLevel') ?
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onSubmitted: (value) async {
-                  await _searchVocabularyRowIndex(value);
-                },
-                controller: _editingController,
-                decoration: const InputDecoration(
-                    labelText: "搜尋單詞",
-                    hintText: "搜尋單詞",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ) : Container(),
+            (_cateType == 'educationLevel')
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      onSubmitted: (value) async {
+                        await _searchVocabularyRowIndex(value);
+                      },
+                      controller: _editingController,
+                      decoration: const InputDecoration(
+                          labelText: "搜尋單詞",
+                          hintText: "搜尋單詞",
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                    ),
+                  )
+                : Container(),
             Padding(padding: EdgeInsets.all(15)),
-
             if (_vocabularyList.isNotEmpty)
               FadeAnimation(
                 1,
@@ -284,7 +296,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                 width: 2,
                               ),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(16.0)),
+                                  const BorderRadius.all(Radius.circular(16.0)),
                             ),
                             child: Row(
                               children: <Widget>[
@@ -336,7 +348,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                                       shrinkWrap: true,
                                       physics: const ScrollPhysics(),
                                       itemCount: _vocabularyList[index]
-                                      ['wordMeaningList']
+                                              ['wordMeaningList']
                                           .length,
                                       itemBuilder: (context, index2) {
                                         return AutoSizeText(
@@ -355,7 +367,8 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return const Padding(padding: const EdgeInsets.all(8.0));
+                          return const Padding(
+                              padding: const EdgeInsets.all(8.0));
                         },
                       ),
                     ),
@@ -363,105 +376,128 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
                     Align(
                       alignment: Alignment.center,
                       child: Container(
-                        child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                      child: const AutoSizeText(
-                                        '自動練習',
-                                        maxLines: 1,
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                          primary: PageTheme.app_theme_blue,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 20),
-                                          shadowColor: Colors.black,
-                                          elevation: 10,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(50))),
-                                      onPressed: () async {
-                                        if (!await _getVocabularySentenceList()) {
-                                          return;
-                                        }
-                                        //await _getVocabularySentenceList();
-                                        //print('HERE: ${_vocabularySentenceList}');.
+                        child: Row(children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  child: const AutoSizeText(
+                                    '自動練習',
+                                    maxLines: 1,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: PageTheme.app_theme_blue,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      shadowColor: Colors.black,
+                                      elevation: 10,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50))),
+                                  onPressed: () async {
+                                    if (!await _getVocabularySentenceList()) {
+                                      return;
+                                    }
+                                    //await _getVocabularySentenceList();
+                                    //print('HERE: ${_vocabularySentenceList}');.
 
-                                        List<String> contentList = [];
-                                        List<String> ipaList = [];
-                                        List<String> translateList = [];
-                                        List<String> idList = [];
+                                    List<String> contentList = [];
+                                    List<String> ipaList = [];
+                                    List<String> translateList = [];
+                                    List<String> idList = [];
 
-                                        //print(_vocabularyList);
-                                        for (final vocabularyData in _vocabularySentenceList) {
-                                          //return;
-                                          for (final sentence
+                                    //print(_vocabularyList);
+                                    for (final vocabularyData
+                                        in _vocabularySentenceList) {
+                                      //return;
+                                      for (final sentence
                                           in vocabularyData!['sentenceList']!) {
-                                            //句子題目整理
-                                            List disassembleList = sentence['sentenceDisassembleList'];
-                                            for(int i = disassembleList.length-1;i>=0;i--){
-                                              contentList.add(disassembleList[i]);
-                                            }
-                                            contentList.add(sentence['sentenceContent']);
-                                            //IPA整理
-                                            List disassembleIPAList = sentence['sentenceDisassembleIPAList'];
-                                            for(int i = disassembleIPAList.length-1;i>=0;i--){
-                                              ipaList.add(disassembleIPAList[i]);
-                                            }
-                                            ipaList.add(sentence['sentenceIPA']);
-                                            //翻譯整理
-                                            while(contentList.length - translateList.length != 1 && translateList.length < contentList.length) {
-                                              translateList.add('原句:${sentence['sentenceContent']}');
-                                            };
-                                            translateList.add(sentence['sentenceChinese']);
-                                            //ID
-                                            while(contentList.length - idList.length != 0 && idList.length < contentList.length) {
-                                              idList.add(sentence['sentenceId'].toString());
-                                            };
-                                          }
+                                        //句子題目整理
+                                        List disassembleList =
+                                            sentence['sentenceDisassembleList'];
+                                        for (int i = disassembleList.length - 1;
+                                            i >= 0;
+                                            i--) {
+                                          contentList.add(disassembleList[i]);
                                         }
+                                        contentList
+                                            .add(sentence['sentenceContent']);
+                                        //IPA整理
+                                        List disassembleIPAList = sentence[
+                                            'sentenceDisassembleIPAList'];
+                                        for (int i =
+                                                disassembleIPAList.length - 1;
+                                            i >= 0;
+                                            i--) {
+                                          ipaList.add(disassembleIPAList[i]);
+                                        }
+                                        ipaList.add(sentence['sentenceIPA']);
+                                        //翻譯整理
+                                        while (contentList.length -
+                                                    translateList.length !=
+                                                1 &&
+                                            translateList.length <
+                                                contentList.length) {
+                                          translateList.add(
+                                              '原句:${sentence['sentenceContent']}');
+                                        }
+                                        ;
+                                        translateList
+                                            .add(sentence['sentenceChinese']);
+                                        //ID
+                                        while (contentList.length -
+                                                    idList.length !=
+                                                0 &&
+                                            idList.length <
+                                                contentList.length) {
+                                          idList.add(sentence['sentenceId']
+                                              .toString());
+                                        }
+                                        ;
+                                      }
+                                    }
 
-                                        AutoRouter.of(context).push(
-                                            LearningAutoGenericRoute(
-                                                contentList: contentList,
-                                                ipaList: ipaList,
-                                                translateList: translateList,
-                                                idList: idList));
-                                      }),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                      child: const AutoSizeText(
-                                        '手動練習',
-                                        maxLines: 1,
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                          primary: PageTheme.app_theme_blue,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 20),
-                                          shadowColor: Colors.black,
-                                          elevation: 10,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(50))),
-                                      onPressed: () async {
-                                        await _getVocabularySentenceList();
-                                        AutoRouter.of(context).push(
-                                            LearningManualVocabularyPraticeWordRoute(
-                                                vocabularyList: _vocabularyList,
-                                                vocabularySentenceList:
+                                    AutoRouter.of(context).push(
+                                        LearningAutoGenericRoute(
+                                            contentList: contentList,
+                                            ipaList: ipaList,
+                                            translateList: translateList,
+                                            idList: idList));
+                                  }),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  child: const AutoSizeText(
+                                    '手動練習',
+                                    maxLines: 1,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: PageTheme.app_theme_blue,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      shadowColor: Colors.black,
+                                      elevation: 10,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50))),
+                                  onPressed: () async {
+                                    await _getVocabularySentenceList();
+                                    AutoRouter.of(context).push(
+                                        LearningManualVocabularyPraticeWordRoute(
+                                            vocabularyList: _vocabularyList,
+                                            vocabularySentenceList:
                                                 _vocabularySentenceList));
-                                      }),
-                                ),
-                              ),
-                            ]),
+                                  }),
+                            ),
+                          ),
+                        ]),
                       ),
                     ),
                     Padding(padding: const EdgeInsets.all(8.0)),
@@ -486,13 +522,15 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       do {
         String responseJSON;
         //responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
-        if(_cateType == 'proficiencyTestLevel'){
+        if (_cateType == 'proficiencyTestLevel') {
           //responseJSON = await APIUtil.vocabularyGetList((_rowIndexSliderIndex + widget.rangeMin - 1).toString(),dataLimit: _dataLimit.toString());
-          responseJSON = await APIUtil.getWordListByWherelistLevel(_rowIndexSliderIndex.toString(),widget.wordLevel);
-        }else{
-          responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
+          responseJSON = await APIUtil.getWordListByWherelistLevel(
+              _rowIndexSliderIndex.toString(), widget.wordLevel);
+        } else {
+          responseJSON = await APIUtil.vocabularyGetList(
+              _rowIndexSliderIndex.toString(),
+              dataLimit: _dataLimit.toString());
         }
-
 
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
@@ -552,7 +590,9 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
   ///融合過來的功能
   ///
   Future<bool> _getVocabularySentenceList() async {
-    if (_vocabularySentenceList.isNotEmpty && _vocabularySentenceList[0]['rowIndex'] == _vocabularyList[0]['rowIndex']) return true;
+    if (_vocabularySentenceList.isNotEmpty &&
+        _vocabularySentenceList[0]['rowIndex'] ==
+            _vocabularyList[0]['rowIndex']) return true;
     EasyLoading.show(status: '正在讀取資料，請稍候......');
     var responseJSONDecode;
     try {
@@ -560,10 +600,14 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       List<dynamic> vocabularySentenceList;
       do {
         String responseJSON;
-        if(_cateType == 'proficiencyTestLevel'){
-          responseJSON = await APIUtil.getSentenceListByWherelistLevel(_vocabularyList[0]['rowIndex'].toString(),widget.wordLevel,dataLimit: _vocabularyList.length.toString());
-        }else{
-          responseJSON = await APIUtil.vocabularyGetSentenceList(_vocabularyList[0]['rowIndex'].toString(),dataLimit: _vocabularyList.length.toString());
+        if (_cateType == 'proficiencyTestLevel') {
+          responseJSON = await APIUtil.getSentenceListByWherelistLevel(
+              _vocabularyList[0]['rowIndex'].toString(), widget.wordLevel,
+              dataLimit: _vocabularyList.length.toString());
+        } else {
+          responseJSON = await APIUtil.vocabularyGetSentenceList(
+              _vocabularyList[0]['rowIndex'].toString(),
+              dataLimit: _vocabularyList.length.toString());
         }
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
@@ -600,7 +644,7 @@ class _VocabularyPracticeWordListPageState extends State<VocabularyPracticeWordL
       }
       if (sliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
         setState(
-                () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
+            () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Opps: 目標 ${sliderIndex} 已超出範圍'),
