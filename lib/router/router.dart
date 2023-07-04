@@ -20,6 +20,7 @@ import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_s
 import 'package:alicsnet_app/page/learning/learning_manual_vocabulary_practice_word_page.dart';
 import 'package:alicsnet_app/page/login/sign_in_page.dart';
 import 'package:alicsnet_app/page/minimal_pair/minimal_pair_index_page.dart';
+import 'package:alicsnet_app/page/minimal_pair/minimal_pair_word_index_page.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_editor.dart';
 import 'package:alicsnet_app/page/preference_translations/preference_sentence_search.dart';
 import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page.dart';
@@ -66,6 +67,7 @@ import 'package:auto_route/auto_route.dart';
         page: VocabularyPracticeWordListPage),
 
     AutoRoute(path: '/minimal_pair_index', page: MinimalPairIndexPage),
+    AutoRoute(path: '/minimal_pair_word_index', page: MinimalPairWordIndexPage),
 
     AutoRoute(
         path: '/customArticle_practice_sentence_index',

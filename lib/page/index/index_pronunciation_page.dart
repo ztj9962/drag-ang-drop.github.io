@@ -227,6 +227,20 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
+        imagePath: 'assets/icon/minimal_pair_word.svg',
+        titleText: 'Minimal pairs - Word',
+        descripText: '相似單字練習',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context).pushNamed("/minimal_pair_word_index");
+        },
+      ),
+    );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        showDevelopTag: true,
         imagePath: 'assets/icon/harvard.svg',
         titleText: 'Harvard Sentence Practice',
         descripText: 'Harvard句子練習',
