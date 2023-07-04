@@ -13,12 +13,14 @@ class MinimalPairWordIndexPage extends StatefulWidget {
   const MinimalPairWordIndexPage({Key? key}) : super(key: key);
 
   @override
-  _MinimalPairWordIndexPageState createState() => _MinimalPairWordIndexPageState();
+  _MinimalPairWordIndexPageState createState() =>
+      _MinimalPairWordIndexPageState();
 }
 
 class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
   List<String> list = [];
-  TextEditingController _searchWordController = TextEditingController(text: 'test');
+  TextEditingController _searchWordController =
+      TextEditingController(text: 'test');
 
   final _allowTouchButtons = {
     'reListenButton': false,
@@ -83,7 +85,7 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
                               prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(25.0)))),
+                                      BorderRadius.all(Radius.circular(25.0)))),
                         ),
                       ),
                     ),
@@ -95,18 +97,17 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
                       margin: EdgeInsets.all(6),
                       decoration: BoxDecoration(
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(16.0)),
+                            const BorderRadius.all(Radius.circular(16.0)),
                         boxShadow: [
                           BoxShadow(
-                              color: PageTheme
-                                  .cutom_article_practice_background)
+                              color:
+                                  PageTheme.cutom_article_practice_background)
                         ],
                       ),
                       child: TextButton(
                         child: Text(
                           '開始搜尋',
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.white),
+                          style: TextStyle(fontSize: 14, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                         onPressed: () {
@@ -142,48 +143,47 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
                       maxLines: 1,
                     ),
                     Visibility(
-                      visible: _leftWord.length == 0,
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: AutoSizeText(
-                          '沒有這個單字的對應資料',
-                          style: TextStyle(
-                            color: PageTheme.app_theme_blue,
-                            fontSize: 16,
+                        visible: _leftWord.length == 0,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: AutoSizeText(
+                            '沒有這個單字的對應資料',
+                            style: TextStyle(
+                              color: PageTheme.app_theme_blue,
+                              fontSize: 16,
+                            ),
+                            maxLines: 1,
                           ),
-                          maxLines: 1,
-                        ),
-                      )
-                    ),
+                        )),
                     Container(
                         child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: _leftWord.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _leftWord.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Text(
-                                      '${_leftWord[index]}, ${_rightWord[index]}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      '[${_leftIPA[index]}, ${_rightIPA[index]}]',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
+                                Text(
+                                  '${_leftWord[index]}, ${_rightWord[index]}',
+                                  style: TextStyle(fontSize: 16),
                                 ),
-                                Divider(
-                                  thickness: 1,
-                                  color: PageTheme.syllable_search_background,
+                                Text(
+                                  '[${_leftIPA[index]}, ${_rightIPA[index]}]',
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ],
-                            );
-                          },
-                        )),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              color: PageTheme.syllable_search_background,
+                            ),
+                          ],
+                        );
+                      },
+                    )),
                     Container(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -198,11 +198,10 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
                                     ? Colors.white
                                     : Colors.grey,
                                 onPressed: () {
-                                  if (_leftWord.length != 0){
-                                    AutoRouter.of(context)
-                                        .push(LearningManualMinimalPairRoute(
-                                        word: _searchWordController.text
-                                    ));
+                                  if (_leftWord.length != 0) {
+                                    AutoRouter.of(context).push(
+                                        LearningManualMinimalPairRoute(
+                                            word: _searchWordController.text));
                                   }
                                 },
                               ),
@@ -238,7 +237,7 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
     var minimalPairWordFinder;
     do {
       String minimalPairWordFinderJSON =
-      await APIUtil.minimalPairWordFinder(word, dataLimit: '10');
+          await APIUtil.minimalPairWordFinder(word, dataLimit: '10');
       minimalPairWordFinder = jsonDecode(minimalPairWordFinderJSON.toString());
       if (minimalPairWordFinder['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));

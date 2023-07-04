@@ -205,11 +205,12 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
       if (_controller.text != "" && _inputWordCount > 0) {
         //文法檢查
         String grammar_response =
-        await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
+            await APIUtil.checkGrammar(_controller.text.replaceAll("\n", " "));
         var checkedGrammar = jsonDecode(grammar_response);
         if (checkedGrammar['apiStatus'] == 'success') {
           ///取得樹狀圖API
-          String spacyTreeResponse = await APIUtil.getSpacyTreeByString(checkedGrammar['data']['sentenceTextChecked']);
+          String spacyTreeResponse = await APIUtil.getSpacyTreeByString(
+              checkedGrammar['data']['sentenceTextChecked']);
           var spacyTreeDecode = jsonDecode(spacyTreeResponse);
           if (spacyTreeDecode['apiStatus'] == 'success') {
             _spacyTree = base64.decode(spacyTreeDecode['data']);
@@ -228,7 +229,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           }
 
           ///句型分析表
-          String clauseTableApi = await APIUtil.getClauseTableByString(_controller.text.replaceAll("\n", " "));
+          String clauseTableApi = await APIUtil.getClauseTableByString(
+              _controller.text.replaceAll("\n", " "));
 
           var clauseTableDecode = jsonDecode(clauseTableApi);
 
@@ -236,11 +238,11 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           if (clauseTableDecode['apiStatus'] == 'success') {
             _clauseListView = [];
             _clauseList = clauseTableDecode['data']['ClauseList'];
-            if(_clauseList.isNotEmpty){
-              for(var clauseData in _clauseList){
+            if (_clauseList.isNotEmpty) {
+              for (var clauseData in _clauseList) {
                 _clauseListView.add(
-                  Container(child:
-                  Row(
+                  Container(
+                      child: Row(
                     children: [
                       Container(
                         child: Padding(
@@ -252,14 +254,22 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                           color: PageTheme.app_theme_blue,
                           width: 2,
                         ),*/
-                          color: (clauseData['ClauseType']=='名詞子句') ? PageTheme.app_theme_blue.withOpacity(0.3) : (clauseData['ClauseType']=='副詞子句') ? Colors.red.withOpacity(0.3) : (clauseData['ClauseType']=='形容詞、關係子句') ? Colors.green.withOpacity(0.3) : Colors.white,
-                          borderRadius: const BorderRadius.all(Radius.circular(32.0)),
+                          color: (clauseData['ClauseType'] == '名詞子句')
+                              ? PageTheme.app_theme_blue.withOpacity(0.3)
+                              : (clauseData['ClauseType'] == '副詞子句')
+                                  ? Colors.red.withOpacity(0.3)
+                                  : (clauseData['ClauseType'] == '形容詞、關係子句')
+                                      ? Colors.green.withOpacity(0.3)
+                                      : Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(32.0)),
                         ),
                       ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: AutoSizeText('${clauseData['ClauseContent']}\n依賴的動詞:${clauseData['DependencyVerb']}'),
+                          child: AutoSizeText(
+                              '${clauseData['ClauseContent']}\n依賴的動詞:${clauseData['DependencyVerb']}'),
                         ),
                       ),
                     ],
@@ -281,9 +291,9 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 //Center(child: AutoSizeText('Dependency中文',maxLines: 1)),
                 Center(
                     child: AutoSizeText(
-                      '片語/子句',
-                      maxLines: 1,
-                    )),
+                  '片語/子句',
+                  maxLines: 1,
+                )),
               ],
             ));
             for (int i = 0; i < tableData.length; i++) {
@@ -294,7 +304,8 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                            flex: 3, child: AutoSizeText(' [' + i.toString() + ']')),
+                            flex: 3,
+                            child: AutoSizeText(' [' + i.toString() + ']')),
                         Expanded(
                             flex: 5,
                             child: AutoSizeText(tableData[i]['Word'] +
@@ -302,12 +313,11 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                                 tableData[i]['twnWord'])),
                       ],
                     )),
-                TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Align(
                         alignment: Alignment.center,
-                        child: AutoSizeText(tableData[i]['lemma'])
-                    )
-                ),
+                        child: AutoSizeText(tableData[i]['lemma']))),
                 TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Align(
@@ -324,12 +334,12 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                           tableData[i]['DEP'] + '\n' + tableData[i]['twnDEP']),
                     )),
                 //Center(child: AutoSizeText(tableData[i]['twnDEP'])),
-                TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Align(
                         alignment: Alignment.center,
-                        child: AutoSizeText(tableData[i]['Word/Phrase/Clause'])
-                    )
-                ),
+                        child:
+                            AutoSizeText(tableData[i]['Word/Phrase/Clause']))),
               ];
               _tableArray.add(TableRow(
                 decoration: i % 2 == 0
@@ -359,7 +369,6 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
         //_spacyTree
-
 
         //Displacy
         /*
@@ -720,20 +729,20 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                 ),
               ),
             if (_spacyTree.isNotEmpty)
-            FadeAnimation(
-              1.0,
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.zero,
-                    child: Text("子句列表",
-                        style: TextStyle(
-                            color: PageTheme.cutom_article_practice_background
-                                .withOpacity(0.8),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
+              FadeAnimation(
+                1.0,
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.zero,
+                      child: Text("子句列表",
+                          style: TextStyle(
+                              color: PageTheme.cutom_article_practice_background
+                                  .withOpacity(0.8),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
                       margin: const EdgeInsets.only(
                           top: 10, left: 20, right: 20, bottom: 5),
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -748,31 +757,37 @@ class _SentenceAnalysisIndexPage extends State<SentenceAnalysisIndexPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: (_clauseList.isNotEmpty) ? ListView.separated(
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: _clauseListView.length,
-                          //itemExtent: 100.0, //强制高度为50.0
+                        child: (_clauseList.isNotEmpty)
+                            ? ListView.separated(
+                                physics: NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: _clauseListView.length,
+                                //itemExtent: 100.0, //强制高度为50.0
 
-                          itemBuilder: (BuildContext context, int index) {
-                            return _clauseListView[index];
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return Divider(
-                              thickness: 1,
-                              color: PageTheme.grey,
-                            );
-                          }
-                        ) : AutoSizeText('未找到任何子句',style: TextStyle(fontSize: 20),),
-                      ),),
-                  Divider(
-                    height: 16,
-                    color: PageTheme.grey.withAlpha(50),
-                  ),
-                ],
+                                itemBuilder: (BuildContext context, int index) {
+                                  return _clauseListView[index];
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return Divider(
+                                    thickness: 1,
+                                    color: PageTheme.grey,
+                                  );
+                                })
+                            : AutoSizeText(
+                                '未找到任何子句',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                      ),
+                    ),
+                    Divider(
+                      height: 16,
+                      color: PageTheme.grey.withAlpha(50),
+                    ),
+                  ],
+                ),
               ),
-            ),
             /*
             if (_spacyTree.isNotEmpty)
               FadeAnimation(

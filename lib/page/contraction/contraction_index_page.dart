@@ -19,6 +19,7 @@ class ContractionIndexPage extends StatefulWidget {
 
 class _ContractionIndexPage extends State<ContractionIndexPage> {
   String? _dropdownValue1 = '縮寫前字';
+
   //List<String> _wordConditionList = ['縮寫前字', '縮寫後字'];
   List<String> _getWord = [];
   List<String> _getContraction = [];
@@ -154,13 +155,13 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   child: Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(_getWord![index],
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 color:
-                                                PageTheme.app_theme_blue)),
+                                                    PageTheme.app_theme_blue)),
                                       ],
                                     ),
                                   ),
@@ -169,7 +170,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                   flex: 2,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         'contraction: ',
@@ -196,7 +197,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                     Divider(
                                       thickness: 2,
                                       color:
-                                      PageTheme.syllable_search_background,
+                                          PageTheme.syllable_search_background,
                                     ),
                                     Flex(
                                       direction: Axis.horizontal,
@@ -205,17 +206,19 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                           flex: 4,
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               ListView.builder(
                                                 physics:
-                                                NeverScrollableScrollPhysics(),
+                                                    NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
-                                                itemCount:
-                                                _contractionPractice[index]['getPairContraction']?.length,
+                                                itemCount: _contractionPractice[
+                                                            index]
+                                                        ['getPairContraction']
+                                                    ?.length,
                                                 itemBuilder:
                                                     (BuildContext context,
-                                                    int index2) {
+                                                        int index2) {
                                                   return Flex(
                                                     direction: Axis.horizontal,
                                                     children: [
@@ -224,19 +227,23 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                           child: Container(
                                                             child: Row(
                                                               mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
+                                                                  MainAxisAlignment
+                                                                      .start,
                                                               children: <
                                                                   Widget>[
                                                                 Padding(
                                                                     padding:
-                                                                    EdgeInsets.all(
-                                                                        10)),
+                                                                        EdgeInsets.all(
+                                                                            10)),
                                                                 Text(
-                                                                  _contractionPractice[index]['getPairContraction'][index2],
+                                                                  _contractionPractice[
+                                                                              index]
+                                                                          [
+                                                                          'getPairContraction']
+                                                                      [index2],
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                      14),
+                                                                          14),
                                                                 ),
                                                               ],
                                                             ),
@@ -244,7 +251,13 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: Text(
-                                                          _contractionPractice[index]['getPairFullForm'][index2].replaceAll(',', ', '),
+                                                          _contractionPractice[
+                                                                          index]
+                                                                      [
+                                                                      'getPairFullForm']
+                                                                  [index2]
+                                                              .replaceAll(
+                                                                  ',', ', '),
                                                           style: TextStyle(
                                                               fontSize: 14),
                                                         ),
@@ -264,7 +277,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                         Center(
                                           child: CircleAvatar(
                                             backgroundColor:
-                                            PageTheme.app_theme_blue,
+                                                PageTheme.app_theme_blue,
                                             radius: 25.0,
                                             child: IconButton(
                                               icon: const Icon(
@@ -274,15 +287,35 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                               onPressed: () {
                                                 AutoRouter.of(context).push(
                                                     LearningManualContractionRoute(
-                                                      getPairContraction: _contractionPractice[index]['getPairContraction'],
-                                                      getPairFullForm: _contractionPractice[index]['getPairFullForm'],
-                                                      getPracticeContraction: _contractionPractice[index]['getPracticeContraction'],
-                                                      getPracticeContractionIPA: _contractionPractice[index]['getPracticeContractionIPA'],
-                                                      getPracticeFullForm: _contractionPractice[index]['getPracticeFullForm'],
-                                                      getPracticeSentence: _contractionPractice[index]['getPracticeSentence'],
-                                                      getPracticeSentenceIPA: _contractionPractice[index]['getPracticeSentenceIPA'],
-                                                    )
-                                                );
+                                                  getPairContraction:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPairContraction'],
+                                                  getPairFullForm:
+                                                      _contractionPractice[
+                                                              index]
+                                                          ['getPairFullForm'],
+                                                  getPracticeContraction:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPracticeContraction'],
+                                                  getPracticeContractionIPA:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPracticeContractionIPA'],
+                                                  getPracticeFullForm:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPracticeFullForm'],
+                                                  getPracticeSentence:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPracticeSentence'],
+                                                  getPracticeSentenceIPA:
+                                                      _contractionPractice[
+                                                              index][
+                                                          'getPracticeSentenceIPA'],
+                                                ));
                                               },
                                             ),
                                           ),
@@ -306,7 +339,10 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                               if (expanded) {
                                 setState(() {
                                   initGetContractionFullForm(
-                                      _dropdownValue1!, _getWord![index], _contractionPractice, index);
+                                      _dropdownValue1!,
+                                      _getWord![index],
+                                      _contractionPractice,
+                                      index);
                                   _selected = index;
                                 });
                               } else {
@@ -351,7 +387,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     var getIPAGraphemePair;
     do {
       String getIPAGraphemePairJSON =
-      await APIUtil.getContractionPair(wordCondition);
+          await APIUtil.getContractionPair(wordCondition);
       getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
       if (getIPAGraphemePair['apiStatus'] != 'success') {
         await Future.delayed(Duration(seconds: 1));
@@ -374,7 +410,8 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     });
   }
 
-  Future<void> initGetContractionFullForm(String wordCondition, String word, List practiceData, int index) async {
+  Future<void> initGetContractionFullForm(
+      String wordCondition, String word, List practiceData, int index) async {
     List<String> getPairContraction = [];
     List<String> getPairFullForm = [];
     List<String> getPracticeContraction = [];
@@ -383,7 +420,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     List<String> getPracticeSentence = [];
     List<String> getPracticeSentenceIPA = [];
 
-    if (practiceData[index]['getPairContraction'] == ''){
+    if (practiceData[index]['getPairContraction'] == '') {
       if (wordCondition == '縮寫前字') {
         wordCondition = 'word1';
       } else if (wordCondition == '縮寫後字') {
@@ -394,7 +431,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
       var getIPAGraphemePair;
       do {
         String getIPAGraphemePairJSON =
-        await APIUtil.getContractionFullForm(wordCondition, word);
+            await APIUtil.getContractionFullForm(wordCondition, word);
         getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
         if (getIPAGraphemePair['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -409,7 +446,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
 
       do {
         String getIPAGraphemePairJSON =
-        await APIUtil.getContractionSentence(wordCondition, word);
+            await APIUtil.getContractionSentence(wordCondition, word);
         getIPAGraphemePair = jsonDecode(getIPAGraphemePairJSON.toString());
         if (getIPAGraphemePair['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -438,7 +475,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
 
         print(practiceData);
       });
-    } else{
+    } else {
       setState(() {});
     }
   }

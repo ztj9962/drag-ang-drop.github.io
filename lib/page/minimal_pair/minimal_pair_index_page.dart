@@ -65,7 +65,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
           ),
         ),
         body: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -93,17 +93,17 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                     style: TextStyle(color: PageTheme.app_theme_blue),
                     maxLines: 1,
                   ),
-                  items: _IPA1List?.map<DropdownMenuItem<String>>(
-                          (String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: AutoSizeText(
-                            '   ${value}',
-                            style: TextStyle(color: PageTheme.app_theme_blue),
-                            maxLines: 1,
-                          ),
-                        );
-                      }).toList(),
+                  items:
+                      _IPA1List?.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: AutoSizeText(
+                        '   ${value}',
+                        style: TextStyle(color: PageTheme.app_theme_blue),
+                        maxLines: 1,
+                      ),
+                    );
+                  }).toList(),
 
                   onChanged: (String? value) {
                     setState(() {
@@ -140,7 +140,8 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                         children: <Widget>[
                           Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: PageTheme.app_theme_blue),
+                              border:
+                                  Border.all(color: PageTheme.app_theme_blue),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ExpansionTile(
@@ -154,10 +155,15 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                     flex: 1,
                                     child: Container(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Text('${_dropdownValue1}, ${_IPA2List![index]}',
-                                              style: TextStyle(fontSize: 20, color: PageTheme.app_theme_blue)),
+                                          Text(
+                                              '${_dropdownValue1}, ${_IPA2List![index]}',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: PageTheme
+                                                      .app_theme_blue)),
                                         ],
                                       ),
                                     ),
@@ -170,35 +176,45 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                     children: <Widget>[
                                       Divider(
                                         thickness: 2,
-                                        color: PageTheme.syllable_search_background,
+                                        color: PageTheme
+                                            .syllable_search_background,
                                       ),
                                       Flex(
                                         direction: Axis.horizontal,
                                         children: <Widget>[
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 ListView.builder(
                                                   physics:
-                                                  NeverScrollableScrollPhysics(),
+                                                      NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
-                                                  itemCount: _minimalPairPractice[index]["leftWord"]?.length,
-                                                  itemBuilder: (BuildContext context, int index2) {
+                                                  itemCount:
+                                                      _minimalPairPractice[
+                                                              index]["leftWord"]
+                                                          ?.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index2) {
                                                     return Flex(
-                                                      direction: Axis.horizontal,
+                                                      direction:
+                                                          Axis.horizontal,
                                                       children: [
                                                         Expanded(
                                                             flex: 1,
-                                                            child: Text('${_minimalPairPractice[index]["leftWord"][index2]}, ${_minimalPairPractice[index]["rightWord"][index2]}',
-                                                              style: TextStyle(fontSize: 14),
-                                                            )
-                                                        ),
+                                                            child: Text(
+                                                              '${_minimalPairPractice[index]["leftWord"][index2]}, ${_minimalPairPractice[index]["rightWord"][index2]}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14),
+                                                            )),
                                                         Expanded(
                                                           flex: 1,
-                                                          child:
-                                                          Text('[${_minimalPairPractice[index]["leftIPA"][index2]}, ${_minimalPairPractice[index]["rightIPA"][index2]}]',
-                                                            style: TextStyle(fontSize: 14),
+                                                          child: Text(
+                                                            '[${_minimalPairPractice[index]["leftIPA"][index2]}, ${_minimalPairPractice[index]["rightIPA"][index2]}]',
+                                                            style: TextStyle(
+                                                                fontSize: 14),
                                                           ),
                                                         ),
                                                       ],
@@ -213,35 +229,39 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                                       Padding(padding: EdgeInsets.all(10)),
                                       Container(
                                           child: Column(
-                                            children: <Widget>[
-                                              Center(
-                                                child: CircleAvatar(
-                                                  backgroundColor:
+                                        children: <Widget>[
+                                          Center(
+                                            child: CircleAvatar(
+                                              backgroundColor:
                                                   PageTheme.app_theme_blue,
-                                                  radius: 25.0,
-                                                  child: IconButton(
-                                                    icon: const Icon(Icons.play_arrow, color: Colors.white,),
-                                                    onPressed: () {
-                                                      AutoRouter.of(context).push(
-                                                          LearningManualMinimalPairRoute(
-                                                              IPA1: _dropdownValue1!,
-                                                              IPA2: _IPA2List![index]));
-                                                    },
-                                                  ),
+                                              radius: 25.0,
+                                              child: IconButton(
+                                                icon: const Icon(
+                                                  Icons.play_arrow,
+                                                  color: Colors.white,
                                                 ),
+                                                onPressed: () {
+                                                  AutoRouter.of(context).push(
+                                                      LearningManualMinimalPairRoute(
+                                                          IPA1:
+                                                              _dropdownValue1!,
+                                                          IPA2: _IPA2List![
+                                                              index]));
+                                                },
                                               ),
-                                              const AutoSizeText(
-                                                '開始練習',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                                maxLines: 1,
-                                              ),
-                                            ],
-                                          )
-                                      )
+                                            ),
+                                          ),
+                                          const AutoSizeText(
+                                            '開始練習',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ))
                                     ],
                                   ),
                                 ),
@@ -249,7 +269,11 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                               onExpansionChanged: (bool expanded) {
                                 if (expanded) {
                                   setState(() {
-                                    getMinimalPairWord(_dropdownValue1!, _IPA2List![index], _minimalPairPractice, index);
+                                    getMinimalPairWord(
+                                        _dropdownValue1!,
+                                        _IPA2List![index],
+                                        _minimalPairPractice,
+                                        index);
                                     _selected = index;
                                   });
                                 } else {
@@ -263,8 +287,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
                           Padding(padding: EdgeInsets.all(4)),
                         ],
                       );
-                    }
-                ),
+                    }),
               ),
             ],
           ),
@@ -304,18 +327,19 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
     });
   }
 
-  Future<void> getMinimalPairWord(String IPA1, String IPA2, List practiceData, int index) async {
+  Future<void> getMinimalPairWord(
+      String IPA1, String IPA2, List practiceData, int index) async {
     List<String> leftWord = [];
     List<String> leftIPA = [];
     List<String> rightWord = [];
     List<String> rightIPA = [];
 
-    if (practiceData[index]['leftWord'] == ''){
+    if (practiceData[index]['leftWord'] == '') {
       EasyLoading.show(status: '正在讀取資料，請稍候......');
       var minimalPairTwoFinder;
       do {
         String minimalPairTwoFinderJSON =
-        await APIUtil.minimalPairTwoFinder(IPA1, IPA2, dataLimit: '10');
+            await APIUtil.minimalPairTwoFinder(IPA1, IPA2, dataLimit: '10');
         minimalPairTwoFinder = jsonDecode(minimalPairTwoFinderJSON.toString());
         if (minimalPairTwoFinder['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -338,8 +362,7 @@ class _MinimalPairIndexPageState extends State<MinimalPairIndexPage> {
           'rightIPA': rightIPA,
         };
       });
-    }
-    else{
+    } else {
       setState(() {});
     }
   }

@@ -117,8 +117,7 @@ class ButtonSquareView extends StatelessWidget {
                             child: Icon(
                               Icons.arrow_forward_ios,
                               color: PageTheme.nearlyWhite,
-                            )
-                        ),
+                            )),
                       ],
                     ),
                   ),

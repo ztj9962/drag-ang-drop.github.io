@@ -89,7 +89,7 @@ class _ChatTopicPracticeConversationListPageState
       int doLimit = 1;
       do {
         String responseJSON =
-        await APIUtil.getConversationGroupData(_topicName);
+            await APIUtil.getConversationGroupData(_topicName);
         responseJSONDecode = jsonDecode(responseJSON.toString());
         if (responseJSONDecode['apiStatus'] != 'success') {
           doLimit += 1;
@@ -133,9 +133,9 @@ class _ChatTopicPracticeConversationListPageState
                           top: 20, left: 4, right: 4, bottom: 4),
                       child: ButtonSquareView(
                         mainText:
-                        '${_titleDict[(index + 1).toString()]['conversationTitle']}\n',
+                            '${_titleDict[(index + 1).toString()]['conversationTitle']}\n',
                         subTextBottomRight:
-                        '對話句數${_titleDict[(index + 1).toString()]['conversationSentenceCount']}',
+                            '對話句數${_titleDict[(index + 1).toString()]['conversationSentenceCount']}',
                         subTextBottomLeft: '',
                         onTapFunction: () async {
                           {
@@ -144,10 +144,10 @@ class _ChatTopicPracticeConversationListPageState
                               int doLimit = 1;
                               do {
                                 String responseJSON =
-                                await APIUtil.getConversationData(
-                                    _titleDict[(index + 1).toString()]
-                                    ['conversationGroupId']
-                                        .toString());
+                                    await APIUtil.getConversationData(
+                                        _titleDict[(index + 1).toString()]
+                                                ['conversationGroupId']
+                                            .toString());
                                 print(responseJSON);
                                 responseJSONDecode = jsonDecode(responseJSON);
                                 if (responseJSONDecode['apiStatus'] !=
@@ -156,11 +156,11 @@ class _ChatTopicPracticeConversationListPageState
                                   if (doLimit > 3)
                                     throw Exception('API: ' +
                                         responseJSONDecode[
-                                        'apiMessage']); // 只測 3 次
+                                            'apiMessage']); // 只測 3 次
                                   await Future.delayed(Duration(seconds: 1));
                                 }
                               } while (
-                              responseJSONDecode['apiStatus'] != 'success');
+                                  responseJSONDecode['apiStatus'] != 'success');
                               print(responseJSONDecode);
                             } catch (e) {
                               ScaffoldMessenger.of(context)
@@ -178,7 +178,7 @@ class _ChatTopicPracticeConversationListPageState
                             List<String> speakerList = [];
                             List<String> orderList = [];
                             for (var item in responseJSONDecode['data']
-                            ['sentence']) {
+                                ['sentence']) {
                               contentList.add(item['topicSentenceContent']);
                               translateList.add(item['topicSentenceChinese']);
                               speakerList.add(item['topicSentenceSpeaker']);
@@ -192,7 +192,7 @@ class _ChatTopicPracticeConversationListPageState
                                     title: _topicName,
                                     speakerList: [speakerList],
                                     subtitle: _titleDict[(index + 1).toString()]
-                                    ['conversationTitle'],
+                                        ['conversationTitle'],
                                     orderList: [orderList]));
                           }
                         },

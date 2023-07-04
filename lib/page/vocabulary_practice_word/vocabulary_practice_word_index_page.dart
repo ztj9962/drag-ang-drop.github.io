@@ -151,39 +151,39 @@ class _VocabularyPracticeWordIndexPageState
                             top: 20, left: 4, right: 4, bottom: 4),
                         child: ButtonSquareView(
                           mainText: (dataList[index]['pageMechanismType'] ==
-                              'educationLevel')
+                                  'educationLevel')
                               ? '${dataList[index]['displayLevel']}'
                               : '${dataList[index]['wordLevel']}',
                           subTextBottomRight: (dataList[index]
-                          ['pageMechanismType'] ==
-                              'educationLevel')
+                                      ['pageMechanismType'] ==
+                                  'educationLevel')
                               ? 'Rank \n${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}'
                               : '單字量${dataList[index]['wordCount']}',
                           subTextBottomLeft: (dataList[index]
-                          ['pageMechanismType'] ==
-                              'educationLevel')
+                                      ['pageMechanismType'] ==
+                                  'educationLevel')
                               ? ''
                               : '${dataList[index]['displayLevel']}',
                           onTapFunction: () {
                             AutoRouter.of(context).push(
                                 VocabularyPracticeWordListRoute(
                                     rangeMin: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? 1
                                         : dataList[index]['minWordRank'],
                                     rangeMax: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? dataList[index]['wordCount']
                                         : dataList[index]['maxWordRank'],
                                     displayLevel: dataList[index]
-                                    ['displayLevel'],
+                                        ['displayLevel'],
                                     cateType: dataList[index]
-                                    ['pageMechanismType'],
+                                        ['pageMechanismType'],
                                     wordLevel: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? dataList[index]['wordLevel']
                                         : ''));
                           },

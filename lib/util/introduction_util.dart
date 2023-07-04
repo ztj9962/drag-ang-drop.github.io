@@ -89,7 +89,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child:Column(
+                    child: Column(
                       children: <Widget>[
                         Expanded(
                           flex: 1,
@@ -111,7 +111,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             children: <Widget>[
                               ToggleButtons(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                                    const BorderRadius.all(Radius.circular(8)),
                                 selectedBorderColor: PageTheme.app_theme_blue,
                                 selectedColor: Colors.white,
                                 fillColor: PageTheme.app_theme_blue,
@@ -123,8 +123,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                   setState(() {
                                     // The button that is tapped is set to true, and the others to false.
                                     for (int i = 0;
-                                    i < _languageSelect.length;
-                                    i++) {
+                                        i < _languageSelect.length;
+                                        i++) {
                                       _languageSelect[i] = i == index;
                                     }
                                     if (index == 1) {
@@ -187,7 +187,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                                   flex: 4,
                                   child: Visibility(
                                     visible: (_contentIndex != 0) &
-                                    (_contentIndex < _introduction.length - 1),
+                                        (_contentIndex <
+                                            _introduction.length - 1),
                                     child: Container(
                                       padding: EdgeInsets.all(6),
                                       margin: EdgeInsets.all(20),
@@ -224,8 +225,7 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                             ),
                           ],
                         ),
-                      )
-                  ),
+                      )),
                   Divider(
                     thickness: 1,
                     color: PageTheme.app_theme_blue,
@@ -246,8 +246,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                               padding: EdgeInsets.all(6),
                               //margin: EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(16.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(16.0)),
                                 boxShadow: [
                                   BoxShadow(
                                       color: PageTheme
@@ -275,10 +275,9 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                       ),
                     ),
                   ),
-
                   Visibility(
                     visible: _contentIndex != _introduction.length - 1,
-                    child:Expanded(
+                    child: Expanded(
                         flex: 1,
                         child: Container(
                           //padding: EdgeInsets.only(top: 10),
@@ -323,8 +322,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                               Expanded(
                                 flex: 1,
                                 child: Visibility(
-                                    visible:
-                                    _contentIndex < _introduction.length - 1,
+                                    visible: _contentIndex <
+                                        _introduction.length - 1,
                                     child: CircleAvatar(
                                       backgroundColor: PageTheme.app_theme_blue,
                                       radius: 24.0,
@@ -345,10 +344,8 @@ class _IntroductionUtilState extends State<IntroductionUtil> {
                               ),
                             ],
                           ),
-                        )
-                    ),
+                        )),
                   ),
-
                 ],
               ),
             ),

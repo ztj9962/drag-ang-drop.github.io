@@ -236,50 +236,49 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                         ),
                                         Padding(padding: EdgeInsets.all(10)),
                                         Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Center(
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                  PageTheme.app_theme_blue,
-                                                  radius: 25.0,
-                                                  child: IconButton(
-                                                    icon: const Icon(
-                                                      Icons.play_arrow,
-                                                      color: Colors.white,
-                                                    ),
-                                                    onPressed: () {
-                                                      AutoRouter.of(context).push(
-                                                          LearningManualIPAGraphemePairRoute(
-                                                            getIPASymbol:
-                                                            _ipaSymbolMonophthongs![
-                                                            index],
-                                                            getGraphemes:
-                                                            _Monophthongs[index]
-                                                            ['getGraphemes'],
-                                                            getWord:
-                                                            _Monophthongs[index]
-                                                            ['getWord'],
-                                                            getWordIPA:
-                                                            _Monophthongs[index]
-                                                            ['getWordIPA'],
-                                                          ));
-                                                    },
+                                            child: Column(
+                                          children: <Widget>[
+                                            Center(
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                    PageTheme.app_theme_blue,
+                                                radius: 25.0,
+                                                child: IconButton(
+                                                  icon: const Icon(
+                                                    Icons.play_arrow,
+                                                    color: Colors.white,
                                                   ),
+                                                  onPressed: () {
+                                                    AutoRouter.of(context).push(
+                                                        LearningManualIPAGraphemePairRoute(
+                                                      getIPASymbol:
+                                                          _ipaSymbolMonophthongs![
+                                                              index],
+                                                      getGraphemes:
+                                                          _Monophthongs[index]
+                                                              ['getGraphemes'],
+                                                      getWord:
+                                                          _Monophthongs[index]
+                                                              ['getWord'],
+                                                      getWordIPA:
+                                                          _Monophthongs[index]
+                                                              ['getWordIPA'],
+                                                    ));
+                                                  },
                                                 ),
                                               ),
-                                              const AutoSizeText(
-                                                '開始練習',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                                maxLines: 1,
+                                            ),
+                                            const AutoSizeText(
+                                              '開始練習',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
                                               ),
-                                            ],
-                                          )
-                                        )
+                                              maxLines: 1,
+                                            ),
+                                          ],
+                                        ))
                                       ],
                                     ),
                                   ),
@@ -483,7 +482,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               Center(
                                                 child: CircleAvatar(
                                                   backgroundColor:
-                                                  PageTheme.app_theme_blue,
+                                                      PageTheme.app_theme_blue,
                                                   radius: 25.0,
                                                   child: IconButton(
                                                     icon: const Icon(
@@ -493,19 +492,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                     onPressed: () {
                                                       AutoRouter.of(context).push(
                                                           LearningManualIPAGraphemePairRoute(
-                                                            getIPASymbol:
+                                                        getIPASymbol:
                                                             _ipaSymbolDiphthongs![
-                                                            index],
-                                                            getGraphemes:
+                                                                index],
+                                                        getGraphemes:
+                                                            _Diphthongs[index][
+                                                                'getGraphemes'],
+                                                        getWord:
                                                             _Diphthongs[index]
-                                                            ['getGraphemes'],
-                                                            getWord:
+                                                                ['getWord'],
+                                                        getWordIPA:
                                                             _Diphthongs[index]
-                                                            ['getWord'],
-                                                            getWordIPA:
-                                                            _Diphthongs[index]
-                                                            ['getWordIPA'],
-                                                          ));
+                                                                ['getWordIPA'],
+                                                      ));
                                                     },
                                                   ),
                                                 ),
@@ -724,7 +723,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               Center(
                                                 child: CircleAvatar(
                                                   backgroundColor:
-                                                  PageTheme.app_theme_blue,
+                                                      PageTheme.app_theme_blue,
                                                   radius: 25.0,
                                                   child: IconButton(
                                                     icon: const Icon(
@@ -734,19 +733,19 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                     onPressed: () {
                                                       AutoRouter.of(context).push(
                                                           LearningManualIPAGraphemePairRoute(
-                                                            getIPASymbol:
+                                                        getIPASymbol:
                                                             _ipaSymbolConsonants![
-                                                            index],
-                                                            getGraphemes:
+                                                                index],
+                                                        getGraphemes:
+                                                            _Consonants[index][
+                                                                'getGraphemes'],
+                                                        getWord:
                                                             _Consonants[index]
-                                                            ['getGraphemes'],
-                                                            getWord:
+                                                                ['getWord'],
+                                                        getWordIPA:
                                                             _Consonants[index]
-                                                            ['getWord'],
-                                                            getWordIPA:
-                                                            _Consonants[index]
-                                                            ['getWordIPA'],
-                                                          ));
+                                                                ['getWordIPA'],
+                                                      ));
                                                     },
                                                   ),
                                                 ),
