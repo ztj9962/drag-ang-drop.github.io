@@ -232,40 +232,54 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                 ],
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    PageTheme.app_theme_blue,
-                                                radius: 25.0,
-                                                child: IconButton(
-                                                  icon: const Icon(
-                                                    Icons
-                                                        .navigate_next_outlined,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    AutoRouter.of(context).push(
-                                                        LearningManualIPAGraphemePairRoute(
-                                                      getIPASymbol:
-                                                          _ipaSymbolMonophthongs![
-                                                              index],
-                                                      getGraphemes:
-                                                          _Monophthongs[index]
-                                                              ['getGraphemes'],
-                                                      getWord:
-                                                          _Monophthongs[index]
-                                                              ['getWord'],
-                                                      getWordIPA:
-                                                          _Monophthongs[index]
-                                                              ['getWordIPA'],
-                                                    ));
-                                                  },
-                                                ),
-                                              ),
-                                            )
                                           ],
                                         ),
+                                        Padding(padding: EdgeInsets.all(10)),
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Center(
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  PageTheme.app_theme_blue,
+                                                  radius: 25.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(
+                                                      Icons.play_arrow,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      AutoRouter.of(context).push(
+                                                          LearningManualIPAGraphemePairRoute(
+                                                            getIPASymbol:
+                                                            _ipaSymbolMonophthongs![
+                                                            index],
+                                                            getGraphemes:
+                                                            _Monophthongs[index]
+                                                            ['getGraphemes'],
+                                                            getWord:
+                                                            _Monophthongs[index]
+                                                            ['getWord'],
+                                                            getWordIPA:
+                                                            _Monophthongs[index]
+                                                            ['getWordIPA'],
+                                                          ));
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              const AutoSizeText(
+                                                '開始練習',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          )
+                                        )
                                       ],
                                     ),
                                   ),
@@ -460,40 +474,54 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                 ],
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    PageTheme.app_theme_blue,
-                                                radius: 25.0,
-                                                child: IconButton(
-                                                  icon: const Icon(
-                                                    Icons
-                                                        .navigate_next_outlined,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    AutoRouter.of(context).push(
-                                                        LearningManualIPAGraphemePairRoute(
-                                                      getIPASymbol:
-                                                          _ipaSymbolDiphthongs![
-                                                              index],
-                                                      getGraphemes:
-                                                          _Diphthongs[index]
-                                                              ['getGraphemes'],
-                                                      getWord:
-                                                          _Diphthongs[index]
-                                                              ['getWord'],
-                                                      getWordIPA:
-                                                          _Diphthongs[index]
-                                                              ['getWordIPA'],
-                                                    ));
-                                                  },
-                                                ),
-                                              ),
-                                            )
                                           ],
                                         ),
+                                        Padding(padding: EdgeInsets.all(10)),
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Center(
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  PageTheme.app_theme_blue,
+                                                  radius: 25.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(
+                                                      Icons.play_arrow,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      AutoRouter.of(context).push(
+                                                          LearningManualIPAGraphemePairRoute(
+                                                            getIPASymbol:
+                                                            _ipaSymbolDiphthongs![
+                                                            index],
+                                                            getGraphemes:
+                                                            _Diphthongs[index]
+                                                            ['getGraphemes'],
+                                                            getWord:
+                                                            _Diphthongs[index]
+                                                            ['getWord'],
+                                                            getWordIPA:
+                                                            _Diphthongs[index]
+                                                            ['getWordIPA'],
+                                                          ));
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              const AutoSizeText(
+                                                '開始練習',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -688,39 +716,52 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                                 ],
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    PageTheme.app_theme_blue,
-                                                radius: 25.0,
-                                                child: IconButton(
-                                                  icon: const Icon(
-                                                    Icons
-                                                        .navigate_next_outlined,
-                                                    color: Colors.white,
+                                          ],
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Center(
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  PageTheme.app_theme_blue,
+                                                  radius: 25.0,
+                                                  child: IconButton(
+                                                    icon: const Icon(
+                                                      Icons.play_arrow,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      AutoRouter.of(context).push(
+                                                          LearningManualIPAGraphemePairRoute(
+                                                            getIPASymbol:
+                                                            _ipaSymbolConsonants![
+                                                            index],
+                                                            getGraphemes:
+                                                            _Consonants[index]
+                                                            ['getGraphemes'],
+                                                            getWord:
+                                                            _Consonants[index]
+                                                            ['getWord'],
+                                                            getWordIPA:
+                                                            _Consonants[index]
+                                                            ['getWordIPA'],
+                                                          ));
+                                                    },
                                                   ),
-                                                  onPressed: () {
-                                                    AutoRouter.of(context).push(
-                                                        LearningManualIPAGraphemePairRoute(
-                                                      getIPASymbol:
-                                                          _ipaSymbolConsonants![
-                                                              index],
-                                                      getGraphemes:
-                                                          _Consonants[index]
-                                                              ['getGraphemes'],
-                                                      getWord:
-                                                          _Consonants[index]
-                                                              ['getWord'],
-                                                      getWordIPA:
-                                                          _Consonants[index]
-                                                              ['getWordIPA'],
-                                                    ));
-                                                  },
                                                 ),
                                               ),
-                                            )
-                                          ],
+                                              const AutoSizeText(
+                                                '開始練習',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
