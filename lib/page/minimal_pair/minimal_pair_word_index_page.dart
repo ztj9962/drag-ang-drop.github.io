@@ -66,48 +66,53 @@ class _MinimalPairWordIndexPageState extends State<MinimalPairWordIndexPage> {
             children: [
               Row(
                 children: <Widget>[
-                  Container(
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        onSubmitted: (value) async {},
-                        controller: _searchWordController,
-                        decoration: const InputDecoration(
-                            labelText: "搜尋單詞",
-                            hintText: "搜尋單詞",
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(25.0)))),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Container(
+                        //padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          onSubmitted: (value) async {},
+                          controller: _searchWordController,
+                          decoration: const InputDecoration(
+                              labelText: "搜尋單詞",
+                              hintText: "搜尋單詞",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(6),
-                    //margin: EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(16.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: PageTheme
-                                .cutom_article_practice_background)
-                      ],
-                    ),
-                    child: TextButton(
-                      child: Text(
-                        '開始搜尋',
-                        style: TextStyle(
-                            fontSize: 14, color: Colors.white),
-                        textAlign: TextAlign.center,
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(6),
+                      margin: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(16.0)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: PageTheme
+                                  .cutom_article_practice_background)
+                        ],
                       ),
-                      onPressed: () {
-                        getMinimalPairWord(_searchWordController.text);
-                      },
+                      child: TextButton(
+                        child: Text(
+                          '開始搜尋',
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          getMinimalPairWord(_searchWordController.text);
+                        },
+                      ),
                     ),
                   ),
                 ],
