@@ -256,15 +256,19 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                             ],
                                           ),
                                         ),
-                                        Expanded(
-                                          flex: 1,
+                                      ],
+                                    ),
+                                    Padding(padding: EdgeInsets.all(10)),
+                                    Column(
+                                      children: <Widget>[
+                                        Center(
                                           child: CircleAvatar(
                                             backgroundColor:
                                             PageTheme.app_theme_blue,
                                             radius: 25.0,
                                             child: IconButton(
                                               icon: const Icon(
-                                                Icons.navigate_next_outlined,
+                                                Icons.play_arrow,
                                                 color: Colors.white,
                                               ),
                                               onPressed: () {
@@ -282,9 +286,18 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                               },
                                             ),
                                           ),
-                                        )
+                                        ),
+                                        const AutoSizeText(
+                                          '開始練習',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
+                                          maxLines: 1,
+                                        ),
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
