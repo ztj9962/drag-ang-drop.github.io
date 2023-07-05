@@ -214,8 +214,8 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_02.svg',
-        titleText: 'Minimal pairs',
-        descripText: '相似字音練習',
+        titleText: 'Minimal pairs - IPA',
+        descripText: '相似字音練習 - 發音搜尋',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
@@ -229,7 +229,7 @@ class _IndexPronunciationPageState extends State<IndexPronunciationPage> {
         showDevelopTag: true,
         imagePath: 'assets/icon/minimal_pair_word.svg',
         titleText: 'Minimal pairs - Word',
-        descripText: '相似單字練習',
+        descripText: '相似字音練習 - 單字搜尋',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
