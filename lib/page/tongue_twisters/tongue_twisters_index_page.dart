@@ -243,6 +243,9 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
                                       sentenceIPA:
                                           _sessionSentenceData[_testIndex]
                                               ['sentenceIPA'],
+                                      sentenceChinese:
+                                      _sessionSentenceData[_testIndex]
+                                      ['sentenceChinese'],
                                     ));
                                   },
                                 ),
@@ -320,6 +323,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
     Map mapTemplate = {
       'session': '',
       'sentence': ['', '', '', '', '', ''],
+      'sentenceChinese': ['', '', '', '', '', ''],
     };
 
     for (var i = 0; i < _sessionList.length; i++) {
@@ -333,6 +337,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
     List<String> getSession = [];
     List<String> getSentence = [];
     List<String> getSentenceIPA = [];
+    List<String> getSentenceChinese = [];
 
     if (_sessionSentenceData[index]['session'] == '') {
       EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -352,6 +357,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
         getSession.add(value["session"]);
         getSentence.add(value["sentence"].toString());
         getSentenceIPA.add(value["sentenceIPA"].toString());
+        getSentenceChinese.add(value["sentenceChinese"].toString());
       });
 
       setState(() {
@@ -359,6 +365,7 @@ class _TongueTwistersIndexPage extends State<TongueTwistersIndexPage> {
           'session': getSession,
           'sentence': getSentence,
           'sentenceIPA': getSentenceIPA,
+          'sentenceChinese': getSentenceChinese,
         };
       });
     } else {

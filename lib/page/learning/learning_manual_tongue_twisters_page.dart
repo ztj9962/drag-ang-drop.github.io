@@ -21,11 +21,13 @@ import 'package:speech_to_text/speech_to_text.dart';
 class LearningManualTongueTwistersPage extends StatefulWidget {
   final List<String> sentence;
   final List<String> sentenceIPA;
+  final List<String> sentenceChinese;
 
   const LearningManualTongueTwistersPage({
     Key? key,
     required this.sentence,
     required this.sentenceIPA,
+    required this.sentenceChinese,
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class _LearningManualTongueTwistersPage
     extends State<LearningManualTongueTwistersPage> {
   late List<String> _sentence;
   late List<String> _sentenceIPA;
+  late List<String> _sentenceChinese;
   int _testIndex = 0;
 
   final _allowTouchButtons = {
@@ -49,6 +52,7 @@ class _LearningManualTongueTwistersPage
 
   String _questionText = '';
   String _questionIPAText = '';
+  String _questionChineseText = '';
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
@@ -118,6 +122,7 @@ class _LearningManualTongueTwistersPage
   void initState() {
     _sentence = widget.sentence;
     _sentenceIPA = widget.sentenceIPA;
+    _sentenceChinese = widget.sentenceChinese;
     print(_sentence);
     super.initState();
     initLearningManualTongueTwistersPage();
@@ -206,6 +211,21 @@ class _LearningManualTongueTwistersPage
                           ),
                         ),
                       ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: _questionChineseWidget,
+                                ),
+                              ),
+                            ),
+                          ),
                       Container(
                         padding: const EdgeInsets.all(8),
                         height: 100,
@@ -991,6 +1011,15 @@ class _LearningManualTongueTwistersPage
       _questionIPATextWidget = [
         TextSpan(text: '[' + _questionIPAText + ']'),
       ];
+
+      String testSentenceChinese =
+      _sentenceChinese[_testIndex].replaceAll('[', '').replaceAll(']', '');
+
+      _questionChineseText = testSentenceChinese;
+      _questionChineseWidget = [
+        TextSpan(text: _questionChineseText),
+      ];
+
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;
