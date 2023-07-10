@@ -269,6 +269,7 @@ class AppRouter extends _i33.RootStackRouter {
           key: args.key,
           sentence: args.sentence,
           sentenceIPA: args.sentenceIPA,
+          sentenceChinese: args.sentenceChinese,
         ),
       );
     },
@@ -1114,6 +1115,7 @@ class LearningManualHarvardRoute
     _i34.Key? key,
     required List<String> sentence,
     required List<String> sentenceIPA,
+    required List<String> sentenceChinese,
   }) : super(
           LearningManualHarvardRoute.name,
           path: '/learning_manual_harvard_page',
@@ -1121,6 +1123,7 @@ class LearningManualHarvardRoute
             key: key,
             sentence: sentence,
             sentenceIPA: sentenceIPA,
+            sentenceChinese: sentenceChinese,
           ),
         );
 
@@ -1132,6 +1135,7 @@ class LearningManualHarvardRouteArgs {
     this.key,
     required this.sentence,
     required this.sentenceIPA,
+    required this.sentenceChinese,
   });
 
   final _i34.Key? key;
@@ -1140,9 +1144,11 @@ class LearningManualHarvardRouteArgs {
 
   final List<String> sentenceIPA;
 
+  final List<String> sentenceChinese;
+
   @override
   String toString() {
-    return 'LearningManualHarvardRouteArgs{key: $key, sentence: $sentence, sentenceIPA: $sentenceIPA}';
+    return 'LearningManualHarvardRouteArgs{key: $key, sentence: $sentence, sentenceIPA: $sentenceIPA, sentenceChinese: $sentenceChinese}';
   }
 }
 

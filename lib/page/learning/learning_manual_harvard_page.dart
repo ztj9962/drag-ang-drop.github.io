@@ -21,11 +21,13 @@ import 'package:speech_to_text/speech_to_text.dart';
 class LearningManualHarvardPage extends StatefulWidget {
   final List<String> sentence;
   final List<String> sentenceIPA;
+  final List<String> sentenceChinese;
 
   const LearningManualHarvardPage({
     Key? key,
     required this.sentence,
     required this.sentenceIPA,
+    required this.sentenceChinese,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ enum TtsState { playing, stopped, paused, continued }
 class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
   late List<String> _sentence;
   late List<String> _sentenceIPA;
+  late List<String> _sentenceChinese;
   int _testIndex = 0;
 
   final _allowTouchButtons = {
@@ -47,6 +50,7 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
 
   String _questionText = '';
   String _questionIPAText = '';
+  String _questionChineseText = '';
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
@@ -116,6 +120,7 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
   void initState() {
     _sentence = widget.sentence;
     _sentenceIPA = widget.sentenceIPA;
+    _sentenceChinese = widget.sentenceChinese;
     super.initState();
     initLearningManualHarvardPage();
   }
@@ -203,6 +208,21 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
                           ),
                         ),
                       ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: _questionChineseWidget,
+                                ),
+                              ),
+                            ),
+                          ),
                       Container(
                         padding: const EdgeInsets.all(8),
                         height: 100,
@@ -973,21 +993,29 @@ class _LearningManualHarvardPage extends State<LearningManualHarvardPage> {
         TextSpan(text: _replyText),
       ];
 
-      String testWord =
+      String testSentence =
           _sentence[_testIndex].replaceAll('[', '').replaceAll(']', '');
 
-      _questionText = testWord;
+      _questionText = testSentence;
       _questionTextWidget = [
         TextSpan(text: _questionText),
       ];
 
-      String testWordIPA =
+      String testSentenceIPA =
           _sentenceIPA[_testIndex].replaceAll('[', '').replaceAll(']', '');
 
-      _questionIPAText = testWordIPA;
+      _questionIPAText = testSentenceIPA;
       _questionIPATextWidget = [
         TextSpan(text: '[' + _questionIPAText + ']'),
       ];
+
+      String testSentenceChinese = _sentenceChinese[_testIndex].replaceAll('[', '').replaceAll(']', '');
+
+      _questionChineseText = testSentenceChinese;
+      _questionChineseWidget = [
+        TextSpan(text: _questionChineseText),
+      ];
+
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;

@@ -233,6 +233,8 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                                             _sessionNum - 1]['sentence'],
                                         sentenceIPA: _sessionSentenceData[
                                             _sessionNum - 1]['sentenceIPA'],
+                                        sentenceChinese: _sessionSentenceData[
+                                        _sessionNum - 1]['sentenceChinese'],
                                       ));
                                     },
                                   ),
@@ -314,6 +316,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
       'session': '',
       'sentence': ['', '', '', '', '', '', '', '', '', ''],
       'sentenceIPA': '',
+      'sentenceChinese': ['', '', '', '', '', '', '', '', '', ''],
     };
 
     for (var i = 1; i < 73; i++) {
@@ -328,6 +331,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
     List<int> getSessionNum = [];
     List<String> getSentence = [];
     List<String> getSentenceIPA = [];
+    List<String> getSentenceChinese = [];
 
     if (_sessionSentenceData[index]['session'] == '') {
       EasyLoading.show(status: '正在讀取資料，請稍候......');
@@ -346,6 +350,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
         getSessionNum.add(value["session"]);
         getSentence.add(value["sentence"].toString());
         getSentenceIPA.add(value["sentenceIPA"].toString());
+        getSentenceChinese.add(value["sentenceChinese"].toString());
       });
 
       setState(() {
@@ -353,6 +358,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
           'sessionNum': getSessionNum,
           'sentence': getSentence,
           'sentenceIPA': getSentenceIPA,
+          'sentenceChinese': getSentenceChinese,
         };
       });
     } else {
