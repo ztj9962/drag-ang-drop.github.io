@@ -315,6 +315,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
                                                       _contractionPractice[
                                                               index][
                                                           'getPracticeSentenceIPA'],
+                                                      getPracticeSentenceChinese: _contractionPractice[index]['getPracticeSentenceChinese'],
                                                 ));
                                               },
                                             ),
@@ -419,6 +420,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
     List<String> getPracticeFullForm = [];
     List<String> getPracticeSentence = [];
     List<String> getPracticeSentenceIPA = [];
+    List<String> getPracticeSentenceChinese = [];
 
     if (practiceData[index]['getPairContraction'] == '') {
       if (wordCondition == '縮寫前字') {
@@ -460,6 +462,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
         getPracticeFullForm.add(value["fullForm"]);
         getPracticeSentence.add(value["sentence"]);
         getPracticeSentenceIPA.add(value["sentenceIPA"]);
+        getPracticeSentenceChinese.add(value["sentenceChinese"]);
       });
 
       setState(() {
@@ -471,6 +474,7 @@ class _ContractionIndexPage extends State<ContractionIndexPage> {
           'getPracticeFullForm': getPracticeFullForm,
           'getPracticeSentence': getPracticeSentence,
           'getPracticeSentenceIPA': getPracticeSentenceIPA,
+          'getPracticeSentenceChinese': getPracticeSentenceChinese,
         };
 
         print(practiceData);
