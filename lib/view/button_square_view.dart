@@ -12,15 +12,15 @@ class ButtonSquareView extends StatelessWidget {
   final String subTextBottomRight;
   final Function()? onTapFunction;
 
-  const ButtonSquareView(
-      {Key? key,
-        //required this.backgroundColor,
-        required this.mainText,
-        required this.subTextBottomLeft,
-        required this.subTextBottomRight,
-        required this.widgetColor,
-        this.onTapFunction,})
-      : super(key: key);
+  const ButtonSquareView({
+    Key? key,
+    //required this.backgroundColor,
+    required this.mainText,
+    required this.subTextBottomLeft,
+    required this.subTextBottomRight,
+    required this.widgetColor,
+    this.onTapFunction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ButtonSquareView extends StatelessWidget {
                     blurRadius: 8.0),
               ],
               gradient: LinearGradient(
-                colors: [widgetColor,widgetColor],
+                colors: [widgetColor, widgetColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),

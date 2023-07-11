@@ -36,7 +36,6 @@ class _VocabularyPracticeWordIndexPageState
     EasyLoading.dismiss();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,38 +153,40 @@ class _VocabularyPracticeWordIndexPageState
                         child: ButtonSquareView(
                           mainText: '${dataList[index]['displayLevel']}',
                           subTextBottomRight: (dataList[index]
-                          ['pageMechanismType'] ==
-                              'educationLevel')
+                                      ['pageMechanismType'] ==
+                                  'educationLevel')
                               ? 'Rank \n${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}'
                               : '單字量${dataList[index]['wordCount']}',
                           subTextBottomLeft: (dataList[index]
-                          ['pageMechanismType'] ==
-                              'educationLevel')
+                                      ['pageMechanismType'] ==
+                                  'educationLevel')
                               ? ''
                               : '${dataList[index]['describe']}',
                           onTapFunction: () {
                             AutoRouter.of(context).push(
                                 VocabularyPracticeWordListRoute(
                                     rangeMin: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? 1
                                         : dataList[index]['minWordRank'],
                                     rangeMax: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? dataList[index]['wordCount']
                                         : dataList[index]['maxWordRank'],
                                     displayLevel: dataList[index]
-                                    ['displayLevel'],
+                                        ['displayLevel'],
                                     cateType: dataList[index]
-                                    ['pageMechanismType'],
+                                        ['pageMechanismType'],
                                     wordLevel: (dataList[index]
-                                    ['pageMechanismType'] ==
-                                        'proficiencyTestLevel')
+                                                ['pageMechanismType'] ==
+                                            'proficiencyTestLevel')
                                         ? dataList[index]['wordLevel']
                                         : ''));
-                          }, widgetColor: PageTheme.app_theme_blue.withOpacity(0.2+index*(0.8/dataList!.length)),
+                          },
+                          widgetColor: PageTheme.app_theme_blue.withOpacity(
+                              0.2 + index * (0.8 / dataList!.length)),
                         ),
                       ),
                     ),
