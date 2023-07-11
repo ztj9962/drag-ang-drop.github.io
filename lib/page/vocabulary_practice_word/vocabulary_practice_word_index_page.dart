@@ -36,6 +36,7 @@ class _VocabularyPracticeWordIndexPageState
     EasyLoading.dismiss();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +117,7 @@ class _VocabularyPracticeWordIndexPageState
                 ),
                 AutoSizeText(
                   (cateStr == 'proficiencyTestLevel')
-                      ? '*CEFR等級的斜線後中文字等級表對應之全民英檢等級'
+                      ? '*CEFR等級的斜線後中文字等級表對應之全民英檢等級\n(A1/初級一): CERF A1 對應全民英檢初級'
                       : '',
                   style: TextStyle(color: PageTheme.grey),
                 )
@@ -124,6 +125,7 @@ class _VocabularyPracticeWordIndexPageState
             ),
           ),
         );
+        print(dataList);
 
         listViews.add(Wrap(
             alignment: WrapAlignment.center,
@@ -150,43 +152,40 @@ class _VocabularyPracticeWordIndexPageState
                         padding: const EdgeInsets.only(
                             top: 20, left: 4, right: 4, bottom: 4),
                         child: ButtonSquareView(
-                          mainText: (dataList[index]['pageMechanismType'] ==
-                                  'educationLevel')
-                              ? '${dataList[index]['displayLevel']}'
-                              : '${dataList[index]['wordLevel']}',
+                          mainText: '${dataList[index]['displayLevel']}',
                           subTextBottomRight: (dataList[index]
-                                      ['pageMechanismType'] ==
-                                  'educationLevel')
+                          ['pageMechanismType'] ==
+                              'educationLevel')
                               ? 'Rank \n${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}'
                               : '單字量${dataList[index]['wordCount']}',
                           subTextBottomLeft: (dataList[index]
-                                      ['pageMechanismType'] ==
-                                  'educationLevel')
+                          ['pageMechanismType'] ==
+                              'educationLevel')
                               ? ''
-                              : '${dataList[index]['displayLevel']}',
+                              : '${dataList[index]['describe']}',
                           onTapFunction: () {
                             AutoRouter.of(context).push(
                                 VocabularyPracticeWordListRoute(
                                     rangeMin: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
+                                    ['pageMechanismType'] ==
+                                        'proficiencyTestLevel')
                                         ? 1
                                         : dataList[index]['minWordRank'],
                                     rangeMax: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
+                                    ['pageMechanismType'] ==
+                                        'proficiencyTestLevel')
                                         ? dataList[index]['wordCount']
                                         : dataList[index]['maxWordRank'],
                                     displayLevel: dataList[index]
-                                        ['displayLevel'],
+                                    ['displayLevel'],
                                     cateType: dataList[index]
-                                        ['pageMechanismType'],
+                                    ['pageMechanismType'],
                                     wordLevel: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
+                                    ['pageMechanismType'] ==
+                                        'proficiencyTestLevel')
                                         ? dataList[index]['wordLevel']
                                         : ''));
-                          },
+                          }, widgetColor: PageTheme.app_theme_blue.withOpacity(0.2+index*(0.8/dataList!.length)),
                         ),
                       ),
                     ),
