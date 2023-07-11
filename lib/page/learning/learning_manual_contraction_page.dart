@@ -26,6 +26,7 @@ class LearningManualContractionPage extends StatefulWidget {
   final List<String> getPracticeFullForm;
   final List<String> getPracticeSentence;
   final List<String> getPracticeSentenceIPA;
+  final List<String> getPracticeSentenceChinese;
 
   const LearningManualContractionPage({
     Key? key,
@@ -36,6 +37,7 @@ class LearningManualContractionPage extends StatefulWidget {
     required this.getPracticeFullForm,
     required this.getPracticeSentence,
     required this.getPracticeSentenceIPA,
+    required this.getPracticeSentenceChinese,
   }) : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class _LearningManualContractionPage
   late List<String> _getPracticeFullForm;
   late List<String> _getPracticeSentence;
   late List<String> _getPracticeSentenceIPA;
+  late List<String> _getPracticeSentenceChinese;
   int _testIndex = 0;
   int _testListIndex = 0;
   int _testPracticeListIndex = 0;
@@ -66,6 +69,7 @@ class _LearningManualContractionPage
 
   String _questionText = '';
   String _questionIPAText = '';
+  String _questionChinese = '';
   String _replyText = '';
   String _answerText = '';
   String _answerIPAText = '';
@@ -140,6 +144,7 @@ class _LearningManualContractionPage
     _getPracticeFullForm = widget.getPracticeFullForm;
     _getPracticeSentence = widget.getPracticeSentence;
     _getPracticeSentenceIPA = widget.getPracticeSentenceIPA;
+    _getPracticeSentenceChinese = widget.getPracticeSentenceChinese;
     print(_getPracticeSentence);
     super.initState();
     initLearningManualMinimalPairContractionPage();
@@ -343,6 +348,21 @@ class _LearningManualContractionPage
                           ),
                         ),
                       ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: _questionChineseWidget,
+                                ),
+                              ),
+                            ),
+                          ),
                       Container(
                         padding: const EdgeInsets.all(8),
                         height: 100,
@@ -1102,6 +1122,7 @@ class _LearningManualContractionPage
         ];
         _questionText = '';
         _questionIPAText = '';
+        _questionChinese = '';
         _questionTextWidget = [];
         _questionIPATextWidget = [];
         _questionChineseWidget = [];
@@ -1138,6 +1159,15 @@ class _LearningManualContractionPage
       _questionIPATextWidget = [
         TextSpan(text: '[' + _questionIPAText + ']'),
       ];
+
+      String testSentenceChinese =
+      _getPracticeSentenceChinese[_testIndex].replaceAll(',', ', ');
+
+      _questionChinese = testSentenceChinese;
+      _questionChineseWidget = [
+        TextSpan(text: _questionChinese),
+      ];
+
       ttsRateSlow = false;
       _allowTouchButtons['reListenButton'] = true;
       _allowTouchButtons['speakButton'] = true;

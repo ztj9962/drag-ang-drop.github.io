@@ -246,6 +246,7 @@ class AppRouter extends _i33.RootStackRouter {
           getPracticeFullForm: args.getPracticeFullForm,
           getPracticeSentence: args.getPracticeSentence,
           getPracticeSentenceIPA: args.getPracticeSentenceIPA,
+          getPracticeSentenceChinese: args.getPracticeSentenceChinese,
         ),
       );
     },
@@ -1014,6 +1015,7 @@ class LearningManualContractionRoute
     required List<String> getPracticeFullForm,
     required List<String> getPracticeSentence,
     required List<String> getPracticeSentenceIPA,
+    required List<String> getPracticeSentenceChinese,
   }) : super(
           LearningManualContractionRoute.name,
           path: '/learning_manual_contraction_page',
@@ -1026,6 +1028,7 @@ class LearningManualContractionRoute
             getPracticeFullForm: getPracticeFullForm,
             getPracticeSentence: getPracticeSentence,
             getPracticeSentenceIPA: getPracticeSentenceIPA,
+            getPracticeSentenceChinese: getPracticeSentenceChinese,
           ),
         );
 
@@ -1042,6 +1045,7 @@ class LearningManualContractionRouteArgs {
     required this.getPracticeFullForm,
     required this.getPracticeSentence,
     required this.getPracticeSentenceIPA,
+    required this.getPracticeSentenceChinese,
   });
 
   final _i34.Key? key;
@@ -1060,9 +1064,11 @@ class LearningManualContractionRouteArgs {
 
   final List<String> getPracticeSentenceIPA;
 
+  final List<String> getPracticeSentenceChinese;
+
   @override
   String toString() {
-    return 'LearningManualContractionRouteArgs{key: $key, getPairContraction: $getPairContraction, getPairFullForm: $getPairFullForm, getPracticeContraction: $getPracticeContraction, getPracticeContractionIPA: $getPracticeContractionIPA, getPracticeFullForm: $getPracticeFullForm, getPracticeSentence: $getPracticeSentence, getPracticeSentenceIPA: $getPracticeSentenceIPA}';
+    return 'LearningManualContractionRouteArgs{key: $key, getPairContraction: $getPairContraction, getPairFullForm: $getPairFullForm, getPracticeContraction: $getPracticeContraction, getPracticeContractionIPA: $getPracticeContractionIPA, getPracticeFullForm: $getPracticeFullForm, getPracticeSentence: $getPracticeSentence, getPracticeSentenceIPA: $getPracticeSentenceIPA, getPracticeSentenceChinese: $getPracticeSentenceChinese}';
   }
 }
 
