@@ -196,6 +196,7 @@ class _ChatTopicPracticeConversationListPageState
                                     orderList: [orderList]));
                           }
                         },
+                        widgetColor: PageTheme.app_theme_blue,
                       ),
                     ),
                   ),

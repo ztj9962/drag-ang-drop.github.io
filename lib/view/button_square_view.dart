@@ -6,19 +6,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ButtonSquareView extends StatelessWidget {
   //final Color backgroundColor;
+  final Color widgetColor;
   final String mainText;
   final String subTextBottomLeft;
   final String subTextBottomRight;
   final Function()? onTapFunction;
 
-  const ButtonSquareView(
-      {Key? key,
-      //required this.backgroundColor,
-      required this.mainText,
-      required this.subTextBottomLeft,
-      required this.subTextBottomRight,
-      this.onTapFunction})
-      : super(key: key);
+  const ButtonSquareView({
+    Key? key,
+    //required this.backgroundColor,
+    required this.mainText,
+    required this.subTextBottomLeft,
+    required this.subTextBottomRight,
+    required this.widgetColor,
+    this.onTapFunction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +43,7 @@ class ButtonSquareView extends StatelessWidget {
                     blurRadius: 8.0),
               ],
               gradient: LinearGradient(
-                colors: <HexColor>[
-                  HexColor('#FF08579B'),
-                  HexColor('#aaaaaa'),
-                ],
+                colors: [widgetColor, widgetColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
