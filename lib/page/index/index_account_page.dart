@@ -59,7 +59,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.redAccent),
                   textStyle:
-                  MaterialStateProperty.all(const TextStyle(fontSize: 24)),
+                      MaterialStateProperty.all(const TextStyle(fontSize: 24)),
                   shape: MaterialStateProperty.all(const StadiumBorder(
                       side: BorderSide(style: BorderStyle.solid))), //圆角弧度
                 ),
@@ -74,7 +74,7 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black),
                   textStyle:
-                  MaterialStateProperty.all(const TextStyle(fontSize: 24)),
+                      MaterialStateProperty.all(const TextStyle(fontSize: 24)),
                   shape: MaterialStateProperty.all(const StadiumBorder(
                       side: BorderSide(style: BorderStyle.solid))), //圆角弧度
                 ),
@@ -383,7 +383,8 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
         builder: (context) {
           return AlertDialog(
             title: Text('確定要刪除帳號嗎？'),
-            content: Text('刪除帳號後，所有資料將無法復原，包含：\n- 會員資料\n- 過往AlicsPro訂購資訊\n- 其它一切與帳號相關的任何資料'),
+            content: Text(
+                '刪除帳號後，所有資料將無法復原，包含：\n- 會員資料\n- 過往AlicsPro訂購資訊\n- 其它一切與帳號相關的任何資料'),
             actions: <Widget>[
               TextButton(
                 child: Text('取消'),
@@ -404,7 +405,5 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
             ],
           );
         });
-
   }
-
 }

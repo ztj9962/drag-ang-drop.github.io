@@ -55,7 +55,8 @@ class authRespository {
     }
   }
 
-  static Future<String> signInWithEmailPassword(String emailAddress, String password) async {
+  static Future<String> signInWithEmailPassword(
+      String emailAddress, String password) async {
     dynamic credential;
 
     if (emailAddress.length <= 0 || password.length <= 0) {
@@ -65,9 +66,7 @@ class authRespository {
     try {
       // 先嘗試登入
       credential = await _firebaseAuth.signInWithEmailAndPassword(
-          email: emailAddress,
-          password: password
-      );
+          email: emailAddress, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code != 'user-not-found') {
         return e.code.toString();
