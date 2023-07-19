@@ -57,13 +57,28 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
             Center(
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.redAccent),
                   textStyle:
-                      MaterialStateProperty.all(const TextStyle(fontSize: 24)),
+                  MaterialStateProperty.all(const TextStyle(fontSize: 24)),
                   shape: MaterialStateProperty.all(const StadiumBorder(
                       side: BorderSide(style: BorderStyle.solid))), //圆角弧度
                 ),
-                child: const Text('   登出   '),
+                child: const Text('刪除帳號'),
+                onPressed: () async {
+                  clickDeleteAccountButton(context);
+                },
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  textStyle:
+                  MaterialStateProperty.all(const TextStyle(fontSize: 24)),
+                  shape: MaterialStateProperty.all(const StadiumBorder(
+                      side: BorderSide(style: BorderStyle.solid))), //圆角弧度
+                ),
+                child: const Text('登        出'),
                 onPressed: () async {
                   authRespository.SignOut();
                   await SharedPreferencesUtil.saveData<bool>('isSignin', false);
@@ -361,4 +376,35 @@ class _IndexAccountPageState extends State<IndexAccountPage> {
       ],
     );
   }
+
+  void clickDeleteAccountButton(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('確定要刪除帳號嗎？'),
+            content: Text('刪除帳號後，所有資料將無法復原，包含：\n- 會員資料\n- 過往AlicsPro訂購資訊\n- 其它一切與帳號相關的任何資料'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('確定'),
+                onPressed: () async {
+                  authRespository.deleteAccount();
+                  await SharedPreferencesUtil.saveData<bool>('isSignin', false);
+                  AutoRouter.of(context).push(IndexRoute());
+                  AutoRouter.of(context).replaceAll([IndexRoute()]);
+                  context.router.popUntilRoot();
+                },
+              ),
+            ],
+          );
+        });
+
+  }
+
 }

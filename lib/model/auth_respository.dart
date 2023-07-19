@@ -216,4 +216,20 @@ class authRespository {
     String id = _firebaseAuth.currentUser!.uid.toString();
     return id;
   }
+
+  static Future<bool> deleteAccount() async {
+    try {
+      final User? currentUser = _firebaseAuth.currentUser;
+      if (currentUser != null) {
+        await currentUser.delete();
+        print('try delete');
+        return true;
+      } else {
+        print('try delete false');
+        return false;
+      }
+    } catch (_) {
+      return false;
+    }
+  }
 }
