@@ -27,6 +27,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
   List<String>? _ipaSymbolUrlMonophthongs = [];
   List<String>? _ipaSymbolDiphthongs = [];
   List<String>? _graphemesDiphthongs = [];
+  List<String>? _ipaSymbolUrlDiphthongs = [];
   List<String>? _ipaSymbolConsonants = [];
   List<String>? _graphemesConsonants = [];
   List<String>? _ipaSymbolUrlConsonants = [];
@@ -126,11 +127,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
                                           children: <Widget>[
-                                            IconButton(
-                                              icon: Icon(Icons.volume_up),
-                                              onPressed: () async{
-                                                await audioPlayer.play(UrlSource(_ipaSymbolUrlMonophthongs![index]));
-                                              },
+                                            Visibility(
+                                              visible: _ipaSymbolUrlMonophthongs![index] != "",
+                                              child: IconButton(
+                                                icon: Icon(Icons.volume_up),
+                                                onPressed: () async{
+                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlMonophthongs![index]));
+                                                },
+                                              ),
                                             ),
                                             Text(_ipaSymbolMonophthongs![index],
                                                 style: TextStyle(
@@ -374,6 +378,15 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
                                           children: <Widget>[
+                                            Visibility(
+                                              visible: _ipaSymbolUrlDiphthongs![index] != "",
+                                              child: IconButton(
+                                                icon: Icon(Icons.volume_up),
+                                                onPressed: () async{
+                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlDiphthongs![index]));
+                                                },
+                                              ),
+                                            ),
                                             Text(_ipaSymbolDiphthongs![index],
                                                 style: TextStyle(
                                                     fontSize: 24,
@@ -616,11 +629,14 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
                                           children: <Widget>[
-                                            IconButton(
-                                              icon: Icon(Icons.volume_up),
-                                              onPressed: () async{
-                                                await audioPlayer.play(UrlSource(_ipaSymbolUrlConsonants![index]));
-                                              },
+                                            Visibility(
+                                              visible: _ipaSymbolUrlConsonants![index] != "",
+                                              child: IconButton(
+                                                icon: Icon(Icons.volume_up),
+                                                onPressed: () async{
+                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlConsonants![index]));
+                                                },
+                                              ),
                                             ),
                                             Text(_ipaSymbolConsonants![index],
                                                 style: TextStyle(
@@ -823,6 +839,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     List<String> ipaSymbolUrlMonophthongs = [];
     List<String> ipaSymbolDiphthongs = [];
     List<String> graphemesDiphthongs = [];
+    List<String> ipaSymbolUrlDiphthongs = [];
     List<String> ipaSymbolConsonants = [];
     List<String> graphemesConsonants = [];
     List<String> ipaSymbolUrlConsonants = [];
@@ -847,7 +864,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     getIPAGraphemePair['data'].forEach((value) {
       ipaSymbolMonophthongs.add(value["ipaSymbol"]);
       graphemesMonophthongs.add(value["grapheme"].toString());
-      ipaSymbolUrlMonophthongs.add(value["url"]);
+      ipaSymbolUrlMonophthongs.add(value["audioUrl"]);
     });
 
     do {
@@ -862,6 +879,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     getIPAGraphemePair['data'].forEach((value) {
       ipaSymbolDiphthongs.add(value["ipaSymbol"]);
       graphemesDiphthongs.add(value["grapheme"].toString());
+      ipaSymbolUrlDiphthongs.add(value["audioUrl"]);
     });
 
     do {
@@ -877,7 +895,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     getIPAGraphemePair['data'].forEach((value) {
       ipaSymbolConsonants.add(value["ipaSymbol"]);
       graphemesConsonants.add(value["grapheme"].toString());
-      ipaSymbolUrlConsonants.add(value["url"]);
+      ipaSymbolUrlConsonants.add(value["audioUrl"]);
     });
 
     setState(() {
@@ -886,6 +904,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
       _ipaSymbolUrlMonophthongs = ipaSymbolUrlMonophthongs;
       _ipaSymbolDiphthongs = ipaSymbolDiphthongs;
       _graphemesDiphthongs = graphemesDiphthongs;
+      _ipaSymbolUrlDiphthongs = ipaSymbolUrlDiphthongs;
       _ipaSymbolConsonants = ipaSymbolConsonants;
       _graphemesConsonants = graphemesConsonants;
       _ipaSymbolUrlConsonants = ipaSymbolUrlConsonants;
