@@ -55,6 +55,9 @@ dependencies:
   auto_route: ^5.0.0
   crypto: ^3.0.2
 
+  # Play Audio
+  audioplayers: ^4.1.0
+
   #
   wakelock: ^0.6.1
   flutter_emoji: ^2.4.0
