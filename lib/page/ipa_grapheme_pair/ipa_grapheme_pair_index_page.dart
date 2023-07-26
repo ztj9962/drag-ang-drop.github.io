@@ -9,7 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class IPAGraphemePairIndexPage extends StatefulWidget {
   const IPAGraphemePairIndexPage({Key? key}) : super(key: key);
@@ -132,7 +132,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               child: IconButton(
                                                 icon: Icon(Icons.volume_up),
                                                 onPressed: () async{
-                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlMonophthongs![index]));
+                                                  await audioPlayer.setUrl(_ipaSymbolUrlMonophthongs![index]);
+                                                  audioPlayer.play();
                                                 },
                                               ),
                                             ),
@@ -383,7 +384,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               child: IconButton(
                                                 icon: Icon(Icons.volume_up),
                                                 onPressed: () async{
-                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlDiphthongs![index]));
+                                                  await audioPlayer.setUrl(_ipaSymbolUrlDiphthongs![index]);
+                                                  audioPlayer.play();
                                                 },
                                               ),
                                             ),
@@ -634,7 +636,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
                                               child: IconButton(
                                                 icon: Icon(Icons.volume_up),
                                                 onPressed: () async{
-                                                  await audioPlayer.play(UrlSource(_ipaSymbolUrlConsonants![index]));
+                                                  await audioPlayer.setUrl(_ipaSymbolUrlConsonants![index]);
+                                                  audioPlayer.play();
                                                 },
                                               ),
                                             ),

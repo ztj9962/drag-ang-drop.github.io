@@ -56,7 +56,7 @@ dependencies:
   crypto: ^3.0.2
 
   # Play Audio
-  audioplayers: ^4.1.0
+  just_audio: ^0.9.34
 
   #
   wakelock: ^0.6.1
