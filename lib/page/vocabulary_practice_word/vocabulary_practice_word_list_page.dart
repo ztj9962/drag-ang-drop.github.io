@@ -237,6 +237,7 @@ class _VocabularyPracticeWordListPageState
                     child: TextField(
                       onSubmitted: (value) async {
                         await _searchVocabularyRowIndex(value);
+                        await _getVocabularyList();
                       },
                       controller: _editingController,
                       decoration: const InputDecoration(
@@ -342,6 +343,7 @@ class _VocabularyPracticeWordListPageState
                                     maxLines: 1,
                                   ),
                                 ),
+                                (_vocabularyList[index]['wordMeaningList'] != null) ?
                                 Expanded(
                                   flex: 3,
                                   child: ListView.builder(
@@ -361,7 +363,7 @@ class _VocabularyPracticeWordListPageState
                                           maxLines: 2,
                                         );
                                       }),
-                                ),
+                                ) : Container(),
                               ],
                             ),
                           );
@@ -647,7 +649,7 @@ class _VocabularyPracticeWordListPageState
             () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Opps: 目標 ${sliderIndex} 已超出範圍'),
+        content: Text('Opps: 您要找的單字位於Rank ${sliderIndex} 不存在${_sliderEducationLevel}範圍'),
       ));
     }
     //_adjustSliderEducationLevel();
