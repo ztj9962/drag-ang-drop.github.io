@@ -98,102 +98,173 @@ class _VocabularyPracticeWordIndexPageState
         List dataList = responseJSONDecode['data'][cateStr];
         //print(key);
         //print(value);
-
-        listViews.add(
-          Container(
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.all(8)),
-                TitleView(
-                  titleTxt: (cateStr == 'educationLevel')
-                      ? 'Education Level\n教育程度檢定'
-                      : 'Proficiency Test Level\n英文能力檢定',
-                  titleColor: Colors.black,
-                  centerAlign: true,
-                ),
-                Divider(
-                  thickness: 1,
-                ),
-                AutoSizeText(
-                  (cateStr == 'proficiencyTestLevel')
-                      ? '*CEFR等級的斜線後中文字等級表對應之全民英檢等級\n(A1/初級一): CERF A1 對應全民英檢初級'
-                      : '',
-                  style: TextStyle(color: PageTheme.grey),
-                )
-              ],
-            ),
-          ),
-        );
-        print(dataList);
-
-        listViews.add(Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 2,
-            children: List.generate(dataList!.length, (index) {
-              //if (index == 0) return Container();
-              //return Text(value['title'][index]);
-              //print(value['title'][index]);
-              return Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32),
-                    child: Container(
-                      width: 350,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(8.0),
-                          bottomLeft: Radius.circular(8.0),
-                          topLeft: Radius.circular(8.0),
-                          topRight: Radius.circular(54.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20, left: 4, right: 4, bottom: 4),
-                        child: ButtonSquareView(
-                          mainText: '${dataList[index]['displayLevel']}',
-                          subTextBottomRight: (dataList[index]
-                                      ['pageMechanismType'] ==
-                                  'educationLevel')
-                              ? 'Rank \n${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}'
-                              : '單字量${dataList[index]['wordCount']}',
-                          subTextBottomLeft: (dataList[index]
-                                      ['pageMechanismType'] ==
-                                  'educationLevel')
-                              ? ''
-                              : '${dataList[index]['describe']}',
-                          onTapFunction: () {
-                            AutoRouter.of(context).push(
-                                VocabularyPracticeWordListRoute(
-                                    rangeMin: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
-                                        ? 1
-                                        : dataList[index]['minWordRank'],
-                                    rangeMax: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
-                                        ? dataList[index]['wordCount']
-                                        : dataList[index]['maxWordRank'],
-                                    displayLevel: dataList[index]
-                                        ['displayLevel'],
-                                    cateType: dataList[index]
-                                        ['pageMechanismType'],
-                                    wordLevel: (dataList[index]
-                                                ['pageMechanismType'] ==
-                                            'proficiencyTestLevel')
-                                        ? dataList[index]['wordLevel']
-                                        : ''));
-                          },
-                          widgetColor: PageTheme.app_theme_blue.withOpacity(
-                              0.2 + index * (0.8 / dataList!.length)),
-                        ),
-                      ),
+        switch (cateStr) {
+          case 'educationLevel':
+            listViews.add(
+              Container(
+                child: Column(
+                  children: [
+                    Padding(padding: EdgeInsets.all(8)),
+                    TitleView(
+                      titleTxt: 'Education Level\n教育程度檢定',
+                      titleColor: Colors.black,
+                      centerAlign: true,
                     ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                  ],
+                ),
+              ),
+            );
+            listViews.add(Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 2,
+                children: List.generate(dataList!.length, (index) {
+                  //if (index == 0) return Container();
+                  //return Text(value['title'][index]);
+                  //print(value['title'][index]);
+                  return Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 32),
+                        child: Container(
+                          width: 350,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8.0),
+                              bottomLeft: Radius.circular(8.0),
+                              topLeft: Radius.circular(8.0),
+                              topRight: Radius.circular(54.0),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 4, right: 4, bottom: 4),
+                            child: ButtonSquareView(
+                              mainText: '${dataList[index]['displayLevel']}',
+                              subTextBottomRight:
+                                  'Rank \n${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}',
+                              subTextBottomLeft: '',
+                              onTapFunction: () {
+                                AutoRouter.of(context).push(
+                                    VocabularyPracticeWordListRoute(
+                                        rangeMin: dataList[index]
+                                            ['minWordRank'],
+                                        rangeMax: dataList[index]
+                                            ['maxWordRank'],
+                                        displayLevel: dataList[index]
+                                            ['displayLevel'],
+                                        cateType: cateStr,
+                                        wordLevel: ''));
+                              },
+                              widgetColor: PageTheme.app_theme_blue.withOpacity(
+                                  0.2 + index * (0.8 / dataList!.length)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                })));
+            break;
+          case 'proficiencyTestLevel':
+            listViews.add(
+              Container(
+                child: Column(
+                  children: [
+                    Padding(padding: EdgeInsets.all(8)),
+                    TitleView(
+                      titleTxt: 'Proficiency Test Level\n英文能力檢定',
+                      titleColor: Colors.black,
+                      centerAlign: true,
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    AutoSizeText(
+                      '*CEFR等級的斜線後中文字等級表對應之全民英檢等級\n(A1/初級一): CERF A1 對應全民英檢初級',
+                      style: TextStyle(color: PageTheme.grey),
+                    )
+                  ],
+                ),
+              ),
+            );
+            for (var wherelistGroupData in dataList) {
+              //每個單字集群組的標頭
+              listViews.add(
+                Container(
+                  child: Column(
+                    children: [
+                      Padding(padding: EdgeInsets.all(8)),
+                      TitleView(
+                        titleTxt: "${wherelistGroupData['groupTitle']}\n${wherelistGroupData['groupDescribe']}",
+                        subTxt: wherelistGroupData['groupDescribe'],
+                        titleColor: PageTheme.nearlyDarkBlue,
+                        centerAlign: true,
+                      ),
+                    ],
                   ),
-                ],
+                ),
               );
-            })));
+              //方形按鈕群組
+              List groupListData = wherelistGroupData['groupListData'];
+              listViews.add(Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 2,
+                  children: List.generate(groupListData!.length, (index) {
+                    //if (index == 0) return Container();
+                    //return Text(value['title'][index]);
+                    //print(value['title'][index]);
+                    return Stack(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 32),
+                          child: Container(
+                            width: 350,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(8.0),
+                                bottomLeft: Radius.circular(8.0),
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(54.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 4, right: 4, bottom: 4),
+                              child: ButtonSquareView(
+                                mainText:
+                                    '${groupListData[index]['displayLevel']}',
+                                subTextBottomRight:
+                                    ('單字量${groupListData[index]['wordCount']}'),
+                                subTextBottomLeft:
+                                    ('${groupListData[index]['describe']}'),
+                                onTapFunction: () {
+                                  AutoRouter.of(context).push(
+                                      VocabularyPracticeWordListRoute(
+                                          rangeMin: 1,
+                                          rangeMax: groupListData[index]
+                                              ['wordCount'],
+                                          displayLevel: groupListData[index]
+                                              ['displayLevel'],
+                                          cateType: cateStr,
+                                          wordLevel: groupListData[index]
+                                              ['wordLevel']));
+                                },
+                                widgetColor: PageTheme.app_theme_blue
+                                    .withOpacity(
+                                        0.2 + index * (0.8 / dataList!.length)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  })));
+            }
+            break;
+        }
       }
 
       setState(() {
