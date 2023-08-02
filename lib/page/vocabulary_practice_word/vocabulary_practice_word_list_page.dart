@@ -302,18 +302,33 @@ class _VocabularyPracticeWordListPageState
                             child: Row(
                               children: <Widget>[
                                 Expanded(
-                                  flex: 1,
-                                  child: AutoSizeText(
-                                    '${_rowIndexSliderIndex + index}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: PageTheme.app_theme_blue,
-                                      fontSize: 24,
-                                    ),
-                                    group: _wordTextSizeGroup,
-                                    maxLines: 1,
-                                  ),
+                                  flex: 2,
+                                  child: (_cateType == 'proficiencyTestLevel')
+                                      ? Container(
+                                        child:
+                                          AutoSizeText(
+                                              '${_rowIndexSliderIndex + index} \nRk. ${_vocabularyList[index]['ranking'].toString()}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: PageTheme.app_theme_blue,
+                                                fontSize: 24,
+                                              ),
+                                              group: _wordTextSizeGroup,
+                                              maxLines: 2,
+                                            ),
+                                      )
+                                      : AutoSizeText(
+                                          '${_rowIndexSliderIndex + index}',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: PageTheme.app_theme_blue,
+                                            fontSize: 24,
+                                          ),
+                                          group: _wordTextSizeGroup,
+                                          maxLines: 1,
+                                        ),
                                 ),
                                 Expanded(
                                   flex: 3,
@@ -343,27 +358,31 @@ class _VocabularyPracticeWordListPageState
                                     maxLines: 1,
                                   ),
                                 ),
-                                (_vocabularyList[index]['wordMeaningList'] != null) ?
-                                Expanded(
-                                  flex: 3,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const ScrollPhysics(),
-                                      itemCount: _vocabularyList[index]
-                                              ['wordMeaningList']
-                                          .length,
-                                      itemBuilder: (context, index2) {
-                                        return AutoSizeText(
-                                          '[${_vocabularyList[index]['wordMeaningList'][index2]['pos']}] ${_vocabularyList[index]['wordMeaningList'][index2]['meaning']}',
-                                          style: TextStyle(
-                                            color: PageTheme.app_theme_blue,
-                                            fontSize: 16,
-                                          ),
-                                          group: _wordMeaningTextSizeGroup,
-                                          maxLines: 2,
-                                        );
-                                      }),
-                                ) : Container(),
+                                (_vocabularyList[index]['wordMeaningList'] !=
+                                        null)
+                                    ? Expanded(
+                                        flex: 2,
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const ScrollPhysics(),
+                                            itemCount: _vocabularyList[index]
+                                                    ['wordMeaningList']
+                                                .length,
+                                            itemBuilder: (context, index2) {
+                                              return AutoSizeText(
+                                                '[${_vocabularyList[index]['wordMeaningList'][index2]['pos']}] ${_vocabularyList[index]['wordMeaningList'][index2]['meaning']}',
+                                                style: TextStyle(
+                                                  color:
+                                                      PageTheme.app_theme_blue,
+                                                  fontSize: 16,
+                                                ),
+                                                group:
+                                                    _wordMeaningTextSizeGroup,
+                                                maxLines: 2,
+                                              );
+                                            }),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           );
@@ -649,7 +668,8 @@ class _VocabularyPracticeWordListPageState
             () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Opps: 您要找的單字位於Rank ${sliderIndex} 不存在${_sliderEducationLevel}範圍'),
+        content: Text(
+            'Opps: 您要找的單字位於Rank ${sliderIndex} 不存在${_sliderEducationLevel}範圍'),
       ));
     }
     //_adjustSliderEducationLevel();
