@@ -192,7 +192,7 @@ class SharedPreferencesUtil {
   // APIURL
   static Future<bool> setAPIURL(String? value) async {
     if (value == null) {
-      value = 'api.alicsnet.com';
+      value = 'hpengteachapi.hamastar.com.tw';
     }
     saveData<String>('applicationSettingsDataAPIURL', value);
     return true;
@@ -201,7 +201,7 @@ class SharedPreferencesUtil {
   static Future<String> getAPIURL() async {
     String? res = await getData<String>('applicationSettingsDataAPIURL');
     if (res == null) {
-      res = 'api.alicsnet.com';
+      res = 'hpengteachapi.hamastar.com.tw';
       setAPIURL(res);
     }
     return res;
