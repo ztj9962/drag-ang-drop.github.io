@@ -152,11 +152,15 @@ class _IndexSettingPageState extends State<IndexSettingPage> {
     //List<String> apiURLList = ['api.alicsnet.com', 'api-develop.alicsnet.com'];
     List<Map<String, String>> apiURLList = [
       {
-        'name': '正式環境',
+        'name': '環境 hpengteachapi.hamastar.com.tw',
+        'value': 'hpengteachapi.hamastar.com.tw',
+      },
+      {
+        'name': '環境 api.alicsnet.com',
         'value': 'api.alicsnet.com',
       },
       {
-        'name': '測試環境',
+        'name': '測試環境 api-develop.alicsnet.com',
         'value': 'api-develop.alicsnet.com',
       },
     ];
