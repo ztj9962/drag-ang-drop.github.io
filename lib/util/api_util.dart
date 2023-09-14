@@ -725,4 +725,14 @@ class APIUtil {
     String json = response.body.toString();
     return json;
   }
+  static Future<String> getStatus() async {
+    final response = await http.get(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),'app/status/getStatus'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
 }

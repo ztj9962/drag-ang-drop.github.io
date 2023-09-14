@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -139,7 +143,7 @@ class SharedPreferencesUtil {
       res = 0.5;
       setTTSRate(res);
     }
-    return (isWeb)? res * 2.0 : res;
+    return (isWeb) ? res * 2.0 : res;
   }
 
   // TTSRateString
@@ -154,7 +158,7 @@ class SharedPreferencesUtil {
 
      */
 
-    double rate = (isWeb)? await getTTSRate() / 2.0 : await getTTSRate();
+    double rate = (isWeb) ? await getTTSRate() / 2.0 : await getTTSRate();
     String rateString = '';
 
     int rateInt = (rate * 1000).toInt();
@@ -191,10 +195,38 @@ class SharedPreferencesUtil {
 
   // APIURL
   static Future<bool> setAPIURL(String? value) async {
+    List<String> valueList = [
+      'hpengteachapi.hamastar.com.tw',
+      'api.alicsnet.com',
+      'api-develop.alicsnet.com'
+    ];
     if (value == null) {
-      value = 'hpengteachapi.hamastar.com.tw';
+      for (String v in valueList) {
+        EasyLoading.show(status: '正在幫您尋找合適的API，請稍候......');
+        saveData<String>('applicationSettingsDataAPIURL', v!);
+        var getStatusStatus;
+        try {
+          String getStatusJSON = await APIUtil.getStatus();
+          getStatusStatus = jsonDecode(getStatusJSON.toString());
+          print(getStatusStatus['apiStatus'] == null);
+          if (getStatusStatus['apiStatus'] == null) {
+            await Future.delayed(Duration(seconds: 1));
+          } else {
+            print('幫你設定成${v}');
+            EasyLoading.dismiss();
+            break;
+          }
+        } catch (e) {
+          print(e.toString());
+        }
+      }
+      //value = 'hpengteachapi.hamastar.com.tw';
+    } else {
+      saveData<String>('applicationSettingsDataAPIURL', value!);
     }
-    saveData<String>('applicationSettingsDataAPIURL', value);
+
+    //EasyLoading.dismiss();
+
     return true;
   }
 
