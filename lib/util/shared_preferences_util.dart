@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:alicsnet_app/util/api_util.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
@@ -133,7 +134,7 @@ class SharedPreferencesUtil {
     }
     saveData<double>('applicationSettingsDataTtsRate', value);
 
-    print('setTTSRate: $value');
+    //print('setTTSRate: $value');
     return true;
   }
 
@@ -198,26 +199,29 @@ class SharedPreferencesUtil {
     List<String> valueList = [
       'hpengteachapi.hamastar.com.tw',
       'api.alicsnet.com',
-      'api-develop.alicsnet.com'
     ];
     if (value == null) {
-      for (String v in valueList) {
-        EasyLoading.show(status: '正在幫您尋找合適的API，請稍候......');
-        saveData<String>('applicationSettingsDataAPIURL', v!);
+      await Future.delayed(Duration(seconds: 3));
+      for (int i = 0;i < valueList.length;i++) {
+        EasyLoading.show(
+          status: '正在幫您尋找合適的API，請稍候......\n目前正在嘗試(${i+1}/${valueList.length})',
+          maskType: EasyLoadingMaskType.black,
+        );
+        //print(valueList[i]);
         var getStatusStatus;
         try {
+          saveData<String>('applicationSettingsDataAPIURL', valueList[i]!);
           String getStatusJSON = await APIUtil.getStatus();
           getStatusStatus = jsonDecode(getStatusJSON.toString());
-          print(getStatusStatus['apiStatus'] == null);
           if (getStatusStatus['apiStatus'] == null) {
             await Future.delayed(Duration(seconds: 1));
           } else {
-            print('幫你設定成${v}');
+            //print('幫你設定成${valueList[i]}');
             EasyLoading.dismiss();
             break;
           }
         } catch (e) {
-          print(e.toString());
+          //print(e.toString());
         }
       }
       //value = 'hpengteachapi.hamastar.com.tw';
