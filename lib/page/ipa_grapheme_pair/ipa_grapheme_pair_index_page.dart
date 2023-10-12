@@ -31,6 +31,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
   List<String>? _ipaSymbolConsonants = [];
   List<String>? _graphemesConsonants = [];
   List<String>? _ipaSymbolUrlConsonants = [];
+  List<double>? _ipaAudioClip = [];
+
 
   // Temporary storage API data
   List<Map> _Monophthongs = [];
@@ -846,6 +848,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
     List<String> ipaSymbolConsonants = [];
     List<String> graphemesConsonants = [];
     List<String> ipaSymbolUrlConsonants = [];
+    List<double> ipaAudioClip = [];
     Map mapTemplate = {
       'getIPASymbol': '',
       'getGraphemes': '',
@@ -899,6 +902,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
       ipaSymbolConsonants.add(value["ipaSymbol"]);
       graphemesConsonants.add(value["grapheme"].toString());
       ipaSymbolUrlConsonants.add(value["audioUrl"]);
+      ipaAudioClip.add(value['clip']);
     });
 
     setState(() {
@@ -911,6 +915,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
       _ipaSymbolConsonants = ipaSymbolConsonants;
       _graphemesConsonants = graphemesConsonants;
       _ipaSymbolUrlConsonants = ipaSymbolUrlConsonants;
+      _ipaAudioClip = ipaAudioClip;
 
       _ipaSymbolMonophthongs?.forEach((value) {
         _Monophthongs.add(mapTemplate);
@@ -922,6 +927,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
         _Consonants.add(mapTemplate);
       });
     });
+    print(_ipaAudioClip);
+    print(_Consonants);
   }
 
   Future<void> initIPAGraphemeWordList(
