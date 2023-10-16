@@ -21,6 +21,7 @@ import 'package:alicsnet_app/util/chat_message_util.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:alicsnet_app/util/api_util.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LearningAutoGenericPage extends StatefulWidget {
   final List<String> contentList;
@@ -47,6 +48,8 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   late List<String> _ipaList;
   late List<String> _translateList;
   late List<String> _idList;
+
+  final audioPlayer = AudioPlayer();
 
   int _part = 0;
   List<Widget> _messages = <Widget>[];
@@ -134,6 +137,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     Wakelock.disable();
     flutterTts.stop();
     speechToText.stop();
+    audioPlayer.dispose();
     EasyLoading.dismiss();
     //_timer?.cancel();
     _timer.cancel();
@@ -501,6 +505,10 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   Future<void> sttStartListening() async {
     sttLastWords = '';
     sttLastError = '';
+    if(isWeb){
+      await audioPlayer.setFilePath('assets/sounds/speech_to_text_listening.m4r');
+      audioPlayer.play();
+    }
     speechToText.listen(
         onResult: sttResultListener,
         listenFor: Duration(seconds: 30),
