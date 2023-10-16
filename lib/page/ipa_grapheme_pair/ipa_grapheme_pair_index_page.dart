@@ -911,7 +911,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
       ipaSymbolConsonants.add(value["ipaSymbol"]);
       graphemesConsonants.add(value["grapheme"].toString());
       ipaSymbolUrlConsonants.add(value["audioUrl"]);
-      ipaAudioClipConsonants.add(value['audioClip'].map((number) => double.tryParse(number)! * 1000).toList());
+      ipaAudioClipConsonants.add(value['audioClip'].map((number) => (double.tryParse(number)! * 1000)).toList());
     });
 
     setState(() {
@@ -924,8 +924,8 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
       _ipaSymbolConsonants = ipaSymbolConsonants;
       _graphemesConsonants = graphemesConsonants;
       _ipaSymbolUrlConsonants = ipaSymbolUrlConsonants;
-      _ipaAudioClipMonophthongs = ipaAudioClipMonophthongs.map((e) => e.map((ex) => ex as int).toList()).toList();
-      _ipaAudioClipConsonants = ipaAudioClipConsonants.map((e) => e.map((ex) => ex as int).toList()).toList();
+      _ipaAudioClipMonophthongs = ipaAudioClipMonophthongs.map((e) => e.map((ex) => ex.round() as int).toList()).toList();
+      _ipaAudioClipConsonants = ipaAudioClipConsonants.map((e) => e.map((ex) => ex.round() as int).toList()).toList();
 
       _ipaSymbolMonophthongs?.forEach((value) {
         _Monophthongs.add(mapTemplate);
