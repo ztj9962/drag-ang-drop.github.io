@@ -173,10 +173,14 @@ class _VocabularyPracticeWordListPageState
                                             PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
-                                          icon: Icon(Icons.remove),
+                                          icon: Icon(Icons.arrow_back_ios),
                                           color: Colors.white,
                                           onPressed: () async {
-                                            _adjustRowIndexSliderIndex(-1);
+                                            if(_rowIndexSliderIndex - _rowIndexSliderMin <= 5){
+                                              _adjustRowIndexSliderIndex(-(_rowIndexSliderIndex - _rowIndexSliderMin));
+                                            }else {
+                                              _adjustRowIndexSliderIndex(-5);
+                                            }
                                             await _getVocabularyList();
                                           },
                                         ),
@@ -191,10 +195,14 @@ class _VocabularyPracticeWordListPageState
                                             PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
-                                          icon: Icon(Icons.add),
+                                          icon: Icon(Icons.arrow_forward_ios),
                                           color: Colors.white,
                                           onPressed: () async {
-                                            _adjustRowIndexSliderIndex(1);
+                                            if((_rowIndexSliderMax - _dataLimit + 1) - _rowIndexSliderIndex <= 5){
+                                              _adjustRowIndexSliderIndex((_rowIndexSliderMax - _dataLimit + 1) - _rowIndexSliderIndex);
+                                            }else {
+                                              _adjustRowIndexSliderIndex(5);
+                                            }
                                             await _getVocabularyList();
                                           },
                                         ),
@@ -307,7 +315,7 @@ class _VocabularyPracticeWordListPageState
                                       ? Container(
                                         child:
                                           AutoSizeText(
-                                              '${_rowIndexSliderIndex + index} \nRk. ${_vocabularyList[index]['ranking'].toString()}',
+                                            (_rowIndexSliderIndex % 5 == 0) ? "${(_rowIndexSliderIndex - 4) + index}\nRk. ${_vocabularyList[index]['ranking'].toString()}" : "${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}\nRk. ${_vocabularyList[index]['ranking'].toString()}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -319,7 +327,8 @@ class _VocabularyPracticeWordListPageState
                                             ),
                                       )
                                       : AutoSizeText(
-                                          '${_rowIndexSliderIndex + index}',
+                                      (_rowIndexSliderIndex % 5 == 0) ? '${(_rowIndexSliderIndex - 4) + index}' : '${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}'
+                                          ,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -421,15 +430,12 @@ class _VocabularyPracticeWordListPageState
                                     if (!await _getVocabularySentenceList()) {
                                       return;
                                     }
-                                    //await _getVocabularySentenceList();
-                                    //print('HERE: ${_vocabularySentenceList}');.
 
                                     List<String> contentList = [];
                                     List<String> ipaList = [];
                                     List<String> translateList = [];
                                     List<String> idList = [];
 
-                                    //print(_vocabularyList);
                                     for (final vocabularyData
                                         in _vocabularySentenceList) {
                                       //return;
@@ -543,13 +549,19 @@ class _VocabularyPracticeWordListPageState
       do {
         String responseJSON;
         //responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
+        int index = 1;
+        if (_rowIndexSliderIndex % 5 == 0){
+          index = (_rowIndexSliderIndex - 4);
+        }else{
+          index = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
+        }
         if (_cateType == 'proficiencyTestLevel') {
           //responseJSON = await APIUtil.vocabularyGetList((_rowIndexSliderIndex + widget.rangeMin - 1).toString(),dataLimit: _dataLimit.toString());
           responseJSON = await APIUtil.getWordListByWherelistLevel(
-              _rowIndexSliderIndex.toString(), widget.wordLevel);
+              index.toString(), widget.wordLevel);
         } else {
           responseJSON = await APIUtil.vocabularyGetList(
-              _rowIndexSliderIndex.toString(),
+              index.toString(),
               dataLimit: _dataLimit.toString());
         }
 
