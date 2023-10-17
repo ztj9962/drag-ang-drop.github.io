@@ -523,6 +523,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
 
   Future<void> sttStopListening() async {
     speechToText.stop();
+
     setState(() {
       sttLevel = 0.0;
     });
@@ -530,6 +531,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
 
   Future<void> sttCancelListening() async {
     await speechToText.cancel();
+
     setState(() {
       sttLevel = 0.0;
     });
@@ -540,6 +542,10 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
+    if(isWeb && sttResultListened <= 1){
+      audioPlayer.setFilePath('assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.play();
+    }
     //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
@@ -686,6 +692,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   }
 
   void _responseChatBot(text) async {
+    sttResultListened = 0;
     String checkSentencesJSON = await APIUtil.checkSentences(
         _contentList[_part - 1], text,
         correctCombo: _correctCombo);
