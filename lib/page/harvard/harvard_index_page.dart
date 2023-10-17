@@ -77,6 +77,7 @@ class _HarvardIndexPage extends State<HarvardIndexPage> {
                 ),
                 child: DropdownButton(
                   value: _sessionNum.toString(),
+                  menuMaxHeight: 200,
                   //style: TextStyle(fontSize: 20),
                   isExpanded: true,
                   iconSize: 40,
