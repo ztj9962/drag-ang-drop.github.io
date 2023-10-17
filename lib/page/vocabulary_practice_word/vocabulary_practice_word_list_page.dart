@@ -39,6 +39,7 @@ class _VocabularyPracticeWordListPageState
   int _rowIndexSliderMax = 10000;
   int _rowIndexSliderIndex = 2000;
   int _dataLimit = 5;
+  int _previousFifthIndex = 1;
   String _sliderEducationLevel = '國小';
   var _wordTextSizeGroup = AutoSizeGroup();
   var _wordIPATextSizeGroup = AutoSizeGroup();
@@ -123,6 +124,7 @@ class _VocabularyPracticeWordListPageState
                       },
                       onChangeEnd: (value) async {
                         ///滑條變動結束
+                        _adjustRowIndexSliderIndex(0);
                         await _getVocabularyList();
                         setState(() {
                           _rowIndexSliderIndex = value.toInt();
@@ -131,9 +133,7 @@ class _VocabularyPracticeWordListPageState
                         //_adjustSliderEducationLevel();
                       },
                       min: _rowIndexSliderMin.toDouble(),
-                      max: _rowIndexSliderMax.toDouble() -
-                          _dataLimit.toDouble() +
-                          1,
+                      max: _rowIndexSliderMax.toDouble(),
                       activeColor: PageTheme.app_theme_blue,
                       inactiveColor: Colors.lightBlue,
                       divisions: (_rowIndexSliderMax -
@@ -143,7 +143,7 @@ class _VocabularyPracticeWordListPageState
                       value: _rowIndexSliderIndex.toDouble(),
                       //label: 'Ranking ${_rowIndexSliderIndex * 10 - 9} ~ ${_rowIndexSliderIndex * 10}',
                       label:
-                          '${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1}',
+                          '${_rowIndexSliderIndex}',
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
@@ -153,7 +153,7 @@ class _VocabularyPracticeWordListPageState
                           Expanded(
                               flex: 5,
                               child: AutoSizeText(
-                                '${_sliderEducationLevel}\n(${_rowIndexSliderIndex} ~ ${_rowIndexSliderIndex + _dataLimit - 1})',
+                                (_rowIndexSliderMax - _previousFifthIndex <= 5) ? '${_sliderEducationLevel}\n(${_previousFifthIndex} ~ ${_rowIndexSliderMax})' : '${_sliderEducationLevel}\n(${_previousFifthIndex} ~ ${_previousFifthIndex + 4})',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -192,14 +192,15 @@ class _VocabularyPracticeWordListPageState
                                     child: Center(
                                       child: CircleAvatar(
                                         backgroundColor:
+
                                             PageTheme.app_theme_blue,
                                         radius: 20.0,
                                         child: IconButton(
                                           icon: Icon(Icons.arrow_forward_ios),
                                           color: Colors.white,
                                           onPressed: () async {
-                                            if((_rowIndexSliderMax - _dataLimit + 1) - _rowIndexSliderIndex <= 5){
-                                              _adjustRowIndexSliderIndex((_rowIndexSliderMax - _dataLimit + 1) - _rowIndexSliderIndex);
+                                            if(_rowIndexSliderMax - _previousFifthIndex <= 5){
+                                              _adjustRowIndexSliderIndex((_rowIndexSliderMax) - _rowIndexSliderIndex);
                                             }else {
                                               _adjustRowIndexSliderIndex(5);
                                             }
@@ -549,19 +550,14 @@ class _VocabularyPracticeWordListPageState
       do {
         String responseJSON;
         //responseJSON = await APIUtil.vocabularyGetList(_rowIndexSliderIndex.toString(),dataLimit: _dataLimit.toString());
-        int index = 1;
-        if (_rowIndexSliderIndex % 5 == 0){
-          index = (_rowIndexSliderIndex - 4);
-        }else{
-          index = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
-        }
+
         if (_cateType == 'proficiencyTestLevel') {
           //responseJSON = await APIUtil.vocabularyGetList((_rowIndexSliderIndex + widget.rangeMin - 1).toString(),dataLimit: _dataLimit.toString());
           responseJSON = await APIUtil.getWordListByWherelistLevel(
-              index.toString(), widget.wordLevel);
+              _previousFifthIndex.toString(), widget.wordLevel);
         } else {
           responseJSON = await APIUtil.vocabularyGetList(
-              index.toString(),
+              _previousFifthIndex.toString(),
               dataLimit: _dataLimit.toString());
         }
 
@@ -668,16 +664,29 @@ class _VocabularyPracticeWordListPageState
 
   void _adjustRowIndexSliderIndex(int value) {
     int sliderIndex = _rowIndexSliderIndex + value;
+
     if ((sliderIndex >= _rowIndexSliderMin) &&
-        (sliderIndex <= (_rowIndexSliderMax - _dataLimit + 1))) {
+        (sliderIndex <= (_rowIndexSliderMax))) {
+      if (sliderIndex % 5 == 0){
+        _previousFifthIndex = (sliderIndex - 4);
+      }else{
+        _previousFifthIndex = (sliderIndex - (sliderIndex % 5) + 1);
+      }
+      if(_rowIndexSliderMax - _previousFifthIndex <= 5){
+        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
+      }else{
+        _dataLimit = 5;
+      }
+      print('Previ:${_previousFifthIndex}');
+      print('Datalimit:${_dataLimit}');
       setState(() => _rowIndexSliderIndex = sliderIndex);
     } else {
       if (sliderIndex < _rowIndexSliderMin) {
         setState(() => _rowIndexSliderIndex = _rowIndexSliderMin);
       }
-      if (sliderIndex > (_rowIndexSliderMax - _dataLimit + 1)) {
+      if (sliderIndex > (_rowIndexSliderMax)) {
         setState(
-            () => _rowIndexSliderIndex = (_rowIndexSliderMax - _dataLimit + 1));
+            () => _rowIndexSliderIndex = (_rowIndexSliderMax));
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
