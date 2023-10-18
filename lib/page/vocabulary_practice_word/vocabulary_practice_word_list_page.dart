@@ -677,8 +677,6 @@ class _VocabularyPracticeWordListPageState
       }else{
         _dataLimit = 5;
       }
-      print('Previ:${_previousFifthIndex}');
-      print('Datalimit:${_dataLimit}');
       setState(() => _rowIndexSliderIndex = sliderIndex);
     } else {
       if (sliderIndex < _rowIndexSliderMin) {
@@ -687,6 +685,16 @@ class _VocabularyPracticeWordListPageState
       if (sliderIndex > (_rowIndexSliderMax)) {
         setState(
             () => _rowIndexSliderIndex = (_rowIndexSliderMax));
+      }
+      if (_rowIndexSliderIndex % 5 == 0){
+        _previousFifthIndex = (_rowIndexSliderIndex - 4);
+      }else{
+        _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
+      }
+      if(_rowIndexSliderMax - _previousFifthIndex <= 5){
+        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
+      }else{
+        _dataLimit = 5;
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
