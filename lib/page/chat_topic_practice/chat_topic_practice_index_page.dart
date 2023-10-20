@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/hexcolor_util.dart';
+import 'package:alicsnet_app/view/button_square_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -101,183 +102,41 @@ class _ChatTopicPracticeIndexPageState
 
         var parser = EmojiParser();
 
-        listViews.add(Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 4,
-            children: List.generate(value['title']!.length, (index) {
-              if (index == 0) return Container();
-              //return Text(value['title'][index]);
-              //print(value['title'][index]);
-              return Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32),
-                    child: Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                              color: HexColor(value['appEndColor'][index])
-                                  .withOpacity(0.6),
-                              offset: const Offset(1.1, 4.0),
-                              blurRadius: 8.0),
-                        ],
-                        gradient: LinearGradient(
-                          colors: <HexColor>[
-                            HexColor(value['appStartColor'][index]),
-                            HexColor(value['appEndColor'][index]),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(8.0),
-                          bottomLeft: Radius.circular(8.0),
-                          topLeft: Radius.circular(8.0),
-                          topRight: Radius.circular(54.0),
+        listViews.add(
+            Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 2,
+                children: List.generate(value['title']!.length, (index) {
+                  //if (index == 0) return Container();
+                  //return Text(value['title'][index]);
+                  print(value['title'][index]);
+                  return Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Container(
+                          width: 400,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8.0),
+                              bottomLeft: Radius.circular(8.0),
+                              topLeft: Radius.circular(8.0),
+                              topRight: Radius.circular(8.0),
+                            ),
+                          ),
+                          child: ButtonSquareView(
+                            mainText: value['title'][index],
+                            subTextBottomLeft: '',
+                            subTextBottomRight: '',
+                            widgetColor: HexColor('#FDFEFB'),
+                            borderColor: Colors.transparent,
+                          ),
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 54, left: 16, right: 16, bottom: 8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            AutoSizeText(
-                              value['title'][index],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: PageTheme.white,
-                              ),
-                              maxLines: 1,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Flexible(
-                                  flex: 1,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      //AutoRouter.of(context).push(VocabularyPracticeSentenceLearnAutoRoute(topicName:value['title'][index]));
 
-                                      AutoRouter.of(context).push(
-                                          ChatTopicPracticeConversationListRoute(
-                                              topicName: value['title']
-                                                  [index]));
-                                    },
-                                    //onTap: sentenceTypeListData!.onTapFunction,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: PageTheme.nearlyWhite,
-                                        shape: BoxShape.rectangle, // 矩形
-                                        borderRadius: new BorderRadius.circular(
-                                            (20.0)), // 圓角度
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: PageTheme.nearlyBlack
-                                                  .withOpacity(0.4),
-                                              offset: Offset(8.0, 8.0),
-                                              blurRadius: 8.0),
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          '對話練習',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: HexColor(
-                                                value['appEndColor'][index]),
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                /*Flexible(
-                                  flex: 1,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      AutoRouter.of(context).push(
-                                          LearningManualVocabularyPracticeSentenceRoute(
-                                              topicName: value['title']
-                                              [index]));
-                                    },
-                                    //onTap: sentenceTypeListData!.onTapFunction,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: PageTheme.nearlyWhite,
-                                        shape: BoxShape.rectangle, // 矩形
-                                        borderRadius: new BorderRadius.circular(
-                                            (20.0)), // 圓角度
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: PageTheme.nearlyBlack
-                                                  .withOpacity(0.4),
-                                              offset: Offset(8.0, 8.0),
-                                              blurRadius: 8.0),
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          '手動',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: HexColor(
-                                                value['appEndColor'][index]),
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),*/
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      width: 84,
-                      height: 84,
-                      decoration: BoxDecoration(
-                        color: PageTheme.nearlyWhite.withOpacity(0.2),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 24,
-                    left: 12,
-                    child: SizedBox(
-                      width: 64,
-                      height: 64,
-                      //child: Image.asset(value['imagePath'][index]),
-                      //child: Image.asset('assets/sels_app/' + value['appIcon'][index] + '.png'),
-                      child: AutoSizeText(
-                        parser.get(value['appEmojiName'][index]).code,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 40,
-                        ),
-                        maxLines: 1,
-                      ),
-                    ),
-                  )
-                ],
-              );
-            })));
+                    ],
+                  );
+                })));
       });
 
       setState(() {

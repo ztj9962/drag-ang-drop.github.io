@@ -10,7 +10,9 @@ class ButtonSquareView extends StatelessWidget {
   final String mainText;
   final String subTextBottomLeft;
   final String subTextBottomRight;
+  final Color borderColor;
   final Function()? onTapFunction;
+  final IconData? icon;
 
   const ButtonSquareView({
     Key? key,
@@ -19,6 +21,8 @@ class ButtonSquareView extends StatelessWidget {
     required this.subTextBottomLeft,
     required this.subTextBottomRight,
     required this.widgetColor,
+    required this.borderColor,
+    this.icon,
     this.onTapFunction,
   }) : super(key: key);
 
@@ -31,11 +35,12 @@ class ButtonSquareView extends StatelessWidget {
           onTap: onTapFunction,
           child: Container(
             padding: const EdgeInsets.all(8),
-            height: 200,
+            height: 80,
             //width: 300,
             decoration: BoxDecoration(
-              color: PageTheme.app_theme_blue,
+              color: Colors.amberAccent,
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              border: Border.all(color: borderColor),
               boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: HexColor('#aaaaaa').withOpacity(0.6),
@@ -49,82 +54,72 @@ class ButtonSquareView extends StatelessWidget {
               ),
             ),
             child: Row(
-              children: <Widget>[
-                /*Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                    width: 72,
-                    height: 72,
-                    child: SvgPicture.asset(imagePath),
-                  ),
-                ),*/
-                Expanded(
-                  flex: 8,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        AutoSizeText(
-                          mainText,
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            letterSpacing: 1.0,
-                            color: Color(0xFFFEFEFE),
+                      children: [
+                        (icon != null) ? Icon(icon) : Container(),
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: AutoSizeText(
+                                  mainText,
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    letterSpacing: 1.0,
+                                    color: PageTheme.vocabulary_practice_index_text,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                              ),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: AutoSizeText(
+                                        subTextBottomLeft,
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          letterSpacing: 1.0,
+                                          color: PageTheme.vocabulary_practice_index_text,
+                                        ),
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  /*
+                                  */
+
+                            ],
                           ),
-                          maxLines: 2,
                         ),
-                        Expanded(child: Padding(padding: EdgeInsets.all(30))),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: AutoSizeText(
-                                subTextBottomLeft,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  letterSpacing: 1.0,
-                                  color: Color(0xFFFEFEFE),
-                                ),
-                                maxLines: 2,
-                              ),
+                        Expanded(
+                          flex: 3,
+                          child: AutoSizeText(
+                            subTextBottomRight,
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10,
+                              letterSpacing: 1.0,
+                              color: PageTheme.vocabulary_practice_index_text,
                             ),
-                            Expanded(
-                              child: AutoSizeText(
-                                subTextBottomRight,
-                                textAlign: TextAlign.right,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  letterSpacing: 1.0,
-                                  color: Color(0xFFFEFEFE),
-                                ),
-                                maxLines: 2,
-                              ),
-                            ),
-                          ],
+                            maxLines: 2,
+                          ),
                         ),
-                        Divider(
-                          thickness: 2,
-                          color: PageTheme.nearlyWhite,
+                        Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                color: HexColor('#414046'),
+                              )),
                         ),
-                        Align(
-                            alignment: Alignment.bottomRight,
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: PageTheme.nearlyWhite,
-                            )),
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -27,6 +27,7 @@ class PageTheme {
   static const Color learn_record_score_white = Color(0xFFFEF8F2);
   static const Color percent_indicator_background = Color(0xFF003F24);
   static const Color percent_indicator_progress = Color(0xFFFEF8F2);
+  static const Color vocabulary_practice_index_text = Color(0xFF414046);
 
   static const TextStyle index_vocabulary_test_index_text =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 18);

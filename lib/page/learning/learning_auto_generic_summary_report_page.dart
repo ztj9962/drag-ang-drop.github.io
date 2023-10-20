@@ -74,8 +74,8 @@ class _LearningAutoGenericSummaryReportPage
             child: RepaintBoundary(
                 key: boundaryKey,
                 child: Column(children: <Widget>[
-                  Text('Shadow Speaking Quiz Error List'),
-                  Text('英語口語跟讀測驗錯誤列表'),
+                  Text('Shadow Speaking Practice result'),
+                  Text('英語口語練習結果'),
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
