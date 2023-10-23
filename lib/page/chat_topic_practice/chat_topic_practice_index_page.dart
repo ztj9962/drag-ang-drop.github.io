@@ -178,6 +178,7 @@ class _ChatTopicPracticeIndexPageState
                           ],
                         );
                       })),
+                  Padding(padding: EdgeInsets.all(20)),
                 ],
               ),
             ));
