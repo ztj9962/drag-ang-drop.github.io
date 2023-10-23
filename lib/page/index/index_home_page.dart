@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/view/title_view.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class IndexHomePage extends StatefulWidget {
   const IndexHomePage({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class IndexHomePage extends StatefulWidget {
 }
 
 class _IndexHomePageState extends State<IndexHomePage> {
+  bool get isWeb => kIsWeb;
+
   List<Widget> listViews = <Widget>[];
   bool? _isSignin = false;
 
@@ -76,7 +79,11 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/chat_topic_practice_index_page");
+          if(isWeb){
+            AutoRouter.of(context).pushNamed("/chat_topic_practice_index_page");
+          }else{
+            AutoRouter.of(context).pushNamed("/chat_topic_practice_class_mobile_page");
+          }
         },
       ),
     );
@@ -121,6 +128,21 @@ class _IndexHomePageState extends State<IndexHomePage> {
         onTapFunction: () async {
           AutoRouter.of(context)
               .push(SentenceAnalysisIndexRoute(analysisor: ''));
+        },
+      ),
+    );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        showDevelopTag: true,
+        imagePath: 'assets/icon/setting.svg',
+        titleText: 'Mobile Path',
+        descripText: '手機模式',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context)
+              .push(ChatTopicPracticeClassMobileRoute());
         },
       ),
     );

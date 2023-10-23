@@ -12,7 +12,8 @@ class ButtonSquareView extends StatelessWidget {
   final String subTextBottomRight;
   final Color borderColor;
   final Function()? onTapFunction;
-  final IconData? icon;
+  final String? prefixText;
+  final String? centerText;
 
   const ButtonSquareView({
     Key? key,
@@ -22,8 +23,9 @@ class ButtonSquareView extends StatelessWidget {
     required this.subTextBottomRight,
     required this.widgetColor,
     required this.borderColor,
-    this.icon,
+    this.prefixText,
     this.onTapFunction,
+    this.centerText,
   }) : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class ButtonSquareView extends StatelessWidget {
           onTap: onTapFunction,
           child: Container(
             padding: const EdgeInsets.all(8),
-            height: 80,
+            height: 120,
             //width: 300,
             decoration: BoxDecoration(
               color: Colors.amberAccent,
@@ -55,9 +57,24 @@ class ButtonSquareView extends StatelessWidget {
             ),
             child: Row(
                       children: [
-                        (icon != null) ? Icon(icon) : Container(),
+                        (prefixText != null) ? AutoSizeText(prefixText!,style: TextStyle(fontSize: 30),) : Container(),
+                        (centerText != null) ? Padding(padding: EdgeInsets.all(5)) : Container(),
+                        (centerText != null) ? Expanded(
+                          flex: (subTextBottomRight != '') ? 7 : 9,
+                          child: AutoSizeText(
+                            centerText!,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              letterSpacing: 1.0,
+                              color: PageTheme.vocabulary_practice_index_text,
+                            ),
+                            maxLines: 2,
+                          ),
+                        ) : Container(),
                         Expanded(
-                          flex: 5,
+                          flex: (centerText != null) ? 1 : 7,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -67,7 +84,7 @@ class ButtonSquareView extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 25,
                                     letterSpacing: 1.0,
                                     color: PageTheme.vocabulary_practice_index_text,
                                   ),
@@ -101,7 +118,7 @@ class ButtonSquareView extends StatelessWidget {
                             textAlign: TextAlign.right,
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 10,
+                              fontSize: 15,
                               letterSpacing: 1.0,
                               color: PageTheme.vocabulary_practice_index_text,
                             ),

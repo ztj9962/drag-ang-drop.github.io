@@ -1,5 +1,7 @@
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_conversation_list_page.dart';
+import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_class_mobile_page.dart';
 import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_index_page.dart';
+import 'package:alicsnet_app/page/chat_topic_practice/chat_topic_practice_topic_mobile_page.dart';
 import 'package:alicsnet_app/page/contraction/contraction_index_page.dart';
 import 'package:alicsnet_app/page/custom_article_practice_sentence/custom_article_practice_sentence.dart';
 import 'package:alicsnet_app/page/harvard/harvard_index_page.dart';
@@ -120,6 +122,8 @@ import 'package:auto_route/auto_route.dart';
         path: '/sentence_analysis_index', page: SentenceAnalysisIndexPage),
     AutoRoute(
         path: '/tongue_twisters_index_page', page: TongueTwistersIndexPage),
+    AutoRoute(path: '/chat_topic_practice_class_mobile_page', page: ChatTopicPracticeClassMobilePage),
+    AutoRoute(path: '/chat_topic_practice_topic_mobile_page', page: ChatTopicPracticeTopicMobilePage),
     //New Pages Below ↓↓↓
     /*
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),

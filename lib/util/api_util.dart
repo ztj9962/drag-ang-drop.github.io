@@ -176,6 +176,15 @@ class APIUtil {
     return json;
   }
 
+  static Future<String> getChatTopicClassDataOnly() async {
+    final response = await http.get(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),
+          'app/chatTopic/getChatTopicClassDataOnly'),
+    );
+    String json = response.body.toString();
+    return json;
+  }
+
   static Future<String> get10kLevelData() async {
     final response = await http.get(
       Uri.https(await SharedPreferencesUtil.getAPIURL(),
@@ -730,6 +739,19 @@ class APIUtil {
       Uri.https(await SharedPreferencesUtil.getAPIURL(),'app/status/getStatus'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+    );
+    String json = response.body.toString();
+    return json;
+  }
+  static Future<String> getChatTopicByClass(String classId) async {
+    final response = await http.post(
+      Uri.https(await SharedPreferencesUtil.getAPIURL(),'app/chatTopic/getChatTopicByClass'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'chatTopicClassId': classId,
       },
     );
     String json = response.body.toString();

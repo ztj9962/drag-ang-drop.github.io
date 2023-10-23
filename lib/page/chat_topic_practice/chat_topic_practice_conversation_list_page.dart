@@ -130,11 +130,70 @@ class _ChatTopicPracticeConversationListPageState
                       ),
                     ),
                     child: ButtonSquareView(
-                        mainText: 'title',
-                        subTextBottomRight: 'sub rig',
-                        subTextBottomLeft: 'sub lef',
-                        onTapFunction: () {
+                        mainText: '',
+                        centerText:
+                        '${_titleDict[(index + 1).toString()]['conversationTitle']}\n',
+                        subTextBottomRight:
+                        '對話句數${_titleDict[(index + 1).toString()]['conversationSentenceCount']}',
+                        subTextBottomLeft: '',
+                        onTapFunction: () async {
+                          {
+                            var responseJSONDecode;
+                            try {
+                              int doLimit = 1;
+                              do {
+                                String responseJSON =
+                                await APIUtil.getConversationData(
+                                    _titleDict[(index + 1).toString()]
+                                    ['conversationGroupId']
+                                        .toString());
+                                print(responseJSON);
+                                responseJSONDecode = jsonDecode(responseJSON);
+                                if (responseJSONDecode['apiStatus'] !=
+                                    'success') {
+                                  doLimit += 1;
+                                  if (doLimit > 3)
+                                    throw Exception('API: ' +
+                                        responseJSONDecode[
+                                        'apiMessage']); // 只測 3 次
+                                  await Future.delayed(Duration(seconds: 1));
+                                }
+                              } while (
+                              responseJSONDecode['apiStatus'] != 'success');
+                              print(responseJSONDecode);
+                            } catch (e) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('Error: $e'),
+                              ));
+                            }
+                            EasyLoading.dismiss();
+                            if (responseJSONDecode['apiStatus'] != 'success') {
+                              return;
+                            }
 
+                            List<String> contentList = [];
+                            List<String> translateList = [];
+                            List<String> speakerList = [];
+                            List<String> orderList = [];
+                            for (var item in responseJSONDecode['data']
+                            ['sentence']) {
+                              contentList.add(item['topicSentenceContent']);
+                              translateList.add(item['topicSentenceChinese']);
+                              speakerList.add(item['topicSentenceSpeaker']);
+                              orderList
+                                  .add(item['topicSentenceOrder'].toString());
+                            }
+                            AutoRouter.of(context).push(
+                                LearningAutoChatTopicRoute(
+                                    contentList: [contentList],
+                                    translateList: [translateList],
+                                    title: _topicName,
+                                    speakerList: [speakerList],
+                                    subtitle: _titleDict[(index + 1).toString()]
+                                    ['conversationTitle'],
+                                    orderList: [orderList]));
+                          }
                         },
                         widgetColor: HexColor('#FDFEFB'), borderColor: Colors.transparent
                     ),

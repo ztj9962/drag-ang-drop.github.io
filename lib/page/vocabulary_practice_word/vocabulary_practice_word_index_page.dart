@@ -5,6 +5,7 @@ import 'package:alicsnet_app/util/hexcolor_util.dart';
 import 'package:alicsnet_app/view/button_square_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/view/title_view.dart';
@@ -23,6 +24,8 @@ class VocabularyPracticeWordIndexPage extends StatefulWidget {
 class _VocabularyPracticeWordIndexPageState
     extends State<VocabularyPracticeWordIndexPage> {
   List<Widget> _listViews = <Widget>[];
+
+  bool get isWeb => kIsWeb;
 
   @override
   void initState() {
@@ -155,7 +158,7 @@ class _VocabularyPracticeWordIndexPageState
                     ),
                   ),
                   Container(
-                    width: 950,
+                    width: double.infinity,
                     child: Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 2,
@@ -167,39 +170,38 @@ class _VocabularyPracticeWordIndexPageState
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: Container(
-                                  width: 400,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                      bottomRight: Radius.circular(8.0),
-                                      bottomLeft: Radius.circular(8.0),
-                                      topLeft: Radius.circular(8.0),
-                                      topRight: Radius.circular(8.0),
+                                  child: Container(
+                                    width: 350,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomRight: Radius.circular(8.0),
+                                        bottomLeft: Radius.circular(8.0),
+                                        topLeft: Radius.circular(8.0),
+                                        topRight: Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: ButtonSquareView(
+                                      mainText: '${dataList[index]['displayLevel']}',
+                                      subTextBottomRight: '',
+                                      subTextBottomLeft: 'Rank ${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}',
+                                      onTapFunction: () {
+                                        AutoRouter.of(context).push(
+                                            VocabularyPracticeWordListRoute(
+                                                rangeMin: dataList[index]
+                                                ['minWordRank'],
+                                                rangeMax: dataList[index]
+                                                ['maxWordRank'],
+                                                displayLevel: dataList[index]
+                                                ['displayLevel'],
+                                                cateType: cateStr,
+                                                wordLevel: ''));
+                                      },
+                                      widgetColor: HexColor('#FDFEFB'),
+                                      borderColor: Colors.transparent,
+                                      //widgetColor: PageTheme.app_theme_blue.withOpacity(
+                                      //    0.2 + index * (0.8 / dataList!.length)),
                                     ),
                                   ),
-                                  child: ButtonSquareView(
-                                    mainText: '${dataList[index]['displayLevel']}',
-                                    subTextBottomRight:
-                                    '',
-                                    subTextBottomLeft: 'Rank ${dataList[index]['minWordRank']}~${dataList[index]['maxWordRank']}',
-                                    onTapFunction: () {
-                                      AutoRouter.of(context).push(
-                                          VocabularyPracticeWordListRoute(
-                                              rangeMin: dataList[index]
-                                              ['minWordRank'],
-                                              rangeMax: dataList[index]
-                                              ['maxWordRank'],
-                                              displayLevel: dataList[index]
-                                              ['displayLevel'],
-                                              cateType: cateStr,
-                                              wordLevel: ''));
-                                    },
-                                    widgetColor: HexColor('#FDFEFB'),
-                                    borderColor: Colors.transparent,
-                                    //widgetColor: PageTheme.app_theme_blue.withOpacity(
-                                    //    0.2 + index * (0.8 / dataList!.length)),
-                                  ),
-                                ),
                               ),
                             ],
                           );
@@ -274,7 +276,7 @@ class _VocabularyPracticeWordIndexPageState
                         ),
                       ),
                       Container(
-                        width: 950,
+                        width: double.infinity,
                         child: Wrap(
                             alignment: WrapAlignment.center,
                             spacing: 2,

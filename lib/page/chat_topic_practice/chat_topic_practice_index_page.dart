@@ -95,48 +95,93 @@ class _ChatTopicPracticeIndexPageState
         //print(key);
         //print(value);
 
-        listViews.add(TitleView(
+        /*listViews.add(TitleView(
           titleTxt: '${key}',
           titleColor: Colors.black,
-        ));
+        ));*/
 
         var parser = EmojiParser();
 
         listViews.add(
-            Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 2,
-                children: List.generate(value['title']!.length, (index) {
-                  //if (index == 0) return Container();
-                  //return Text(value['title'][index]);
-                  print(value['title'][index]);
-                  return Stack(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Container(
-                          width: 400,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(8.0),
-                              bottomLeft: Radius.circular(8.0),
-                              topLeft: Radius.circular(8.0),
-                              topRight: Radius.circular(8.0),
-                            ),
+            Container(
+              decoration: BoxDecoration(
+                color: HexColor('#EEF2F8'),
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(12.0),
+                  bottomLeft: Radius.circular(12.0),
+                  topLeft: Radius.circular(12.0),
+                  topRight: Radius.circular(12.0),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsets.all(8)),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Icon(Icons.book),
+                          Padding(padding: EdgeInsets.all(10)),
+                          Column(
+                            children: [
+                              AutoSizeText(
+                                key,
+                                style: TextStyle(color: PageTheme.vocabulary_practice_index_text, fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            ],
                           ),
-                          child: ButtonSquareView(
-                            mainText: value['title'][index],
-                            subTextBottomLeft: '',
-                            subTextBottomRight: '',
-                            widgetColor: HexColor('#FDFEFB'),
-                            borderColor: Colors.transparent,
-                          ),
-                        ),
+                      ],
                       ),
+                    ),
+                  ),
+                  Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 2,
+                      children: List.generate(value['title']!.length, (index) {
+                        if (index == 0) return Container();
+                        //return Text(value['title'][index]);
+                        print(value['title'][index]);
+                        return Stack(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                width: 400,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(8.0),
+                                    bottomLeft: Radius.circular(8.0),
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0),
+                                  ),
+                                ),
+                                child: ButtonSquareView(
+                                  mainText: '',
+                                  subTextBottomLeft: '',
+                                  subTextBottomRight: '',
+                                  centerText: value['title'][index],
+                                  prefixText: parser.get(value['appEmojiName'][index]).code,
+                                  widgetColor: HexColor('#FDFEFB'),
+                                  borderColor: Colors.transparent,
+                                  onTapFunction: (){
+                                    AutoRouter.of(context).push(
+                                        ChatTopicPracticeConversationListRoute(
+                                            topicName: value['title']
+                                            [index]));
+                                  },
+                                ),
+                              ),
+                            ),
 
-                    ],
-                  );
-                })));
+                          ],
+                        );
+                      })),
+                ],
+              ),
+            ));
+        listViews.add(Padding(padding: EdgeInsets.all(20)));
       });
 
       setState(() {
