@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
   #
+  pdf: ^3.0.0
   simple_animations: ^4.1.0
   shared_preferences: ^2.0.13
   speech_to_text: ^6.0.0

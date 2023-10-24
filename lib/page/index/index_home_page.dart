@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
 import 'package:alicsnet_app/view/outlined_button_card_view.dart';
@@ -131,21 +133,21 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
-    /*
+
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
         imagePath: 'assets/icon/setting.svg',
-        titleText: 'Mobile Path',
-        descripText: '手機模式',
+        titleText: 'Summary Report',
+        descripText: '總結報告',
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
           AutoRouter.of(context)
-              .push(ChatTopicPracticeClassMobileRoute());
+              .push(LearningAutoGenericSummaryReportRoute(summaryReportData:{'ttsRateString': '2倍', 'startTime': '2023-10-24 15:56:24', 'sentenceQuestionArray': ['creepier mine'], 'sentenceQuestionIPAArray': ['creepier* maɪn'], 'sentenceQuestionErrorArray': [['creepier', 'mine']], 'sentenceQuestionChineseArray': ['',''], 'sentenceAnswerArray': ['creeper'], 'sentenceAnswerIPAArray': ["creeper*"], 'sentenceAnswerErrorArray': [['creeper']], 'scoreArray': [72], 'secondsArray': [8], 'userAnswerRate': [0.125], 'endTime': '2023-10-24 15:56:40'}));
         },
       ),
-    );*/
+    );
 
     /*
     listViews.add(

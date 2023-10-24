@@ -531,6 +531,7 @@ class _CustomArticlePracticeSentenceIndexPage
                                     }
                                   }
 
+
                                   AutoRouter.of(context)
                                       .push(LearningAutoGenericRoute(
                                     contentList: filtedContentList,

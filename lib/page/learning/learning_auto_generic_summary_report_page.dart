@@ -1,3 +1,8 @@
+import 'dart:typed_data';
+import 'dart:html' as html;
+import 'package:flutter/services.dart';
+import 'package:pdf/widgets.dart' as pw;
+
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -280,56 +285,142 @@ class _LearningAutoGenericSummaryReportPage
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Text('統整'),
-                          const Divider(
-                            thickness: 1,
-                            color: PageTheme.app_theme_blue,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('統整'),
+                              const Divider(
+                                thickness: 1,
+                                color: PageTheme.app_theme_blue,
+                              ),
+                              AutoSizeText(
+                                '答對數/總題數：${_summaryReportData['scoreArray'].where((score) => score == 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score == 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '答錯數/總題數：${_summaryReportData['scoreArray'].where((score) => score != 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score != 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(''),
+                              AutoSizeText(
+                                '設定語速：${_summaryReportData['ttsRateString']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '您的平均語速：${(_summaryReportData['userAnswerRate'].fold(0, (p, c) => p + c) / _summaryReportData['scoreArray'].length).toStringAsFixed(2)} wps',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(''),
+                              AutoSizeText(
+                                '測驗開始時間：${_summaryReportData['startTime']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '測驗結束時間：${_summaryReportData['endTime']}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              AutoSizeText(
+                                '總測驗時間：${formatDuration(Duration(seconds: DateTime.parse(_summaryReportData['endTime']).difference(DateTime.parse(_summaryReportData['startTime'])).inSeconds))}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
-                          AutoSizeText(
-                            '答對數/總題數：${_summaryReportData['scoreArray'].where((score) => score == 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score == 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          AutoSizeText(
-                            '答錯數/總題數：${_summaryReportData['scoreArray'].where((score) => score != 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score != 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(''),
-                          AutoSizeText(
-                            '設定語速：${_summaryReportData['ttsRateString']}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          AutoSizeText(
-                            '您的平均語速：${(_summaryReportData['userAnswerRate'].fold(0, (p, c) => p + c) / _summaryReportData['scoreArray'].length).toStringAsFixed(2)} wps',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(''),
-                          AutoSizeText(
-                            '測驗開始時間：${_summaryReportData['startTime']}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          AutoSizeText(
-                            '測驗結束時間：${_summaryReportData['endTime']}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          AutoSizeText(
-                            '總測驗時間：${formatDuration(Duration(seconds: DateTime.parse(_summaryReportData['endTime']).difference(DateTime.parse(_summaryReportData['startTime'])).inSeconds))}',
-                            style: const TextStyle(
-                              fontSize: 16,
+                          Expanded(
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor:
+                                  PageTheme.app_theme_blue,
+                                  radius: 30.0,
+                                  child: IconButton(
+                                    icon: Icon(
+                                        Icons.save,
+                                        size: 30),
+                                    color: Colors.white,
+                                    onPressed: () async {
+                                      //下載PDF
+                                      final pdf = pw.Document();
+                                      final ByteData fontData = await rootBundle.load("fonts/NotoSansTC-Black.ttf");
+                                      final pw.Font customFont = pw.Font.ttf(fontData);
+
+                                      final List<pw.TableRow> tableRows = [];
+
+                                      for (int i = 0; i < _summaryReportData['sentenceQuestionArray'].length; i++) {
+                                        tableRows.add(
+                                          pw.TableRow(
+                                            children: <pw.Widget>[
+                                              pw.Text('Bot', style: pw.TextStyle(font: customFont)),
+                                              pw.Text(_summaryReportData['sentenceQuestionArray'][i], style: pw.TextStyle(font: customFont)),
+                                            ],
+                                          ),
+                                        );
+                                        tableRows.add(
+                                          pw.TableRow(
+                                            children: <pw.Widget>[
+                                              pw.Text('You', style: pw.TextStyle(font: customFont)),
+                                              pw.Text(_summaryReportData['sentenceAnswerArray'][i], style: pw.TextStyle(font: customFont)),
+                                              // 可以添加更多列
+                                            ],
+                                          ),
+                                        );
+                                      }
+
+                                      pdf.addPage(
+                                        pw.Page(
+                                          build: (pw.Context context) {
+                                            return pw.Column(
+                                              children: <pw.Widget>[
+                                                // 在这里添加其他内容，如文本或图像
+                                                pw.Text('英語口語練習結果', style: pw.TextStyle(font: customFont)),
+                                                pw.Text('Shadow Speaking Practice result', style: pw.TextStyle(font: customFont)),
+                                                // 添加表格
+                                                pw.Table(
+                                                  border: pw.TableBorder.all(),
+                                                  children: tableRows,
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
+
+                                      final uint8List = Uint8List.fromList(await pdf.save());
+
+                                      // 创建Blob对象，用于表示二进制大对象
+                                      final blob = html.Blob([uint8List]);
+
+                                      // 创建一个URL对象，用于指向Blob对象
+                                      final url = html.Url.createObjectUrlFromBlob(blob);
+
+                                      // 创建一个<a>元素，用于模拟点击以下载文件
+                                      final anchor = html.AnchorElement(href: url)
+                                      ..target = 'webdownload'
+                                      ..download = 'file.pdf' // 指定文件名
+                                      ..click();
+
+                                      // 释放URL对象以释放资源
+                                      html.Url.revokeObjectUrl(url);
+                                    },
+                                  ),
+                                ),
+                                AutoSizeText('儲存報表'),
+                              ],
                             ),
                           ),
                         ],

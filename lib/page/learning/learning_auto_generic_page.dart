@@ -127,6 +127,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     _ipaList = widget.ipaList;
     _translateList = widget.translateList;
     _idList = widget.idList;
+
     super.initState();
     initLearningAutoGenericPage();
   }
@@ -733,11 +734,12 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
       questionTextWidget
           .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
+      if(_idList.isNotEmpty){
       questionTextWidget.add(
         TextSpan(
             text: '\nSentence ID:${_idList[_part - 1]}',
             style: TextStyle(color: PageTheme.grey.withOpacity(0.7))),
-      );
+      );}
 
       message = ChatMessageUtil(
         senderIsMe: false,
@@ -847,6 +849,8 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
               'Quiz is over. If you want to view detailed quiz information, please click the report button at the bottom right.',
           speakLanguage: 'en-US');
     } else {
+      print(_part);
+      print('hello you are not crash');
       //_questionStart = DateTime.now();
       List<TextSpan> questionTextWidget = [];
       questionTextWidget.add(TextSpan(text: '${_contentList[_part - 1]}'));
@@ -856,8 +860,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
       );
        */
       questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
-      questionTextWidget
-          .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
+      questionTextWidget.add(TextSpan(text: '\n${_part}/${_contentList.length}'));
 
       if(_idList.isNotEmpty){
         questionTextWidget.add(
