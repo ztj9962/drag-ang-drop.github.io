@@ -370,33 +370,35 @@ class _LearningAutoGenericSummaryReportPage
                                               final ByteData fontData = await rootBundle.load(_PDFttfPath);
                                               final pw.Font customFont = pw.Font.ttf(fontData);
 
-                                              final List<pw.TableRow> tableRows = [];
+                                              List<pw.TableRow> tableRows = [];
+                                              List<pw.Table> pwTables = [];
 
                                               //處理錯誤句子紅字
                                               for (int index = 0; index < _summaryReportData['sentenceQuestionArray'].length; index++) {
 
                                                 var questionTextArray = _summaryReportData['sentenceQuestionArray'][index].split(' ');
-                                                List<pw.TextSpan> questionTextWidget = [];
+                                                List<List<pw.TextSpan>> questionTextWidget = List<List<pw.TextSpan>>.filled(_summaryReportData['sentenceQuestionArray'].length, []);
                                                 for (var i = 0; i < questionTextArray.length; i++) {
                                                   if (_summaryReportData['sentenceQuestionErrorArray'][index].contains(questionTextArray[i])) {
-                                                    questionTextWidget.add(pw.TextSpan(text: ' ' + questionTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.red)),);
+                                                    questionTextWidget[index].add(pw.TextSpan(text: questionTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.red)),);
                                                   } else {
-                                                    questionTextWidget.add(pw.TextSpan(text: ' ' + questionTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.black)),);
+                                                    questionTextWidget[index].add(pw.TextSpan(text: questionTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.black)),);
                                                   }
                                                 }
 
                                                 var answerTextArray = _summaryReportData['sentenceAnswerArray'][index].split(' ');
-                                                List<pw.TextSpan> answerTextWidget = [];
+                                                List<List<pw.TextSpan>> answerTextWidget = List<List<pw.TextSpan>>.filled(_summaryReportData['sentenceQuestionArray'].length, []);
                                                 for (var i = 0; i < answerTextArray.length; i++) {
                                                   if (_summaryReportData['sentenceAnswerErrorArray'][index].contains(answerTextArray[i])) {
-                                                    answerTextWidget.add(pw.TextSpan(text: ' ' + answerTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.red)),);
+                                                    answerTextWidget[index].add(pw.TextSpan(text: answerTextArray[i] + ' ', style: pw.TextStyle(font: customFont,color: PdfColors.red)),);
                                                   } else {
-                                                    answerTextWidget.add(pw.TextSpan(text: ' ' + answerTextArray[i]+ ' ', style: pw.TextStyle(font: customFont,color: PdfColors.black)),);
+                                                    answerTextWidget[index].add(pw.TextSpan(text: answerTextArray[i]+ ' ', style: pw.TextStyle(font: customFont,color: PdfColors.black)),);
                                                   }
                                                 }
 
                                                 tableRows.add(
                                                   pw.TableRow(
+                                                    verticalAlignment: pw.TableCellVerticalAlignment.middle,
                                                     decoration:pw.BoxDecoration(color: PdfColor.fromHex('#FFFFFF'),
                                                     ),
                                                     children: <pw.Widget>[
@@ -404,28 +406,59 @@ class _LearningAutoGenericSummaryReportPage
                                                         alignment: pw.Alignment.center,
                                                         child: pw.Text('Bot', style: pw.TextStyle(font: customFont)),
                                                       ),
-                                                      pw.Align(
-                                                        alignment: pw.Alignment.centerLeft,
-                                                        child: pw.RichText(text: pw.TextSpan(children: questionTextWidget)),
+                                                      pw.Padding(
+                                                        padding: pw.EdgeInsets.only(left: 5),
+                                                        child: pw.Align(
+                                                          alignment: pw.Alignment.centerLeft,
+                                                          child: pw.RichText(text: pw.TextSpan(children: questionTextWidget[index])),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 );
                                                 tableRows.add(
                                                   pw.TableRow(
+                                                    verticalAlignment: pw.TableCellVerticalAlignment.middle,
                                                     decoration:pw.BoxDecoration(color: PdfColor.fromHex('#E0E0E0')),
                                                     children: <pw.Widget>[
                                                       pw.Align(
                                                         alignment: pw.Alignment.center,
                                                         child: pw.Text('You', style: pw.TextStyle(font: customFont)),
                                                       ),
-                                                      pw.Align(
-                                                        alignment: pw.Alignment.centerLeft,
-                                                        child: pw.RichText(text: pw.TextSpan(children: answerTextWidget)),
+                                                      pw.Padding(
+                                                        padding: pw.EdgeInsets.only(left: 5),
+                                                        child: pw.Align(
+                                                          alignment: pw.Alignment.centerLeft,
+                                                          child: pw.RichText(text: pw.TextSpan(children: answerTextWidget[index])),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 );
+
+                                                pwTables.add(pw.Table(
+                                                    border: pw.TableBorder.all(),
+                                                    columnWidths: {0:pw.FixedColumnWidth(10.0)},
+                                                    children: [
+                                                      pw.TableRow(
+                                                        verticalAlignment: pw.TableCellVerticalAlignment.middle,
+                                                        decoration:pw.BoxDecoration(color: PdfColor.fromHex('#EEF2F8')),
+                                                          children: [
+                                                            pw.Align(
+                                                              alignment: pw.Alignment.center,
+                                                              child: pw.Text((index+1).toString(),style:pw.TextStyle(font: customFont)),
+                                                            ),
+                                                        pw.Table(
+                                                          columnWidths: {0:pw.FixedColumnWidth(10.0),1:pw.FixedColumnWidth(80.0)},
+                                                          border: pw.TableBorder.all(),
+                                                          children: tableRows,
+                                                        ),
+                                                      ]
+                                                      )
+                                                    ]
+                                                ),);
+                                            
+                                                tableRows = [];
                                               }
 
                                               //創造PDF
@@ -438,11 +471,10 @@ class _LearningAutoGenericSummaryReportPage
                                                         pw.Text('Shadow Speaking Practice result', style: pw.TextStyle(font: customFont)),
                                                         pw.Container(height: 20),
                                                         // 添加表格
-                                                        pw.Table(
-                                                          columnWidths: {0:pw.FixedColumnWidth(10.0)},
-                                                          border: pw.TableBorder.all(),
-                                                          children: tableRows,
+                                                        pw.Column(
+                                                          children:pwTables,
                                                         ),
+
                                                         pw.Container(height: 20),
                                                         pw.Align(
                                                             alignment: pw.Alignment.centerLeft,
