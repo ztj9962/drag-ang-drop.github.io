@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -25,6 +27,13 @@ class LearningAutoGenericSummaryReportPage extends StatefulWidget {
 
 class _LearningAutoGenericSummaryReportPage
     extends State<LearningAutoGenericSummaryReportPage> {
+
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+  bool get isWeb => kIsWeb;
+
   //asset是根目錄
   String _PDFttfPath = "fonts/NotoSansTC-Black.ttf";
   Map _summaryReportData = {
@@ -430,6 +439,7 @@ class _LearningAutoGenericSummaryReportPage
                                                         pw.Container(height: 20),
                                                         // 添加表格
                                                         pw.Table(
+                                                          columnWidths: {0:pw.FixedColumnWidth(10.0)},
                                                           border: pw.TableBorder.all(),
                                                           children: tableRows,
                                                         ),
@@ -454,23 +464,16 @@ class _LearningAutoGenericSummaryReportPage
                                                 ),
                                               );
                                               //電腦版下載PDF
-
-                                              final uint8List = Uint8List.fromList(await pdf.save());
-
-                                              // 创建Blob对象，用于表示二进制大对象
-                                              final blob = html.Blob([uint8List]);
-
-                                              // 创建一个URL对象，用于指向Blob对象
-                                              final url = html.Url.createObjectUrlFromBlob(blob);
-
-                                              // 创建一个<a>元素，用于模拟点击以下载文件
-                                              final anchor = html.AnchorElement(href: url)
-                                                ..target = 'webdownload'
-                                                ..download = 'summary_report.pdf' // 指定文件名
-                                                ..click();
-
-                                              // 释放URL对象以释放资源
-                                              html.Url.revokeObjectUrl(url);
+                                              if(isWeb){
+                                                final uint8List = Uint8List.fromList(await pdf.save());
+                                                final blob = html.Blob([uint8List]);
+                                                final url = html.Url.createObjectUrlFromBlob(blob);
+                                                final anchor = html.AnchorElement(href: url)
+                                                  ..target = 'webdownload'
+                                                  ..download = 'summary_report.pdf' // 指定文件名
+                                                  ..click();
+                                                html.Url.revokeObjectUrl(url);
+                                              }
                                             },
                                           ),
                                         ),
