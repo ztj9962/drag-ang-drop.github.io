@@ -133,7 +133,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
-
+/*
     listViews.add(
       OutlinedButtonCardView(
         showDevelopTag: true,
@@ -149,7 +149,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
-
+*/
     /*
     listViews.add(
       ButtonCardView(
