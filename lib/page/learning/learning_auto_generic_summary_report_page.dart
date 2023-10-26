@@ -463,37 +463,56 @@ class _LearningAutoGenericSummaryReportPage
                                                 tableRows = [];
                                               }
 
+                                              List<pw.Widget> pageWidgetList = [];
+
+                                              //安排每個部分排列
+                                              pageWidgetList.add(
+                                                pw.Align(
+                                                  child: pw.Column(
+                                                    children: <pw.Widget>[
+                                                      pw.Text('英語口語練習結果', style: pw.TextStyle(font: customFont)),
+                                                      pw.Text('Shadow Speaking Practice result', style: pw.TextStyle(font: customFont)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                );
+
+                                              pageWidgetList.add(
+                                                pw.Container(height: 20),
+                                              );
+
+                                              pageWidgetList.add(
+                                                pw.Column(
+                                                  children:pwTables,
+                                                ),
+                                              );
+
+                                              pageWidgetList.add(
+                                                pw.Container(height: 20),
+                                              );
+
+                                              pageWidgetList.add(
+                                                pw.Align(
+                                                    alignment: pw.Alignment.centerLeft,
+                                                    child: pw.Column(
+                                                        children: <pw.Widget>[
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('答對數/總題數：${_summaryReportData['scoreArray'].where((score) => score == 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score == 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('答錯數/總題數：${_summaryReportData['scoreArray'].where((score) => score != 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score != 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('設定語速：${_summaryReportData['ttsRateString']}', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('您的平均語速：${(_summaryReportData['userAnswerRate'].fold(0, (p, c) => p + c) / _summaryReportData['scoreArray'].length).toStringAsFixed(2)} wps', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('測驗開始時間：${_summaryReportData['startTime']}', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('測驗結束時間：${_summaryReportData['endTime']}', style: pw.TextStyle(font: customFont)),),
+                                                          pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('總測驗時間：${formatDuration(Duration(seconds: DateTime.parse(_summaryReportData['endTime']).difference(DateTime.parse(_summaryReportData['startTime'])).inSeconds))}', style: pw.TextStyle(font: customFont)),),
+                                                        ]
+                                                    )
+                                                ),
+                                              );
+
                                               //創造PDF
                                               pdf.addPage(
-                                                pw.Page(
+                                                pw.MultiPage(
                                                   build: (pw.Context context) {
-                                                    return pw.Column(
-                                                      children: <pw.Widget>[
-                                                        pw.Text('英語口語練習結果', style: pw.TextStyle(font: customFont)),
-                                                        pw.Text('Shadow Speaking Practice result', style: pw.TextStyle(font: customFont)),
-                                                        pw.Container(height: 20),
-                                                        // 添加表格
-                                                        pw.Column(
-                                                          children:pwTables,
-                                                        ),
-
-                                                        pw.Container(height: 20),
-                                                        pw.Align(
-                                                            alignment: pw.Alignment.centerLeft,
-                                                            child: pw.Column(
-                                                                children: <pw.Widget>[
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('答對數/總題數：${_summaryReportData['scoreArray'].where((score) => score == 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score == 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('答錯數/總題數：${_summaryReportData['scoreArray'].where((score) => score != 100).toList().length} / ${_summaryReportData['scoreArray'].length} ( ${(_summaryReportData['scoreArray'].where((score) => score != 100).toList().length / _summaryReportData['scoreArray'].length * 100).toStringAsFixed(1)} %)', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('設定語速：${_summaryReportData['ttsRateString']}', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('您的平均語速：${(_summaryReportData['userAnswerRate'].fold(0, (p, c) => p + c) / _summaryReportData['scoreArray'].length).toStringAsFixed(2)} wps', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('測驗開始時間：${_summaryReportData['startTime']}', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('測驗結束時間：${_summaryReportData['endTime']}', style: pw.TextStyle(font: customFont)),),
-                                                                  pw.Align(alignment: pw.Alignment.centerLeft,child:pw.Text('總測驗時間：${formatDuration(Duration(seconds: DateTime.parse(_summaryReportData['endTime']).difference(DateTime.parse(_summaryReportData['startTime'])).inSeconds))}', style: pw.TextStyle(font: customFont)),),
-                                                                ]
-                                                            )
-                                                        ),
-                                                      ],
-                                                    );
+                                                    return pageWidgetList;
                                                   },
                                                 ),
                                               );
