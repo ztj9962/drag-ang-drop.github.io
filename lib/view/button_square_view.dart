@@ -14,6 +14,7 @@ class ButtonSquareView extends StatelessWidget {
   final Function()? onTapFunction;
   final String? prefixText;
   final String? centerText;
+  final String? subCenterText;
 
   const ButtonSquareView({
     Key? key,
@@ -26,6 +27,7 @@ class ButtonSquareView extends StatelessWidget {
     this.prefixText,
     this.onTapFunction,
     this.centerText,
+    this.subCenterText,
   }) : super(key: key);
 
   @override
@@ -61,16 +63,33 @@ class ButtonSquareView extends StatelessWidget {
                         (centerText != null) ? Padding(padding: EdgeInsets.all(5)) : Container(),
                         (centerText != null) ? Expanded(
                           flex: (subTextBottomRight != '') ? 7 : 9,
-                          child: AutoSizeText(
-                            centerText!,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              letterSpacing: 1.0,
-                              color: PageTheme.vocabulary_practice_index_text,
-                            ),
-                            maxLines: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AutoSizeText(
+                                centerText!,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  letterSpacing: 1.0,
+                                  color: PageTheme.vocabulary_practice_index_text,
+                                ),
+                                maxLines: 2,
+                              ),
+                              (subCenterText != null) ? AutoSizeText(
+                                subCenterText!,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  letterSpacing: 1.0,
+                                  color: PageTheme.vocabulary_practice_index_text,
+                                ),
+                                maxLines: 2,
+                              ) : Container(),
+                            ],
                           ),
                         ) : Container(),
                         Expanded(
@@ -122,7 +141,7 @@ class ButtonSquareView extends StatelessWidget {
                               letterSpacing: 1.0,
                               color: PageTheme.vocabulary_practice_index_text,
                             ),
-                            maxLines: 2,
+                            maxLines: 1,
                           ),
                         ),
                         Expanded(

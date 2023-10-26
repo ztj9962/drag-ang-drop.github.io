@@ -302,9 +302,9 @@ class _VocabularyPracticeWordIndexPageState
                                           mainText:
                                           '${groupListData[index]['describe']}',
                                           subTextBottomRight:
-                                          ('單字量${groupListData[index]['wordCount']}'),
+                                          '${groupListData[index]['displayLevel']}',
                                           subTextBottomLeft:
-                                          ('${groupListData[index]['displayLevel']}'),
+                                          ('Rank ${groupListData[index]['minWordRank']} ~ ${groupListData[index]['maxWordRank']}'),
                                           onTapFunction: () {
                                             AutoRouter.of(context).push(
                                                 VocabularyPracticeWordListRoute(

@@ -111,10 +111,10 @@ class _ChatTopicPracticeClassMobilePageState
 
         var parser = EmojiParser();
 
-        listViews.add(ButtonSquareView(mainText: "${key['classChinese']} - ${key['className']}", subTextBottomLeft: key['classDescribe'], subTextBottomRight: '', widgetColor: HexColor('#FDFEFB'), borderColor: Colors.transparent,onTapFunction: (){
+        listViews.add(ButtonSquareView(centerText: "${key['classChinese']}",subCenterText: '${key['className']}', subTextBottomLeft: '', subTextBottomRight: '', widgetColor: HexColor('#FDFEFB'), borderColor: Colors.transparent,onTapFunction: (){
           AutoRouter.of(context).push(
               ChatTopicPracticeTopicMobileRoute(topicClassId: key['classId'].toString(), topicClassName: "${key['classChinese']}\n${key['className']}"));
-        },));
+        }, mainText: '',));
 
       });
 

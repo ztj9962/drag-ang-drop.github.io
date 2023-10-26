@@ -60,6 +60,7 @@ class _VocabularyPracticeWordListPageState
     }
     _rowIndexSliderIndex = _rowIndexSliderMin;
     _sliderEducationLevel = widget.displayLevel;
+
     initVocabularyPracticeWordListPage();
     super.initState();
   }
@@ -71,6 +72,19 @@ class _VocabularyPracticeWordListPageState
   }
 
   void initVocabularyPracticeWordListPage() async {
+    if (_rowIndexSliderIndex % 5 == 0){
+      _previousFifthIndex = (_rowIndexSliderIndex - 4);
+    }else{
+      _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
+    }
+
+    if(_previousFifthIndex < _rowIndexSliderMin){
+      _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
+      _previousFifthIndex = _rowIndexSliderMin;
+    }
+
+    print(_rowIndexSliderMin);
+    print(_previousFifthIndex);
     await _getVocabularyList();
   }
 
@@ -316,7 +330,7 @@ class _VocabularyPracticeWordListPageState
                                       ? Container(
                                         child:
                                           AutoSizeText(
-                                            (_rowIndexSliderIndex % 5 == 0) ? "${(_rowIndexSliderIndex - 4) + index}\nRk. ${_vocabularyList[index]['ranking'].toString()}" : "${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}\nRk. ${_vocabularyList[index]['ranking'].toString()}",
+                                            (_rowIndexSliderIndex % 5 == 0) ? "${(_rowIndexSliderIndex - 4) + index}\nRk. ${_vocabularyList[index]['ranking'].toInt()}" : "${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}\nRk. ${_vocabularyList[index]['ranking'].toInt()}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -328,6 +342,7 @@ class _VocabularyPracticeWordListPageState
                                             ),
                                       )
                                       : AutoSizeText(
+                                    (_dataLimit != 5) ? '${_rowIndexSliderIndex + index}' :
                                       (_rowIndexSliderIndex % 5 == 0) ? '${(_rowIndexSliderIndex - 4) + index}' : '${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}'
                                           ,
                                           textAlign: TextAlign.center,
@@ -574,7 +589,6 @@ class _VocabularyPracticeWordListPageState
       setState(() {
         _vocabularyList = vocabularyList;
       });
-      print(responseJSONDecode['data'][0]['rowIndex']);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: $e'),
@@ -648,7 +662,6 @@ class _VocabularyPracticeWordListPageState
         }
       } while (responseJSONDecode['apiStatus'] != 'success');
       vocabularySentenceList = responseJSONDecode['data'];
-      //print(vocabularySentenceList);
 
       setState(() {
         _vocabularySentenceList = vocabularySentenceList;
@@ -677,6 +690,11 @@ class _VocabularyPracticeWordListPageState
       }else{
         _dataLimit = 5;
       }
+      if(_previousFifthIndex < _rowIndexSliderMin){
+        _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
+        _previousFifthIndex = _rowIndexSliderMin;
+      }
+
       setState(() => _rowIndexSliderIndex = sliderIndex);
     } else {
       if (sliderIndex < _rowIndexSliderMin) {
@@ -686,21 +704,33 @@ class _VocabularyPracticeWordListPageState
         setState(
             () => _rowIndexSliderIndex = (_rowIndexSliderMax));
       }
-      if (_rowIndexSliderIndex % 5 == 0){
-        _previousFifthIndex = (_rowIndexSliderIndex - 4);
-      }else{
-        _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
+      if(_previousFifthIndex < _rowIndexSliderMin){
+        _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
+        _previousFifthIndex = _rowIndexSliderMin;
       }
-      if(_rowIndexSliderMax - _previousFifthIndex <= 5){
-        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
-      }else{
-        _dataLimit = 5;
-      }
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
             'Opps: 您要找的單字位於Rank ${sliderIndex} 不存在${_sliderEducationLevel}範圍'),
       ));
     }
     //_adjustSliderEducationLevel();
+  }
+  void updateIndexState(){
+    if (_rowIndexSliderIndex % 5 == 0){
+      _previousFifthIndex = (_rowIndexSliderIndex - 4);
+    }else{
+      _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
+    }
+
+    if(_previousFifthIndex < _rowIndexSliderMin){
+      _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
+      _previousFifthIndex = _rowIndexSliderMin;
+    }
+    if(_rowIndexSliderMax - _previousFifthIndex <= 5){
+      _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
+    }else{
+      _dataLimit = 5;
+    }
   }
 }
