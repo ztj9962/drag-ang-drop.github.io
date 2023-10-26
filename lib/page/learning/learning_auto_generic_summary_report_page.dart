@@ -1,6 +1,7 @@
-import 'dart:io';
+import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:html' as html;
+
+import 'package:alicsnet_app/util/web_only_feature_util.dart' if(dart.library.io) 'package:alicsnet_app/util/mobile_only_feature_util.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
@@ -28,9 +29,9 @@ class LearningAutoGenericSummaryReportPage extends StatefulWidget {
 class _LearningAutoGenericSummaryReportPage
     extends State<LearningAutoGenericSummaryReportPage> {
 
-  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isIOS => !kIsWeb && isIOS;
 
-  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isAndroid => !kIsWeb && isAndroid;
 
   bool get isWeb => kIsWeb;
 
@@ -58,7 +59,7 @@ class _LearningAutoGenericSummaryReportPage
   @override
   void initState() {
     _summaryReportData = widget.summaryReportData;
-    print(_summaryReportData);
+    print(jsonEncode(_summaryReportData));
     super.initState();
   }
 
@@ -349,6 +350,7 @@ class _LearningAutoGenericSummaryReportPage
                                       ),
                                     ],
                                   ),
+                                  (isWeb) ?
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -498,13 +500,21 @@ class _LearningAutoGenericSummaryReportPage
                                               //電腦版下載PDF
                                               if(isWeb){
                                                 final uint8List = Uint8List.fromList(await pdf.save());
-                                                final blob = html.Blob([uint8List]);
-                                                final url = html.Url.createObjectUrlFromBlob(blob);
-                                                final anchor = html.AnchorElement(href: url)
-                                                  ..target = 'webdownload'
-                                                  ..download = 'summary_report.pdf' // 指定文件名
-                                                  ..click();
-                                                html.Url.revokeObjectUrl(url);
+                                                //final blob = Blob([uint8List]);
+                                                //final url = Url.createObjectUrlFromBlob(blob);
+                                                //final anchor = AnchorElement(href: url)
+                                                //  ..target = 'webdownload'
+                                                //  ..download = 'file.pdf' // 指定文件名
+                                                //  ..click();
+                                                //Url.revokeObjectUrl(url);;
+                                                downloadPDF(uint8List);
+                                              }
+                                              if(isAndroid){
+                                                //final directory = await getApplicationDocumentsDirectory();
+                                                //final pdfFile = File('${directory.path}/example.pdf');
+                                                //// 将PDF内容写入文件
+                                                //await pdfFile.writeAsBytes(await pdf.save());
+                                                downloadPDF(await pdf.save());
                                               }
                                             },
                                           ),
@@ -512,7 +522,7 @@ class _LearningAutoGenericSummaryReportPage
                                         AutoSizeText('儲存報表'),
                                       ],
                                     ),
-                                  ),
+                                  ) : Container(),
                                   Padding(padding: EdgeInsets.all(15))
                                 ],
                               )

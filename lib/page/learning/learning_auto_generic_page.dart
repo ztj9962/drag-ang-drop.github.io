@@ -849,8 +849,6 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
               'Quiz is over. If you want to view detailed quiz information, please click the report button at the bottom right.',
           speakLanguage: 'en-US');
     } else {
-      print(_part);
-      print('hello you are not crash');
       //_questionStart = DateTime.now();
       List<TextSpan> questionTextWidget = [];
       questionTextWidget.add(TextSpan(text: '${_contentList[_part - 1]}'));
