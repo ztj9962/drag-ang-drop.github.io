@@ -36,7 +36,7 @@ class _LearningAutoGenericSummaryReportPage
   bool get isWeb => kIsWeb;
 
   //asset是根目錄
-  String _PDFttfPath = "fonts/NotoSansTC-Black.ttf";
+  String _PDFttfPath = "assets/fonts/NotoSansTC-Black.ttf";
   Map _summaryReportData = {
     'ttsRateString': '',
     'startTime': '',

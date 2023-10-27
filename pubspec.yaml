@@ -90,6 +90,7 @@ flutter:
     - assets/sels_app/
     - assets/sounds/
     - assets/icon/
+    - assets/fonts/
     - assets/sels_app/GrammarCheckPage/
     - assets/sels_app/PhoneticExercisesLearnManualPage/
     - assets/sels_app/SELSAppHomePage/
