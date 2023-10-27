@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:alicsnet_app/util/api_util.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -88,7 +89,7 @@ class _LearningManualVocabularyPraticeWordPageState
   int sttResultListened = 0;
   List<LocaleName> _sttLocaleNames = [];
   final SpeechToText speechToText = SpeechToText();
-
+  final audioPlayer = AudioPlayer();
   // flutter_tts
   late FlutterTts flutterTts;
   String? ttsLanguage;
@@ -698,6 +699,10 @@ class _LearningManualVocabularyPraticeWordPageState
   Future<void> sttStartListening() async {
     sttLastWords = '';
     sttLastError = '';
+    if(isWeb){
+      await audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_listening.m4r');
+      audioPlayer.play();
+    }
     speechToText.listen(
         onResult: sttResultListener,
         listenFor: const Duration(seconds: 30),
@@ -729,7 +734,10 @@ class _LearningManualVocabularyPraticeWordPageState
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    //print('Result listener $sttResultListened');
+    if(isWeb && sttResultListened <= 1){
+      audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.play();
+    }
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -833,6 +841,7 @@ class _LearningManualVocabularyPraticeWordPageState
   }
 
   void _responseChatBot(text) async {
+    sttResultListened = 0;
     setState(() {
       _replyText = '請稍候......';
       _replyTextWidget = [

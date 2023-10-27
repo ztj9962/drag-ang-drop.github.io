@@ -16,6 +16,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -59,6 +60,8 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
   late List<List<String>> _orderList;
   late String _title;
   late String _subtitle;
+
+  final audioPlayer = AudioPlayer();
 
   int _part = 0;
   int _topicPart = 0;
@@ -524,6 +527,11 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
   Future<void> sttStartListening() async {
     sttLastWords = '';
     sttLastError = '';
+    if(isWeb){
+      print('m4r');
+      await audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_listening.m4r');
+      audioPlayer.play();
+    }
     speechToText.listen(
         onResult: sttResultListener,
         listenFor: Duration(seconds: 30),
@@ -555,6 +563,10 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
+    if(isWeb && sttResultListened <= 1){
+      audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.play();
+    }
     //print('Result listener $sttResultListened');
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
@@ -757,7 +769,7 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
   }
 
   void _responseChatBot(text) async {
-    print('${_part} is not check');
+    sttResultListened = 0;
     String checkSentencesJSON = await APIUtil.checkSentences(
         _contentList[_topicPart][_part - 1], text,
         correctCombo: _correctCombo);
@@ -984,40 +996,6 @@ class _LearningAutoChatTopicPage extends State<LearningAutoChatTopicPage> {
         ttsPitch = 1.2;
       }
       await _ttsSpeak(_contentList[_topicPart][_part - 1], 'en-US');
-      await Future.delayed(Duration(
-          milliseconds:
-              (_part / _contentList[_topicPart].length * 2360).round()));
-      setState(() {
-        _isActive = true;
-      });
-      await sttStartListening();
-      setState(() {
-        ttsRateSlow = false;
-        _allowTouchButtons['reListenButton'] = true;
-        _allowTouchButtons['speakButton'] = true;
-        _allowTouchButtons['pauseButton'] = true;
-      });
-      //_questionStart = DateTime.now();
-      /*List<TextSpan> questionTextWidget = [];
-      questionTextWidget.add(TextSpan(text: '${_contentList[_part - 1]}'));
-      /*
-      questionTextWidget.add(
-          TextSpan(text: '\n[${_ipaList[_part - 1]}]')
-      );
-       */
-      questionTextWidget.add(TextSpan(text: '\n${_translateList[_part - 1]}'));
-      questionTextWidget
-          .add(TextSpan(text: '\n${_part}/${_contentList.length}'));
-      await sendChatMessage(false, 'Bot', questionTextWidget,
-          needSpeak: true,
-          canSpeak: true,
-          speakMessage: _contentList[_part - 1],
-          speakLanguage: 'en-US');*/
-      //${_questionsData[_part - 1]['sentenceChinese']}
-      //_questionEnd = DateTime.now();
-      //var questionSecond = _questionEnd.difference(_questionStart).inSecond;
-      //await sendChatMessage(false, 'Bot', [TextSpan(text: '${questionSecond}')]);
-      //await sendChatMessage(false, 'Bot', [TextSpan(text: 'The number of seconds in the sentence is: ${ttsRate}')], needSpeak:false, speakMessage:'', speakLanguage: 'en-US');
       await Future.delayed(Duration(
           milliseconds:
               (_part / _contentList[_topicPart].length * 2360).round()));

@@ -13,6 +13,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -48,6 +49,8 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   String _IPA1 = '';
   String _IPA2 = '';
   String _word = '';
+
+  final audioPlayer = AudioPlayer();
 
   late double _progress;
   List<int> _sentencesIDData = [];
@@ -637,6 +640,10 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   Future<void> sttStartListening() async {
     sttLastWords = '';
     sttLastError = '';
+    if(isWeb && sttResultListened <= 1){
+      audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.play();
+    }
     speechToText.listen(
         onResult: sttResultListener,
         listenFor: Duration(seconds: 30),
@@ -668,7 +675,10 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
 
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
-    //print('Result listener $sttResultListened');
+    if(isWeb && sttResultListened <= 1){
+      audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.play();
+    }
     setState(() {
       sttLastWords = '${result.recognizedWords} - ${result.finalResult}';
     });
@@ -812,7 +822,7 @@ class _LearningAutoMinimalPairPage extends State<LearningAutoMinimalPairPage> {
   }
 
   void _responseChatBot(text) async {
-    //print('_responseChatBot('+text);
+    sttResultListened = 0;
     String checkSentencesJSON = await APIUtil.checkSentences(
         _questionText, text,
         correctCombo: _correctCombo);

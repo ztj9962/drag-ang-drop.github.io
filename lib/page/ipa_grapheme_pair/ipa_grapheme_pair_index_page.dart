@@ -964,7 +964,7 @@ class _IPAGraphemePairIndexPage extends State<IPAGraphemePairIndexPage> {
         getIPASymbol.add(value["ipaSymbol"]);
         getGraphemes.add(value["grapheme"]);
         getWord.add(value['word'].toString());
-        getWordIPA.add(value['wordIPA']);
+        getWordIPA.add(value['wordIPA'].toString());
       });
 
       setState(() {
