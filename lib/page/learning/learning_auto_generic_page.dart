@@ -507,7 +507,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
     sttLastWords = '';
     sttLastError = '';
     if(isWeb){
-      await audioPlayer.setFilePath('assets/sounds/speech_to_text_listening.m4r');
+      await audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_listening.m4r');
       audioPlayer.play();
     }
     speechToText.listen(
@@ -544,7 +544,7 @@ class _LearningAutoGenericPage extends State<LearningAutoGenericPage> {
   void sttResultListener(SpeechRecognitionResult result) {
     ++sttResultListened;
     if(isWeb && sttResultListened <= 1){
-      audioPlayer.setFilePath('assets/sounds/speech_to_text_stop.m4r');
+      audioPlayer.setFilePath('assets/assets/sounds/speech_to_text_stop.m4r');
       audioPlayer.play();
     }
     //print('Result listener $sttResultListened');
