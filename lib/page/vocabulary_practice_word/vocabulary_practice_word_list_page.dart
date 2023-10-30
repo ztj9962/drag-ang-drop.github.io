@@ -72,19 +72,10 @@ class _VocabularyPracticeWordListPageState
   }
 
   void initVocabularyPracticeWordListPage() async {
-    if (_rowIndexSliderIndex % 5 == 0){
-      _previousFifthIndex = (_rowIndexSliderIndex - 4);
-    }else{
-      _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
-    }
 
-    if(_previousFifthIndex < _rowIndexSliderMin){
-      _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
-      _previousFifthIndex = _rowIndexSliderMin;
-    }
+    int parsec = (_rowIndexSliderIndex - _rowIndexSliderMin) % 5;
+    _previousFifthIndex = _rowIndexSliderIndex - parsec;
 
-    print(_rowIndexSliderMin);
-    print(_previousFifthIndex);
     await _getVocabularyList();
   }
 
@@ -138,6 +129,7 @@ class _VocabularyPracticeWordListPageState
                       },
                       onChangeEnd: (value) async {
                         ///滑條變動結束
+                        print(_previousFifthIndex);
                         _adjustRowIndexSliderIndex(0);
                         await _getVocabularyList();
                         setState(() {
@@ -342,8 +334,7 @@ class _VocabularyPracticeWordListPageState
                                             ),
                                       )
                                       : AutoSizeText(
-                                    (_dataLimit != 5) ? '${_rowIndexSliderIndex + index}' :
-                                      (_rowIndexSliderIndex % 5 == 0) ? '${(_rowIndexSliderIndex - 4) + index}' : '${(_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1) + index}'
+                                    (_previousFifthIndex + index).toString()
                                           ,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -680,19 +671,14 @@ class _VocabularyPracticeWordListPageState
 
     if ((sliderIndex >= _rowIndexSliderMin) &&
         (sliderIndex <= (_rowIndexSliderMax))) {
-      if (sliderIndex % 5 == 0){
-        _previousFifthIndex = (sliderIndex - 4);
-      }else{
-        _previousFifthIndex = (sliderIndex - (sliderIndex % 5) + 1);
-      }
+
+      int parsec = (sliderIndex - _rowIndexSliderMin) % 5;
+      _previousFifthIndex = sliderIndex - parsec;
+
       if(_rowIndexSliderMax - _previousFifthIndex <= 5){
-        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
+        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1 ;
       }else{
         _dataLimit = 5;
-      }
-      if(_previousFifthIndex < _rowIndexSliderMin){
-        _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
-        _previousFifthIndex = _rowIndexSliderMin;
       }
 
       setState(() => _rowIndexSliderIndex = sliderIndex);
@@ -704,33 +690,13 @@ class _VocabularyPracticeWordListPageState
         setState(
             () => _rowIndexSliderIndex = (_rowIndexSliderMax));
       }
-      if(_previousFifthIndex < _rowIndexSliderMin){
-        _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
-        _previousFifthIndex = _rowIndexSliderMin;
-      }
+      int parsec = (sliderIndex - _rowIndexSliderMin) % 5;
+      _previousFifthIndex = sliderIndex - parsec;
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
             'Opps: 您要找的單字位於Rank ${sliderIndex} 不存在${_sliderEducationLevel}範圍'),
       ));
-    }
-    //_adjustSliderEducationLevel();
-  }
-  void updateIndexState(){
-    if (_rowIndexSliderIndex % 5 == 0){
-      _previousFifthIndex = (_rowIndexSliderIndex - 4);
-    }else{
-      _previousFifthIndex = (_rowIndexSliderIndex - (_rowIndexSliderIndex % 5) + 1);
-    }
-
-    if(_previousFifthIndex < _rowIndexSliderMin){
-      _dataLimit = 5 - (_rowIndexSliderMin - _previousFifthIndex);
-      _previousFifthIndex = _rowIndexSliderMin;
-    }
-    if(_rowIndexSliderMax - _previousFifthIndex <= 5){
-      _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1;
-    }else{
-      _dataLimit = 5;
     }
   }
 }
