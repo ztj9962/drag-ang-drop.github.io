@@ -690,8 +690,14 @@ class _VocabularyPracticeWordListPageState
         setState(
             () => _rowIndexSliderIndex = (_rowIndexSliderMax));
       }
-      int parsec = (sliderIndex - _rowIndexSliderMin) % 5;
-      _previousFifthIndex = sliderIndex - parsec;
+      int parsec = (_rowIndexSliderIndex - _rowIndexSliderMin) % 5;
+      _previousFifthIndex = _rowIndexSliderIndex - parsec;
+
+      if(_rowIndexSliderMax - _previousFifthIndex <= 5){
+        _dataLimit = _rowIndexSliderMax - _previousFifthIndex + 1 ;
+      }else{
+        _dataLimit = 5;
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
