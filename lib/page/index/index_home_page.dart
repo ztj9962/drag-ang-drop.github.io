@@ -133,6 +133,20 @@ class _IndexHomePageState extends State<IndexHomePage> {
         },
       ),
     );
+
+    listViews.add(
+      OutlinedButtonCardView(
+        showDevelopTag: true,
+        imagePath: 'assets/icon/sentence_analysis.svg',
+        titleText: 'Vocabulary Match Up',
+        descripText: '單字連連看',
+        titleTextSizeGroup: titleTextSizeGroup,
+        descripTextSizeGroup: descripTextSizeGroup,
+        onTapFunction: () async {
+          AutoRouter.of(context).push(VocabularyMatchUpIndexRoute());
+        },
+      ),
+    );
 /*
     listViews.add(
       OutlinedButtonCardView(
