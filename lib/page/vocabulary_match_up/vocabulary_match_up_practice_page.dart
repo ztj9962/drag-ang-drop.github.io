@@ -75,9 +75,9 @@ class _VocabularyMatchUpPracticePageState
   int _resultNoConnect = 0;
   int _resultWrong = 0;
   int _resultRight = 0;
-  //特效判斷
+  //判斷用變數
   var _waitUserConnect = true;
-  var _userConnecting = false;
+  var _inQuiz = true;
 
   Offset dragAnchorStrategy(
       Draggable<Object> d, BuildContext context, Offset point) {
@@ -374,11 +374,12 @@ class _VocabularyMatchUpPracticePageState
                                   PageTheme.app_theme_blue,
                                   radius: 30.0,
                                   child: IconButton(
+                                    disabledColor: CupertinoColors.secondaryLabel,
                                     icon: Icon(
                                         Icons.fact_check_outlined,
-                                        size: 30),
+                                        size: 25),
                                     color: Colors.white,
-                                    onPressed: () {
+                                    onPressed: (!_inQuiz) ? null : () {
                                       for(String question in _questionList){
                                         if(_connectStatusQAMap[question] == null){
                                           setState(() {
@@ -399,6 +400,7 @@ class _VocabularyMatchUpPracticePageState
                                       setState(() {
                                         _draggableNow = false;
                                         _waitUserConnect = false;
+                                        _inQuiz = false;
                                       });
                                     },
                                   ),
@@ -417,7 +419,7 @@ class _VocabularyMatchUpPracticePageState
                                   child: IconButton(
                                     icon: Icon(
                                         Icons.restart_alt,
-                                        size: 30),
+                                        size: 25),
                                     color: Colors.white,
                                     onPressed: () {
                                         resetQuestion();
@@ -438,7 +440,7 @@ class _VocabularyMatchUpPracticePageState
                                   child: IconButton(
                                     icon: Icon(
                                         Icons.skip_next,
-                                        size: 30),
+                                        size: 25),
                                     color: Colors.white,
                                     onPressed: () {
                                       awaitInit();
@@ -479,6 +481,7 @@ class _VocabularyMatchUpPracticePageState
   _resultWrong = 0;
   _resultNoConnect = 0;
   _waitUserConnect = true;
+  _inQuiz = true;
     });
 }
 
@@ -503,6 +506,7 @@ class _VocabularyMatchUpPracticePageState
         _connectedStatusResultMap = {};
         _connectedStatusGlobalKeyMap = {};
         _draggableNow = true;
+        _inQuiz = true;
         _questionList = (jsonFormatted['data']['questionShuffledEnglishList'] as List).map((item) => item as String).toList();
         _answerList = (jsonFormatted['data']['questionShuffledChineseList'] as List).map((item) => item as String).toList();
         _pairedAnswerMap =( jsonFormatted['data']['originQuestionDict'] as Map).map((key, value) => MapEntry(key.toString(), value.toString()));
