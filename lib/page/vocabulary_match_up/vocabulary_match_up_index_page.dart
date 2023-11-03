@@ -81,6 +81,11 @@ class _VocabularyMatchUpIndexPageState
       'Rank 1000~3000',
       'Rank 3000~10000',
     ];
+    List<List<int>> rankRange = [
+      [1,1000],
+      [1000,3000],
+      [3000,10000],
+    ];
 
     listViews.add(
       Container(
@@ -112,7 +117,7 @@ class _VocabularyMatchUpIndexPageState
                         subTextBottomLeft: subStringList[index],
                         onTapFunction: () {
                           AutoRouter.of(context).push(
-                              VocabularyMatchUpPracticeRoute(minRank: 1, maxRank: 1000
+                              VocabularyMatchUpPracticeRoute(minRank: rankRange[index][0], maxRank: rankRange[index][1]
                                ));
                         },
                         widgetColor: HexColor('#FDFEFB'),

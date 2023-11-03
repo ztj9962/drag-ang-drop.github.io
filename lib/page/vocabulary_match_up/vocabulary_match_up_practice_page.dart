@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:alicsnet_app/page/page_theme.dart';
+import 'package:alicsnet_app/util/api_util.dart';
+import 'package:alicsnet_app/util/hexcolor_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -21,8 +23,8 @@ class VocabularyMatchUpPracticePage extends StatefulWidget {
 
 class _VocabularyMatchUpPracticePageState
     extends State<VocabularyMatchUpPracticePage> {
-  late int _minRange;
-  late int _maxRange;
+  late int _minRank;
+  late int _maxRank;
   List<String> _questionList = [
     'walk',
     'choice',
@@ -64,6 +66,18 @@ class _VocabularyMatchUpPracticePageState
   Map<GlobalKey, GlobalKey> _connectedStatusGlobalKeyMap = {};
   List<GlobalKey> _globalQuestion = [];
   List<GlobalKey> _globalAnswer = [];
+  var _draggableNow = true;
+
+  //滑鼠跟蹤特效
+  Offset _mouseStart = Offset.zero;
+  Offset _mouseCurrent = Offset.zero;
+  //結算數據
+  int _resultNoConnect = 0;
+  int _resultWrong = 0;
+  int _resultRight = 0;
+  //特效判斷
+  var _waitUserConnect = true;
+  var _userConnecting = false;
 
   Offset dragAnchorStrategy(
       Draggable<Object> d, BuildContext context, Offset point) {
@@ -72,10 +86,10 @@ class _VocabularyMatchUpPracticePageState
 
   @override
   void initState() {
-    _minRange = widget.minRank;
-    _maxRange = widget.maxRank;
+    _minRank = widget.minRank;
+    _maxRank = widget.maxRank;
     super.initState();
-    initVocabularyMatchUpPracticePage(_minRange, _maxRange);
+    awaitInit();
   }
 
   @override
@@ -102,233 +116,378 @@ class _VocabularyMatchUpPracticePageState
         ),
         body: CustomPaint(
           painter: LineDrawer(_globalQuestion, _connectedStatusGlobalKeyMap, _connectedStatusResultMap, _questionList),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              height: 800,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: PageTheme.app_theme_blue,
-                          width: 1,
+          child: CustomPaint(
+            painter: MouseTracker(_mouseStart,_mouseCurrent),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                height: 800,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: PageTheme.app_theme_blue,
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                         ),
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 200,
-                                child: ListView.separated(
-                                  //shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: _questionList.length,
-                                  itemBuilder: (context, index) {
-                                    _globalQuestion.add(GlobalKey());
-                                    return Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            height: 40,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: PageTheme.app_theme_blue,
-                                                width: 1,
-                                              ),
-                                              borderRadius: const BorderRadius.all(
-                                                  Radius.circular(16.0)),
-                                            ),
-                                            child: AutoSizeText(
-                                                _questionList[index].toString()),
-                                          ),
-                                        ),
-                                        //Dragable
-                                        Container(
-                                          height: 40,
-                                          width: 40,
-                                          color: Colors.transparent,
-                                          child: Draggable(
-                                            key: _globalQuestion[index],
-                                            dragAnchorStrategy: dragAnchorStrategy,
-                                            child: Center(
-                                              child: Container(
-                                                width: 10,
-                                                height: 10,
-                                                decoration: BoxDecoration(
-                                                    color: PageTheme.app_theme_blue,
-                                                    border: Border.all(),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(30))),
-                                              ),
-                                            ),
-                                            feedback: Center(
-                                              child: Container(
-                                                width: 10,
-                                                height: 10,
-                                                decoration: BoxDecoration(
-                                                    color: PageTheme.app_theme_blue,
-                                                    border: Border.all(),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(30))),
-                                              ),
-                                            ),
-                                            childWhenDragging: Center(
-                                              child: Container(
-                                                width: 10,
-                                                height: 10,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.yellow,
-                                                    border: Border.all(),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(30))),
-                                              ),
-                                            ),
-                                            data: index,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return const Padding(
-                                        padding: EdgeInsets.all(8));
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.all(16)),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 200,
-                                child: ListView.separated(
-                                  //shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: _answerList.length,
-                                  itemBuilder: (context, index) {
-                                    _globalAnswer.add(GlobalKey());
-                                    return Row(
-                                      children: [
-                                        //DragTarget
-                                        Container(
-                                          height: 40,
-                                          width: 40,
-                                          color: Colors.transparent,
-                                          child: DragTarget(
-                                            key: _globalAnswer[index],
-                                            builder: (context, candidateData,
-                                                rejectedData) {
-                                              return Center(
-                                                child: Container(
-                                                  width: 10,
-                                                  height: 10,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.greenAccent,
-                                                      border: Border.all(),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(30))),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 200,
+                                  child: ListView.separated(
+                                    //shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: _questionList.length,
+                                    itemBuilder: (context, index) {
+                                      _globalQuestion.add(GlobalKey());
+                                      return Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 40,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                color: HexColor('#BDD6FF'),
+                                                border: Border.all(
+                                                  color: Colors.transparent,
+                                                  width: 1,
                                                 ),
-                                              );
-                                            },
-                                            onWillAccept: (condition) {
-                                              return true;
-                                            },
-                                            onAccept: (int dragIndex) {
-                                              setState(() {
-                                                _connectedStatusGlobalKeyMap[_globalQuestion[dragIndex]] = _globalAnswer[index];
-                                                _connectStatusQAMap[_questionList[dragIndex]] = _answerList[index];
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            height: 40,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: PageTheme.app_theme_blue,
-                                                width: 1,
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(16.0)),
                                               ),
-                                              borderRadius: const BorderRadius.all(
-                                                  Radius.circular(16.0)),
+                                              child: Center(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: AutoSizeText(
+                                                      _questionList[index].toString(),style: TextStyle(fontSize: 30),),
+                                                ),
+                                              ),
                                             ),
-                                            child: AutoSizeText(
-                                                _answerList[index].toString()),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) {
-                                    return const Padding(
-                                        padding: EdgeInsets.all(8));
-                                  },
+                                          //Dragable
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            color: Colors.transparent,
+                                            child:
+                                                Draggable(
+                                                  key: _globalQuestion[index],
+                                                  dragAnchorStrategy: dragAnchorStrategy,
+                                                  child: Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.transparent,
+                                                        border: Border.all(color: Colors.transparent),
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(30))),
+                                                    child: Center(
+                                                      child: AvatarGlow(
+                                                        glowColor: Colors.blue,
+                                                        endRadius: (_waitUserConnect) ? 60.0 : 5,
+                                                        duration: Duration(milliseconds: 2000),
+                                                        repeat: true,
+                                                        showTwoGlows: false,
+                                                        repeatPauseDuration: Duration(milliseconds: 200),
+                                                        child: Container(
+                                                          width: 10,
+                                                          height: 10,
+                                                          decoration: BoxDecoration(
+                                                              color: (_draggableNow) ? PageTheme.app_theme_blue : Colors.grey,
+                                                              border: Border.all(),
+                                                              borderRadius: BorderRadius.all(
+                                                                  Radius.circular(30))),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  feedback: Center(
+                                                    child: Container(
+                                                      width: 10,
+                                                      height: 10,
+                                                      decoration: BoxDecoration(
+                                                          color: (_draggableNow) ? PageTheme.app_theme_blue : Colors.grey,
+                                                          border: Border.all(),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30))),
+                                                    ),
+                                                  ),
+                                                  childWhenDragging: Center(
+                                                    child: Container(
+                                                      width: 10,
+                                                      height: 10,
+                                                      decoration: BoxDecoration(
+                                                          color: (_draggableNow) ? Colors.yellow : Colors.grey,
+                                                          border: Border.all(),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(30))),
+                                                    ),
+                                                  ),
+                                                  data: index,
+                                                  onDragStarted: (){
+                                                    RenderBox renderBox = _globalQuestion[index]?.currentContext?.findRenderObject() as RenderBox;
+                                                    Offset dragOffset = renderBox.localToGlobal(Offset.zero);
+                                                    setState(() {
+                                                      _mouseStart = dragOffset;
+                                                      _mouseCurrent = dragOffset;
+                                                      _waitUserConnect = false;
+                                                    });
+                                                  },
+                                                  onDragUpdate: (detail){
+                                                    setState(() {
+                                                      _mouseCurrent = detail.localPosition;
+                                                      _waitUserConnect = false;
+                                                    });
+                                                  },
+                                                  onDragEnd: (detail){
+                                                    setState(() {
+                                                      _mouseStart = Offset.zero;
+                                                      _mouseCurrent = Offset.zero;
+                                                      _waitUserConnect = true;
+                                                    });
+                                                  },
+                                                ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return const Padding(
+                                          padding: EdgeInsets.all(8));
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
+                            Padding(padding: EdgeInsets.all(16)),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 200,
+                                  child: ListView.separated(
+                                    //shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: _answerList.length,
+                                    itemBuilder: (context, index) {
+                                      _globalAnswer.add(GlobalKey());
+                                      return Row(
+                                        children: [
+                                          //DragTarget
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            color: Colors.transparent,
+                                            child: DragTarget(
+                                              key: _globalAnswer[index],
+                                              builder: (context, candidateData,
+                                                  rejectedData) {
+                                                return Center(
+                                                  child: AvatarGlow(
+                                                    glowColor: Colors.green,
+                                                    endRadius: (_waitUserConnect) ? 5 : 90.0,
+                                                    duration: Duration(milliseconds: 2000),
+                                                    repeat: true,
+                                                    showTwoGlows: false,
+                                                    repeatPauseDuration: Duration(milliseconds: 100),
+                                                    child: Container(
+                                                      width: 10,
+                                                      height: 10,
+                                                      decoration: BoxDecoration(
+                                                          color: (_draggableNow) ? Colors.greenAccent : Colors.grey,
+                                                          border: Border.all(),
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(30))),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              onWillAccept: (condition) {
+                                                return _draggableNow;
+                                              },
+                                              onAccept: (int dragIndex) {
+                                                setState(() {
+                                                  _connectedStatusGlobalKeyMap[_globalQuestion[dragIndex]] = _globalAnswer[index];
+                                                  _connectStatusQAMap[_questionList[dragIndex]] = _answerList[index];
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 40,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                color:  HexColor('#A9DAAB'),
+                                                border: Border.all(
+                                                  color: Colors.transparent,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(16.0)),
+                                              ),
+                                              child: Center(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: AutoSizeText(
+                                                      _answerList[index].toString(),style: TextStyle(fontSize: 30),),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return const Padding(
+                                          padding: EdgeInsets.all(8));
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.all(20)),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(padding: EdgeInsets.all(20)),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor:
+                                  PageTheme.app_theme_blue,
+                                  radius: 30.0,
+                                  child: IconButton(
+                                    icon: Icon(
+                                        Icons.fact_check_outlined,
+                                        size: 30),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      for(String question in _questionList){
+                                        if(_connectStatusQAMap[question] == null){
+                                          setState(() {
+                                            _resultNoConnect++;
+                                          });
+                                        }else if(_connectStatusQAMap[question] != _pairedAnswerMap[question]){
+                                          setState(() {
+                                            _resultWrong++;
+                                            _connectedStatusResultMap[question] = false;
+                                          });
+                                        }else{
+                                          setState(() {
+                                            _resultRight++;
+                                            _connectedStatusResultMap[question] = true;
+                                          });
+                                        }
+                                      }
+                                      setState(() {
+                                        _draggableNow = false;
+                                        _waitUserConnect = false;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(child: AutoSizeText('提交'))
+                              ],
+                            ),
                           ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor:
+                                  PageTheme.app_theme_blue,
+                                  radius: 30.0,
+                                  child: IconButton(
+                                    icon: Icon(
+                                        Icons.restart_alt,
+                                        size: 30),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                        resetQuestion();
+                                    },
+                                  ),
+                                ),
+                                Expanded(child: AutoSizeText('重新作答'))
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor:
+                                  PageTheme.app_theme_blue,
+                                  radius: 30.0,
+                                  child: IconButton(
+                                    icon: Icon(
+                                        Icons.skip_next,
+                                        size: 30),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      awaitInit();
+                                    },
+                                  ),
+                                ),
+                                Expanded(child: AutoSizeText('下一題'))
+                              ],
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.all(20)),
                         ],
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: CircleAvatar(
-                      backgroundColor:
-                      PageTheme.app_theme_blue,
-                      radius: 30.0,
-                      child: IconButton(
-                        icon: Icon(
-                            Icons.analytics_outlined,
-                            size: 30),
-                        color: Colors.white,
-                        onPressed: () {
-                          for(String question in _questionList){
-                            if(_connectStatusQAMap[question] == null){
-                            }else if(_connectStatusQAMap[question] != _pairedAnswerMap[question]){
-                              setState(() {
-                                _connectedStatusResultMap[question] = false;
-                              });
-                            }else{
-                              setState(() {
-                                _connectedStatusResultMap[question] = true;
-                              });
-                            }
-                          }
-                          setState(() {
+                    Padding(padding: EdgeInsets.all(20)),
+                    Divider(thickness: 1,color: PageTheme.app_theme_blue,),
 
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(child: AutoSizeText('提交'))
-                ],
+                    AutoSizeText('回答正確:${_resultRight}'),
+                    AutoSizeText('回答錯誤:${_resultWrong}'),
+                    AutoSizeText('未連接:${_resultNoConnect}'),
+                  ],
+                ),
               ),
             ),
           ),
         ));
   }
+  void awaitInit() async {
+    await initVocabularyMatchUpPracticePage(_minRank, _maxRank);
+  }
+
+  void resetQuestion () {
+    setState(() {
+  _connectedStatusResultMap = {};
+  _connectedStatusGlobalKeyMap = {};
+  _draggableNow = true;
+  _resultRight = 0;
+  _resultWrong = 0;
+  _resultNoConnect = 0;
+  _waitUserConnect = true;
+    });
+}
 
   Future<void> initVocabularyMatchUpPracticePage(
       int minRank, int maxRank) async {
-    /*
-      EasyLoading.show(status: '正在讀取資料，請稍候......');
+      EasyLoading.show(status: '正在讀取資料，請稍候......',maskType: EasyLoadingMaskType.black,);
       var jsonFormatted;
       do {
-        String jsonString = await APIUtil.getMatchUpQuestion(_minRange.toString(),_maxRange.toString(),'10');
+        String jsonString = await APIUtil.getMatchUpQuestion(_minRank.toString(),_maxRank.toString(),'10');
         jsonFormatted = jsonDecode(jsonString.toString());
         if (jsonFormatted['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -338,8 +497,16 @@ class _VocabularyMatchUpPracticePageState
       EasyLoading.dismiss();
 
       setState(() {
-
-      });*/
+        _resultRight = 0;
+        _resultWrong = 0;
+        _resultNoConnect = 0;
+        _connectedStatusResultMap = {};
+        _connectedStatusGlobalKeyMap = {};
+        _draggableNow = true;
+        _questionList = (jsonFormatted['data']['questionShuffledEnglishList'] as List).map((item) => item as String).toList();
+        _answerList = (jsonFormatted['data']['questionShuffledChineseList'] as List).map((item) => item as String).toList();
+        _pairedAnswerMap =( jsonFormatted['data']['originQuestionDict'] as Map).map((key, value) => MapEntry(key.toString(), value.toString()));
+      });
   }
 }
 
@@ -358,7 +525,6 @@ class LineDrawer extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print(connectedStatusResultMap);
     int index = 0;
     for(GlobalKey key in dragGlobalKeyList){
       if (connectedStatusGlobalKeyMap[key] != null) {
@@ -386,6 +552,26 @@ class LineDrawer extends CustomPainter {
       }
       index++;
     }
+  }
+
+  // 返回false, 后面介绍
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class MouseTracker extends CustomPainter {
+  final Offset dragOffset;
+  final Offset targetOffset;
+
+  MouseTracker(this.dragOffset, this.targetOffset);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawLine(
+      Offset(dragOffset.dx + 20, dragOffset.dy - 35),
+      Offset(targetOffset.dx , targetOffset.dy - 55),
+      Paint()..color = Colors.black45..strokeWidth = 8.0,
+    );
   }
 
   // 返回false, 后面介绍
