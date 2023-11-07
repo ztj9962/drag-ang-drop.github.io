@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:alicsnet_app/page/page_theme.dart';
 import 'package:alicsnet_app/util/api_util.dart';
@@ -6,8 +7,10 @@ import 'package:alicsnet_app/util/hexcolor_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'dart:ui';
 
 class VocabularyMatchUpPracticePage extends StatefulWidget {
   const VocabularyMatchUpPracticePage(
@@ -25,6 +28,10 @@ class _VocabularyMatchUpPracticePageState
     extends State<VocabularyMatchUpPracticePage> {
   late int _minRank;
   late int _maxRank;
+
+
+
+
   List<String> _questionList = [
     'walk',
     'choice',
@@ -67,6 +74,7 @@ class _VocabularyMatchUpPracticePageState
   List<GlobalKey> _globalQuestion = [];
   List<GlobalKey> _globalAnswer = [];
   var _draggableNow = true;
+  double _scrolledOffset = 0.0;
 
   //滑鼠跟蹤特效
   Offset _mouseStart = Offset.zero;
@@ -79,6 +87,8 @@ class _VocabularyMatchUpPracticePageState
   var _waitUserConnect = true;
   var _inQuiz = true;
 
+  ScrollController _scrollController = ScrollController();
+
   Offset dragAnchorStrategy(
       Draggable<Object> d, BuildContext context, Offset point) {
     return Offset(d.feedbackOffset.dx + 5, d.feedbackOffset.dy + 5);
@@ -88,6 +98,12 @@ class _VocabularyMatchUpPracticePageState
   void initState() {
     _minRank = widget.minRank;
     _maxRank = widget.maxRank;
+    _scrollController.addListener(() {
+      setState(() {
+
+        _scrolledOffset = _scrollController.offset;
+      });
+    });
     super.initState();
     awaitInit();
   }
@@ -100,6 +116,8 @@ class _VocabularyMatchUpPracticePageState
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: PageTheme.app_theme_black,
@@ -114,19 +132,21 @@ class _VocabularyMatchUpPracticePageState
             maxLines: 1,
           ),
         ),
-        body: CustomPaint(
-          painter: LineDrawer(_globalQuestion, _connectedStatusGlobalKeyMap, _connectedStatusResultMap, _questionList),
+        body: SingleChildScrollView(
+          controller: _scrollController,
           child: CustomPaint(
-            painter: MouseTracker(_mouseStart,_mouseCurrent),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                height: 800,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 7,
-                      child: Container(
+            painter: LineDrawer(_globalQuestion, _connectedStatusGlobalKeyMap, _connectedStatusResultMap, _questionList,_scrolledOffset),
+            child: CustomPaint(
+              isComplex: true,
+              size: Size(screenWidth, double.infinity),
+              painter: MouseTracker(_mouseStart,_mouseCurrent,_scrolledOffset),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  //height: 1000,
+                  child: Column(
+                    children: [
+                      Container(
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: PageTheme.app_theme_blue,
@@ -142,7 +162,7 @@ class _VocabularyMatchUpPracticePageState
                                 child: Container(
                                   width: 200,
                                   child: ListView.separated(
-                                    //shrinkWrap: true,
+                                    shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemCount: _questionList.length,
                                     itemBuilder: (context, index) {
@@ -151,7 +171,7 @@ class _VocabularyMatchUpPracticePageState
                                         children: [
                                           Expanded(
                                             child: Container(
-                                              height: 40,
+                                              height: 50,
                                               width: 50,
                                               decoration: BoxDecoration(
                                                 color: HexColor('#BDD6FF'),
@@ -166,7 +186,7 @@ class _VocabularyMatchUpPracticePageState
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: AutoSizeText(
-                                                      _questionList[index].toString(),style: TextStyle(fontSize: 30),),
+                                                      _questionList[index].toString(),style: TextStyle(fontSize: 30),maxLines: 2,),
                                                 ),
                                               ),
                                             ),
@@ -261,7 +281,7 @@ class _VocabularyMatchUpPracticePageState
                                     separatorBuilder:
                                         (BuildContext context, int index) {
                                       return const Padding(
-                                          padding: EdgeInsets.all(8));
+                                          padding: EdgeInsets.all(4));
                                     },
                                   ),
                                 ),
@@ -274,7 +294,7 @@ class _VocabularyMatchUpPracticePageState
                                 child: Container(
                                   width: 200,
                                   child: ListView.separated(
-                                    //shrinkWrap: true,
+                                    shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemCount: _answerList.length,
                                     itemBuilder: (context, index) {
@@ -324,7 +344,7 @@ class _VocabularyMatchUpPracticePageState
                                           ),
                                           Expanded(
                                             child: Container(
-                                              height: 40,
+                                              height: 50,
                                               width: 50,
                                               decoration: BoxDecoration(
                                                 color:  HexColor('#A9DAAB'),
@@ -350,7 +370,7 @@ class _VocabularyMatchUpPracticePageState
                                     separatorBuilder:
                                         (BuildContext context, int index) {
                                       return const Padding(
-                                          padding: EdgeInsets.all(8));
+                                          padding: EdgeInsets.all(4));
                                     },
                                   ),
                                 ),
@@ -359,10 +379,8 @@ class _VocabularyMatchUpPracticePageState
                           ],
                         ),
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.all(20)),
-                    Expanded(
-                      child: Row(
+                      Padding(padding: EdgeInsets.all(8)),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(padding: EdgeInsets.all(20)),
@@ -405,7 +423,7 @@ class _VocabularyMatchUpPracticePageState
                                     },
                                   ),
                                 ),
-                                Expanded(child: AutoSizeText('提交'))
+                                AutoSizeText('提交')
                               ],
                             ),
                           ),
@@ -426,7 +444,7 @@ class _VocabularyMatchUpPracticePageState
                                     },
                                   ),
                                 ),
-                                Expanded(child: AutoSizeText('重新作答'))
+                                AutoSizeText('重新作答')
                               ],
                             ),
                           ),
@@ -447,21 +465,30 @@ class _VocabularyMatchUpPracticePageState
                                     },
                                   ),
                                 ),
-                                Expanded(child: AutoSizeText('下一題'))
+                                AutoSizeText('下一題')
                               ],
                             ),
                           ),
                           Padding(padding: EdgeInsets.all(20)),
                         ],
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.all(20)),
-                    Divider(thickness: 1,color: PageTheme.app_theme_blue,),
-
-                    AutoSizeText('回答正確:${_resultRight}'),
-                    AutoSizeText('回答錯誤:${_resultWrong}'),
-                    AutoSizeText('未連接:${_resultNoConnect}'),
-                  ],
+                      //Padding(padding: EdgeInsets.all(5)),
+                      Divider(thickness: 1,color: PageTheme.app_theme_blue,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.check,color: Colors.greenAccent,),
+                          AutoSizeText('回答正確:${_resultRight}'),
+                          Padding(padding: EdgeInsets.all(20)),
+                          Icon(Icons.cancel_outlined,color: Colors.redAccent,),
+                          AutoSizeText('回答錯誤:${_resultWrong}'),
+                          Padding(padding: EdgeInsets.all(20)),
+                          Icon(Icons.cable,color: Colors.redAccent,),
+                          AutoSizeText('未連接:${_resultNoConnect}'),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -519,16 +546,25 @@ class LineDrawer extends CustomPainter {
   final Map<GlobalKey, GlobalKey> connectedStatusGlobalKeyMap;
   final Map connectedStatusResultMap;
   final List<String> questionList;
+  final double scrolledOffset;
+
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+  bool get isWeb => kIsWeb;
 
   LineDrawer(
     this.dragGlobalKeyList,
     this.connectedStatusGlobalKeyMap,
     this.connectedStatusResultMap,
     this.questionList,
+    this.scrolledOffset,
   );
 
   @override
   void paint(Canvas canvas, Size size) {
+
     int index = 0;
     for(GlobalKey key in dragGlobalKeyList){
       if (connectedStatusGlobalKeyMap[key] != null) {
@@ -548,11 +584,22 @@ class LineDrawer extends CustomPainter {
             pan = Paint()..color = Colors.black45..strokeWidth = 8.0;
             break;
         }
-        canvas.drawLine(
-          Offset(dragOffset.dx + 20, dragOffset.dy - 35),
-          Offset(targetOffset.dx + 20, targetOffset.dy - 35),
-          pan,
-        );
+        if(isWeb){
+          print(scrolledOffset);
+          canvas.drawLine(
+            Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - 35),
+            Offset(targetOffset.dx + 20, targetOffset.dy + scrolledOffset - 35),
+            pan,
+          );
+        }else{
+          canvas.drawLine(
+            Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
+            Offset(targetOffset.dx + 20, targetOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
+            pan,
+          );
+        }
+
+
       }
       index++;
     }
@@ -566,16 +613,32 @@ class LineDrawer extends CustomPainter {
 class MouseTracker extends CustomPainter {
   final Offset dragOffset;
   final Offset targetOffset;
+  final double scrolledOffset;
 
-  MouseTracker(this.dragOffset, this.targetOffset);
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
+  bool get isWeb => kIsWeb;
+
+  MouseTracker(this.dragOffset, this.targetOffset, this.scrolledOffset);
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawLine(
-      Offset(dragOffset.dx + 20, dragOffset.dy - 35),
-      Offset(targetOffset.dx , targetOffset.dy - 55),
-      Paint()..color = Colors.black45..strokeWidth = 8.0,
-    );
+    print(window.physicalSize.height);
+    if(isWeb){
+      canvas.drawLine(
+        Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - 35),
+        Offset(targetOffset.dx , targetOffset.dy + scrolledOffset - 55),
+        Paint()..color = Colors.black45..strokeWidth = 8.0,
+      );
+    }else{
+      canvas.drawLine(
+        Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
+        Offset(targetOffset.dx , targetOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 80),
+        Paint()..color = Colors.black45..strokeWidth = 8.0,
+      );
+    }
   }
 
   // 返回false, 后面介绍
