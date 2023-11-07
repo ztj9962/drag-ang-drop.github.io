@@ -41,8 +41,6 @@ class _VocabularyMatchUpPracticePageState
     'window',
     'toy',
     'cookie',
-    'wise',
-    'health',
   ];
   List<String> _answerList = [
     '走路',
@@ -86,6 +84,9 @@ class _VocabularyMatchUpPracticePageState
   //判斷用變數
   var _waitUserConnect = true;
   var _inQuiz = true;
+  //螢幕尺寸判斷
+  GlobalKey _mainContainerKey = GlobalKey();
+  Offset _parentOffset = Offset.zero;
 
   ScrollController _scrollController = ScrollController();
 
@@ -100,10 +101,10 @@ class _VocabularyMatchUpPracticePageState
     _maxRank = widget.maxRank;
     _scrollController.addListener(() {
       setState(() {
-
         _scrolledOffset = _scrollController.offset;
       });
     });
+
     super.initState();
     awaitInit();
   }
@@ -114,10 +115,8 @@ class _VocabularyMatchUpPracticePageState
     EasyLoading.dismiss();
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: PageTheme.app_theme_black,
@@ -135,25 +134,24 @@ class _VocabularyMatchUpPracticePageState
         body: SingleChildScrollView(
           controller: _scrollController,
           child: CustomPaint(
-            painter: LineDrawer(_globalQuestion, _connectedStatusGlobalKeyMap, _connectedStatusResultMap, _questionList,_scrolledOffset),
-            child: CustomPaint(
-              isComplex: true,
-              size: Size(screenWidth, double.infinity),
-              painter: MouseTracker(_mouseStart,_mouseCurrent,_scrolledOffset),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  //height: 1000,
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: PageTheme.app_theme_blue,
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            painter: MouseTracker(_mouseStart,_mouseCurrent,_scrolledOffset,_parentOffset),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                //height: 1000,
+                child: Column(
+                  children: [
+                    Container(
+                      key: _mainContainerKey,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: PageTheme.app_theme_blue,
+                          width: 1,
                         ),
+                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                      ),
+                      child: CustomPaint(
+                        painter: LineDrawer(_globalQuestion, _connectedStatusGlobalKeyMap, _connectedStatusResultMap, _questionList,_scrolledOffset,_parentOffset),
                         child: Row(
                           children: [
                             Expanded(
@@ -171,7 +169,7 @@ class _VocabularyMatchUpPracticePageState
                                         children: [
                                           Expanded(
                                             child: Container(
-                                              height: 50,
+                                              height: 65,
                                               width: 50,
                                               decoration: BoxDecoration(
                                                 color: HexColor('#BDD6FF'),
@@ -254,14 +252,20 @@ class _VocabularyMatchUpPracticePageState
                                                   onDragStarted: (){
                                                     RenderBox renderBox = _globalQuestion[index]?.currentContext?.findRenderObject() as RenderBox;
                                                     Offset dragOffset = renderBox.localToGlobal(Offset.zero);
+                                                    RenderBox parentRender = _mainContainerKey?.currentContext?.findRenderObject() as RenderBox;
+                                                    Offset parentOffset = parentRender.localToGlobal(Offset.zero);
                                                     setState(() {
                                                       _mouseStart = dragOffset;
                                                       _mouseCurrent = dragOffset;
                                                       _waitUserConnect = false;
+                                                      _parentOffset = parentOffset;
                                                     });
                                                   },
                                                   onDragUpdate: (detail){
+                                                    RenderBox parentRender = _mainContainerKey?.currentContext?.findRenderObject() as RenderBox;
+                                                    Offset parentOffset = parentRender.localToGlobal(Offset.zero);
                                                     setState(() {
+                                                      _parentOffset = parentOffset;
                                                       _mouseCurrent = detail.localPosition;
                                                       _waitUserConnect = false;
                                                     });
@@ -303,7 +307,7 @@ class _VocabularyMatchUpPracticePageState
                                         children: [
                                           //DragTarget
                                           Container(
-                                            height: 40,
+                                            height: 30,
                                             width: 40,
                                             color: Colors.transparent,
                                             child: DragTarget(
@@ -379,116 +383,116 @@ class _VocabularyMatchUpPracticePageState
                           ],
                         ),
                       ),
-                      Padding(padding: EdgeInsets.all(8)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(padding: EdgeInsets.all(20)),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                  PageTheme.app_theme_blue,
-                                  radius: 30.0,
-                                  child: IconButton(
-                                    disabledColor: CupertinoColors.secondaryLabel,
-                                    icon: Icon(
-                                        Icons.fact_check_outlined,
-                                        size: 25),
-                                    color: Colors.white,
-                                    onPressed: (!_inQuiz) ? null : () {
-                                      for(String question in _questionList){
-                                        if(_connectStatusQAMap[question] == null){
-                                          setState(() {
-                                            _resultNoConnect++;
-                                          });
-                                        }else if(_connectStatusQAMap[question] != _pairedAnswerMap[question]){
-                                          setState(() {
-                                            _resultWrong++;
-                                            _connectedStatusResultMap[question] = false;
-                                          });
-                                        }else{
-                                          setState(() {
-                                            _resultRight++;
-                                            _connectedStatusResultMap[question] = true;
-                                          });
-                                        }
+                    ),
+                    Padding(padding: EdgeInsets.all(8)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(padding: EdgeInsets.all(20)),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor:
+                                PageTheme.app_theme_blue,
+                                radius: 30.0,
+                                child: IconButton(
+                                  disabledColor: CupertinoColors.secondaryLabel,
+                                  icon: Icon(
+                                      Icons.fact_check_outlined,
+                                      size: 25),
+                                  color: Colors.white,
+                                  onPressed: (!_inQuiz) ? null : () {
+                                    for(String question in _questionList){
+                                      if(_connectStatusQAMap[question] == null){
+                                        setState(() {
+                                          _resultNoConnect++;
+                                        });
+                                      }else if(_connectStatusQAMap[question] != _pairedAnswerMap[question]){
+                                        setState(() {
+                                          _resultWrong++;
+                                          _connectedStatusResultMap[question] = false;
+                                        });
+                                      }else{
+                                        setState(() {
+                                          _resultRight++;
+                                          _connectedStatusResultMap[question] = true;
+                                        });
                                       }
-                                      setState(() {
-                                        _draggableNow = false;
-                                        _waitUserConnect = false;
-                                        _inQuiz = false;
-                                      });
-                                    },
-                                  ),
+                                    }
+                                    setState(() {
+                                      _draggableNow = false;
+                                      _waitUserConnect = false;
+                                      _inQuiz = false;
+                                    });
+                                  },
                                 ),
-                                AutoSizeText('提交')
-                              ],
-                            ),
+                              ),
+                              AutoSizeText('提交')
+                            ],
                           ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                  PageTheme.app_theme_blue,
-                                  radius: 30.0,
-                                  child: IconButton(
-                                    icon: Icon(
-                                        Icons.restart_alt,
-                                        size: 25),
-                                    color: Colors.white,
-                                    onPressed: () {
-                                        resetQuestion();
-                                    },
-                                  ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor:
+                                PageTheme.app_theme_blue,
+                                radius: 30.0,
+                                child: IconButton(
+                                  icon: Icon(
+                                      Icons.restart_alt,
+                                      size: 25),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                      resetQuestion();
+                                  },
                                 ),
-                                AutoSizeText('重新作答')
-                              ],
-                            ),
+                              ),
+                              AutoSizeText('重新作答')
+                            ],
                           ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                  PageTheme.app_theme_blue,
-                                  radius: 30.0,
-                                  child: IconButton(
-                                    icon: Icon(
-                                        Icons.skip_next,
-                                        size: 25),
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      awaitInit();
-                                    },
-                                  ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor:
+                                PageTheme.app_theme_blue,
+                                radius: 30.0,
+                                child: IconButton(
+                                  icon: Icon(
+                                      Icons.skip_next,
+                                      size: 25),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    awaitInit();
+                                  },
                                 ),
-                                AutoSizeText('下一題')
-                              ],
-                            ),
+                              ),
+                              AutoSizeText('下一題')
+                            ],
                           ),
-                          Padding(padding: EdgeInsets.all(20)),
-                        ],
-                      ),
-                      //Padding(padding: EdgeInsets.all(5)),
-                      Divider(thickness: 1,color: PageTheme.app_theme_blue,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.check,color: Colors.greenAccent,),
-                          AutoSizeText('回答正確:${_resultRight}'),
-                          Padding(padding: EdgeInsets.all(20)),
-                          Icon(Icons.cancel_outlined,color: Colors.redAccent,),
-                          AutoSizeText('回答錯誤:${_resultWrong}'),
-                          Padding(padding: EdgeInsets.all(20)),
-                          Icon(Icons.cable,color: Colors.redAccent,),
-                          AutoSizeText('未連接:${_resultNoConnect}'),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                        Padding(padding: EdgeInsets.all(20)),
+                      ],
+                    ),
+                    //Padding(padding: EdgeInsets.all(5)),
+                    Divider(thickness: 1,color: PageTheme.app_theme_blue,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.check,color: Colors.greenAccent,),
+                        AutoSizeText('回答正確:${_resultRight}'),
+                        Padding(padding: EdgeInsets.all(20)),
+                        Icon(Icons.cancel_outlined,color: Colors.redAccent,),
+                        AutoSizeText('回答錯誤:${_resultWrong}'),
+                        Padding(padding: EdgeInsets.all(20)),
+                        Icon(Icons.cable,color: Colors.redAccent,),
+                        AutoSizeText('未連接:${_resultNoConnect}'),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
@@ -517,7 +521,7 @@ class _VocabularyMatchUpPracticePageState
       EasyLoading.show(status: '正在讀取資料，請稍候......',maskType: EasyLoadingMaskType.black,);
       var jsonFormatted;
       do {
-        String jsonString = await APIUtil.getMatchUpQuestion(_minRank.toString(),_maxRank.toString(),'10');
+        String jsonString = await APIUtil.getMatchUpQuestion(_minRank.toString(),_maxRank.toString(),'');
         jsonFormatted = jsonDecode(jsonString.toString());
         if (jsonFormatted['apiStatus'] != 'success') {
           await Future.delayed(Duration(seconds: 1));
@@ -525,7 +529,6 @@ class _VocabularyMatchUpPracticePageState
       } while (jsonFormatted['apiStatus'] != 'success');
 
       EasyLoading.dismiss();
-
       setState(() {
         _resultRight = 0;
         _resultWrong = 0;
@@ -547,6 +550,7 @@ class LineDrawer extends CustomPainter {
   final Map connectedStatusResultMap;
   final List<String> questionList;
   final double scrolledOffset;
+  final Offset parentOffset;
 
   bool get isIOS => !kIsWeb && Platform.isIOS;
 
@@ -560,18 +564,24 @@ class LineDrawer extends CustomPainter {
     this.connectedStatusResultMap,
     this.questionList,
     this.scrolledOffset,
+    this.parentOffset,
   );
 
   @override
   void paint(Canvas canvas, Size size) {
-
     int index = 0;
     for(GlobalKey key in dragGlobalKeyList){
       if (connectedStatusGlobalKeyMap[key] != null) {
         RenderBox renderBoxQuestion = key.currentContext?.findRenderObject() as RenderBox;
         RenderBox renderBoxAnswer = connectedStatusGlobalKeyMap[key]?.currentContext?.findRenderObject() as RenderBox;
+
+
+        print(parentOffset);
+
         Offset dragOffset = renderBoxQuestion.localToGlobal(Offset.zero);
         Offset targetOffset = renderBoxAnswer.localToGlobal(Offset.zero);
+        //print(dragOffset);
+        //print(targetOffset);
         Paint pan = Paint()..color = Colors.black45..strokeWidth = 8.0;
         switch(connectedStatusResultMap[questionList[index]]){
           case true:
@@ -585,21 +595,18 @@ class LineDrawer extends CustomPainter {
             break;
         }
         if(isWeb){
-          print(scrolledOffset);
           canvas.drawLine(
-            Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - 35),
-            Offset(targetOffset.dx + 20, targetOffset.dy + scrolledOffset - 35),
+            Offset(dragOffset.dx, dragOffset.dy + scrolledOffset - 35),
+            Offset(targetOffset.dx, targetOffset.dy + scrolledOffset - 35),
             pan,
           );
         }else{
           canvas.drawLine(
-            Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
-            Offset(targetOffset.dx + 20, targetOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
+            Offset(dragOffset.dx + 2, dragOffset.dy + scrolledOffset - parentOffset.dy + 19),
+            Offset(targetOffset.dx + 2, targetOffset.dy + scrolledOffset - parentOffset.dy + 14),
             pan,
           );
         }
-
-
       }
       index++;
     }
@@ -614,6 +621,7 @@ class MouseTracker extends CustomPainter {
   final Offset dragOffset;
   final Offset targetOffset;
   final double scrolledOffset;
+  final Offset parentOffset;
 
   bool get isIOS => !kIsWeb && Platform.isIOS;
 
@@ -621,21 +629,20 @@ class MouseTracker extends CustomPainter {
 
   bool get isWeb => kIsWeb;
 
-  MouseTracker(this.dragOffset, this.targetOffset, this.scrolledOffset);
+  MouseTracker(this.dragOffset, this.targetOffset, this.scrolledOffset, this.parentOffset);
 
   @override
   void paint(Canvas canvas, Size size) {
-    print(window.physicalSize.height);
     if(isWeb){
       canvas.drawLine(
-        Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - 35),
+        Offset(dragOffset.dx, dragOffset.dy + scrolledOffset - 35),
         Offset(targetOffset.dx , targetOffset.dy + scrolledOffset - 55),
         Paint()..color = Colors.black45..strokeWidth = 8.0,
       );
     }else{
       canvas.drawLine(
-        Offset(dragOffset.dx + 20, dragOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 60),
-        Offset(targetOffset.dx , targetOffset.dy + scrolledOffset - (window.physicalSize.height - 1794) / 90 - 80),
+        Offset(dragOffset.dx + 19, dragOffset.dy + scrolledOffset - parentOffset.dy + 36),
+        Offset(targetOffset.dx, targetOffset.dy + scrolledOffset - parentOffset.dy + 17),
         Paint()..color = Colors.black45..strokeWidth = 8.0,
       );
     }
