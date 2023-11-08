@@ -104,8 +104,16 @@ class _VocabularyMatchUpPracticePageState
         _scrolledOffset = _scrollController.offset;
       });
     });
-
     super.initState();
+    //初始化座標偏移
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) {
+      RenderBox parentRender = _mainContainerKey?.currentContext?.findRenderObject() as RenderBox;
+      Offset parentOffset = parentRender.localToGlobal(Offset.zero);
+      setState((){
+        _parentOffset = parentOffset;
+      });
+    });
     awaitInit();
   }
 
@@ -184,7 +192,7 @@ class _VocabularyMatchUpPracticePageState
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: AutoSizeText(
-                                                      _questionList[index].toString(),style: TextStyle(fontSize: 30),maxLines: 2,),
+                                                      _questionList[index].toString(),style: TextStyle(fontSize: 30),maxLines: 1,),
                                                 ),
                                               ),
                                             ),
@@ -252,20 +260,14 @@ class _VocabularyMatchUpPracticePageState
                                                   onDragStarted: (){
                                                     RenderBox renderBox = _globalQuestion[index]?.currentContext?.findRenderObject() as RenderBox;
                                                     Offset dragOffset = renderBox.localToGlobal(Offset.zero);
-                                                    RenderBox parentRender = _mainContainerKey?.currentContext?.findRenderObject() as RenderBox;
-                                                    Offset parentOffset = parentRender.localToGlobal(Offset.zero);
                                                     setState(() {
                                                       _mouseStart = dragOffset;
                                                       _mouseCurrent = dragOffset;
                                                       _waitUserConnect = false;
-                                                      _parentOffset = parentOffset;
                                                     });
                                                   },
                                                   onDragUpdate: (detail){
-                                                    RenderBox parentRender = _mainContainerKey?.currentContext?.findRenderObject() as RenderBox;
-                                                    Offset parentOffset = parentRender.localToGlobal(Offset.zero);
                                                     setState(() {
-                                                      _parentOffset = parentOffset;
                                                       _mouseCurrent = detail.localPosition;
                                                       _waitUserConnect = false;
                                                     });
@@ -404,6 +406,7 @@ class _VocabularyMatchUpPracticePageState
                                   color: Colors.white,
                                   onPressed: (!_inQuiz) ? null : () {
                                     for(String question in _questionList){
+                                      print('${question}:${_connectStatusQAMap[question]}');
                                       if(_connectStatusQAMap[question] == null){
                                         setState(() {
                                           _resultNoConnect++;
@@ -507,6 +510,7 @@ class _VocabularyMatchUpPracticePageState
     setState(() {
   _connectedStatusResultMap = {};
   _connectedStatusGlobalKeyMap = {};
+  _connectStatusQAMap = {};
   _draggableNow = true;
   _resultRight = 0;
   _resultWrong = 0;
@@ -575,13 +579,9 @@ class LineDrawer extends CustomPainter {
         RenderBox renderBoxQuestion = key.currentContext?.findRenderObject() as RenderBox;
         RenderBox renderBoxAnswer = connectedStatusGlobalKeyMap[key]?.currentContext?.findRenderObject() as RenderBox;
 
-
-        print(parentOffset);
-
         Offset dragOffset = renderBoxQuestion.localToGlobal(Offset.zero);
         Offset targetOffset = renderBoxAnswer.localToGlobal(Offset.zero);
-        //print(dragOffset);
-        //print(targetOffset);
+
         Paint pan = Paint()..color = Colors.black45..strokeWidth = 8.0;
         switch(connectedStatusResultMap[questionList[index]]){
           case true:
@@ -596,13 +596,13 @@ class LineDrawer extends CustomPainter {
         }
         if(isWeb){
           canvas.drawLine(
-            Offset(dragOffset.dx, dragOffset.dy + scrolledOffset - 35),
-            Offset(targetOffset.dx, targetOffset.dy + scrolledOffset - 35),
+            Offset(dragOffset.dx + 2, dragOffset.dy + scrolledOffset - 54),
+            Offset(targetOffset.dx + 2, targetOffset.dy + scrolledOffset - 59),
             pan,
           );
         }else{
           canvas.drawLine(
-            Offset(dragOffset.dx + 2, dragOffset.dy + scrolledOffset - parentOffset.dy + 19),
+            Offset(dragOffset.dx + 2, dragOffset.dy + scrolledOffset - parentOffset.dy + 20),
             Offset(targetOffset.dx + 2, targetOffset.dy + scrolledOffset - parentOffset.dy + 14),
             pan,
           );
@@ -635,14 +635,14 @@ class MouseTracker extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if(isWeb){
       canvas.drawLine(
-        Offset(dragOffset.dx, dragOffset.dy + scrolledOffset - 35),
+        Offset(dragOffset.dx + 19, dragOffset.dy + scrolledOffset - 35),
         Offset(targetOffset.dx , targetOffset.dy + scrolledOffset - 55),
         Paint()..color = Colors.black45..strokeWidth = 8.0,
       );
     }else{
       canvas.drawLine(
-        Offset(dragOffset.dx + 19, dragOffset.dy + scrolledOffset - parentOffset.dy + 36),
-        Offset(targetOffset.dx, targetOffset.dy + scrolledOffset - parentOffset.dy + 17),
+        Offset(dragOffset.dx + 19, dragOffset.dy + scrolledOffset - parentOffset.dy + 35),
+        Offset(targetOffset.dx, targetOffset.dy + scrolledOffset - parentOffset.dy + 15),
         Paint()..color = Colors.black45..strokeWidth = 8.0,
       );
     }
