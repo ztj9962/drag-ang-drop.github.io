@@ -6,7 +6,7 @@ class PageTheme {
   static const Color app_theme_blue = Color(0xFF08579B);
   static const Color app_theme_black = Color(0xFF130620);
   static const Color index_bar_background = Color(0xFF130620);
-  static const Color index_body_background = Color(0xFFFEF8F2);
+  static const Color index_body_background = Color(0xFFEEF2F8);
   static const Color index_bottom_bar_icon_select = Color(0xFF3B5AA2);
   static const Color index_bottom_bar_icon_no_select = Color(0xFFC9C9CA);
   static const Color vocabulary_practice_background = Color(0xFF6EC19E);

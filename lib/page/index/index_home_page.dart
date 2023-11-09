@@ -68,6 +68,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
 
     listViews.add(
       OutlinedButtonCardView(
+        backgroundColor: Colors.white,
         imagePath: 'assets/icon/vocabulary_practice_word_02.svg',
         titleText: 'Common words with examples',
         descripText: '一萬個最常用的單字和例句',

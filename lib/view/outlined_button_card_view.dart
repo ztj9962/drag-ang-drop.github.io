@@ -7,6 +7,7 @@ class OutlinedButtonCardView extends StatelessWidget {
   final bool showDevelopTag;
   final String imagePath;
   final Color backgroundColor;
+  final Color borderColor;
   final Color textColor;
   final String titleText;
   final AutoSizeGroup? titleTextSizeGroup;
@@ -18,7 +19,8 @@ class OutlinedButtonCardView extends StatelessWidget {
     Key? key,
     this.showDevelopTag = false,
     required this.imagePath,
-    this.backgroundColor = PageTheme.app_theme_blue,
+    this.backgroundColor = PageTheme.white,
+    this.borderColor = PageTheme.app_theme_blue,
     this.textColor = PageTheme.app_theme_blue,
     required this.titleText,
     required this.descripText,
@@ -38,8 +40,9 @@ class OutlinedButtonCardView extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               //height: 100,
               decoration: BoxDecoration(
+                color: backgroundColor,
                 border: Border.all(
-                  color: backgroundColor,
+                  color: borderColor,
                   width: 2,
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(16.0)),
