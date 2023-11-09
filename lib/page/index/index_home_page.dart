@@ -25,6 +25,7 @@ class _IndexHomePageState extends State<IndexHomePage> {
   @override
   void initState() {
     addAllListData();
+    updateSignStatus();
     super.initState();
   }
 
@@ -48,6 +49,11 @@ class _IndexHomePageState extends State<IndexHomePage> {
           }),
     );
   }
+  Future<void> updateSignStatus() async {
+    await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+      setState(() => _isSignin = value);
+    });
+  }
 
   void addAllListData() {
     var titleTextSizeGroup = AutoSizeGroup();
@@ -68,7 +74,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
+          await updateSignStatus();
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            //changePage(0);
+          }else{
+            AutoRouter.of(context).pushNamed("/voabulary_practice_word_index");
+          }
         },
       ),
     );
@@ -81,10 +93,16 @@ class _IndexHomePageState extends State<IndexHomePage> {
         descripText: '生活英語情境',
         titleTextSizeGroup: titleTextSizeGroup,
         onTapFunction: () async {
-          if(isWeb){
-            AutoRouter.of(context).pushNamed("/chat_topic_practice_index_page");
+          await updateSignStatus();
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            //changePage(0);
           }else{
-            AutoRouter.of(context).pushNamed("/chat_topic_practice_class_mobile_page");
+            if(isWeb){
+              AutoRouter.of(context).pushNamed("/chat_topic_practice_index_page");
+            }else{
+              AutoRouter.of(context).pushNamed("/chat_topic_practice_class_mobile_page");
+            }
           }
         },
       ),
@@ -99,8 +117,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context)
-              .pushNamed("/customArticle_practice_sentence_index");
+          await updateSignStatus();
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            //changePage(0);
+          }else{
+            AutoRouter.of(context).pushNamed("/customArticle_practice_sentence_index");
+          }
         },
       ),
     );
@@ -114,7 +137,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context).pushNamed("/index_pronunciation_page");
+          await updateSignStatus();
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            //changePage(0);
+          }else{
+            AutoRouter.of(context).pushNamed("/index_pronunciation_page");
+          }
         },
       ),
     );
@@ -128,22 +157,13 @@ class _IndexHomePageState extends State<IndexHomePage> {
         titleTextSizeGroup: titleTextSizeGroup,
         descripTextSizeGroup: descripTextSizeGroup,
         onTapFunction: () async {
-          AutoRouter.of(context)
-              .push(SentenceAnalysisIndexRoute(analysisor: ''));
-        },
-      ),
-    );
-
-    listViews.add(
-      OutlinedButtonCardView(
-        showDevelopTag: true,
-        imagePath: 'assets/icon/sentence_analysis.svg',
-        titleText: 'Vocabulary Match Up',
-        descripText: '單字連連看',
-        titleTextSizeGroup: titleTextSizeGroup,
-        descripTextSizeGroup: descripTextSizeGroup,
-        onTapFunction: () async {
-          AutoRouter.of(context).push(VocabularyMatchUpIndexRoute());
+          await updateSignStatus();
+          if (_isSignin != true) {
+            AutoRouter.of(context).push(SignInRoute());
+            //changePage(0);
+          }else{
+            AutoRouter.of(context).push(SentenceAnalysisIndexRoute(analysisor: ''));
+          }
         },
       ),
     );

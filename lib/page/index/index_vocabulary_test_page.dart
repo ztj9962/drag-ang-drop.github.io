@@ -1,6 +1,8 @@
 import 'package:alicsnet_app/router/router.gr.dart';
 import 'package:alicsnet_app/util/shared_preferences_util.dart';
+import 'package:alicsnet_app/view/outlined_button_card_view.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:alicsnet_app/page/page_theme.dart';
 
@@ -25,8 +27,16 @@ class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
     super.dispose();
   }
 
+  Future<void> updateSignStatus() async {
+    await SharedPreferencesUtil.getData<bool>('isSignin').then((value) {
+      setState(() => _isSignin = value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var titleTextSizeGroup = AutoSizeGroup();
+    var descripTextSizeGroup = AutoSizeGroup();
     return Container(
       padding: const EdgeInsets.all(8),
       child: SingleChildScrollView(
@@ -61,19 +71,41 @@ class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
                 child: Text('學習詞彙，也就是了解一個詞、他的語音和意義．',
                     style: PageTheme.index_vocabulary_test_index_text)),
             Center(
-              child: OutlinedButton(
-                style: ButtonStyle(
-                    side: MaterialStateProperty.all(BorderSide(
-                        //color: Colors.blue,
-                        width: 2.0,
-                        style: BorderStyle.solid)),
-                    foregroundColor: MaterialStateProperty.all(Colors.black),
-                    textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontSize: 24))),
-                child: const Text('  開始測驗  '),
-                onPressed: () async {
-                  AutoRouter.of(context).pushNamed("/vocabulary_test_index");
-                },
+              child: Column(
+                children: [
+                  /*
+                  OutlinedButton(
+                    style: ButtonStyle(
+                        side: MaterialStateProperty.all(BorderSide(
+                            //color: Colors.blue,
+                            width: 2.0,
+                            style: BorderStyle.solid)),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 24))),
+                    child: const Text('  開始測驗  '),
+                    onPressed: () async {
+                      AutoRouter.of(context).pushNamed("/vocabulary_test_index");
+                    },
+                  ),*/
+                  OutlinedButtonCardView(
+                    showDevelopTag: true,
+                    imagePath: 'assets/icon/matchUp.svg',
+                    titleText: 'Vocabulary Match Up',
+                    descripText: '單字連連看',
+                    titleTextSizeGroup: titleTextSizeGroup,
+                    descripTextSizeGroup: descripTextSizeGroup,
+                    onTapFunction: () async {
+                      await updateSignStatus();
+                      if (_isSignin != true) {
+                        AutoRouter.of(context).push(SignInRoute());
+                        //changePage(0);
+                      }else{
+                        AutoRouter.of(context).push(VocabularyMatchUpIndexRoute());
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ],

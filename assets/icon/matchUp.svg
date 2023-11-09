@@ -1,0 +1,15 @@
+<svg width="105" height="127" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <g stroke-width="7" id="svg_16">
+   <ellipse stroke="#08579b" ry="7" rx="7" id="svg_9" cy="14" cx="14" fill-opacity="0" fill="#0f0f00"/>
+   <ellipse stroke="#08579b" ry="7" rx="7" id="svg_10" cy="49" cx="92" fill-opacity="0" fill="#0f0f00"/>
+   <line id="svg_11" y2="45" x2="85" y1="17" x1="22" fill-opacity="0" stroke="#08579b" fill="none"/>
+   <ellipse stroke="#08579b" ry="7" rx="7" id="svg_12" cy="75" cx="18" fill-opacity="0" fill="#0f0f00"/>
+   <ellipse stroke="#08579b" ry="7" rx="7" id="svg_13" cy="112" cx="69" fill-opacity="0" fill="#0f0f00"/>
+   <line id="svg_14" y2="73" x2="25" y1="53" x1="88" fill-opacity="0" stroke="#08579b" fill="none"/>
+   <line stroke="#08579b" id="svg_15" y2="79" x2="23" y1="108" x1="62" fill-opacity="0" fill="none"/>
+  </g>
+ </g>
+</svg>
