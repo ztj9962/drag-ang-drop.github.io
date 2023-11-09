@@ -365,7 +365,7 @@ class _VocabularyMatchUpPracticePageState
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: AutoSizeText(
-                                                      _answerList[index].toString(),style: TextStyle(fontSize: 30),),
+                                                      _answerList[index].toString(),style: TextStyle(fontSize: 30),maxLines: 2,),
                                                 ),
                                               ),
                                             ),
