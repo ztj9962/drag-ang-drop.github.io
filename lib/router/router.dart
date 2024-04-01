@@ -29,6 +29,8 @@ import 'package:alicsnet_app/page/sentence_analysis/sentence_analysis_index_page
 import 'package:alicsnet_app/page/tongue_twisters/tongue_twisters_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_match_up/vocabulary_match_up_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_match_up/vocabulary_match_up_practice_page.dart';
+import 'package:alicsnet_app/page/vocabulary_drag_ang_dropp/vocabulary_drag_ang_dropp_index_page.dart';
+import 'package:alicsnet_app/page/vocabulary_drag_ang_dropp/vocabulary_drag_ang_dropp_practice_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart';
 import 'package:alicsnet_app/page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart';
 import 'package:alicsnet_app/page/vocabulary_test/vocabulary_test_index_page.dart';
@@ -128,6 +130,8 @@ import 'package:auto_route/auto_route.dart';
     AutoRoute(path: '/chat_topic_practice_topic_mobile_page', page: ChatTopicPracticeTopicMobilePage),
     AutoRoute(path: '/vocabulary_match_up_index_page', page: VocabularyMatchUpIndexPage),
     AutoRoute(path: '/vocabulary_match_up_practice_page', page: VocabularyMatchUpPracticePage),
+    AutoRoute(path: '/vocabulary_drag_ang_dropp_index_page', page: VocabularydragangdroppIndexPage),
+    AutoRoute(path: '/vocabulary_drag_ang_dropp_practice_page', page: VocabularydragangdroppPracticePage),
     //New Pages Below ↓↓↓
     /*
     AutoRoute(path: '/grammar_correction_main_page',page: GrammarCorrectionMainPage),

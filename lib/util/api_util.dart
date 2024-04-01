@@ -767,6 +767,7 @@ class APIUtil {
         'minRank': minRank,
         'maxRank': maxRank,
         'dataLimit': dataLimit,
+
       },
     );
     String json = response.body.toString();

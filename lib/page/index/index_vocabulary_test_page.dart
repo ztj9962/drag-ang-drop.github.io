@@ -105,6 +105,23 @@ class _IndexVocabularyTestPageState extends State<IndexVocabularyTestPage> {
                       }
                     },
                   ),
+                  OutlinedButtonCardView(
+                    showDevelopTag: true,
+                    imagePath: 'assets/icon/matchUp.svg',
+                    titleText: 'Vocabulary drag ang dropp',
+                    descripText: '單字拖放',
+                    titleTextSizeGroup: titleTextSizeGroup,
+                    descripTextSizeGroup: descripTextSizeGroup,
+                    onTapFunction: () async {
+                      await updateSignStatus();
+                      if (_isSignin != true) {
+                        AutoRouter.of(context).push(SignInRoute());
+                        //changePage(0);
+                      }else{
+                        AutoRouter.of(context).push(VocabularydragangdroppIndexRoute());
+                      }
+                    },
+                  ),
                 ],
               ),
             ),

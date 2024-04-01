@@ -117,7 +117,7 @@ class _VocabularyMatchUpIndexPageState
                         subTextBottomLeft: subStringList[index],
                         onTapFunction: () {
                           AutoRouter.of(context).push(
-                              VocabularyMatchUpPracticeRoute(minRank: rankRange[index][0], maxRank: rankRange[index][1]
+                              VocabularyMatchUpPracticeRoute(minRank: rankRange[index][0], maxRank: rankRange[index][1],
                                ));
                         },
                         widgetColor: HexColor('#FDFEFB'),

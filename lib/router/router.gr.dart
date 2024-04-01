@@ -53,10 +53,17 @@ import '../page/preference_translations/preference_sentence_search.dart'
     as _i29;
 import '../page/sentence_analysis/sentence_analysis_index_page.dart' as _i31;
 import '../page/tongue_twisters/tongue_twisters_index_page.dart' as _i32;
+
 import '../page/vocabulary_match_up/vocabulary_match_up_index_page.dart'
-    as _i35;
+as _i35;
 import '../page/vocabulary_match_up/vocabulary_match_up_practice_page.dart'
-    as _i36;
+as _i36;
+
+import '../page/vocabulary_drag_ang_dropp/vocabulary_drag_ang_dropp_index_page.dart'
+    as _i39;
+import '../page/vocabulary_drag_ang_dropp/vocabulary_drag_ang_dropp_practice_page.dart'
+    as _i40;
+
 import '../page/vocabulary_practice_word/vocabulary_practice_word_index_page.dart'
     as _i10;
 import '../page/vocabulary_practice_word/vocabulary_practice_word_list_page.dart'
@@ -395,6 +402,7 @@ class AppRouter extends _i37.RootStackRouter {
         ),
       );
     },
+
     VocabularyMatchUpIndexRoute.name: (routeData) {
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -409,6 +417,27 @@ class AppRouter extends _i37.RootStackRouter {
           key: args.key,
           minRank: args.minRank,
           maxRank: args.maxRank,
+        ),
+      );
+    },
+
+    VocabularydragangdroppIndexRoute.name: (routeData) {
+      return _i37.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i39.VocabularydragangdroppIndexPage(),
+      );
+    },
+    VocabularydragangdroppPracticeRoute.name: (routeData) {
+      final args = routeData.argsAs<VocabularydragangdroppPracticeRouteArgs>();
+      return _i37.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i40.VocabularydragangdroppPracticePage(
+
+          key: args.key,
+          minRank: args.minRank,
+            maxRank: args.maxRank,
+            value:args.value
+
         ),
       );
     },
@@ -560,6 +589,14 @@ class AppRouter extends _i37.RootStackRouter {
           VocabularyMatchUpPracticeRoute.name,
           path: '/vocabulary_match_up_practice_page',
         ),
+    _i37.RouteConfig(
+      VocabularydragangdroppIndexRoute.name,
+      path: '/vocabulary_drag_ang_dropp_index_page',
+    ),
+    _i37.RouteConfig(
+      VocabularydragangdroppPracticeRoute.name,
+      path: '/vocabulary_drag_ang_dropp_practice_page',
+    ),
       ];
 }
 
@@ -1603,6 +1640,7 @@ class VocabularyMatchUpPracticeRoute
     _i38.Key? key,
     required int minRank,
     required int maxRank,
+
   }) : super(
           VocabularyMatchUpPracticeRoute.name,
           path: '/vocabulary_match_up_practice_page',
@@ -1610,6 +1648,7 @@ class VocabularyMatchUpPracticeRoute
             key: key,
             minRank: minRank,
             maxRank: maxRank,
+
           ),
         );
 
@@ -1621,16 +1660,70 @@ class VocabularyMatchUpPracticeRouteArgs {
     this.key,
     required this.minRank,
     required this.maxRank,
+
+
   });
 
   final _i38.Key? key;
-
   final int minRank;
-
   final int maxRank;
 
   @override
   String toString() {
     return 'VocabularyMatchUpPracticeRouteArgs{key: $key, minRank: $minRank, maxRank: $maxRank}';
+  }
+}
+
+/// generated route for
+/// [_i39.VocabularydragangdroppIndexPage]
+class VocabularydragangdroppIndexRoute extends _i37.PageRouteInfo<void> {
+  const VocabularydragangdroppIndexRoute()
+      : super(
+    VocabularydragangdroppIndexRoute.name,
+    path: '/vocabulary_drag_ang_dropp_index_page',
+  );
+
+  static const String name = 'VocabularydragangdroppIndexRoute';
+}
+
+/// generated route for
+/// [_i40.VocabularydragangdroppPracticePage]
+class VocabularydragangdroppPracticeRoute
+    extends _i37.PageRouteInfo<VocabularydragangdroppPracticeRouteArgs> {
+  VocabularydragangdroppPracticeRoute({
+    _i38.Key? key,
+    required int minRank,
+    required int maxRank,
+    required int value,
+  }) : super(
+    VocabularydragangdroppPracticeRoute.name,
+    path: '/vocabulary_drag_ang_dropp_practice_page',
+    args: VocabularydragangdroppPracticeRouteArgs(
+      key: key,
+      minRank: minRank,
+      maxRank: maxRank,
+      value:value,
+    ),
+  );
+
+  static const String name = 'VocabularydragangdroppPracticeRoute';
+}
+
+class VocabularydragangdroppPracticeRouteArgs {
+  const VocabularydragangdroppPracticeRouteArgs({
+    this.key,
+    required this.minRank,
+    required this.maxRank,
+    required this.value,
+
+  });
+
+  final _i38.Key? key;
+  final int minRank;
+  final int maxRank;
+  final int value;
+  @override
+  String toString() {
+    return 'VocabularydragangdroppPracticeRouteArgs{key: $key, minRank: $minRank, maxRank: $maxRank}';
   }
 }
